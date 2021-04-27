@@ -47,6 +47,8 @@ namespace AgOpenGPS
         //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
         public bool isMetric = true, isLightbarOn = true, isGridOn, isFullScreen;
         public bool isUTurnAlwaysOn, isCompassOn, isSpeedoOn, isAutoDayNight, isSideGuideLines = true;
+        public bool issections_buttonOn = false;
+        public bool islong_touchOn = true;
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
         public bool isDay = true, isDayTime = true;
         public bool isKeyboardOn = true;
@@ -114,8 +116,13 @@ namespace AgOpenGPS
                 //check to make sure the grid is big enough
                 worldGrid.checkZoomWorldGrid(pn.fix.northing, pn.fix.easting);
 
-                if (panelNavigation.Visible)
-                    lblHz.Text = fixUpdateHz + " ~ " + (frameTime.ToString("N1")) + " " + FixQuality;
+                    lblHz.Text = fixUpdateHz + "Hz " + (int)(frameTime) + "\r\n" +
+                        FixQuality + Math.Round(HzTime, MidpointRounding.AwayFromZero) + " Hz";
+
+                lblTotalAppliedArea.Text = fd.WorkedHectares;
+                lblWorkRemaining.Text = fd.WorkedAreaRemainHectares;
+                lblTimeRemaining.Text = fd.TimeTillFinished;
+
 
                 if (isMetric)
                 {
@@ -124,10 +131,9 @@ namespace AgOpenGPS
                     //                               fd.TimeTillFinished + "\r\n" +
                     //                               fd.WorkRateHectares;
                     if (bnd.bndArr.Count > 0)
-                        lblFieldStatus.Text = fd.AreaBoundaryLessInnersHectares + "   " +
-                                              fd.WorkedAreaRemainHectares  + "    " + fd.TimeTillFinished 
-                                              + "  " + fd.WorkedAreaRemainPercentage+"      "
-                                              +fd.WorkedHectares ;
+                        lblFieldStatus.Text = fd.AreaBoundaryLessInnersHectares + "\r\n" +
+                                              fd.WorkedHectares + "  " + fd.TimeTillFinished + "\r\n" +
+                                               fd.WorkedAreaRemainHectares + "  " + fd.WorkedAreaRemainPercentage;
                     else
                         lblFieldStatus.Text = fd.WorkedHectares;
 
@@ -135,9 +141,9 @@ namespace AgOpenGPS
                 else //imperial
                 {
                     if (bnd.bndArr.Count > 0)
-                        lblFieldStatus.Text = fd.AreaBoundaryLessInnersAcres + "   " + fd.WorkedAreaRemainAcres + "   " + 
-                                           fd.TimeTillFinished + "  " + fd.WorkedAreaRemainPercentage + "      " +
-                                            fd.WorkedAcres;
+                        lblFieldStatus.Text = fd.AreaBoundaryLessInnersAcres + "\r\n" +
+                                          fd.WorkedAcres + "  " + fd.TimeTillFinished + "\r\n" +
+                                           fd.WorkedAreaRemainAcres + "  " + fd.WorkedAreaRemainPercentage;
                     else
                         lblFieldStatus.Text = fd.WorkedAcres;
                 }
@@ -148,13 +154,26 @@ namespace AgOpenGPS
                     if (navPanelCounter-- < 1) panelNavigation.Visible = false;
                 }
 
-
-                lblTopData.Text = (tool.toolWidth * m2FtOrM).ToString("N2") + unitsFtM + " - " + vehicleFileName;
-                lblFix.Text = FixQuality;
+                lblDateTime.Text = DateTime.Now.ToString("HH:mm:ss") + "\n\r" + DateTime.Now.ToString("ddd dd MMMM yyyy");
+             
 
                 if (isJobStarted)
                 {
-                    lblCurrentField.Text = "Field: " + displayFieldName;
+;
+
+                    
+                    label1.Text = vehicleFileName + " - " + (Math.Round(tool.toolWidth, 2)).ToString() + " m";
+                    round_table1.Visible = true;
+                    round_table4.Visible = true;
+                    round_table3.Visible = true;
+                    round_table2.Visible = true;
+                    round_table6.Visible = true;
+                    round_table8.Visible = true;
+                    label1.Visible = true;
+                    toolStripStatusLabel2.Visible = true;
+                    round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
+                    round_table10.Width = 290;
+
 
                     if (curve.numCurveLineSelected > 0 && curve.isBtnCurveOn)
                     {
@@ -170,19 +189,42 @@ namespace AgOpenGPS
                 else
                 {
                     lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
-                }
+                    label1.Visible = false;
+                    round_table1.Visible = false;
+                    round_table4.Visible = false;
+                    round_table3.Visible = false;
+                    round_table2.Visible = false;
+                    round_table6.Visible = false;
+                    round_table8.Visible = false;
+                    round_StatusStrip1.Width = 176;
+                    toolStripStatusLabel2.Visible = false;
+                    round_table10.Width = 176;
 
-                if (isJobStarted)
+
+                }
+                if (yt.isYouTurnBtnOn)
+                {
+                    round_table9.Width = 280;
+                    cboxpRowWidth.Visible = true;
+                    btnYouSkipEnable.Visible = true;
+                }
+                else
+                {
+                    round_table9.Width = 176;
+                    cboxpRowWidth.Visible = false;
+                    btnYouSkipEnable.Visible = false;
+                }
+                    if (isJobStarted)
                 {
                     if (ABLine.isBtnABLineOn || curve.isBtnCurveOn)
                     {
                         if (!btnEditAB.Visible)
                         {
                             //btnMakeLinesFromBoundary.Visible = true;
-                            btnEditAB.Visible = true;
-                            btnSnapToPivot.Visible = true;
-                            cboxpRowWidth.Visible = true;
-                            btnYouSkipEnable.Visible = true;
+                            //btnEditAB.Visible = true;
+                            //btnSnapToPivot.Visible = true;
+                            //cboxpRowWidth.Visible = true;
+                            //btnYouSkipEnable.Visible = true;
                         }
                     }
                     else
@@ -190,10 +232,10 @@ namespace AgOpenGPS
                         if (btnEditAB.Visible)
                         {
                             //btnMakeLinesFromBoundary.Visible = false;
-                            btnEditAB.Visible = false;
-                            btnSnapToPivot.Visible = false;
-                            cboxpRowWidth.Visible = false;
-                            btnYouSkipEnable.Visible = false;
+                            //btnEditAB.Visible = false;
+                            //btnSnapToPivot.Visible = false;
+                            //cboxpRowWidth.Visible = false;
+                            //btnYouSkipEnable.Visible = false;
                         }
                     }
                 }
@@ -280,11 +322,15 @@ namespace AgOpenGPS
                 {
                     if (!mc.isOutOfBounds)
                     {
-                        panelSim.BackColor = Color.Transparent;
+                        panel_top.BackColor = Color.Transparent;
+                        label12.BackColor = Color.Transparent;
+                        label13.BackColor = Color.Transparent;
                     }
                     else
                     {
-                        panelSim.BackColor = Color.Tomato;
+                        panel_top.BackColor = Color.Tomato;
+                        label12.BackColor = Color.Tomato;
+                        label13.BackColor = Color.Tomato;
                     }
                 }
 
@@ -359,8 +405,28 @@ namespace AgOpenGPS
                 //lblAV.Text = ABLine.angVel.ToString("N3");
             }
         }//wait till timer fires again.  
+        public void long_touch()
+        {
+            if (!Properties.Settings.Default.setDisplay_islong_touchOn)
+            {
+                headlandToolStripMenuItem.Visible = true;
+                deleteContourPathsToolStripMenuItem.Visible = true;
+                tramLinesMenuField.Visible = true;
+                toolStripBtnMakeBndContour.Visible = true;
 
-        private void IsBetweenSunriseSunset(double lat, double lon)
+            }
+            else
+            {
+                headlandToolStripMenuItem.Visible = false;
+                deleteContourPathsToolStripMenuItem.Visible = false;
+                tramLinesMenuField.Visible = false;
+                toolStripBtnMakeBndContour.Visible = false;
+            }
+
+        }
+
+
+            private void IsBetweenSunriseSunset(double lat, double lon)
         {
             CSunTimes.Instance.CalculateSunRiseSetTimes(pn.latitude, pn.longitude, dateToday, ref sunrise, ref sunset);
             //isDay = (DateTime.Now.Ticks < sunset.Ticks && DateTime.Now.Ticks > sunrise.Ticks);
@@ -373,11 +439,11 @@ namespace AgOpenGPS
 
             isMetric = Settings.Default.setMenu_isMetric;
 
-            tramLinesMenuField.Visible = Properties.Settings.Default.setFeatures.isTramOn;
-            headlandToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHeadlandOn;
+            //tramLinesMenuField.Visible = Properties.Settings.Default.setFeatures.isTramOn;
+            //headlandToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHeadlandOn;
 
             boundariesToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isBoundaryOn;
-            toolStripBtnMakeBndContour.Visible = Properties.Settings.Default.setFeatures.isBndContourOn;
+            //toolStripBtnMakeBndContour.Visible = Properties.Settings.Default.setFeatures.isBndContourOn;
             recordedPathStripMenu.Visible = Properties.Settings.Default.setFeatures.isRecPathOn;
             SmoothABtoolStripMenu.Visible = Properties.Settings.Default.setFeatures.isABSmoothOn;
             deleteContourPathsToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHideContourOn;
@@ -437,17 +503,17 @@ namespace AgOpenGPS
 
             isSkyOn = Settings.Default.setMenu_isSkyOn;
             isTextureOn = Settings.Default.setDisplay_isTextureOn;
-
             isGridOn = Settings.Default.setMenu_isGridOn;
             isCompassOn = Settings.Default.setMenu_isCompassOn;
             isSpeedoOn = Settings.Default.setMenu_isSpeedoOn;
+            issections_buttonOn = Settings.Default.setDisplay_issections_buttonOn;
             isAutoDayNight = Settings.Default.setDisplay_isAutoDayNight;
             isSideGuideLines = Settings.Default.setMenu_isSideGuideLines;
             isLogNMEA = Settings.Default.setMenu_isLogNMEA;
             isPureDisplayOn = Settings.Default.setMenu_isPureOn;
 
-            panelNavigation.Location = new System.Drawing.Point(90, 100);
-            panelDrag.Location = new System.Drawing.Point(87, 268);
+            panelNavigation.Location = new System.Drawing.Point(90, 80);
+            panelDrag.Location = new System.Drawing.Point(250, 268);
 
             vehicleOpacity = ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01));
@@ -685,8 +751,8 @@ namespace AgOpenGPS
 
         private void FixPanelsAndMenus(bool isButtonsVisible)
         {
-            panelAB.Size = new System.Drawing.Size(780 + ((Width - 900) / 2), 64);
-            panelAB.Location = new Point((Width - 900) / 3 + 64, this.Height - 66);
+            //panelAB.Size = new System.Drawing.Size(780 + ((Width - 900) / 2), 64);
+            ////panelAB.Location = new Point((Width - 900) / 3 + 64, this.Height - 66);
 
             //if (isButtonsVisible)
             //{
@@ -710,20 +776,24 @@ namespace AgOpenGPS
 
             if (!isJobStarted)
             {
-                panelAB.Visible = false;
-                panelRight.Visible = false;
+                //oglMain.Width = this.Width;
+                //oglMain.Height = this.Height;
+                //panelAB.Visible = false;
+                //panelRight.Visible = false;
 
-                oglMain.Left = 75;
-                oglMain.Width = this.Width - statusStripLeft.Width - 22; //22
-                oglMain.Height = this.Height - 62;
+                //oglMain.Left = 75;
+                //oglMain.Width = this.Width - statusStripLeft.Width - 22; //22
+                //oglMain.Height = this.Height - 62;
             }
             else
             {
-                panelAB.Visible = true;
-                panelRight.Visible = true;
-                oglMain.Left = 75;
-                oglMain.Width = this.Width - statusStripLeft.Width - 84; //22
-                oglMain.Height = this.Height - 120;
+                //oglMain.Width = this.Width;
+                //oglMain.Height = this.Height;
+                //panelAB.Visible = true;
+                ////panelRight.Visible = true;
+                //oglMain.Left = 75;
+                //oglMain.Width = this.Width - statusStripLeft.Width - 84; //22
+                //oglMain.Height = this.Height - 120;
             }
 
             LineUpManualBtns();
@@ -732,569 +802,593 @@ namespace AgOpenGPS
         //line up section On Off Auto buttons based on how many there are
         public void LineUpManualBtns()
         {
-            int oglCenter = 0;
+            panelSim.Top = roundButton1.Top - 110;
 
-            oglCenter = statusStripLeft.Width + oglMain.Width / 2; 
-
-            int top = 130;
-
-            int buttonMaxWidth = 400, buttonHeight = 25;
-
-
-            if ((Height - oglMain.Height) < 80) //max size - buttons hid
+            if (issections_buttonOn)
             {
-                top = Height - 70;
-                if (panelSim.Visible == true)
+                int oglCenter = 0;
+
+                oglCenter = oglMain.Width / 2;
+
+                int top = 130;
+
+                int buttonMaxWidth = 400, buttonHeight = 25;
+
+
+                if ((Height - oglMain.Height) < 80) //max size - buttons hid
                 {
-                    top = Height - 100;
-                    panelSim.Top = Height - 60;
+                    top = Height - 180;
+                    if (panelSim.Visible == true)
+                    {
+                        top = Height - 180;
+                        panelSim.Top = roundButton1.Top - 110;
+                    }
+
+                }
+                else //buttons exposed
+                {
+                    top = Height - 180;
+                    if (panelSim.Visible == true)
+                    {
+                        top = Height - 180;
+                        panelSim.Top = roundButton1.Top - 110;
+                    }
                 }
 
-            }
-            else //buttons exposed
-            {
-                top = Height-130;
-                if (panelSim.Visible == true)
-                {
-                    top = Height - 160;
-                     panelSim.Top = Height - 120;
-               }
-            }
+                //if (!isJobStarted) top = Height - 40;
 
-            //if (!isJobStarted) top = Height - 40;
+                btnSection1Man.Top = top;
+                btnSection2Man.Top = top;
+                btnSection3Man.Top = top;
+                btnSection4Man.Top = top;
+                btnSection5Man.Top = top;
+                btnSection6Man.Top = top;
+                btnSection7Man.Top = top;
+                btnSection8Man.Top = top;
+                btnSection9Man.Top = top;
+                btnSection10Man.Top = top;
+                btnSection11Man.Top = top;
+                btnSection12Man.Top = top;
+                btnSection13Man.Top = top;
+                btnSection14Man.Top = top;
+                btnSection15Man.Top = top;
+                btnSection16Man.Top = top;
 
-            btnSection1Man.Top  = top;
-            btnSection2Man.Top  = top;
-            btnSection3Man.Top  = top;
-            btnSection4Man.Top  = top;
-            btnSection5Man.Top  = top;
-            btnSection6Man.Top  = top;
-            btnSection7Man.Top  = top;
-            btnSection8Man.Top  = top;
-            btnSection9Man.Top  = top;
-            btnSection10Man.Top = top;
-            btnSection11Man.Top = top;
-            btnSection12Man.Top = top;
-            btnSection13Man.Top = top;
-            btnSection14Man.Top = top;
-            btnSection15Man.Top = top;
-            btnSection16Man.Top = top;
-
-            int oglButtonWidth = oglMain.Width * 3/4;
-            //if (tool.numOfSections < 9 )  oglButtonWidth = oglMain.Width * 5/6;
+                int oglButtonWidth = oglMain.Width * 3 / 5;
+                //if (tool.numOfSections < 9 )  oglButtonWidth = oglMain.Width * 5/6;
 
 
-            int buttonWidth = oglButtonWidth / tool.numOfSections;
-            if (buttonWidth > buttonMaxWidth) buttonWidth = buttonMaxWidth;
-            btnSection1Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection2Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection3Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection4Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection5Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection6Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection7Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection8Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection9Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection10Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection11Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection12Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection13Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection14Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection15Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-            btnSection16Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                int buttonWidth = oglButtonWidth / tool.numOfSections;
+                if (buttonWidth > buttonMaxWidth) buttonWidth = buttonMaxWidth;
+                btnSection1Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection2Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection3Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection4Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection5Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection6Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection7Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection8Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection9Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection10Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection11Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection12Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection13Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection14Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection15Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                btnSection16Man.Size = new System.Drawing.Size(buttonWidth, buttonHeight);
 
-            switch (tool.numOfSections)
-            {
-                case 1:
-                    btnSection1Man.Left = (oglCenter) - btnSection1Man.Size.Width/2;
-                    break;
-
-                case 2:                    
-                    btnSection1Man.Left = (oglCenter) - btnSection1Man.Size.Width;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 3:
-                    btnSection1Man.Left = (oglCenter) - btnSection1Man.Size.Width/2 - btnSection1Man.Size.Width;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 4:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-
-                    break;
-
-                case 5:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 6:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width)/2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 7:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 8:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 9:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 10:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 11:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
-                    break;
-
-                case 12:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
-                    btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
-                    break;
-                case 13:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
-                    btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
-                    btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
-                    break;
-                case 14:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
-                    btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
-                    btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
-                    btnSection14Man.Left = btnSection13Man.Left + btnSection1Man.Size.Width;
-                    break;
-                case 15:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
-                    btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
-                    btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
-                    btnSection14Man.Left = btnSection13Man.Left + btnSection1Man.Size.Width;
-                    btnSection15Man.Left = btnSection14Man.Left + btnSection1Man.Size.Width;
-                    break;
-                case 16:
-                    btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
-                    btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
-                    btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
-                    btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
-                    btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
-                    btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
-                    btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
-                    btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
-                    btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
-                    btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
-                    btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
-                    btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
-                    btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
-                    btnSection14Man.Left = btnSection13Man.Left + btnSection1Man.Size.Width;
-                    btnSection15Man.Left = btnSection14Man.Left + btnSection1Man.Size.Width;
-                    btnSection16Man.Left = btnSection15Man.Left + btnSection1Man.Size.Width;
-                    break;
-            }
-
-            //if (isJobStarted)
-            {
                 switch (tool.numOfSections)
                 {
                     case 1:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = false;
-                        btnSection3Man.Visible = false;
-                        btnSection4Man.Visible = false;
-                        btnSection5Man.Visible = false;
-                        btnSection6Man.Visible = false;
-                        btnSection7Man.Visible = false;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - btnSection1Man.Size.Width / 2;
                         break;
 
                     case 2:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = false;
-                        btnSection4Man.Visible = false;
-                        btnSection5Man.Visible = false;
-                        btnSection6Man.Visible = false;
-                        btnSection7Man.Visible = false;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - btnSection1Man.Size.Width;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 3:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = false;
-                        btnSection5Man.Visible = false;
-                        btnSection6Man.Visible = false;
-                        btnSection7Man.Visible = false;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - btnSection1Man.Size.Width / 2 - btnSection1Man.Size.Width;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 4:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = false;
-                        btnSection6Man.Visible = false;
-                        btnSection7Man.Visible = false;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+
                         break;
 
                     case 5:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = false;
-                        btnSection7Man.Visible = false;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 6:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = false;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 7:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = false;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 8:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = false;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 9:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = false;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 10:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = false;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 11:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = true;
-                         btnSection12Man.Visible = false;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
+                        btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
                         break;
 
                     case 12:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = true;
-                         btnSection12Man.Visible = true;
-                         btnSection13Man.Visible = false;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
+                        btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
+                        btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
                         break;
-
                     case 13:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = true;
-                         btnSection12Man.Visible = true;
-                         btnSection13Man.Visible = true;
-                         btnSection14Man.Visible = false;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
+                        btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
+                        btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
+                        btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
                         break;
-
                     case 14:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = true;
-                         btnSection12Man.Visible = true;
-                         btnSection13Man.Visible = true;
-                         btnSection14Man.Visible = true;
-                         btnSection15Man.Visible = false;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
+                        btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
+                        btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
+                        btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
+                        btnSection14Man.Left = btnSection13Man.Left + btnSection1Man.Size.Width;
                         break;
-
                     case 15:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = true;
-                         btnSection12Man.Visible = true;
-                         btnSection13Man.Visible = true;
-                         btnSection14Man.Visible = true;
-                         btnSection15Man.Visible = true;
-                         btnSection16Man.Visible = false;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
+                        btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
+                        btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
+                        btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
+                        btnSection14Man.Left = btnSection13Man.Left + btnSection1Man.Size.Width;
+                        btnSection15Man.Left = btnSection14Man.Left + btnSection1Man.Size.Width;
                         break;
-
                     case 16:
-                        btnSection1Man.Visible = true;
-                        btnSection2Man.Visible = true;
-                        btnSection3Man.Visible = true;
-                        btnSection4Man.Visible = true;
-                        btnSection5Man.Visible = true;
-                        btnSection6Man.Visible = true;
-                        btnSection7Man.Visible = true;
-                        btnSection8Man.Visible = true;
-                        btnSection9Man.Visible = true;
-                         btnSection10Man.Visible = true;
-                         btnSection11Man.Visible = true;
-                         btnSection12Man.Visible = true;
-                         btnSection13Man.Visible = true;
-                         btnSection14Man.Visible = true;
-                         btnSection15Man.Visible = true;
-                         btnSection16Man.Visible = true;
+                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection2Man.Left = btnSection1Man.Left + btnSection1Man.Size.Width;
+                        btnSection3Man.Left = btnSection2Man.Left + btnSection1Man.Size.Width;
+                        btnSection4Man.Left = btnSection3Man.Left + btnSection1Man.Size.Width;
+                        btnSection5Man.Left = btnSection4Man.Left + btnSection1Man.Size.Width;
+                        btnSection6Man.Left = btnSection5Man.Left + btnSection1Man.Size.Width;
+                        btnSection7Man.Left = btnSection6Man.Left + btnSection1Man.Size.Width;
+                        btnSection8Man.Left = btnSection7Man.Left + btnSection1Man.Size.Width;
+                        btnSection9Man.Left = btnSection8Man.Left + btnSection1Man.Size.Width;
+                        btnSection10Man.Left = btnSection9Man.Left + btnSection1Man.Size.Width;
+                        btnSection11Man.Left = btnSection10Man.Left + btnSection1Man.Size.Width;
+                        btnSection12Man.Left = btnSection11Man.Left + btnSection1Man.Size.Width;
+                        btnSection13Man.Left = btnSection12Man.Left + btnSection1Man.Size.Width;
+                        btnSection14Man.Left = btnSection13Man.Left + btnSection1Man.Size.Width;
+                        btnSection15Man.Left = btnSection14Man.Left + btnSection1Man.Size.Width;
+                        btnSection16Man.Left = btnSection15Man.Left + btnSection1Man.Size.Width;
                         break;
                 }
+
+                //if (isJobStarted)
+                {
+                    switch (tool.numOfSections)
+                    {
+                        case 1:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = false;
+                            btnSection3Man.Visible = false;
+                            btnSection4Man.Visible = false;
+                            btnSection5Man.Visible = false;
+                            btnSection6Man.Visible = false;
+                            btnSection7Man.Visible = false;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 2:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = false;
+                            btnSection4Man.Visible = false;
+                            btnSection5Man.Visible = false;
+                            btnSection6Man.Visible = false;
+                            btnSection7Man.Visible = false;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 3:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = false;
+                            btnSection5Man.Visible = false;
+                            btnSection6Man.Visible = false;
+                            btnSection7Man.Visible = false;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 4:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = false;
+                            btnSection6Man.Visible = false;
+                            btnSection7Man.Visible = false;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 5:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = false;
+                            btnSection7Man.Visible = false;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 6:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = false;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 7:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = false;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 8:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = false;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 9:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = false;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 10:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = false;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 11:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = true;
+                            btnSection12Man.Visible = false;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 12:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = true;
+                            btnSection12Man.Visible = true;
+                            btnSection13Man.Visible = false;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 13:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = true;
+                            btnSection12Man.Visible = true;
+                            btnSection13Man.Visible = true;
+                            btnSection14Man.Visible = false;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 14:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = true;
+                            btnSection12Man.Visible = true;
+                            btnSection13Man.Visible = true;
+                            btnSection14Man.Visible = true;
+                            btnSection15Man.Visible = false;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 15:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = true;
+                            btnSection12Man.Visible = true;
+                            btnSection13Man.Visible = true;
+                            btnSection14Man.Visible = true;
+                            btnSection15Man.Visible = true;
+                            btnSection16Man.Visible = false;
+                            break;
+
+                        case 16:
+                            btnSection1Man.Visible = true;
+                            btnSection2Man.Visible = true;
+                            btnSection3Man.Visible = true;
+                            btnSection4Man.Visible = true;
+                            btnSection5Man.Visible = true;
+                            btnSection6Man.Visible = true;
+                            btnSection7Man.Visible = true;
+                            btnSection8Man.Visible = true;
+                            btnSection9Man.Visible = true;
+                            btnSection10Man.Visible = true;
+                            btnSection11Man.Visible = true;
+                            btnSection12Man.Visible = true;
+                            btnSection13Man.Visible = true;
+                            btnSection14Man.Visible = true;
+                            btnSection15Man.Visible = true;
+                            btnSection16Man.Visible = true;
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                btnSection1Man.Visible = false;
+                btnSection2Man.Visible = false;
+                btnSection3Man.Visible = false;
+                btnSection4Man.Visible = false;
+                btnSection5Man.Visible = false;
+                btnSection6Man.Visible = false;
+                btnSection7Man.Visible = false;
+                btnSection8Man.Visible = false;
+                btnSection9Man.Visible = false;
+                btnSection10Man.Visible = false;
+                btnSection11Man.Visible = false;
+                btnSection12Man.Visible = false;
+                btnSection13Man.Visible = false;
+                btnSection14Man.Visible = false;
+                btnSection15Man.Visible = false;
+                btnSection16Man.Visible = false;
             }
         }
 
@@ -1524,7 +1618,7 @@ namespace AgOpenGPS
                     //int middle = oglMain.Width / 2 + oglMain.Width / 5;
 
                     //---
-                    if (point.Y < 180 && point.Y > 90)
+                    if (point.Y < 270 && point.Y > 140)
                     {
                         if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.2;
                         else camera.zoomValue += camera.zoomValue * 0.1;
@@ -1535,7 +1629,7 @@ namespace AgOpenGPS
                     }
 
                     //++
-                    if (point.Y < 90)
+                    if (point.Y < 140)
                     {
                         if (camera.zoomValue <= 20)
                         { if ((camera.zoomValue -= camera.zoomValue * 0.2) < 6.0) camera.zoomValue = 6.0; }
@@ -1571,7 +1665,7 @@ namespace AgOpenGPS
         {
             if ((sender as Control).IsDragging()) return;
 
-            if (oglZoom.Width == 180)
+            if (oglZoom.Width == 160)
             {
                 oglZoom.Width = 300;
                 oglZoom.Height = 300;
@@ -1579,8 +1673,8 @@ namespace AgOpenGPS
 
             else if (oglZoom.Width == 300)
             {
-                oglZoom.Width = 180;
-                oglZoom.Height = 180;
+                oglZoom.Width = 160;
+                oglZoom.Height = 160;
             }
         } 
         

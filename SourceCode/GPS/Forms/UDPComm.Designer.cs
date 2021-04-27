@@ -518,7 +518,7 @@ namespace AgOpenGPS
 
             if (keyData == (Keys.P)) // Snap/Prioritu click
             {
-                btnSnapToPivot.PerformClick();
+                //btnSnapToPivot.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 

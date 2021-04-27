@@ -9,13 +9,13 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public partial class FormConfig : Form
+    public partial class FormTool_config : Form
     {
         //class variables
         private readonly FormGPS mf = null;
 
         //constructor
-        public FormConfig(Form callingForm)
+        public FormTool_config(Form callingForm)
         {
             //get copy of the calling main form
             mf = callingForm as FormGPS;
@@ -45,9 +45,9 @@ namespace AgOpenGPS
             nudAntennaOffset.Controls[0].Enabled = false;
             nudAntennaPivot.Controls[0].Enabled = false;
             nudLightbarCmPerPixel.Controls[0].Enabled = false;
+            nudMinTurnRadius.Controls[0].Enabled = false;
             nudVehicleTrack.Controls[0].Enabled = false;
             nudSnapDistance.Controls[0].Enabled = false;
-            nudABLength.Controls[0].Enabled = false;
             nudWheelbase.Controls[0].Enabled = false;
             nudLineWidth.Controls[0].Enabled = false;
 
@@ -130,9 +130,19 @@ namespace AgOpenGPS
                 lblSecTotalWidthInches.Text = Convert.ToString(temp) + '"';
             }
 
+            //chkExtraGuides.Text = gStr.gsExtraGuides;
+            //chkGrid.Text = gStr.gsGridOn;
+            //chkLogNMEA.Text = gStr.gsLogNMEA;
+            //chkPolygons.Text = gStr.gsPolygonsOn;
+            //chkSky.Text = gStr.gsSkyOn;
+            //chkSpeedo.Text = gStr.gsSpeedoOn;
+            //chkStartFullScreen.Text = gStr.gsStartFullScreen;
+            //chkDayNight.Text = gStr.gsAutoDayNightMode;
+
+            //rbtnMetric.Text = gStr.gsMetric;
+            //rbtnImperial.Text = gStr.gsImperial;
 
             chkDisplaySky.Checked = mf.isSkyOn;
-            chkDisplayFloor.Checked = mf.isTextureOn;
             chkDisplayGrid.Checked = mf.isGridOn;
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
             chkDisplayDayNight.Checked = mf.isAutoDayNight;
@@ -142,8 +152,6 @@ namespace AgOpenGPS
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayLightbar.Checked = mf.isLightbarOn;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
-            cBox_sections_button.Checked = mf.issections_buttonOn;
-            cbox_long_touch.Checked = mf.islong_touchOn;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
@@ -163,8 +171,6 @@ namespace AgOpenGPS
 
             //reload all the settings from default and user.config
             mf.LoadSettings();
-            //save current vehicle
-            SettingsIO.ExportAll(mf.vehiclesDirectory + mf.vehicleFileName + ".XML");
         }
 
         private void FixMinMaxSpinners()
@@ -186,14 +192,8 @@ namespace AgOpenGPS
                 nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum/2.54M);
                 nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum/2.54M);
 
-                nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum / 2.54M);
-                nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum / 2.54M);
-
-                nudWheelbase.Maximum = Math.Round(nudWheelbase.Maximum / 2.54M);
-                nudWheelbase.Minimum = Math.Round(nudWheelbase.Minimum / 2.54M);
-
-                nudMinTurnRadius.Maximum = Math.Round(nudMinTurnRadius.Maximum / 2.54M);
-                nudMinTurnRadius.Minimum = Math.Round(nudMinTurnRadius.Minimum / 2.54M);
+                nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum/2.54M);
+                nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum/2.54M);
 
                 //.Maximum = Math.Round(/2.54M);
                 //.Minimum = Math.Round(/2.54M);
@@ -256,9 +256,6 @@ namespace AgOpenGPS
                 nudTurnDistanceFromBoundary.Minimum = Math.Round(nudTurnDistanceFromBoundary.Minimum * 3.28M);
                 nudTurnDistanceFromBoundary.Maximum = Math.Round(nudTurnDistanceFromBoundary.Maximum * 3.28M);
 
-                nudABLength.Minimum = Math.Round(nudABLength.Minimum * 3.28M);
-                nudABLength.Maximum = Math.Round(nudABLength.Maximum * 3.28M);
-
                 lblTurnOffBelowUnits.Text = gStr.gsMPH;
                 //cutoffMetricImperial = 1.60934;
 
@@ -279,7 +276,6 @@ namespace AgOpenGPS
         private void tabSummary_Enter(object sender, EventArgs e)
         {
             chkDisplaySky.Checked = mf.isSkyOn;
-            chkDisplayFloor.Checked = mf.isTextureOn;
             chkDisplayGrid.Checked = mf.isGridOn;
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
             chkDisplayDayNight.Checked = mf.isAutoDayNight;
@@ -289,8 +285,6 @@ namespace AgOpenGPS
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayLightbar.Checked = mf.isLightbarOn;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
-            cBox_sections_button.Checked = mf.issections_buttonOn;
-            cbox_long_touch.Checked = mf.islong_touchOn;
             //nudMenusOnTime.Value = mf.timeToShowMenus;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
@@ -300,17 +294,6 @@ namespace AgOpenGPS
         private void tabSummary_Leave(object sender, EventArgs e)
         {
             SaveDisplaySettings();
-        }
-
-        private void cBox_sections_button_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbox_long_touch_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.setDisplay_islong_touchOn = cbox_long_touch.Checked;
-            mf.long_touch();
         }
     }
 }

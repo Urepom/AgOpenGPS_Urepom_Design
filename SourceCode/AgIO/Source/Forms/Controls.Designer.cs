@@ -146,7 +146,7 @@ namespace AgIO
             {
                 //Set foreground window
 
-                ShowWindow(processName[0].MainWindowHandle, 9);
+                ShowWindow(processName[0].MainWindowHandle, 6);
                 SetForegroundWindow(processName[0].MainWindowHandle);
 
             }

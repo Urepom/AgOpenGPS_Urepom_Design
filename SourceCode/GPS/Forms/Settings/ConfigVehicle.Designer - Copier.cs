@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public partial class FormConfig
+    public partial class FormTool_config
     {
 
         #region Vehicle Save---------------------------------------------
@@ -116,7 +116,6 @@ namespace AgOpenGPS
                         mf.LoadSettings();
 
                         chkDisplaySky.Checked = mf.isSkyOn;
-                        chkDisplayFloor.Checked = mf.isTextureOn;
                         chkDisplayGrid.Checked = mf.isGridOn;
                         chkDisplaySpeedo.Checked = mf.isSpeedoOn;
                         chkDisplayDayNight.Checked = mf.isAutoDayNight;
@@ -125,46 +124,13 @@ namespace AgOpenGPS
                         chkDisplayPolygons.Checked = mf.isDrawPolygons;
                         chkDisplayLightbar.Checked = mf.isLightbarOn;
                         chkDisplayKeyboard.Checked = mf.isKeyboardOn;
-                        cBox_sections_button.Checked = mf.issections_buttonOn;
-                        cbox_long_touch.Checked = mf.islong_touchOn;
+                        
                         chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
-
 
                         if (mf.isMetric) rbtnDisplayMetric.Checked = true;
                         else rbtnDisplayImperial.Checked = true;
 
                         SaveDisplaySettings();
-
-                        lblCurrentVehicle.Text = Properties.Vehicle.Default.setVehicle_vehicleName;
-
-                        if (mf.isMetric)
-                        {
-                            lblInchesCm.Text = gStr.gsCentimeters;
-                            lblFeetMeters.Text = gStr.gsMeters;
-                            lblSecTotalWidthFeet.Visible = false;
-                            lblSecTotalWidthInches.Visible = false;
-                            lblSecTotalWidthMeters.Visible = true;
-                        }
-                        else
-                        {
-                            lblInchesCm.Text = gStr.gsInches;
-                            lblFeetMeters.Text = "Feet";
-                            lblSecTotalWidthFeet.Visible = true;
-                            lblSecTotalWidthInches.Visible = true;
-                            lblSecTotalWidthMeters.Visible = false;
-                        }
-
-                        if (mf.isMetric)
-                        {
-                            lblSecTotalWidthMeters.Text = (mf.tool.toolWidth * 100).ToString() + " cm";
-                        }
-                        else
-                        {
-                            double toFeet = mf.tool.toolWidth * 3.2808;
-                            lblSecTotalWidthFeet.Text = Convert.ToString((int)toFeet) + "'";
-                            double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
-                            lblSecTotalWidthInches.Text = Convert.ToString(temp) + '"';
-                        }
 
                         //Form Steer Settings
                         mf.p_252.pgn[mf.p_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
@@ -248,7 +214,6 @@ namespace AgOpenGPS
         private void SaveDisplaySettings()
         {
             mf.isSkyOn = chkDisplaySky.Checked;
-            mf.isTextureOn = chkDisplayFloor.Checked;
             mf.isGridOn = chkDisplayGrid.Checked;
             mf.isSpeedoOn = chkDisplaySpeedo.Checked;
             mf.isAutoDayNight = chkDisplayDayNight.Checked;
@@ -257,13 +222,10 @@ namespace AgOpenGPS
             mf.isDrawPolygons = chkDisplayPolygons.Checked;
             mf.isLightbarOn = chkDisplayLightbar.Checked;
             mf.isKeyboardOn = chkDisplayKeyboard.Checked;
-            mf.issections_buttonOn = cBox_sections_button.Checked;
-            mf.islong_touchOn = cbox_long_touch.Checked;
-            mf.LineUpManualBtns();
+            
             //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
 
             Properties.Settings.Default.setMenu_isSkyOn = mf.isSkyOn;
-            Properties.Settings.Default.setDisplay_isTextureOn = mf.isTextureOn;
             Properties.Settings.Default.setMenu_isGridOn = mf.isGridOn;
             Properties.Settings.Default.setMenu_isCompassOn = mf.isCompassOn;
             Properties.Settings.Default.setMenu_isSpeedoOn = mf.isSpeedoOn;
@@ -275,8 +237,6 @@ namespace AgOpenGPS
             Properties.Settings.Default.setMenu_isLightbarOn = mf.isLightbarOn;
             Properties.Settings.Default.setDisplay_isKeyboardOn = mf.isKeyboardOn;
             Properties.Settings.Default.setDisplay_issections_buttonOn = mf.issections_buttonOn;
-            Properties.Settings.Default.setDisplay_islong_touchOn = mf.islong_touchOn;
-
             //Properties.Settings.Default.setDisplay_showMenusTime = mf.timeToShowMenus;
 
             if (rbtnDisplayMetric.Checked) { Properties.Settings.Default.setMenu_isMetric = true; mf.isMetric = true; }
@@ -409,7 +369,7 @@ namespace AgOpenGPS
 
         private void tabVDimensions_Leave(object sender, EventArgs e)
         {
-           // Properties.Vehicle.Default.Save();
+            Properties.Vehicle.Default.Save();
         }
 
         private void nudMinTurnRadius_Click(object sender, EventArgs e)
@@ -418,7 +378,6 @@ namespace AgOpenGPS
             {
                 Properties.Vehicle.Default.setVehicle_minTurningRadius = (double)nudMinTurnRadius.Value * mf.inchOrCm2m;
                 mf.vehicle.minTurningRadius = Properties.Vehicle.Default.setVehicle_minTurningRadius;
-                Properties.Vehicle.Default.Save();
             }
         }
 
@@ -428,7 +387,6 @@ namespace AgOpenGPS
             {
                 Properties.Vehicle.Default.setVehicle_wheelbase = (double)nudWheelbase.Value * mf.inchOrCm2m;
                 mf.vehicle.wheelbase = Properties.Vehicle.Default.setVehicle_wheelbase;
-                Properties.Vehicle.Default.Save();
             }
         }
 
@@ -439,7 +397,6 @@ namespace AgOpenGPS
                 Properties.Vehicle.Default.setVehicle_trackWidth = (double)nudVehicleTrack.Value * mf.inchOrCm2m;
                 mf.vehicle.trackWidth = Properties.Vehicle.Default.setVehicle_trackWidth;
                 mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
-
             }
         }
 
@@ -449,17 +406,7 @@ namespace AgOpenGPS
 
         private void tabVGuidance_Enter(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1, MidpointRounding.AwayFromZero);
-            }
-            nudABLength.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAB_lineLength * mf.m2FtOrM));
+            nudSnapDistance.Value = (decimal)((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
             double bob = ((double)Properties.Settings.Default.setDisplay_lightbarCmPerPixel * mf.cm2CmOrIn);
 
             if (bob < 1) bob = 1;
@@ -480,8 +427,7 @@ namespace AgOpenGPS
             }
 
             label20.Text = mf.unitsInCm;
-            label79.Text = mf.unitsFtM;
-            label102.Text = mf.unitsInCm;
+            label79.Text = mf.unitsInCm;
         }
 
         private void tabVGuidance_Leave(object sender, EventArgs e)
@@ -510,7 +456,7 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * mf.inOrCm2Cm);
+                Properties.Settings.Default.setDisplay_lineWidth = (int)nudLineWidth.Value;
                 mf.ABLine.lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
             }
         }
@@ -523,14 +469,7 @@ namespace AgOpenGPS
                 mf.ABLine.snapDistance = Properties.Settings.Default.setAS_snapDistance;
             }
         }
-        private void nudABLength_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setAB_lineLength = ((double)nudABLength.Value * mf.ftOrMtoM);
-                mf.ABLine.abLength = Properties.Settings.Default.setAB_lineLength;
-            }
-        }
+
         private void nudLightbarCmPerPixel_Click(object sender, EventArgs e)
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))

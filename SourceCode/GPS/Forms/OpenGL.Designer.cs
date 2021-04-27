@@ -1574,9 +1574,9 @@ namespace AgOpenGPS
 
         private void DrawSteerCircle()
         {
-            int sizer = oglMain.Height/15;
-            int center = oglMain.Width / 2 - sizer;
-            int bottomSide = oglMain.Height - sizer;
+            int sizer = oglMain.Height /18;
+            int center = oglMain.Width / 2 - 55 - sizer;
+            int bottomSide = 140 ;
 
             GL.PushMatrix();
             GL.Enable(EnableCap.Texture2D);
@@ -1725,7 +1725,7 @@ namespace AgOpenGPS
 
         private void DrawLightBar(double Width, double Height, double offlineDistance)
         {
-            double down = 13;
+            double down = 49;
             GL.LineWidth(1);
             //GL.Translate(0, 0, 0.01);
             //offlineDistance *= -1;
@@ -1867,7 +1867,7 @@ namespace AgOpenGPS
                     }
 
                     int center = -(int)(((double)(hede.Length) * 0.5) * 16);
-                    font.DrawText(center, 30, hede, 1);
+                    font.DrawText(center, 60, hede, 1);
                 }
             }
         }
@@ -2032,47 +2032,47 @@ namespace AgOpenGPS
             GL.Color3(0, 0.0, 0);
             GL.Begin(PrimitiveType.Lines);
             //-
-            GL.Vertex3(-center - 17, 140, 0);
-            GL.Vertex3(-center - 39, 140, 0);
+            GL.Vertex3(-center - 17, 180, 0);
+            GL.Vertex3(-center - 39, 180, 0);
 
             //+
-            GL.Vertex3(-center - 17, 50, 0);
-            GL.Vertex3(-center - 39, 50, 0);
+            GL.Vertex3(-center - 17, 100, 0);
+            GL.Vertex3(-center - 39, 100, 0);
 
-            GL.Vertex3(-center - 27, 39, 0);
-            GL.Vertex3(-center - 27, 60, 0);
+            GL.Vertex3(-center - 27, 89, 0);
+            GL.Vertex3(-center - 27, 110, 0);
 
             GL.End();
             GL.LineWidth(2);
             GL.Color3(0, 0.9, 0);
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex3(-center - 17, 140, 0);
-            GL.Vertex3(-center - 39, 140, 0);
+            GL.Vertex3(-center - 17, 180, 0);
+            GL.Vertex3(-center - 39, 180, 0);
 
-            GL.Vertex3(-center - 18, 50, 0);
-            GL.Vertex3(-center - 38, 50, 0);
+            GL.Vertex3(-center - 18, 100, 0);
+            GL.Vertex3(-center - 38, 100, 0);
 
-            GL.Vertex3(-center - 27, 40, 0);
-            GL.Vertex3(-center - 27, 61, 0);
+            GL.Vertex3(-center - 27, 90, 0);
+            GL.Vertex3(-center - 27, 111, 0);
             GL.End();
 
             GL.Color3(0.9752f, 0.952f, 0.93f);
 
-            font.DrawText(center, 40, (fixHeading * 57.2957795).ToString("N1"), 1);
+            font.DrawText(center, 64, (fixHeading * 57.2957795).ToString("N1"), 1);
 
             if (ahrs.imuHeading != 99999)
             {
-                font.DrawText(center, 70, "G:" + (gpsHeading * 57.2957795).ToString("N1"), 0.8);
+                font.DrawText(center, 94, "G:" + (gpsHeading * 57.2957795).ToString("N1"), 0.8);
 
                 GL.Color3(0.9752f, 0.952f, 0.03f);
-                font.DrawText(center, 95, "I:" + Math.Round(ahrs.imuHeading, 1).ToString(), 0.8);
+                font.DrawText(center, 124, "I:" + Math.Round(ahrs.imuHeading, 1).ToString(), 0.8);
             }
 
             //GL.Color3(0.9652f, 0.9752f, 0.1f);
             //font.DrawText(center, 150, "BETA 5.0.0.5", 1);
 
             GL.Color3(0.9752f, 0.62f, 0.325f);
-            if (timerSim.Enabled) font.DrawText(-110, oglMain.Height - 130, "Simulator On", 1);
+            if (timerSim.Enabled) font.DrawText(-240, oglMain.Height - 130, "Simulator On", 1);
 
             if (ct.isContourBtnOn)
             {
@@ -2153,7 +2153,7 @@ namespace AgOpenGPS
 
             GL.BindTexture(TextureTarget.Texture2D, texture[9]);        // Select Our Texture
 
-            GL.Translate(oglMain.Width / 2 - 35, oglMain.Height/2, 0);
+            GL.Translate(btnHydLift.Right - oglMain.Width / 2, round_table8.Top + 40, 0);
 
             if (p_239.pgn[p_239.hydLift] == 2)
             {
@@ -2186,7 +2186,7 @@ namespace AgOpenGPS
             GL.BindTexture(TextureTarget.Texture2D, texture[7]);        // Select Our Texture
             GL.Color4(0.952f, 0.980f, 0.98f, 0.99);
 
-            GL.Translate(oglMain.Width / 2 - 65, 65, 0);
+            GL.Translate(oglMain.Width / 2 - 230, 130, 0);
 
             GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
             {

@@ -32,6 +32,8 @@ namespace AgIO
         //First run
         private void FormLoop_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Minimized;
+            Hide();
             if (Settings.Default.setF_workingDirectory == "Default")
                 baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AgOpenGPS\\";
             else baseDirectory = Settings.Default.setF_workingDirectory + "\\AgOpenGPS\\";
@@ -118,6 +120,8 @@ namespace AgIO
             panel1.Visible = false;
             pictureBox1.BringToFront();
             pictureBox1.Dock = DockStyle.Fill;
+            this.WindowState = FormWindowState.Minimized;
+            Hide();
         }
 
         //current directory of Comm storage
@@ -149,6 +153,7 @@ namespace AgIO
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+
             if (timer1.Interval > 1000)
             {
                 Controls.Remove(pictureBox1);
@@ -350,7 +355,7 @@ namespace AgIO
             {
                 //Set foreground window
 
-                ShowWindow(processName[0].MainWindowHandle, 9);
+                ShowWindow(processName[0].MainWindowHandle, 6);
                 SetForegroundWindow(processName[0].MainWindowHandle);
 
             }

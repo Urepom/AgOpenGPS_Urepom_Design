@@ -449,6 +449,9 @@ namespace AgOpenGPS
                 yt.ResetYouTurn();
                 p_239.pgn[p_239.uturn] = 0;
                 btnAutoYouTurn.Image = Properties.Resources.Youturn80;
+                round_table9.Width = 280;
+                cboxpRowWidth.Visible = true;
+                btnYouSkipEnable.Visible = true;
             }
             else
             {
@@ -464,6 +467,9 @@ namespace AgOpenGPS
 
                 //mc.autoSteerData[mc.sdX] = 0;
                 p_239.pgn[p_239.uturn] = 0;
+                round_table9.Width = 176;
+                cboxpRowWidth.Visible = false;
+                btnYouSkipEnable.Visible = false;
             }
         }
 
@@ -952,86 +958,11 @@ namespace AgOpenGPS
                 if (isJobStarted) oglZoom.BringToFront();
             }
         }
-
         private void helpMenuItem_Click(object sender, EventArgs e)
         {
-            bool notFound = false;
-            try
-            {
-                switch (Settings.Default.setF_culture)
-                {
-                    case "en":
-                        System.Diagnostics.Process.Start("Manual.pdf");
-                        break;
+            System.Diagnostics.Process.Start("Manual.pdf");
 
-                    case "ru":
-                        System.Diagnostics.Process.Start("Manual.ru.pdf");
-                        break;
-
-                    case "da":
-                        System.Diagnostics.Process.Start("Manual.da.pdf");
-                        break;
-
-                    case "de":
-                        System.Diagnostics.Process.Start("Manual.de.pdf");
-                        break;
-
-                    case "nl":
-                        System.Diagnostics.Process.Start("Manual.nl.pdf");
-                        break;
-
-                    case "it":
-                        System.Diagnostics.Process.Start("Manual.it.pdf");
-                        break;
-
-                    case "es":
-                        System.Diagnostics.Process.Start("Manual.es.pdf");
-                        break;
-
-                    case "fr":
-                        System.Diagnostics.Process.Start("Manual.fr.pdf");
-                        break;
-
-                    case "uk":
-                        System.Diagnostics.Process.Start("Manual.uk.pdf");
-                        break;
-
-                    case "sk":
-                        System.Diagnostics.Process.Start("Manual.sk.pdf");
-                        break;
-
-                    case "pl":
-                        System.Diagnostics.Process.Start("Manual.pl.pdf");
-                        break;
-
-                    case "af":
-                        System.Diagnostics.Process.Start("Manual.af.pdf");
-                        break;
-
-                    default:
-                        System.Diagnostics.Process.Start("Manual.pdf");
-                        break;
-                }
-
-            }
-            catch
-            {
-                notFound = true;
-            }
-
-            if (notFound)
-            {
-                try
-                {
-                    System.Diagnostics.Process.Start("Manual.pdf");
-                }
-                catch
-                {
-                    TimedMessageBox(2000, "No File Found", "Can't Find Manual.pdf");
-                }
-            }
         }
-
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (isJobStarted)
@@ -1122,7 +1053,6 @@ namespace AgOpenGPS
             System.Environment.Exit(1);
 
         }
-
         private void menuLanguageDeutsch_Click(object sender, EventArgs e)
         {
             if (isJobStarted)
@@ -1317,6 +1247,7 @@ namespace AgOpenGPS
                     menuLanguageEnglish.Checked = true;
                     lang = "en";
                     break;
+
             }
 
             //adding or editing "Language" subkey to the "SOFTWARE" subkey  
@@ -1457,19 +1388,6 @@ namespace AgOpenGPS
         private void btnContourPriority_Click(object sender, EventArgs e)
         {
 
-            if (ABLine.isBtnABLineOn)
-            {
-                ABLine.SnapABLine();
-            }
-            else if (curve.isBtnCurveOn)
-            {
-                curve.SnapABCurve();
-            }
-            else
-            {
-                var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
-                form.Show(this);
-            }
         }
         private void SnapRight()
         {
@@ -1612,7 +1530,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    btnHydLift.Visible = false;
+                    btnHydLift.Visible = true;
                     btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
                 }
             }
@@ -1622,7 +1540,7 @@ namespace AgOpenGPS
                 p_239.pgn[p_239.hydLift] = 0;
                 vehicle.isHydLiftOn = false;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                btnHydLift.Visible = false;
+                btnHydLift.Visible = true;
             }
 
         }
@@ -1646,7 +1564,7 @@ namespace AgOpenGPS
                 p_239.pgn[p_239.hydLift] = 0;
                 vehicle.isHydLiftOn = false;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                btnHydLift.Visible = false;
+                btnHydLift.Visible = true;
             }
         }
 
@@ -1682,69 +1600,7 @@ namespace AgOpenGPS
 
         private void toolStripAreYouSure_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
-            {
-                if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
-                {
-
-                    DialogResult result3 = MessageBox.Show(gStr.gsDeleteAllContoursAndSections,
-                        gStr.gsDeleteForSure,
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button2);
-                    if (result3 == DialogResult.Yes)
-                    {
-                        //FileCreateElevation();
-
-                        //turn auto button off
-                        autoBtnState = btnStates.Off;
-                        btnSectionOffAutoOn.Image = Properties.Resources.SectionMasterOff;
-
-                        //turn section buttons all OFF and zero square meters
-                        for (int j = 0; j < MAXSECTIONS; j++)
-                        {
-                            section[j].isAllowedOn = false;
-                            section[j].manBtnState = manBtn.On;
-                        }
-
-                        //turn manual button off
-                        manualBtnState = btnStates.Off;
-                        btnManualOffOn.Image = Properties.Resources.ManualOff;
-
-                        //Update the button colors and text
-                        ManualAllBtnsUpdate();
-
-                        //enable disable manual buttons
-                        LineUpManualBtns();
-
-                        //clear out the contour Lists
-                        ct.StopContourLine(pivotAxlePos);
-                        ct.ResetContour();
-                        fd.workedAreaTotal = 0;
-
-                        //clear the section lists
-                        for (int j = 0; j < MAXSECTIONS; j++)
-                        {
-                            //clean out the lists
-                            section[j].patchList?.Clear();
-                            section[j].triangleList?.Clear();
-                        }
-                        patchSaveList?.Clear();
-
-                        FileCreateContour();
-                        FileCreateSections();
-
-                    }
-                    else
-                    {
-                        TimedMessageBox(1500, gStr.gsNothingDeleted, gStr.gsActionHasBeenCancelled);
-                    }
-                }
-                else
-                {
-                   TimedMessageBox(1500, "Sections are on", "Turn Auto or Manual Off First");
-                }
-            }
+            
         }
 
         private void toolStripAutoSteerChart_Click(object sender, EventArgs e)
@@ -1835,12 +1691,12 @@ namespace AgOpenGPS
         private void btnpTiltUp_MouseDown(object sender, MouseEventArgs e)
         {
             camera.camPitch -= ((camera.camPitch * 0.012) - 1);
-            if (camera.camPitch > -58) camera.camPitch = 0;
+            if (camera.camPitch > -50) camera.camPitch = 0;
             navPanelCounter = 2;
         }
         private void btnpTiltDown_MouseDown(object sender, MouseEventArgs e)
         {
-            if (camera.camPitch > -59) camera.camPitch = -60;
+            if (camera.camPitch > -51) camera.camPitch = -60;
             camera.camPitch += ((camera.camPitch * 0.012) - 1);
             if (camera.camPitch < -76) camera.camPitch = -76;
             navPanelCounter = 2;
@@ -1884,15 +1740,51 @@ namespace AgOpenGPS
 
                 if (isJobStarted)
                 {
-                    panelRight.Enabled = true;
+                    //panelRight.Enabled = true;
                     //boundaryToolStripBtn.Enabled = true;
                     FieldMenuButtonEnableDisable(true);
+
+                    if (currentFieldDirectory.Contains("2020."))
+                    {
+                        if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                    }
+                    else if (currentFieldDirectory.Contains("2021."))
+                    {
+                        if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                    }
+                    else
+                    {
+                        toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "- " + fd.AreaBoundaryLessInnersHectares;
+                    }
+
+                    label1.Text = vehicleFileName + " - " + (Math.Round(tool.toolWidth, 2)).ToString() + " m";
+                    round_table1.Visible = true;
+                    round_table4.Visible = true;
+                    round_table3.Visible = true;
+                    round_table2.Visible = true;
+                    round_table6.Visible = true;
+                    round_table8.Visible = true;
+                    label1.Visible = true;
+                    toolStripStatusLabel2.Visible = true;
+                    round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
+                    round_table10.Width = 290;
                 }
                 else
                 {
-                    panelRight.Enabled = false;
+                   // panelRight.Enabled = false;
                     //boundaryToolStripBtn.Enabled = false;
                     FieldMenuButtonEnableDisable(false);
+                    lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
+                    label1.Visible = false;
+                    round_table1.Visible = false;
+                    round_table4.Visible = false;
+                    round_table3.Visible = false;
+                    round_table2.Visible = false;
+                    round_table6.Visible = false;
+                    round_table8.Visible = false;
+                    round_StatusStrip1.Width = 176;
+                    toolStripStatusLabel2.Visible = false;
+                    round_table10.Width = 176;
                 }
             }
         }
@@ -1929,7 +1821,7 @@ namespace AgOpenGPS
                         Settings.Default.setF_CurrentDir = currentFieldDirectory;
                         Settings.Default.Save();
                         FileSaveEverythingBeforeClosingField();
-                        panelRight.Enabled = false;
+                        //panelRight.Enabled = false;
                         //boundaryToolStripBtn.Enabled = false;
                         FieldMenuButtonEnableDisable(false);
                         displayFieldName = gStr.gsNone;
@@ -1945,7 +1837,7 @@ namespace AgOpenGPS
                         Settings.Default.setF_CurrentDir = currentFieldDirectory;
                         Settings.Default.Save();
                         FileSaveEverythingBeforeClosingField();
-                        panelRight.Enabled = false;
+                        //panelRight.Enabled = false;
                         //boundaryToolStripBtn.Enabled = false;
                         FieldMenuButtonEnableDisable(false);
 
@@ -1954,6 +1846,7 @@ namespace AgOpenGPS
                         {
                             form2.ShowDialog();
                         }
+                        //displayFieldName = gStr.gsNone;
 
                         break;
                 }
@@ -1994,10 +1887,11 @@ namespace AgOpenGPS
             {
                 var form = new FormTimedMessage(1500, gStr.gsNoABLineActive, gStr.gsPleaseEnterABLine);
                 form.Show(this);
-                panelRight.Enabled = true;
+                //panelRight.Enabled = true;
                 //ABLine.isEditing = false;
                 return;
             }
+
         }
 
         private void headlandToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2031,9 +1925,9 @@ namespace AgOpenGPS
             {
                 hd.isOn = false;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-                btnHeadlandOnOff.Visible = false;
+                btnHeadlandOnOff.Visible = true;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                btnHydLift.Visible = false;
+                btnHydLift.Visible = true;
             }
             FixPanelsAndMenus(true);
             SetZoom();
@@ -2242,7 +2136,7 @@ namespace AgOpenGPS
         {
             if (tram.tramList.Count > 0 || tram.tramBndOuterArr.Count > 0)
                 btnTramDisplayMode.Visible = true;
-            else btnTramDisplayMode.Visible = false;
+            else btnTramDisplayMode.Visible = true;
 
             switch (tram.displayMode)
             {

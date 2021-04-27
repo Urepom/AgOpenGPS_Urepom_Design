@@ -273,6 +273,378 @@ namespace AgOpenGPS
         /// </summary>
         public SoundPlayer sndHydraulicLower;
 
+        private void roundButton1_Click(object sender, EventArgs e)
+        {
+
+            if (ABLine.isBtnABLineOn)
+            {
+                ABLine.SnapABLine();
+            }
+            else if (curve.isBtnCurveOn)
+            {
+                curve.SnapABCurve();
+            }
+            else
+            {
+                var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
+                form.Show(this);
+            }
+        }
+
+        private void panel_top_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pbarNtripMenu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NTRIPBytesMenu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void round_table10_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem16_Click(object sender, EventArgs e)
+        {
+            //check if window already exists
+            Form fc = Application.OpenForms["FormSteer"];
+
+            if (fc != null)
+            {
+                fc.Focus();
+                fc.Close();
+                return;
+            }
+
+            //
+            Form form = new FormSteer(this);
+            form.Show(this);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormTool_config(this))
+            {
+                form.ShowDialog(this);
+            }
+        }
+
+        private void contextMenuStrip_headlane_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (bnd.bndArr.Count == 0)
+            {
+                TimedMessageBox(2000, gStr.gsNoBoundary, gStr.gsCreateABoundaryFirst);
+                return;
+            }
+
+            GetHeadland();
+            contextMenuStrip_headlane.Close();
+        }
+
+        private void contextMenuStrip_tram_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            curve.isOkToAddPoints = false;
+
+            if (ct.isContourBtnOn) btnContour.PerformClick();
+
+            if (ABLine.numABLineSelected > 0 && ABLine.isBtnABLineOn)
+            {
+                Form form99 = new FormTram(this);
+                form99.Show(this);
+                form99.Left = Width - 275;
+                form99.Top = 100;
+            }
+            else if (curve.numCurveLineSelected > 0 && curve.isBtnCurveOn)
+            {
+                Form form97 = new FormTramCurve(this);
+                form97.Show(this);
+                form97.Left = Width - 275;
+                form97.Top = 100;
+            }
+            else
+            {
+                var form = new FormTimedMessage(1500, gStr.gsNoABLineActive, gStr.gsPleaseEnterABLine);
+                form.Show(this);
+                //panelRight.Enabled = true;
+                //ABLine.isEditing = false;
+                return;
+            }
+            contextMenuStrip_tram.Close();
+        }
+
+        private void contextMenuStrip_contour_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //build all the contour guidance lines from boundaries, all of them.
+            using (var form = new FormMakeBndCon(this))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK) { }
+            }
+            contextMenuStrip_contour.Close();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            using (var form = new FormTool_config(this))
+            {
+                form.ShowDialog(this);
+            }
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                form.Show(this);
+                return;
+            }
+
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowNewFolderButton = true;
+            fbd.Description = "Currently: " + Settings.Default.setF_local;
+            fbd.SelectedPath = Settings.Default.setF_local;
+
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS", true);
+                    //save the user set directory in Registry
+                    regKey.SetValue("Directory", fbd.SelectedPath);
+                    regKey.Close();
+                    Settings.Default.setF_local = fbd.SelectedPath;
+                    Settings.Default.Save();
+
+                //restart program
+               // MessageBox.Show(gStr.gsProgramWillExitPleaseRestart);
+               // Close();
+            }
+        }
+
+        private void dossierDeSynchronisationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                form.Show(this);
+                return;
+            }
+
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowNewFolderButton = true;
+            fbd.Description = "Currently: " + Settings.Default.setF_synchro;
+            fbd.SelectedPath = Settings.Default.setF_synchro;
+
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS", true);
+                //save the user set directory in Registry
+                regKey.SetValue("Directory", fbd.SelectedPath);
+                regKey.Close();
+                Settings.Default.setF_synchro = fbd.SelectedPath;
+                Settings.Default.Save();
+
+                //restart program
+                // MessageBox.Show(gStr.gsProgramWillExitPleaseRestart);
+                // Close();
+            }
+        }
+
+        private void btn_synchro_Click(object sender, EventArgs e)
+        {
+            if (Settings.Default.setF_local != "Default" & Settings.Default.setF_synchro != "Default")
+            {
+                DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
+                DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
+                MessageBox.Show("Synchronisation terminée !");
+            }
+            else
+            {
+                MessageBox.Show("Veuillez d'abord sélectionner un dossier local un dossier de synchronisation !");
+            }
+        }
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // If the destination directory doesn't exist, create it.       
+            Directory.CreateDirectory(destDirName);
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(tempPath, true);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string tempPath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, tempPath, copySubDirs);
+                }
+            }
+        }
+
+        private void toolStripDropDownButton3_Click(object sender, EventArgs e)
+        {
+            if (panelNavigation.Visible)
+            {
+                panelNavigation.Visible = false;
+            }
+            else
+            {
+                
+                panelNavigation.Visible = true;
+                navPanelCounter = 2;
+                panelNavigation.BringToFront();
+            }
+        }
+
+        private void deleteAppliedAreaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
+                {
+
+                    DialogResult result3 = MessageBox.Show(gStr.gsDeleteAllContoursAndSections,
+                        gStr.gsDeleteForSure,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2);
+                    if (result3 == DialogResult.Yes)
+                    {
+                        //FileCreateElevation();
+
+                        //turn auto button off
+                        autoBtnState = btnStates.Off;
+                        btnSectionOffAutoOn.Image = Properties.Resources.SectionMasterOff;
+
+                        //turn section buttons all OFF and zero square meters
+                        for (int j = 0; j < MAXSECTIONS; j++)
+                        {
+                            section[j].isAllowedOn = false;
+                            section[j].manBtnState = manBtn.On;
+                        }
+
+                        //turn manual button off
+                        manualBtnState = btnStates.Off;
+                        btnManualOffOn.Image = Properties.Resources.ManualOff;
+
+                        //Update the button colors and text
+                        ManualAllBtnsUpdate();
+
+                        //enable disable manual buttons
+                        LineUpManualBtns();
+
+                        //clear out the contour Lists
+                        ct.StopContourLine(pivotAxlePos);
+                        ct.ResetContour();
+                        fd.workedAreaTotal = 0;
+
+                        //clear the section lists
+                        for (int j = 0; j < MAXSECTIONS; j++)
+                        {
+                            //clean out the lists
+                            section[j].patchList?.Clear();
+                            section[j].triangleList?.Clear();
+                        }
+                        patchSaveList?.Clear();
+
+                        FileCreateContour();
+                        FileCreateSections();
+
+                    }
+                    else
+                    {
+                        TimedMessageBox(1500, gStr.gsNothingDeleted, gStr.gsActionHasBeenCancelled);
+                    }
+                }
+                else
+                {
+                    TimedMessageBox(1500, "Sections are on", "Turn Auto or Manual Off First");
+                }
+            }
+        }
+
+        private void statusStripLeft_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void btnStartAgIO_Click_1(object sender, EventArgs e)
+        {
+            Process[] processName = Process.GetProcessesByName("AgIO");
+            if (processName.Length == 0)
+            {
+                //Start application here
+                DirectoryInfo di = new DirectoryInfo(Application.StartupPath);
+                string strPath = di.ToString();
+                strPath += "\\AgIO.exe";
+                try
+                {
+                    //TimedMessageBox(2000, "Please Wait", "Starting AgIO");
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strPath;
+                    //processInfo.ErrorDialog = true;
+                    //processInfo.UseShellExecute = false;
+                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    Process proc = Process.Start(processInfo);
+                }
+                catch
+                {
+                    TimedMessageBox(2000, "No File Found", "Can't Find AgIO");
+                }
+            }
+            else
+            {
+                //Set foreground window
+                ShowWindow(processName[0].MainWindowHandle, 9);
+                SetForegroundWindow(processName[0].MainWindowHandle);
+            }
+        }
+
+        private void btnpTiltUp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStanleyPure_Click_1(object sender, EventArgs e)
+        {
+            isStanleyUsed = !isStanleyUsed;
+
+            if (isStanleyUsed)
+            {
+                btnStanleyPure.Image = Resources.ModeStanley;
+            }
+            else
+            {
+                btnStanleyPure.Image = Resources.ModePurePursuit;
+            }
+
+            Properties.Vehicle.Default.setVehicle_isStanleyUsed = isStanleyUsed;
+            Properties.Vehicle.Default.Save();
+        }
 
         /// <summary>
         /// The font class
@@ -327,7 +699,7 @@ namespace AgOpenGPS
             //googleEarthFlagsToolStrip.Text = gStr.gsGoogleEarth;
             offsetFixToolStrip.Text = gStr.gsOffsetFix;
 
-            btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            //btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
             //time keeper
             secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
@@ -411,17 +783,42 @@ namespace AgOpenGPS
         private void FormGPS_Load(object sender, EventArgs e)
         {
             this.MouseWheel += ZoomByMouseWheel;
+            round_table5.Left = this.Width / 2 - round_table5.Width / 2;
+            roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
+            panel_top.Left = this.Width / 2 - panel_top.Width / 2;
+
+            label1.Visible = false;
+            round_table1.Visible = false;
+            round_table4.Visible = false;
+            round_table3.Visible = false;
+            round_table2.Visible = false;
+            round_table6.Visible = false;
+            round_table8.Visible = false;
+            round_StatusStrip1.Width = 176;
+            toolStripStatusLabel2.Visible = false;
+            round_table10.Width = 176;
+            round_table9.Width = 176;
+            cboxpRowWidth.Visible = false;
+            btnYouSkipEnable.Visible = false;
+            if (!Properties.Settings.Default.setDisplay_islong_touchOn)
+            {
+                headlandToolStripMenuItem.Visible = true;
+                deleteContourPathsToolStripMenuItem.Visible = true;
+                tramLinesMenuField.Visible = true;
+                toolStripBtnMakeBndContour.Visible = true;
+
+            }
 
             //start udp server is required
-            StartLoopbackServer();
+                StartLoopbackServer();
 
             //boundaryToolStripBtn.Enabled = false;
             FieldMenuButtonEnableDisable(false);
             
-            panelRight.Enabled = false;
+            //panelRight.Enabled = false;
 
-            oglMain.Left = 75;
-            oglMain.Width = this.Width - statusStripLeft.Width - 84;
+            //oglMain.Left = 75;
+            //oglMain.Width = this.Width - statusStripLeft.Width - 84;
 
             panelSim.Left = 100;
             panelSim.Width = Width - statusStripLeft.Width - 200;
@@ -485,11 +882,11 @@ namespace AgOpenGPS
                 topFieldViewToolStripMenuItem.Checked = true;
             else topFieldViewToolStripMenuItem.Checked = false;
 
-            oglZoom.Width = 400;
-            oglZoom.Height = 400;
-            oglZoom.Visible = true;
-            oglZoom.Left = 300;
-            oglZoom.Top = 80;
+            //ajout max
+            oglZoom.Width = 160;
+            oglZoom.Height = 160;
+            oglZoom.Left = 0;
+            oglZoom.Top = 68;
 
             if (!topFieldViewToolStripMenuItem.Checked)
             {
@@ -569,7 +966,7 @@ namespace AgOpenGPS
                         mc.ResetAllModuleCommValues();
                     }
                 }
-            }
+            }     
 
             SaveFormGPSWindowSettings();
 
@@ -592,7 +989,6 @@ namespace AgOpenGPS
                 catch { }
                 finally { recvFromAppSocket.Close(); }
             }
-
             //save current vehicle
             SettingsIO.ExportAll(vehiclesDirectory + vehicleFileName + ".XML");
         }
@@ -602,6 +998,8 @@ namespace AgOpenGPS
         {
             FixPanelsAndMenus(true);
             if (isGPSPositionInitialized) SetZoom();
+            btn_synchro.Left = menuStrip1.Right - 82;
+            btn_synchro.Top = menuStrip1.Top + 2;
         }
 
         // Load Bitmaps And Convert To Textures
@@ -720,6 +1118,9 @@ namespace AgOpenGPS
             //sections in autosteer
             p_254.pgn[p_254.sc9to16] = unchecked((byte)(machine >> 8));
             p_254.pgn[p_254.sc1to8] = unchecked((byte)machine);
+
+            //tram byte
+            //p_254.pgn[p_254.tram] = unchecked((byte)tram.controlByte);
 
             //machine pgn
             p_239.pgn[p_239.sc9to16] = p_254.pgn[p_254.sc9to16];
@@ -873,9 +1274,12 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
             {
+                //ajout max
                 oglZoom.BringToFront();
-                oglZoom.Width = 300;
-                oglZoom.Height = 300;
+                oglZoom.Width = 160;
+                oglZoom.Height = 160;
+                oglZoom.Left = 0;
+                oglZoom.Top = 68;
             }
 
                 //SendSteerSettingsOutAutoSteerPort();
@@ -942,7 +1346,7 @@ namespace AgOpenGPS
 
             //update the menu
             this.menustripLanguage.Enabled = false;
-            panelRight.Enabled = true;
+            //panelRight.Enabled = true;
             //boundaryToolStripBtn.Enabled = true;
 
             FieldMenuButtonEnableDisable(true);
@@ -962,17 +1366,17 @@ namespace AgOpenGPS
             btnMakeLinesFromBoundary.Enabled = isOn;
             btnFlag.Visible = isOn;
 
-            panelRight.Visible = isOn;
-            panelAB.Visible = isOn;
+            //panelRight.Visible = isOn;
+            //panelAB.Visible = isOn;
 
             lblFieldStatus.Visible = isOn;
-            //lblFieldDataTopField.Visible = isOn;
-            //lblFieldDataTopDone.Visible = isOn;
-            //lblFieldDataTopRemain.Visible = isOn;
+            lblFieldDataTopField.Visible = isOn;
+            lblFieldDataTopDone.Visible = isOn;
+            lblFieldDataTopRemain.Visible = isOn;
 
-            btnSnapToPivot.Visible = false;
-            cboxpRowWidth.Visible = false;
-            btnYouSkipEnable.Visible = false;
+            roundButton1.Visible = true;
+            cboxpRowWidth.Visible = true;
+            btnYouSkipEnable.Visible = true;
         }
 
         //close the current job
@@ -985,13 +1389,13 @@ namespace AgOpenGPS
             //turn off headland
             hd.isOn = false;
             btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-            btnHeadlandOnOff.Visible = false;
+            btnHeadlandOnOff.Visible = true;
 
             //make sure hydraulic lift is off
             p_239.pgn[p_239.hydLift] = 0;
             vehicle.isHydLiftOn = false;
             btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-            btnHydLift.Visible = false;
+            btnHydLift.Visible = true;
 
             //zoom gone
             oglZoom.SendToBack();
@@ -1001,7 +1405,7 @@ namespace AgOpenGPS
             turn.turnArr?.Clear();
             hd.headArr[0].hdLine?.Clear();
 
-            panelRight.Enabled = false;
+            //panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
 
             menustripLanguage.Enabled = true;
@@ -1100,7 +1504,7 @@ namespace AgOpenGPS
             //clear out contour and Lists
             btnContour.Enabled = false;
             //btnContourPriority.Enabled = false;
-            btnSnapToPivot.Image = Properties.Resources.SnapToPivot;
+            roundButton1.Image = Properties.Resources.SnapToPivot;
             ct.ResetContour();
             ct.isContourBtnOn = false;
             btnContour.Image = Properties.Resources.ContourOff;
@@ -1120,7 +1524,7 @@ namespace AgOpenGPS
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
             btnAutoYouTurn.Enabled = false;
 
-            btnMakeLinesFromBoundary.Visible = false;
+            btnMakeLinesFromBoundary.Visible = true;
 
             yt.ResetYouTurn();
             DisableYouTurnButtons();

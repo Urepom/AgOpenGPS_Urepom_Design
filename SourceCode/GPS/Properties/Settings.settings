@@ -233,11 +233,26 @@
     <Setting Name="setFeatures" Type="AgOpenGPS.CFeatureSettings" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="setDisplay_issections_buttonOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setF_local" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="setF_synchro" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
     <Setting Name="setDisplay_isTextureOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="setVehicle_goalPointLookAheadMult" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1600</Value>
+    </Setting>
     <Setting Name="setAB_lineLength" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1600</Value>
+    </Setting>
+    <Setting Name="setDisplay_islong_touchOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

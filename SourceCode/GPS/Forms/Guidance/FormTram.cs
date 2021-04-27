@@ -34,7 +34,7 @@ namespace AgOpenGPS
             mf.tool.halfToolWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) / 2.0;
             lblToolWidthHalf.Text = (mf.tool.halfToolWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
 
-            mf.panelRight.Enabled = false;
+            //mf.panelRight.Enabled = false;
 
             //if off, turn it on because they obviously want a tram.
             if (mf.tram.displayMode == 0) mf.tram.displayMode = 1;
@@ -82,7 +82,7 @@ namespace AgOpenGPS
             mf.FileSaveABLines();
 
             mf.ABLine.moveDistance = 0;
-            mf.panelRight.Enabled = true;
+            //mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
             mf.offX = 0;
             mf.offY = 0;
@@ -177,7 +177,7 @@ namespace AgOpenGPS
 
             //mf.ABLine.tramPassEvery = 0;
             //mf.ABLine.tramBasedOn = 0;
-            mf.panelRight.Enabled = true;
+            //mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
             mf.offX = 0;
             mf.offY = 0;

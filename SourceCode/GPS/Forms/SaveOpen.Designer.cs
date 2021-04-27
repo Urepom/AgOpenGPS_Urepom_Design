@@ -843,8 +843,8 @@ namespace AgOpenGPS
             {
                 hd.isOn = true;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
-                btnHeadlandOnOff.Visible = true;
-                btnHydLift.Visible = true;
+                //btnHeadlandOnOff.Visible = true;
+                //btnHydLift.Visible = true;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
 
             }
@@ -852,8 +852,8 @@ namespace AgOpenGPS
             {
                 hd.isOn = false;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-                btnHeadlandOnOff.Visible = false;
-                btnHydLift.Visible = false;
+                //btnHeadlandOnOff.Visible = false;
+                //btnHydLift.Visible = false;
             }
 
             //trams ---------------------------------------------------------------------------------
@@ -863,7 +863,7 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramList?.Clear();
             tram.displayMode = 0;
-            btnTramDisplayMode.Visible = false;
+            //btnTramDisplayMode.Visible = false;
 
             if (File.Exists(fileAndDirectory))
             {

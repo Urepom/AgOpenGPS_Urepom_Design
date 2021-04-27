@@ -103,7 +103,7 @@ namespace AgOpenGPS
             mf.FileSaveABLines();
             mf.ABLine.moveDistance = 0;
 
-            mf.panelRight.Enabled = true;
+           // mf.panelRight.Enabled = true;
             Close();
         }
 
@@ -120,7 +120,7 @@ namespace AgOpenGPS
             mf.ABLine.isABLineLoaded = true;
             mf.ABLine.moveDistance = 0;
 
-            mf.panelRight.Enabled = true;
+            //mf.panelRight.Enabled = true;
             Close();
         }
 

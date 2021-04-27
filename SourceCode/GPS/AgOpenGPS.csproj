@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props" Condition="Exists('..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props')" />
   <PropertyGroup>
@@ -226,11 +226,37 @@
     <Compile Include="Forms\Guidance\FormMakeBndCon.Designer.cs">
       <DependentUpon>FormMakeBndCon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\ConfigData.Designer - Copier.cs">
+      <DependentUpon>FormTool_config.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ConfigMenu.Designer - Copier.cs">
+      <DependentUpon>FormTool_config.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ConfigModule.Designer - Copier.cs">
+      <DependentUpon>FormTool_config.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ConfigTool.Designer - Copier.cs">
+      <DependentUpon>FormTool_config.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ConfigVehicle.Designer - Copier.cs">
+      <DependentUpon>FormTool_config.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Settings\FormColor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Settings\FormColor.Designer.cs">
       <DependentUpon>FormColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings\FormTool_config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\FormTool_config.Designer.cs">
+      <DependentUpon>FormTool_config.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\FormConfig.cs">
       <SubType>Form</SubType>
@@ -482,6 +508,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RoundButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Round_Menu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Round_panel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Round_StatusStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Round_table.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Forms\UDPComm.Designer.cs">
       <SubType>Form</SubType>
@@ -536,6 +577,9 @@
       <DependentUpon>FormColor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  <EmbeddedResource Include="Forms\Settings\FormTool_config.resx">
+    <DependentUpon>FormTool_config.cs</DependentUpon>
+  </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormConfig.resx">
       <DependentUpon>FormConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -717,6 +761,7 @@
     <Content Include="aChangeLog.txt" />
     <None Include="btnImages\Config\ConV_ABLineLength.png" />
     <None Include="btnImages\Config\ConD_FloorTexture.png" />
+    <None Include="btnImages\synchronize.png" />
     <None Include="btnImages\Config\Con_FeatureMenu.png" />
     <None Include="btnImages\Config\ConSt_Mandatory.png" />
     <None Include="btnImages\Config\ConSt_TurnSensorCurrent.png" />
@@ -1010,7 +1055,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
