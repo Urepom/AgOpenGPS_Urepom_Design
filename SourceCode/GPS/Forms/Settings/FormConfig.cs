@@ -21,6 +21,96 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
+            //tSum
+            chkSky.Text = gStr.gsSky;
+            label27.Text = gStr.gsAutoDayNight;
+            label31.Text = gStr.gsLightbar;
+            label43.Text = gStr.gsPolygon;
+            chkGrid.Text = gStr.gsGrid;
+            label28.Text = gStr.gsStartFullscreen;
+            label33.Text = gStr.gsKeyboard;
+            label36.Text = gStr.gsLogNMEA;
+            chkSpeedo.Text = gStr.gsSpeedo;
+            chkExtraGuides.Text = gStr.gsExtraGuides;
+            label101.Text = gStr.gsFloorTexture;
+            label102.Text = gStr.gsSectionsButtons;
+            label13.Text = gStr.gsLoad;
+            label42.Text = gStr.gsSaveAs;
+            label57.Text = gStr.gsDelete;
+            label3.Text = gStr.gsSaveNewVehicle;
+            lblCurrentVehicle.Text = gStr.gsCurrentVehicle;
+            label22.Text = gStr.gsUnits;
+            label52.Text = gStr.gsToolWidth;
+
+            //tConfig
+            groupBox1.Text = gStr.gsVehicleType;
+            label44.Text = gStr.gsWheelbase;
+            label53.Text = gStr.gsTrack;
+            label60.Text = gStr.gsTurnRadius;
+
+            //tHitch
+            gboxAttachment.Text = gStr.gsAttachmentStyle;
+            label49.Text = gStr.gsSectionWidth;
+            label51.Text = gStr.gsNbOfSections; //#
+            label50.Text = gStr.gsCoverage; //%
+
+            //tSwit
+            groupBox3.Text = gStr.gsWorkSwitch;
+            chkEnableWorkSwitch.Text = gStr.gsEnableWorkSwitch;
+            chkWorkSwActiveLow.Text = gStr.gsWorkSwActiveLow;
+            checkWorkSwitchManual.Text = gStr.gsWorkSwitchControlsManual;
+
+            //TSettings
+            label16.Text = gStr.gsOnSecs; // On (secs)
+            label14.Text = gStr.gsOffSecs;
+            label10.Text = gStr.gsDelaySecs;
+            label65.Text = gStr.gsOffset;
+            label66.Text = gStr.gsOverlap_Gap;
+
+            //dHead
+            headingGroupBox.Text = gStr.gsAntennaType;
+            label2.Text = gStr.gsAlarm;
+            gboxSingle.Text = gStr.gsSingleAntennaSettings;
+            label15.Text = gStr.gsFixTrigger;
+            label8.Text = gStr.gsDistance; //(m)
+            label9.Text = gStr.gsStartSpeed; //(kmh)
+
+            //dRoll
+            label76.Text = gStr.gsRemoveOffset;
+            label77.Text = gStr.gsZeroRoll;
+            label78.Text = gStr.gsInvertRoll;
+            label18.Text = gStr.gsRollFilter;
+
+            //aSteer
+            label5.Text = gStr.gsInvertWAS;
+            label70.Text = gStr.gsInvertMotorDir;
+            label7.Text = gStr.gsInvertRelays;
+            labelEncoder.Text = gStr.gsTurnSensor;
+            labelPressureTurnSensor.Text = gStr.gsPressureTurnSensor;
+            labelCurrentTurnSensor.Text = gStr.gsCurrentTurnSensor;
+            label61.Text = gStr.gsTurnSensor;
+            label68.Text = gStr.gsSendSave; //+
+
+            //aMach
+            label56.Text = gStr.gsMachineModule;
+            groupBox4.Text = gStr.gsHydraulicLiftConfig;
+            label25.Text = gStr.gsEnable;
+            label74.Text = gStr.gsRaiseTime; //(secs)
+            label69.Text = gStr.gsHydraulicLiftLookAhead; // (secs)
+            label73.Text = gStr.gsLowerTime; //(secs)
+            label72.Text = gStr.gsInvertRelays;
+            label67.Text = gStr.gsSendSave; //+
+
+            //tTram
+            groupBox2.Text = gStr.gsTramType; //+
+            label75.Text = gStr.gsTramWidth; //+
+
+
+
+
+
+
+
             tab1.Appearance = TabAppearance.FlatButtons;
             tab1.ItemSize = new Size(0, 1);
             tab1.SizeMode = TabSizeMode.Fixed;

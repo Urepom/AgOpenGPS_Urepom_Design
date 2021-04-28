@@ -694,7 +694,7 @@ namespace AgOpenGPS
             headlandToolStripMenuItem.Text = gStr.gsHeadland;
             deleteContourPathsToolStripMenuItem.Text = gStr.gsDeleteContourPaths;
             deleteAppliedAreaToolStripMenuItem.Text = gStr.gsDeleteAppliedArea;
-            deleteForSureToolStripMenuItem.Text = gStr.gsAreYouSure;
+            //deleteForSureToolStripMenuItem.Text = gStr.gsAreYouSure;
             webcamToolStrip.Text = gStr.gsWebCam;
             //googleEarthFlagsToolStrip.Text = gStr.gsGoogleEarth;
             offsetFixToolStrip.Text = gStr.gsOffsetFix;
