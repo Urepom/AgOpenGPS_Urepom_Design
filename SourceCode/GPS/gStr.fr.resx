@@ -165,11 +165,17 @@
   <data name="gsBoundary" xml:space="preserve">
     <value>Créer les bordures du champ</value>
   </data>
+  <data name="gsBoundaryCurve" xml:space="preserve">
+    <value>Courbes des bordures</value>
+  </data>
   <data name="gsBoundaryLineFilesAreCorrupt" xml:space="preserve">
     <value>Fichier de la bordure corrompu</value>
   </data>
   <data name="gsButFieldIsLoaded" xml:space="preserve">
     <value>Champ tout de même chargé</value>
+  </data>
+  <data name="gsCancel" xml:space="preserve">
+    <value>Annuler</value>
   </data>
   <data name="gsCentimeters" xml:space="preserve">
     <value>Centimètres</value>
@@ -182,6 +188,9 @@
   </data>
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Choisissez ou créez  un autre</value>
+  </data>
+  <data name="gsClick2Pointsontheboundary" xml:space="preserve">
+    <value>Saisissez 2 point sur les bordures du champ</value>
   </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Fermez d'abord le champ !</value>
@@ -222,6 +231,9 @@
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Outil actuel</value>
   </data>
+  <data name="gsCurve" xml:space="preserve">
+    <value>Courbe</value>
+  </data>
   <data name="gsCurveLineFileIsCorrupt" xml:space="preserve">
     <value>Fichier Courbe corrompu</value>
   </data>
@@ -242,6 +254,9 @@
   </data>
   <data name="gsDeleteContourPaths" xml:space="preserve">
     <value>Supprimer les chemins de tournières</value>
+  </data>
+  <data name="gsDeleteField" xml:space="preserve">
+    <value>Supprimer le Champ</value>
   </data>
   <data name="gsDeleteForSure" xml:space="preserve">
     <value>Etes vous sur de vouloir le supprimer ?</value>
@@ -294,11 +309,17 @@
   <data name="gsExtraGuides" xml:space="preserve">
     <value>Lignes de guidage</value>
   </data>
+  <data name="gsField" xml:space="preserve">
+    <value>Champ</value>
+  </data>
   <data name="gsFieldFileIsCorrupt" xml:space="preserve">
     <value>Le fichier de terrain est corrompu!</value>
   </data>
   <data name="gsFieldIsOpen" xml:space="preserve">
     <value>Le champ est ouvert !</value>
+  </data>
+  <data name="gsFieldName" xml:space="preserve">
+    <value>Nom de champ</value>
   </data>
   <data name="gsFieldNotOpen" xml:space="preserve">
     <value>Champ non ouvert !</value>
@@ -362,6 +383,9 @@
   </data>
   <data name="gsLightbar" xml:space="preserve">
     <value>Barre lumineuse</value>
+  </data>
+  <data name="gsLine" xml:space="preserve">
+    <value>Ligne</value>
   </data>
   <data name="gsLoad" xml:space="preserve">
     <value>Charger</value>

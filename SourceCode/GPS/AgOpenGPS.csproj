@@ -154,6 +154,12 @@
     <Compile Include="Forms\FormFieldKML.Designer.cs">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSynchro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSynchro.Designer.cs">
+      <DependentUpon>FormSynchro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Pickers\FormColorPicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -537,6 +543,9 @@
     <EmbeddedResource Include="Forms\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSynchro.resx">
+      <DependentUpon>FormSynchro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormColorPicker.resx">
       <DependentUpon>FormColorPicker.cs</DependentUpon>
     </EmbeddedResource>
@@ -718,8 +727,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Manual.es.pdf">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Manual.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

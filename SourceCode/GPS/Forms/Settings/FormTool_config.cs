@@ -21,6 +21,33 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
+            label13.Text = gStr.gsLoad;
+            label42.Text = gStr.gsSaveAs;
+            label57.Text = gStr.gsDelete;
+            label3.Text = gStr.gsSaveNewVehicle;
+            lblCurrentVehicle.Text = gStr.gsCurrentVehicle;
+            label22.Text = gStr.gsUnits;
+            label52.Text = gStr.gsToolWidth;
+
+            //tHitch
+            gboxAttachment.Text = gStr.gsAttachmentStyle;
+            label49.Text = gStr.gsSectionWidth;
+            label51.Text = gStr.gsNbOfSections; //#
+            label50.Text = gStr.gsCoverage; //%
+
+            //tSwit
+            groupBox3.Text = gStr.gsWorkSwitch;
+            chkEnableWorkSwitch.Text = gStr.gsEnableWorkSwitch;
+            chkWorkSwActiveLow.Text = gStr.gsWorkSwActiveLow;
+            checkWorkSwitchManual.Text = gStr.gsWorkSwitchControlsManual;
+
+            //TSettings
+            label16.Text = gStr.gsOnSecs; // On (secs)
+            label14.Text = gStr.gsOffSecs;
+            label10.Text = gStr.gsDelaySecs;
+            label65.Text = gStr.gsOffset;
+            label66.Text = gStr.gsOverlap_Gap;
+
             tab1.Appearance = TabAppearance.FlatButtons;
             tab1.ItemSize = new Size(0, 1);
             tab1.SizeMode = TabSizeMode.Fixed;

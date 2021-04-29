@@ -165,11 +165,17 @@
   <data name="gsBoundary" xml:space="preserve">
     <value>Boundary</value>
   </data>
+  <data name="gsBoundaryCurve" xml:space="preserve">
+    <value>Boundary Curve</value>
+  </data>
   <data name="gsBoundaryLineFilesAreCorrupt" xml:space="preserve">
     <value>Boundary Lines File Corrupt</value>
   </data>
   <data name="gsButFieldIsLoaded" xml:space="preserve">
     <value>But Field Is Loaded</value>
+  </data>
+  <data name="gsCancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="gsCentimeters" xml:space="preserve">
     <value>Centimeters</value>
@@ -182,6 +188,9 @@
   </data>
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Choose or Build a Different one</value>
+  </data>
+  <data name="gsClick2Pointsontheboundary" xml:space="preserve">
+    <value>Click 2 Points on the boundary</value>
   </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Close Field First</value>
@@ -222,6 +231,9 @@
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Current Vehicle</value>
   </data>
+  <data name="gsCurve" xml:space="preserve">
+    <value>Curve</value>
+  </data>
   <data name="gsCurveLineFileIsCorrupt" xml:space="preserve">
     <value>Curve Line File Corrupt</value>
   </data>
@@ -242,6 +254,9 @@
   </data>
   <data name="gsDeleteContourPaths" xml:space="preserve">
     <value>Delete Contour Paths</value>
+  </data>
+  <data name="gsDeleteField" xml:space="preserve">
+    <value>Delete Field</value>
   </data>
   <data name="gsDeleteForSure" xml:space="preserve">
     <value>Delete For Sure?</value>
@@ -297,11 +312,17 @@
   <data name="gsExtraGuides" xml:space="preserve">
     <value>Extra Guides</value>
   </data>
+  <data name="gsField" xml:space="preserve">
+    <value>Field</value>
+  </data>
   <data name="gsFieldFileIsCorrupt" xml:space="preserve">
     <value>Field File is Corrupt</value>
   </data>
   <data name="gsFieldIsOpen" xml:space="preserve">
     <value>Field Is Open</value>
+  </data>
+  <data name="gsFieldName" xml:space="preserve">
+    <value>Field Name</value>
   </data>
   <data name="gsFieldNotOpen" xml:space="preserve">
     <value>Field Not Open</value>
@@ -365,6 +386,9 @@
   </data>
   <data name="gsLightbar" xml:space="preserve">
     <value>Lightbar</value>
+  </data>
+  <data name="gsLine" xml:space="preserve">
+    <value>Line</value>
   </data>
   <data name="gsLoad" xml:space="preserve">
     <value>Load</value>

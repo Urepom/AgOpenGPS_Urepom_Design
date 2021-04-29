@@ -4122,6 +4122,7 @@
             this.cboxDataInvertRoll.TabIndex = 452;
             this.cboxDataInvertRoll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxDataInvertRoll.UseVisualStyleBackColor = false;
+            this.cboxDataInvertRoll.CheckedChanged += new System.EventHandler(this.cboxDataInvertRoll_CheckedChanged);
             // 
             // tabUTurn
             // 

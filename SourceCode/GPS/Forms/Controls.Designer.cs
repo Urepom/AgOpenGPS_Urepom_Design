@@ -1867,6 +1867,17 @@ namespace AgOpenGPS
         private void toolStripBtnField_Click(object sender, EventArgs e)
         {
             CloseCurrentJob();
+            lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
+            label1.Visible = false;
+            round_table1.Visible = false;
+            round_table4.Visible = false;
+            round_table3.Visible = false;
+            round_table2.Visible = false;
+            round_table6.Visible = false;
+            round_table8.Visible = false;
+            round_StatusStrip1.Width = 176;
+            toolStripStatusLabel2.Visible = false;
+            round_table10.Width = 176;
         }
         private void CloseCurrentJob()
         {

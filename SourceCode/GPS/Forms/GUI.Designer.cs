@@ -159,20 +159,10 @@ namespace AgOpenGPS
 
                 if (isJobStarted)
                 {
-;
+
 
                     
                     label1.Text = vehicleFileName + " - " + (Math.Round(tool.toolWidth, 2)).ToString() + " m";
-                    round_table1.Visible = true;
-                    round_table4.Visible = true;
-                    round_table3.Visible = true;
-                    round_table2.Visible = true;
-                    round_table6.Visible = true;
-                    round_table8.Visible = true;
-                    label1.Visible = true;
-                    toolStripStatusLabel2.Visible = true;
-                    round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
-                    round_table10.Width = 290;
 
 
                     if (curve.numCurveLineSelected > 0 && curve.isBtnCurveOn)
@@ -189,16 +179,6 @@ namespace AgOpenGPS
                 else
                 {
                     lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
-                    label1.Visible = false;
-                    round_table1.Visible = false;
-                    round_table4.Visible = false;
-                    round_table3.Visible = false;
-                    round_table2.Visible = false;
-                    round_table6.Visible = false;
-                    round_table8.Visible = false;
-                    round_StatusStrip1.Width = 176;
-                    toolStripStatusLabel2.Visible = false;
-                    round_table10.Width = 176;
 
 
                 }

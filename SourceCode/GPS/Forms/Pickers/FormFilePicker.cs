@@ -22,6 +22,10 @@ namespace AgOpenGPS
             InitializeComponent();
             btnByDistance.Text = gStr.gsSort;
             btnOpenExistingLv.Text = gStr.gsUseSelected;
+            label1.Text = gStr.gsDeleteField;
+            label2.Text = gStr.gsCancel;
+
+
         }
         private void FormFilePicker_Load(object sender, EventArgs e)
         {
@@ -194,13 +198,13 @@ namespace AgOpenGPS
 
             if (lvLines.Items.Count > 0)
             {
-                this.chName.Text = "Field Name";
+                this.chName.Text = gStr.gsFieldName;
                 this.chName.Width = 680;
 
-                this.chDistance.Text = "Distance";
+                this.chDistance.Text = gStr.gsDistance;
                 this.chDistance.Width = 140;
 
-                this.chArea.Text = "Area";
+                this.chArea.Text = gStr.gsArea;
                 this.chArea.Width = 140;
             }
             else

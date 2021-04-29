@@ -460,8 +460,13 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setF_local != "Default" & Settings.Default.setF_synchro != "Default")
             {
-                DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
-                DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
+                using (var form = new FormSynchro(this))
+                {
+                    form.ShowDialog(this);
+                }
+                //DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
+                //DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
+
                 MessageBox.Show("Synchronisation terminée !");
             }
             else
@@ -469,7 +474,7 @@ namespace AgOpenGPS
                 MessageBox.Show("Veuillez d'abord sélectionner un dossier local un dossier de synchronisation !");
             }
         }
-        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
@@ -646,6 +651,53 @@ namespace AgOpenGPS
             Properties.Vehicle.Default.Save();
         }
 
+        private void panel_top_Click(object sender, EventArgs e)
+        {
+      
+        }
+
+        private void oglMain_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSpeed_Click_1(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                if (round_StatusStrip1.Visible)
+                {
+                    round_StatusStrip1.Visible = false;
+                    round_table10.Visible = false;
+                    round_table7.Visible = false;
+                    round_table8.Visible = false;
+                    round_table9.Visible = false;
+                    round_table1.Visible = false;
+                    round_table4.Visible = false;
+                    round_table3.Visible = false;
+                    round_table2.Visible = false;
+                    round_table6.Visible = false;
+                    round_table12.Visible = false;
+                    statusStripLeft.Visible = false;
+                }
+                else
+                {
+                    round_StatusStrip1.Visible = true;
+                    round_table10.Visible = true;
+                    round_table7.Visible = true;
+                    round_table8.Visible = true;
+                    round_table9.Visible = true;
+                    round_table1.Visible = true;
+                    round_table4.Visible = true;
+                    round_table3.Visible = true;
+                    round_table2.Visible = true;
+                    round_table6.Visible = true;
+                    round_table12.Visible = true;
+                    statusStripLeft.Visible = true;
+                }
+            }
+        }
+
         /// <summary>
         /// The font class
         /// </summary>
@@ -688,6 +740,7 @@ namespace AgOpenGPS
             steerChartStripMenu.Text = gStr.gsSteerChart;
 
             //Tools Menu
+            toolStripMenuItem9.Text = gStr.gsField;
             SmoothABtoolStripMenu.Text = gStr.gsSmoothABCurve;
             toolStripBtnMakeBndContour.Text = gStr.gsMakeBoundaryContours;
             boundariesToolStripMenuItem.Text = gStr.gsBoundary;

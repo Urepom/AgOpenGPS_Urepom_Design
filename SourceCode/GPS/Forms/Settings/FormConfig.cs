@@ -402,6 +402,11 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_islong_touchOn = cbox_long_touch.Checked;
             mf.long_touch();
         }
+
+        private void cboxDataInvertRoll_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

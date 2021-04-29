@@ -205,6 +205,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Boundary Curve.
+        /// </summary>
+        public static string gsBoundaryCurve {
+            get {
+                return ResourceManager.GetString("gsBoundaryCurve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Boundary Lines File Corrupt.
         /// </summary>
         public static string gsBoundaryLineFilesAreCorrupt {
@@ -219,6 +228,15 @@ namespace AgOpenGPS {
         public static string gsButFieldIsLoaded {
             get {
                 return ResourceManager.GetString("gsButFieldIsLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cancel.
+        /// </summary>
+        public static string gsCancel {
+            get {
+                return ResourceManager.GetString("gsCancel", resourceCulture);
             }
         }
         
@@ -255,6 +273,15 @@ namespace AgOpenGPS {
         public static string gsChooseBuildDifferentone {
             get {
                 return ResourceManager.GetString("gsChooseBuildDifferentone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Click 2 Points on the boundary.
+        /// </summary>
+        public static string gsClick2Pointsontheboundary {
+            get {
+                return ResourceManager.GetString("gsClick2Pointsontheboundary", resourceCulture);
             }
         }
         
@@ -376,6 +403,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Curve.
+        /// </summary>
+        public static string gsCurve {
+            get {
+                return ResourceManager.GetString("gsCurve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Curve Line File Corrupt.
         /// </summary>
         public static string gsCurveLineFileIsCorrupt {
@@ -435,6 +471,15 @@ namespace AgOpenGPS {
         public static string gsDeleteContourPaths {
             get {
                 return ResourceManager.GetString("gsDeleteContourPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Delete Field.
+        /// </summary>
+        public static string gsDeleteField {
+            get {
+                return ResourceManager.GetString("gsDeleteField", resourceCulture);
             }
         }
         
@@ -601,6 +646,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Field.
+        /// </summary>
+        public static string gsField {
+            get {
+                return ResourceManager.GetString("gsField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Field File is Corrupt.
         /// </summary>
         public static string gsFieldFileIsCorrupt {
@@ -615,6 +669,15 @@ namespace AgOpenGPS {
         public static string gsFieldIsOpen {
             get {
                 return ResourceManager.GetString("gsFieldIsOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Field Name.
+        /// </summary>
+        public static string gsFieldName {
+            get {
+                return ResourceManager.GetString("gsFieldName", resourceCulture);
             }
         }
         
@@ -804,6 +867,15 @@ namespace AgOpenGPS {
         public static string gsLightbar {
             get {
                 return ResourceManager.GetString("gsLightbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Line.
+        /// </summary>
+        public static string gsLine {
+            get {
+                return ResourceManager.GetString("gsLine", resourceCulture);
             }
         }
         

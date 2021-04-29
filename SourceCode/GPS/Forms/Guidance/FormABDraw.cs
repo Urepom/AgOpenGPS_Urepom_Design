@@ -28,9 +28,12 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-            //lblPick.Text = gStr.gsSelectALine;
-            //label5.Text = gStr.gsToolWidth;
-            //this.Text = gStr.gsClick2Pointsontheboundary;
+            label5.Text = gStr.gsToolWidth;
+            label4.Text = gStr.gsBoundaryCurve;
+            label3.Text = gStr.gsCurve;
+            label7.Text = gStr.gsLine;
+
+            this.Text = gStr.gsClick2Pointsontheboundary;
 
             nudDistance.Controls[0].Enabled = false;
 

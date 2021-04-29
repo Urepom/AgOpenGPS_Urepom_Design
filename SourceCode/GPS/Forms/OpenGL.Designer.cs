@@ -1725,7 +1725,7 @@ namespace AgOpenGPS
 
         private void DrawLightBar(double Width, double Height, double offlineDistance)
         {
-            double down = 49;
+            double down = 56;
             GL.LineWidth(1);
             //GL.Translate(0, 0, 0.01);
             //offlineDistance *= -1;
@@ -1867,7 +1867,7 @@ namespace AgOpenGPS
                     }
 
                     int center = -(int)(((double)(hede.Length) * 0.5) * 16);
-                    font.DrawText(center, 60, hede, 1);
+                    font.DrawText(center, 67, hede, 1);
                 }
             }
         }
