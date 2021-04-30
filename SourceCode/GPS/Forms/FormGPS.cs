@@ -407,18 +407,15 @@ namespace AgOpenGPS
                 return;
             }
 
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.ShowNewFolderButton = true;
-            fbd.Description = "Currently: " + Settings.Default.setF_local;
-            fbd.SelectedPath = Settings.Default.setF_local;
+            FolderBrowserDialog fsync = new FolderBrowserDialog();
+            fsync.ShowNewFolderButton = true;
+            fsync.Description = "Currently: " + Settings.Default.setF_local;
+            fsync.SelectedPath = Settings.Default.setF_local;
 
-            if (fbd.ShowDialog() == DialogResult.OK)
+            if (fsync.ShowDialog() == DialogResult.OK)
             {
-                Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS", true);
-                    //save the user set directory in Registry
-                    regKey.SetValue("Directory", fbd.SelectedPath);
-                    regKey.Close();
-                    Settings.Default.setF_local = fbd.SelectedPath;
+
+                    Settings.Default.setF_local = fsync.SelectedPath;
                     Settings.Default.Save();
 
                 //restart program
@@ -436,18 +433,14 @@ namespace AgOpenGPS
                 return;
             }
 
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.ShowNewFolderButton = true;
-            fbd.Description = "Currently: " + Settings.Default.setF_synchro;
-            fbd.SelectedPath = Settings.Default.setF_synchro;
+            FolderBrowserDialog fsync = new FolderBrowserDialog();
+            fsync.ShowNewFolderButton = true;
+            fsync.Description = "Currently: " + Settings.Default.setF_synchro;
+            fsync.SelectedPath = Settings.Default.setF_synchro;
 
-            if (fbd.ShowDialog() == DialogResult.OK)
+            if (fsync.ShowDialog() == DialogResult.OK)
             {
-                Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS", true);
-                //save the user set directory in Registry
-                regKey.SetValue("Directory", fbd.SelectedPath);
-                regKey.Close();
-                Settings.Default.setF_synchro = fbd.SelectedPath;
+                Settings.Default.setF_synchro = fsync.SelectedPath;
                 Settings.Default.Save();
 
                 //restart program
