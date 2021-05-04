@@ -206,6 +206,7 @@
             this.nudOverlap = new System.Windows.Forms.NumericUpDown();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabDHeading = new System.Windows.Forms.TabPage();
+            this.cboxheading = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboxIsRTK = new System.Windows.Forms.CheckBox();
             this.gboxSingle = new System.Windows.Forms.GroupBox();
@@ -361,6 +362,7 @@
             this.lblFeetMeters = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
+            this.cboxroll = new System.Windows.Forms.CheckBox();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -3592,6 +3594,7 @@
             // tabDHeading
             // 
             this.tabDHeading.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabDHeading.Controls.Add(this.cboxheading);
             this.tabDHeading.Controls.Add(this.label2);
             this.tabDHeading.Controls.Add(this.cboxIsRTK);
             this.tabDHeading.Controls.Add(this.gboxSingle);
@@ -3603,6 +3606,22 @@
             this.tabDHeading.Text = "dHead";
             this.tabDHeading.Enter += new System.EventHandler(this.tabDHeading_Enter);
             this.tabDHeading.Leave += new System.EventHandler(this.tabDHeading_Leave);
+            // 
+            // cboxheading
+            // 
+            this.cboxheading.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxheading.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxheading.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
+            this.cboxheading.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxheading.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxheading.ForeColor = System.Drawing.Color.Red;
+            this.cboxheading.Location = new System.Drawing.Point(576, 488);
+            this.cboxheading.Name = "cboxheading";
+            this.cboxheading.Size = new System.Drawing.Size(262, 43);
+            this.cboxheading.TabIndex = 311;
+            this.cboxheading.Text = "Désactiver le cap";
+            this.cboxheading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxheading.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -3631,6 +3650,7 @@
             this.cboxIsRTK.Text = "RTK ?";
             this.cboxIsRTK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsRTK.UseVisualStyleBackColor = false;
+            this.cboxIsRTK.CheckedChanged += new System.EventHandler(this.cboxIsRTK_CheckedChanged);
             // 
             // gboxSingle
             // 
@@ -3918,6 +3938,7 @@
             // tabDRoll
             // 
             this.tabDRoll.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabDRoll.Controls.Add(this.cboxroll);
             this.tabDRoll.Controls.Add(this.pictureBox9);
             this.tabDRoll.Controls.Add(this.label78);
             this.tabDRoll.Controls.Add(this.label77);
@@ -6043,6 +6064,22 @@
             this.label22.Text = "Units:";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // cboxroll
+            // 
+            this.cboxroll.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxroll.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxroll.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
+            this.cboxroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxroll.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxroll.ForeColor = System.Drawing.Color.Red;
+            this.cboxroll.Location = new System.Drawing.Point(522, 526);
+            this.cboxroll.Name = "cboxroll";
+            this.cboxroll.Size = new System.Drawing.Size(318, 43);
+            this.cboxroll.TabIndex = 486;
+            this.cboxroll.Text = "Désactiver le roulis";
+            this.cboxroll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxroll.UseVisualStyleBackColor = false;
+            // 
             // FormConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -6513,5 +6550,7 @@
         private System.Windows.Forms.PictureBox pictureBox14;
         private System.Windows.Forms.Label label103;
         private System.Windows.Forms.CheckBox cbox_long_touch;
+        private System.Windows.Forms.CheckBox cboxheading;
+        private System.Windows.Forms.CheckBox cboxroll;
     }
 }

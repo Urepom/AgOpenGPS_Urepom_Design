@@ -270,6 +270,9 @@
   <data name="gsDistance" xml:space="preserve">
     <value>Distance (m)</value>
   </data>
+  <data name="gsDriveForward" xml:space="preserve">
+    <value>Drive Forward &gt; 1.5 kmh</value>
+  </data>
   <data name="gsDriveThru" xml:space="preserve">
     <value>Drive Thru</value>
   </data>
@@ -540,6 +543,9 @@
   <data name="gsResetAllForSure" xml:space="preserve">
     <value>Reset All For Sure?</value>
   </data>
+  <data name="gsResetDirection" xml:space="preserve">
+    <value>Reset Direction</value>
+  </data>
   <data name="gsResume" xml:space="preserve">
     <value>Resume</value>
   </data>
@@ -640,7 +646,7 @@
     <value>Tram Type</value>
   </data>
   <data name="gsTramWidth" xml:space="preserve">
-    <value></value>
+    <value>Tram Width</value>
   </data>
   <data name="gsTurnABCurveOn" xml:space="preserve">
     <value>Turn AB Curve On</value>
@@ -653,6 +659,9 @@
   </data>
   <data name="gsTurnSensor" xml:space="preserve">
     <value>Turn Sensor</value>
+  </data>
+  <data name="gsTurnoffAutoSectionControl" xml:space="preserve">
+    <value>Turn off Auto Section Control</value>
   </data>
   <data name="gsUnits" xml:space="preserve">
     <value>Units</value>

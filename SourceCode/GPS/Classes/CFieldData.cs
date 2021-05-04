@@ -114,7 +114,7 @@ namespace AgOpenGPS
                         / (mf.tool.toolWidth * mf.pn.speed * 0.1)));
                     return timeSpan.Hours.ToString("00") + ":" + timeSpan.Minutes.ToString("00");
                 }
-                else return "\u221E Hrs";
+                else return "\u221E ";
             }
         }
 

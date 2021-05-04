@@ -121,7 +121,7 @@ namespace AgOpenGPS
 
                 lblTotalAppliedArea.Text = fd.WorkedHectares;
                 lblWorkRemaining.Text = fd.WorkedAreaRemainHectares;
-                lblTimeRemaining.Text = fd.TimeTillFinished;
+                lblTimeRemaining.Text = fd.TimeTillFinished + " H";
 
 
                 if (isMetric)
@@ -1581,7 +1581,7 @@ namespace AgOpenGPS
                     Array.Clear(stepFixPts, 0, stepFixPts.Length);
                     isFirstHeadingSet = false;
                     isReverse = false;
-                    TimedMessageBox(2000, "Reset Direction", "Drive Forward > 1.5 kmh");
+                    TimedMessageBox(2000, gStr.gsResetDirection, gStr.gsDriveForward);
                     return;
                 }
 

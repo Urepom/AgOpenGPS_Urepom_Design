@@ -2142,6 +2142,7 @@ namespace AgOpenGPS
                 else
                 {
                     panelDrag.Visible = true;
+                    panelDrag.BringToFront();
                 }
             }
             else

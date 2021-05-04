@@ -13,13 +13,19 @@ namespace AgOpenGPS
         public FormSynchro(FormGPS formGPS)
         {
             InitializeComponent();
+
         }
 
-        private void FormSynchro_Load(object sender, EventArgs e)
+        private void FormSynchro_Shown(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
         {
             FormGPS.DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
             FormGPS.DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
-            Close();
+            this.Close();
         }
     }
 }

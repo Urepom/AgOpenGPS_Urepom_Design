@@ -62,15 +62,18 @@ namespace AgOpenGPS
                                 }
 
                                 //roll in degrees
-                                temp = BitConverter.ToSingle(data, 33);
-                                if (temp != float.MaxValue)
+                                if (Properties.Vehicle.Default.SetRollOFF == false)
                                 {
-                                    if (ahrs.isRollInvert) temp *= -1;
-                                    ahrs.imuRoll = temp - ahrs.rollZero;
+                                    temp = BitConverter.ToSingle(data, 33);
+                                    if (temp != float.MaxValue)
+                                    {
+                                        if (ahrs.isRollInvert) temp *= -1;
+                                        ahrs.imuRoll = temp - ahrs.rollZero;
+                                    }
+                                    if (temp == float.MinValue)
+                                        ahrs.imuRoll = 0;
                                 }
-                                if (temp == float.MinValue)
-                                    ahrs.imuRoll = 0;                               
-
+                                else ahrs.imuRoll = 88888;
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
                                 if (temp != float.MaxValue)
@@ -105,17 +108,25 @@ namespace AgOpenGPS
 
                     case 0xD3: //external IMU
                         {
-                            if (data.Length != 10)
-                                break;
-                            ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
-                            ahrs.imuHeading *= 0.1;
+                            if (Properties.Vehicle.Default.SetHeadingOFF == false)
+                            {
+                                if (data.Length != 10)
+                                    break;
+                                ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
+                                ahrs.imuHeading *= 0.1;
+                            }
+                            else ahrs.imuHeading = 99999;
+                            if (Properties.Vehicle.Default.SetRollOFF == false)
+                            {
 
-                            rollK = (Int16)((data[8] << 8) + data[7]);
+                                rollK = (Int16)((data[8] << 8) + data[7]);
 
-                            if (ahrs.isRollInvert) rollK *= -0.1;
-                            else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;
-                            ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                if (ahrs.isRollInvert) rollK *= -0.1;
+                                else rollK *= 0.1;
+                                rollK -= ahrs.rollZero;
+                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                            }
+                            else ahrs.imuRoll = 88888;
 
                             if (isLogNMEA)
                                 pn.logNMEASentence.Append(
@@ -144,22 +155,29 @@ namespace AgOpenGPS
                             mc.actualSteerAngleChart = (Int16)((data[6] << 8) + data[5]);
                             mc.actualSteerAngleDegrees = (double)mc.actualSteerAngleChart * 0.01;
 
-                            //Heading
-                            double head253 = (Int16)((data[8] << 8) + data[7]);
-                            if (head253 != 9999)
+                            if (Properties.Vehicle.Default.SetHeadingOFF == false)
                             {
-                                ahrs.imuHeading = head253 * 0.1;
+                                //Heading
+                                double head253 = (Int16)((data[8] << 8) + data[7]);
+                                if (head253 != 9999)
+                                {
+                                    ahrs.imuHeading = head253 * 0.1;
+                                }
                             }
-
+                            else ahrs.imuHeading = 99999;
                             //Roll
-                            rollK = (Int16)((data[10] << 8) + data[9]);
-                            if (rollK != 8888)
+                            if (Properties.Vehicle.Default.SetRollOFF == false)
                             {
-                                if (ahrs.isRollInvert) rollK *= -0.1;
-                                else rollK *= 0.1;
-                                rollK -= ahrs.rollZero;
-                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                rollK = (Int16)((data[10] << 8) + data[9]);
+                                if (rollK != 8888)
+                                {
+                                    if (ahrs.isRollInvert) rollK *= -0.1;
+                                    else rollK *= 0.1;
+                                    rollK -= ahrs.rollZero;
+                                    ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                }
                             }
+                            else ahrs.imuRoll = 88888;
 
                             //switch status
                             mc.steerSwitchValue = data[11];

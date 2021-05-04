@@ -460,7 +460,7 @@ namespace AgOpenGPS
                 //DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
                 //DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
 
-                MessageBox.Show("Synchronisation terminée !");
+                TimedMessageBox(1000,"Synchronisation terminée !","Synchronisation") ;
             }
             else
             {
@@ -831,7 +831,7 @@ namespace AgOpenGPS
             this.MouseWheel += ZoomByMouseWheel;
             round_table5.Left = this.Width / 2 - round_table5.Width / 2;
             roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
-            panel_top.Left = this.Width / 2 - panel_top.Width / 2;
+            panel_top.Left = this.Width / 2 - panel_top.Width / 2 + 3;
 
             label1.Visible = false;
             round_table1.Visible = false;
@@ -867,7 +867,7 @@ namespace AgOpenGPS
             //oglMain.Width = this.Width - statusStripLeft.Width - 84;
 
             panelSim.Left = 100;
-            panelSim.Width = Width - statusStripLeft.Width - 200;
+            panelSim.Width = Width - 300;
 
             timer2.Enabled = true;
             //panel1.BringToFront();
@@ -970,14 +970,14 @@ namespace AgOpenGPS
             {
                 if (autoBtnState == btnStates.Auto)
                 {
-                    TimedMessageBox(2000, "Safe Shutdown", "Turn off Auto Section Control");
+                    TimedMessageBox(2000, "Safe Shutdown", gStr.gsTurnoffAutoSectionControl);
                     e.Cancel = true;
                     return;
                 }
 
                 if (manualBtnState == btnStates.On)
                 {
-                    TimedMessageBox(2000, "Safe Shutdown", "Turn off Auto Section Control");
+                    TimedMessageBox(2000, "Safe Shutdown", gStr.gsTurnoffAutoSectionControl);
                     e.Cancel = true;
                     return;
                 }

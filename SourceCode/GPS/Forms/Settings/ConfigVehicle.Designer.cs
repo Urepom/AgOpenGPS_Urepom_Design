@@ -128,7 +128,8 @@ namespace AgOpenGPS
                         cBox_sections_button.Checked = mf.issections_buttonOn;
                         cbox_long_touch.Checked = mf.islong_touchOn;
                         chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
-
+                        cboxheading.Checked = Properties.Vehicle.Default.SetHeadingOFF;
+                        cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
 
                         if (mf.isMetric) rbtnDisplayMetric.Checked = true;
                         else rbtnDisplayImperial.Checked = true;
@@ -276,6 +277,8 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_isKeyboardOn = mf.isKeyboardOn;
             Properties.Settings.Default.setDisplay_issections_buttonOn = mf.issections_buttonOn;
             Properties.Settings.Default.setDisplay_islong_touchOn = mf.islong_touchOn;
+            Properties.Vehicle.Default.SetHeadingOFF = cboxheading.Checked;
+            Properties.Vehicle.Default.SetRollOFF = cboxroll.Checked;
 
             //Properties.Settings.Default.setDisplay_showMenusTime = mf.timeToShowMenus;
 
@@ -510,7 +513,7 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * mf.inOrCm2Cm);
+                Properties.Settings.Default.setDisplay_lineWidth = (int)nudLineWidth.Value;
                 mf.ABLine.lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
             }
         }

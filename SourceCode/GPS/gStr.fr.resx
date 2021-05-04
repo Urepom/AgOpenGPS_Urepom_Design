@@ -166,7 +166,7 @@
     <value>Créer les bordures du champ</value>
   </data>
   <data name="gsBoundaryCurve" xml:space="preserve">
-    <value>Courbes des bordures</value>
+    <value>Tournières</value>
   </data>
   <data name="gsBoundaryLineFilesAreCorrupt" xml:space="preserve">
     <value>Fichier de la bordure corrompu</value>
@@ -266,6 +266,9 @@
   </data>
   <data name="gsDirectoryExists" xml:space="preserve">
     <value>Le répertoire existe</value>
+  </data>
+  <data name="gsDriveForward" xml:space="preserve">
+    <value>Avancer ( &gt;1.5 Kmh)</value>
   </data>
   <data name="gsDriveThru" xml:space="preserve">
     <value>Parcourable</value>
@@ -531,6 +534,9 @@
   <data name="gsResetAllForSure" xml:space="preserve">
     <value>Tout réinitialiser ?</value>
   </data>
+  <data name="gsResetDirection" xml:space="preserve">
+    <value>Changer la direction</value>
+  </data>
   <data name="gsResume" xml:space="preserve">
     <value>Reprendre</value>
   </data>
@@ -644,6 +650,9 @@
   </data>
   <data name="gsTurnSensor" xml:space="preserve">
     <value>Capteur rotatif</value>
+  </data>
+  <data name="gsTurnoffAutoSectionControl" xml:space="preserve">
+    <value>Désactivez les sections automatiques</value>
   </data>
   <data name="gsUnits" xml:space="preserve">
     <value>Unités</value>

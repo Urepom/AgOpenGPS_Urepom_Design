@@ -520,6 +520,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Drive Forward &gt; 1.5 kmh.
+        /// </summary>
+        public static string gsDriveForward {
+            get {
+                return ResourceManager.GetString("gsDriveForward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Drive Thru.
         /// </summary>
         public static string gsDriveThru {
@@ -1330,6 +1339,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reset Direction.
+        /// </summary>
+        public static string gsResetDirection {
+            get {
+                return ResourceManager.GetString("gsResetDirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Resume.
         /// </summary>
         public static string gsResume {
@@ -1627,7 +1645,7 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à .
+        ///   Recherche une chaîne localisée semblable à Tram Width.
         /// </summary>
         public static string gsTramWidth {
             get {
@@ -1641,6 +1659,15 @@ namespace AgOpenGPS {
         public static string gsTurnABCurveOn {
             get {
                 return ResourceManager.GetString("gsTurnABCurveOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Turn off Auto Section Control.
+        /// </summary>
+        public static string gsTurnoffAutoSectionControl {
+            get {
+                return ResourceManager.GetString("gsTurnoffAutoSectionControl", resourceCulture);
             }
         }
         

@@ -239,7 +239,7 @@
             this.label4.Location = new System.Drawing.Point(812, 221);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 27);
+            this.label4.Size = new System.Drawing.Size(186, 27);
             this.label4.TabIndex = 12;
             this.label4.Text = "Boundary Curve";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

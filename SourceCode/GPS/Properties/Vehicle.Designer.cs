@@ -934,5 +934,29 @@ namespace AgOpenGPS.Properties {
                 this["set_youMoveDistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SetHeadingOFF {
+            get {
+                return ((bool)(this["SetHeadingOFF"]));
+            }
+            set {
+                this["SetHeadingOFF"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SetRollOFF {
+            get {
+                return ((bool)(this["SetRollOFF"]));
+            }
+            set {
+                this["SetRollOFF"] = value;
+            }
+        }
     }
 }

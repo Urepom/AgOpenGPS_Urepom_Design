@@ -234,6 +234,8 @@ namespace AgOpenGPS
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             cBox_sections_button.Checked = mf.issections_buttonOn;
             cbox_long_touch.Checked = mf.islong_touchOn;
+            cboxheading.Checked = Properties.Vehicle.Default.SetHeadingOFF;
+            cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
@@ -381,6 +383,8 @@ namespace AgOpenGPS
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             cBox_sections_button.Checked = mf.issections_buttonOn;
             cbox_long_touch.Checked = mf.islong_touchOn;
+            cboxheading.Checked = Properties.Vehicle.Default.SetHeadingOFF;
+            cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
             //nudMenusOnTime.Value = mf.timeToShowMenus;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
@@ -404,6 +408,11 @@ namespace AgOpenGPS
         }
 
         private void cboxDataInvertRoll_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboxIsRTK_CheckedChanged(object sender, EventArgs e)
         {
 
         }
