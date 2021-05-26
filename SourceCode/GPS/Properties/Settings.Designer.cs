@@ -181,18 +181,6 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setMenu_isLogNMEA {
-            get {
-                return ((bool)(this["setMenu_isLogNMEA"]));
-            }
-            set {
-                this["setMenu_isLogNMEA"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public double setF_minFixStep {
             get {
@@ -1028,6 +1016,54 @@ namespace AgOpenGPS.Properties {
             }
             set {
                 this["setDisplay_islong_touchOn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UpdateSettings {
+            get {
+                return ((bool)(this["UpdateSettings"]));
+            }
+            set {
+                this["UpdateSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("70")]
+        public int SetGPS_udpWatchMsec {
+            get {
+                return ((int)(this["SetGPS_udpWatchMsec"]));
+            }
+            set {
+                this["SetGPS_udpWatchMsec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setF_steerControlsManual {
+            get {
+                return ((bool)(this["setF_steerControlsManual"]));
+            }
+            set {
+                this["setF_steerControlsManual"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setAS_isAngVelGuidance {
+            get {
+                return ((bool)(this["setAS_isAngVelGuidance"]));
+            }
+            set {
+                this["setAS_isAngVelGuidance"] = value;
             }
         }
     }

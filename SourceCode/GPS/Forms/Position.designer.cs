@@ -19,6 +19,10 @@ namespace AgOpenGPS
         // autosteer variables for sending serial
         public Int16 guidanceLineDistanceOff, guidanceLineSteerAngle, distanceDisplayPivot , distanceDisplaySteer;
 
+        public short errorAngVel;
+        public double setAngVel;
+        public bool isAngVelGuidance;
+
         //how many fix updates per sec
         public int fixUpdateHz = 5;
         public double fixUpdateTime = 0.2;
@@ -179,7 +183,7 @@ namespace AgOpenGPS
                                 {
 
                                     //change for roll to the right is positive times -1
-                                    rollCorrectionDistance = Math.Sin(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
+                                    rollCorrectionDistance = Math.Tan(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
 
                                     // roll to left is positive  **** important!!
                                     // not any more - April 30, 2019 - roll to right is positive Now! Still Important
@@ -213,7 +217,7 @@ namespace AgOpenGPS
                         {
 
                             //change for roll to the right is positive times -1
-                            rollCorrectionDistance = Math.Sin(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
+                            rollCorrectionDistance = Math.Tan(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
 
 
                             // roll to left is positive  **** important!!
@@ -475,7 +479,7 @@ namespace AgOpenGPS
                         if (ahrs.imuRoll != 88888)
                         {
                             //change for roll to the right is positive times -1
-                            rollCorrectionDistance = Math.Sin(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
+                            rollCorrectionDistance = Math.Tan(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
 
                             // roll to left is positive  **** important!!
                             // not any more - April 30, 2019 - roll to right is positive Now! Still Important
@@ -604,8 +608,23 @@ namespace AgOpenGPS
 
                 p_254.pgn[p_254.lineDistance] = unchecked((byte)distanceX2);
 
-                p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
-                p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                if (isAngVelGuidance)
+                {
+                    setAngVel = 0.277777 * avgSpeed * (Math.Tan(glm.toRadians(guidanceLineSteerAngle))) / vehicle.wheelbase;
+                    setAngVel = glm.toDegrees(setAngVel) * 100;
+
+
+                    errorAngVel = (short)(((int)(setAngVel) - ahrs.angVel));
+
+                    p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(errorAngVel >> 8));
+                    p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(errorAngVel));
+
+                }
+                else
+                {
+                    p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
+                    p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                }
 
                 //for now if backing up, turn off autosteer
                 if (isReverse) p_254.pgn[p_254.status] = 0;
@@ -622,8 +641,24 @@ namespace AgOpenGPS
 
                 //send the steer angle
                 guidanceLineSteerAngle = (Int16)(vehicle.ast.driveFreeSteerAngle * 100);
-                p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
-                p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+
+                if (isAngVelGuidance)
+                {
+                    setAngVel = 0.277777 * avgSpeed * (Math.Tan(glm.toRadians(vehicle.ast.driveFreeSteerAngle))) / vehicle.wheelbase;
+                    setAngVel = glm.toDegrees(setAngVel) * 100;
+
+                    errorAngVel = (short)(((int)(setAngVel) - ahrs.angVel));
+
+                    p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(errorAngVel >> 8));
+                    p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(errorAngVel));
+                }
+
+                else
+                {
+                    p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
+                    p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+
+                }
             }
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 

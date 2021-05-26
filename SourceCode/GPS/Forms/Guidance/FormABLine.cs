@@ -106,14 +106,17 @@ namespace AgOpenGPS
         {
             vec3 fix = new vec3(mf.pivotAxlePos);
 
-            btnCancel.Focus();
-
             mf.ABLine.desPoint1.easting = fix.easting;
             mf.ABLine.desPoint1.northing = fix.northing;
             mf.ABLine.desHeading = fix.heading;
 
+            mf.ABLine.desPoint2.easting = 99999;
+            mf.ABLine.desPoint2.northing = 99999;
+
             nudHeading.Enabled = true;
             nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
+
+            BuildDesLine();
 
             btnBPoint.Enabled = true;
             btnAPoint.Enabled = false;
@@ -137,23 +140,30 @@ namespace AgOpenGPS
             if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
 
             nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
+
+            BuildDesLine();
+
         }
-        private void nudHeading_ValueChanged(object sender, EventArgs e)
+
+        private void nudHeading_Click(object sender, EventArgs e)
+        {
+            if (mf.KeypadToNUD((NumericUpDown)sender, this))
+            {
+                BuildDesLine();
+            }
+        }
+
+        private void BuildDesLine()
         {
             mf.ABLine.desHeading = glm.toRadians((double)nudHeading.Value);
 
             //sin x cos z for endpoints, opposite for additional lines
-            mf.ABLine.desP1.easting =  mf.ABLine.desPoint1.easting - (Math.Sin( mf.ABLine.desHeading) * mf.ABLine.abLength);
+            mf.ABLine.desP1.easting = mf.ABLine.desPoint1.easting - (Math.Sin(mf.ABLine.desHeading) * mf.ABLine.abLength);
             mf.ABLine.desP1.northing = mf.ABLine.desPoint1.northing - (Math.Cos(mf.ABLine.desHeading) * mf.ABLine.abLength);
-            mf.ABLine.desP2.easting =  mf.ABLine.desPoint1.easting + (Math.Sin( mf.ABLine.desHeading) * mf.ABLine.abLength);
+            mf.ABLine.desP2.easting = mf.ABLine.desPoint1.easting + (Math.Sin(mf.ABLine.desHeading) * mf.ABLine.abLength);
             mf.ABLine.desP2.northing = mf.ABLine.desPoint1.northing + (Math.Cos(mf.ABLine.desHeading) * mf.ABLine.abLength);
         }
 
-        private void nudHeading_Enter(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NumericUpDown)sender, this);
-            btnAPoint.Focus();
-        }
         private void textBox1_Enter(object sender, EventArgs e)
         {
             if (mf.isKeyboardOn)
@@ -177,7 +187,7 @@ namespace AgOpenGPS
 
             mf.ABLine.desName = "AB " +
                 (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 1)).ToString(CultureInfo.InvariantCulture) +
-                "\u00B0 " + mf.FindDirection(mf.ABLine.desHeading) ;
+                "\u00B0 " + mf.FindDirection(mf.ABLine.desHeading);
 
             textBox1.Text = mf.ABLine.desName;
 
@@ -204,7 +214,7 @@ namespace AgOpenGPS
             if (lvLines.SelectedItems.Count > 0)
             {
                 int idx = lvLines.SelectedIndices[0];
-                 textBox2.Text = mf.ABLine.lineArr[idx].Name;
+                textBox2.Text = mf.ABLine.lineArr[idx].Name;
 
                 panelPick.Visible = false;
                 panelEditName.Visible = true;
@@ -281,7 +291,7 @@ namespace AgOpenGPS
             {
                 int idx = lvLines.SelectedIndices[0];
 
-                
+
                 panelPick.Visible = false;
                 panelName.Visible = true;
                 this.Size = new System.Drawing.Size(270, 360);
@@ -300,21 +310,6 @@ namespace AgOpenGPS
                 textBox1.Text = mf.ABLine.desName;
             }
 
-        }
-
-        private void btnTurnOffAB_Click(object sender, EventArgs e)
-        {
-            //mf.ABLine.tramPassEvery = 0;
-            //mf.ABLine.tramBasedOn = 0;
-            mf.btnABLine.Image = Properties.Resources.ABLineOff;
-            mf.ABLine.isBtnABLineOn = false;
-            mf.ABLine.isABLineSet = false;
-            mf.ABLine.isABLineLoaded = false;
-            mf.ABLine.numABLineSelected = 0;
-            mf.DisableYouTurnButtons();
-            if (mf.isAutoSteerBtnOn) mf.btnAutoSteer.PerformClick();
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
-            Close();
         }
 
 

@@ -179,9 +179,19 @@ namespace AgOpenGPS
 
                     GL.Enable(EnableCap.Blend);
                     //draw patches of sections
-
+                    int NbSectionsON = 0;
+                    double LargeurSectionON = 0;
+                    int[] ListeSectionON = new int[16];
+                    int x = 0;
                     for (int j = 0; j < tool.numSuperSection; j++)
                     {
+                        if (section[j].isMappingOn)
+                        {
+                            NbSectionsON++; // = 1 si largeur complète (idem 1 section)
+                            LargeurSectionON = LargeurSectionON + section[j].sectionWidth; //Largeur coloriée
+                            ListeSectionON[x] = j; //Liste des sections ouvertes en partant de x=0
+                            x++;
+                        }
                         //every time the section turns off and on is a new patch
 
                         //check if in frustum or not
@@ -197,6 +207,10 @@ namespace AgOpenGPS
                             if (camera.camSetDistance < -1500) mipmap = 4;
                             if (camera.camSetDistance < -2400) mipmap = 8;
                             if (camera.camSetDistance < -5000) mipmap = 16;
+
+                            //----SPailleau
+
+                            //----
 
                             //for every new chunk of patch
                             foreach (var triList in section[j].patchList)
@@ -1173,7 +1187,7 @@ namespace AgOpenGPS
             } // end of supersection is off
 
             //Checks the workswitch if required
-            if (isJobStarted && mc.isWorkSwitchEnabled)
+            if (isJobStarted && (mc.isWorkSwitchEnabled || mc.isSteerControlsManual))
             {
                 workSwitch.CheckWorkSwitch();
             }
@@ -1643,7 +1657,50 @@ namespace AgOpenGPS
 
             //font.DrawText(center, 65, pwm, 0.8);
         }
+        private void ShowHideTools()
+        {
+            leftMouseDownOnOpenGL = false;
+            byte[] data1 = new byte[768];
 
+            //scan the center of click and a set of square points around
+            GL.ReadPixels(mouseX, mouseY, 2, 2, PixelFormat.Rgb, 0, data1);
+
+            if (isJobStarted)
+            {
+                if (round_StatusStrip1.Visible)
+                {
+                    round_StatusStrip1.Visible = false;
+                    round_table10.Visible = false;
+                    round_table7.Visible = false;
+                    round_table8.Visible = false;
+                    round_table9.Visible = false;
+                    round_table1.Visible = false;
+                    round_table4.Visible = false;
+                    round_table3.Visible = false;
+                    round_table2.Visible = false;
+                    round_table6.Visible = false;
+                    round_table12.Visible = false;
+                    statusStripLeft.Visible = false;
+                    lblCurveLineName.Visible = false;
+                }
+                else
+                {
+                    round_StatusStrip1.Visible = true;
+                    round_table10.Visible = true;
+                    round_table7.Visible = true;
+                    round_table8.Visible = true;
+                    round_table9.Visible = true;
+                    round_table1.Visible = true;
+                    round_table4.Visible = true;
+                    round_table3.Visible = true;
+                    round_table2.Visible = true;
+                    round_table6.Visible = true;
+                    round_table12.Visible = true;
+                    statusStripLeft.Visible = true;
+                    lblCurveLineName.Visible = true;
+                }
+            }
+        }
         private void MakeFlagMark()
         {
             leftMouseDownOnOpenGL = false;
@@ -1679,6 +1736,10 @@ namespace AgOpenGPS
                     Form form = new FormFlags(this);
                     form.Show(this);
                 }
+            }
+            else
+            {
+                ShowHideTools(); //SPailleau
             }
         }
 
@@ -2067,6 +2128,20 @@ namespace AgOpenGPS
                 GL.Color3(0.9752f, 0.952f, 0.03f);
                 font.DrawText(center, 124, "I:" + Math.Round(ahrs.imuHeading, 1).ToString(), 0.8);
             }
+                if (isAngVelGuidance)
+                {
+                    GL.Color3(0.852f, 0.652f, 0.93f);
+                    font.DrawText(center, 130, "Set " + ((int)(setAngVel)).ToString(), 1);
+
+                    GL.Color3(0.952f, 0.952f, 0.3f);
+                    font.DrawText(center, 160, "Act " + ahrs.angVel.ToString(), 1);
+
+                    if (errorAngVel > 0) GL.Color3(0.2f, 0.952f, 0.53f);
+                    else GL.Color3(0.952f, 0.42f, 0.53f);
+
+                    font.DrawText(center, 200, "Err " + errorAngVel.ToString(), 1);
+                }
+
 
             //GL.Color3(0.9652f, 0.9752f, 0.1f);
             //font.DrawText(center, 150, "BETA 5.0.0.5", 1);

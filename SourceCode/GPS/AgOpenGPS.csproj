@@ -406,7 +406,6 @@
     <Compile Include="Forms\Guidance\FormTram.Designer.cs">
       <DependentUpon>FormTram.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Classes\gStr.Empty.Designer.cs">
       <DependentUpon>gStr.Empty.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -529,7 +528,6 @@
     <Compile Include="Round_table.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="Forms\UDPComm.Designer.cs">
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>

@@ -118,6 +118,7 @@
             this.nudMinTurnRadius = new System.Windows.Forms.NumericUpDown();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabVGuidance = new System.Windows.Forms.TabPage();
+            this.cboxAngVel = new System.Windows.Forms.CheckBox();
             this.label103 = new System.Windows.Forms.Label();
             this.nudABLength = new System.Windows.Forms.NumericUpDown();
             this.pictureBox14 = new System.Windows.Forms.PictureBox();
@@ -190,6 +191,8 @@
             this.nudSection1 = new System.Windows.Forms.NumericUpDown();
             this.tabTSwitches = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label105 = new System.Windows.Forms.Label();
+            this.checkSteerSetsManual = new System.Windows.Forms.CheckBox();
             this.checkWorkSwitchManual = new System.Windows.Forms.CheckBox();
             this.chkWorkSwActiveLow = new System.Windows.Forms.CheckBox();
             this.chkEnableWorkSwitch = new System.Windows.Forms.CheckBox();
@@ -206,6 +209,9 @@
             this.nudOverlap = new System.Windows.Forms.NumericUpDown();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabDHeading = new System.Windows.Forms.TabPage();
+            this.label104 = new System.Windows.Forms.Label();
+            this.label106 = new System.Windows.Forms.Label();
+            this.nudMinimumFrameTime = new System.Windows.Forms.NumericUpDown();
             this.cboxheading = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboxIsRTK = new System.Windows.Forms.CheckBox();
@@ -434,6 +440,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabDHeading.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinimumFrameTime)).BeginInit();
             this.gboxSingle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStartSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinFixStepDistance)).BeginInit();
@@ -2024,6 +2031,7 @@
             // tabVGuidance
             // 
             this.tabVGuidance.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabVGuidance.Controls.Add(this.cboxAngVel);
             this.tabVGuidance.Controls.Add(this.label103);
             this.tabVGuidance.Controls.Add(this.nudABLength);
             this.tabVGuidance.Controls.Add(this.pictureBox14);
@@ -2045,6 +2053,25 @@
             this.tabVGuidance.Text = "vGuid";
             this.tabVGuidance.Enter += new System.EventHandler(this.tabVGuidance_Enter);
             this.tabVGuidance.Leave += new System.EventHandler(this.tabVGuidance_Leave);
+            //
+            // cboxAngVel
+            // 
+            this.cboxAngVel.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxAngVel.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxAngVel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cboxAngVel.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.cboxAngVel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxAngVel.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxAngVel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cboxAngVel.Location = new System.Drawing.Point(43, 475);
+            this.cboxAngVel.Name = "cboxAngVel";
+            this.cboxAngVel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cboxAngVel.Size = new System.Drawing.Size(61, 60);
+            this.cboxAngVel.TabIndex = 460;
+            this.cboxAngVel.Text = "AV";
+            this.cboxAngVel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxAngVel.UseVisualStyleBackColor = false;
+            this.cboxAngVel.Click += new System.EventHandler(this.cboxAngVel_Click);
             // 
             // label103
             // 
@@ -2227,7 +2254,7 @@
             this.cboxAutoSteerAuto.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.cboxAutoSteerAuto.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOn;
             this.cboxAutoSteerAuto.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.cboxAutoSteerAuto.Location = new System.Drawing.Point(153, 94);
+            this.cboxAutoSteerAuto.Location = new System.Drawing.Point(244, 457);
             this.cboxAutoSteerAuto.Name = "cboxAutoSteerAuto";
             this.cboxAutoSteerAuto.Size = new System.Drawing.Size(98, 103);
             this.cboxAutoSteerAuto.TabIndex = 0;
@@ -3303,6 +3330,39 @@
             this.groupBox3.TabIndex = 67;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Work Switch";
+            //
+            // label105
+            // 
+            this.label105.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label105.AutoSize = true;
+            this.label105.BackColor = System.Drawing.Color.Transparent;
+            this.label105.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.label105.ForeColor = System.Drawing.Color.Black;
+            this.label105.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label105.Location = new System.Drawing.Point(42, 375);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(428, 115);
+            this.label105.TabIndex = 455;
+            this.label105.Text = "Note: \"Enable Steer Switch \" setting overrides \r\n           the \"Enable Work Swit" +
+    "ch\" setting.\r\n\r\n           The Work switch will not control anything \r\n         " +
+    "   if Steer Switch is enabled.\r\n";
+            this.label105.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkSteerSetsManual
+            // 
+            this.checkSteerSetsManual.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkSteerSetsManual.AutoSize = true;
+            this.checkSteerSetsManual.BackColor = System.Drawing.Color.AliceBlue;
+            this.checkSteerSetsManual.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.checkSteerSetsManual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkSteerSetsManual.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkSteerSetsManual.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkSteerSetsManual.Location = new System.Drawing.Point(46, 136);
+            this.checkSteerSetsManual.Name = "checkSteerSetsManual";
+            this.checkSteerSetsManual.Size = new System.Drawing.Size(259, 43);
+            this.checkSteerSetsManual.TabIndex = 2;
+            this.checkSteerSetsManual.Text = "Enable Steer Switch";
+            this.checkSteerSetsManual.UseVisualStyleBackColor = false;
             // 
             // checkWorkSwitchManual
             // 
@@ -3594,6 +3654,9 @@
             // tabDHeading
             // 
             this.tabDHeading.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabDHeading.Controls.Add(this.label104);
+            this.tabDHeading.Controls.Add(this.label106);
+            this.tabDHeading.Controls.Add(this.nudMinimumFrameTime);
             this.tabDHeading.Controls.Add(this.cboxheading);
             this.tabDHeading.Controls.Add(this.label2);
             this.tabDHeading.Controls.Add(this.cboxIsRTK);
@@ -3606,6 +3669,64 @@
             this.tabDHeading.Text = "dHead";
             this.tabDHeading.Enter += new System.EventHandler(this.tabDHeading_Enter);
             this.tabDHeading.Leave += new System.EventHandler(this.tabDHeading_Leave);
+            // 
+            // label104
+            // 
+            this.label104.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label104.AutoSize = true;
+            this.label104.BackColor = System.Drawing.Color.Transparent;
+            this.label104.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.label104.ForeColor = System.Drawing.Color.Black;
+            this.label104.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label104.Location = new System.Drawing.Point(63, 363);
+            this.label104.Name = "label104";
+            this.label104.Size = new System.Drawing.Size(201, 23);
+            this.label104.TabIndex = 462;
+            this.label104.Text = "Minimum Frame Pause";
+            this.label104.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label103
+            // 
+            this.label103.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label103.AutoSize = true;
+            this.label103.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label103.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label103.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label103.Location = new System.Drawing.Point(152, 444);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(43, 18);
+            this.label103.TabIndex = 464;
+            this.label103.Text = "msec";
+            this.label103.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // nudMinimumFrameTime
+            // 
+            this.nudMinimumFrameTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudMinimumFrameTime.BackColor = System.Drawing.Color.AliceBlue;
+            this.nudMinimumFrameTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudMinimumFrameTime.InterceptArrowKeys = false;
+            this.nudMinimumFrameTime.Location = new System.Drawing.Point(122, 389);
+            this.nudMinimumFrameTime.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.nudMinimumFrameTime.Minimum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.nudMinimumFrameTime.Name = "nudMinimumFrameTime";
+            this.nudMinimumFrameTime.ReadOnly = true;
+            this.nudMinimumFrameTime.Size = new System.Drawing.Size(110, 52);
+            this.nudMinimumFrameTime.TabIndex = 463;
+            this.nudMinimumFrameTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nudMinimumFrameTime.Value = new decimal(new int[] {
+            70,
+            0,
+            0,
+            0});
+            this.nudMinimumFrameTime.Click += new System.EventHandler(this.nudMinimumFrameTime_Click);
             // 
             // cboxheading
             // 
@@ -3625,6 +3746,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -3637,6 +3759,7 @@
             // 
             // cboxIsRTK
             // 
+            this.cboxIsRTK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboxIsRTK.Appearance = System.Windows.Forms.Appearance.Button;
             this.cboxIsRTK.BackColor = System.Drawing.Color.AliceBlue;
             this.cboxIsRTK.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
@@ -6177,6 +6300,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabDHeading.ResumeLayout(false);
+            this.tabDHeading.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinimumFrameTime)).EndInit();
             this.gboxSingle.ResumeLayout(false);
             this.gboxSingle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStartSpeed)).EndInit();
@@ -6552,5 +6677,11 @@
         private System.Windows.Forms.CheckBox cbox_long_touch;
         private System.Windows.Forms.CheckBox cboxheading;
         private System.Windows.Forms.CheckBox cboxroll;
+        private System.Windows.Forms.CheckBox checkSteerSetsManual;
+        private System.Windows.Forms.Label label104;
+        private System.Windows.Forms.Label label106;
+        private System.Windows.Forms.NumericUpDown nudMinimumFrameTime;
+        private System.Windows.Forms.Label label105;
+        private System.Windows.Forms.CheckBox cboxAngVel;
     }
 }

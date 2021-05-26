@@ -42,7 +42,7 @@ namespace AgOpenGPS
 
 
         //for the workswitch
-        public bool isWorkSwitchActiveLow, isWorkSwitchEnabled, isWorkSwitchManual;
+        public bool isWorkSwitchActiveLow, isWorkSwitchEnabled, isWorkSwitchManual, isSteerControlsManual;
 
         public int workSwitchValue, steerSwitchValue = 1;
 

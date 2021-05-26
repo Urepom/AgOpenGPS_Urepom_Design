@@ -13,7 +13,7 @@ namespace AgIO
 
         public string ggaSentence, vtgSentence, hdtSentence, avrSentence, paogiSentence, hpdSentence, rmcSentence;
 
-        public float hdopData, altitude = float.MaxValue, headingTrue = float.MaxValue, 
+        public float hdopData, altitude = float.MaxValue, headingTrue = float.MaxValue,
             headingTrueDual = float.MaxValue, speed = float.MaxValue, roll = float.MaxValue,
             altitudeData, speedData, rollData, headingTrueData, headingTrueDualData;
 
@@ -103,12 +103,30 @@ namespace AgIO
             dollar = rawBuffer.IndexOf("$", StringComparison.Ordinal);
             if (cr == -1 || dollar == -1) return;
 
+            if (rawBuffer.Length > 200)
+            {
+                if (isLogNMEA)
+                {
+                    logNMEASentence.Append("\r\n" +
+                        DateTime.UtcNow.ToString(" ->>  mm:ss.fff ", CultureInfo.InvariantCulture) + "\r\n" + rawBuffer + "\r\n");
+                }
+
+                rawBuffer = "";
+                return;
+            }
+
             //now we have a complete sentence or more somewhere in the portData
             while (true)
             {
                 //extract the next NMEA single sentence
                 nextNMEASentence = Parse(ref buffer);
                 if (nextNMEASentence == null) break;
+
+                if (isLogNMEA)
+                {
+                    logNMEASentence.Append(
+                        DateTime.UtcNow.ToString("mm:ss.fff ", CultureInfo.InvariantCulture) + nextNMEASentence + "\r\n");
+                }
 
                 //parse them accordingly
                 words = nextNMEASentence.Split(',');
@@ -258,6 +276,10 @@ namespace AgIO
             if (!string.IsNullOrEmpty(words[1]) && !string.IsNullOrEmpty(words[2]) && !string.IsNullOrEmpty(words[3])
                 && !string.IsNullOrEmpty(words[4]) && !string.IsNullOrEmpty(words[5]))
             {
+                //double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double UTC);
+                //if ((UTC < LastUpdateUTC ? 240000 + UTC : UTC) - LastUpdateUTC > 0.045)
+                //{
+
                 //FixQuality
                 byte.TryParse(words[6], NumberStyles.Float, CultureInfo.InvariantCulture, out fixQuality);
                 fixQualityData = fixQuality;
@@ -265,55 +287,52 @@ namespace AgIO
                 //satellites tracked
                 ushort.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out satellitesTracked);
                 satellitesData = satellitesTracked;
-                
+
                 //hdop
                 float.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out hdopData);
                 hdopX100 = (ushort)(hdopData * 100.0);
-                
+
                 //altitude
                 float.TryParse(words[9], NumberStyles.Float, CultureInfo.InvariantCulture, out altitude);
                 altitudeData = altitude;
 
-                double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double UTC);
-                //if ((UTC < LastUpdateUTC ? 240000 + UTC : UTC) - LastUpdateUTC > 0.045)
+                //LastUpdateUTC = UTC;
+
+                //get latitude and convert to decimal degrees
+                int decim = words[2].IndexOf(".", StringComparison.Ordinal);
+                if (decim == -1)
                 {
-                    LastUpdateUTC = UTC;
-
-                    //get latitude and convert to decimal degrees
-                    int decim = words[2].IndexOf(".", StringComparison.Ordinal);
-                    if (decim == -1)
-                    {
-                        words[2] += ".00";
-                        decim = words[2].IndexOf(".", StringComparison.Ordinal);
-                    }
-
-                    decim -= 2;
-                    double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                    double.TryParse(words[2].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
-                    temp *= 0.01666666666667;
-                    latitude += temp;
-                    if (words[3] == "S")
-                        latitude *= -1;
-                    latitudeSend = latitude;
-
-                    //get longitude and convert to decimal degrees
-                    decim = words[4].IndexOf(".", StringComparison.Ordinal);
-                    if (decim == -1)
-                    {
-                        words[4] += ".00";
-                        decim = words[4].IndexOf(".", StringComparison.Ordinal);
-                    }
-
-                    decim -= 2;
-                    double.TryParse(words[4].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                    double.TryParse(words[4].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
-                    longitude += temp * 0.0166666666667;
-
-                    { if (words[5] == "W") longitude *= -1; }
-                    longitudeSend = longitude;
-
-                    isNMEAToSend = true;
+                    words[2] += ".00";
+                    decim = words[2].IndexOf(".", StringComparison.Ordinal);
                 }
+
+                decim -= 2;
+                double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                double.TryParse(words[2].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
+                temp *= 0.01666666666667;
+                latitude += temp;
+                if (words[3] == "S")
+                    latitude *= -1;
+                latitudeSend = latitude;
+
+                //get longitude and convert to decimal degrees
+                decim = words[4].IndexOf(".", StringComparison.Ordinal);
+                if (decim == -1)
+                {
+                    words[4] += ".00";
+                    decim = words[4].IndexOf(".", StringComparison.Ordinal);
+                }
+
+                decim -= 2;
+                double.TryParse(words[4].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                double.TryParse(words[4].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+                longitude += temp * 0.0166666666667;
+
+                { if (words[5] == "W") longitude *= -1; }
+                longitudeSend = longitude;
+
+                isNMEAToSend = true;
+                //}
             }
         }
 
@@ -343,7 +362,7 @@ namespace AgIO
             }
 
             if (!string.IsNullOrEmpty(words[1]))
-            { 
+            {
                 //True heading
                 float.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
                 headingTrueData = headingTrue;
@@ -425,11 +444,9 @@ namespace AgIO
             /*
             $PAOGI
             (1) 123519 Fix taken at 1219 UTC
-
             Roll corrected position
             (2,3) 4807.038,N Latitude 48 deg 07.038' N
             (4,5) 01131.000,E Longitude 11 deg 31.000' E
-
             (6) 1 Fix quality: 
                 0 = invalid
                 1 = GPS fix(SPS)
@@ -444,15 +461,12 @@ namespace AgIO
             (8) 0.9 Horizontal dilution of position
             (9) 545.4 Altitude (ALWAYS in Meters, above mean sea level)
             (10) 1.2 time in seconds since last DGPS update
-
             (11) 022.4 Speed over the ground in knots - can be positive or negative
-
             FROM AHRS:
             (12) Heading in degrees
             (13) Roll angle in degrees(positive roll = right leaning - right down, left up)
             (14) Pitch angle in degrees(Positive pitch = nose up)
             (15) Yaw Rate in Degrees / second
-
             * CHKSUM
             */
             #endregion PAOGI Message
@@ -460,6 +474,10 @@ namespace AgIO
             if (!string.IsNullOrEmpty(words[1]) && !string.IsNullOrEmpty(words[2]) && !string.IsNullOrEmpty(words[3])
                 && !string.IsNullOrEmpty(words[4]) && !string.IsNullOrEmpty(words[5]))
             {
+                //double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double UTC);
+                //if ((UTC < LastUpdateUTC ? 240000 + UTC : UTC) - LastUpdateUTC > 0.045)
+                //{
+
                 //FixQuality
                 byte.TryParse(words[6], NumberStyles.Float, CultureInfo.InvariantCulture, out fixQuality);
                 fixQualityData = fixQuality;
@@ -524,6 +542,7 @@ namespace AgIO
                 longitudeSend = longitude;
 
                 isNMEAToSend = true;
+                //}
             }
         }
 

@@ -46,8 +46,8 @@ namespace AgOpenGPS
             }
 
             lblFilename.Text = tboxFieldName.Text.Trim();
-            if (cboxAddDate.Checked) lblFilename.Text += " "+DateTime.Now.ToString("MMM.dd", CultureInfo.InvariantCulture);
-            if (cboxAddTime.Checked) lblFilename.Text += " "+DateTime.Now.ToString("HH_mm", CultureInfo.InvariantCulture);
+            if (cboxAddDate.Checked) lblFilename.Text += " " + DateTime.Now.ToString("MMM.dd", CultureInfo.InvariantCulture);
+            if (cboxAddTime.Checked) lblFilename.Text += " " + DateTime.Now.ToString("HH_mm", CultureInfo.InvariantCulture);
         }
 
         private void btnSerialCancel_Click(object sender, EventArgs e)
@@ -161,7 +161,7 @@ namespace AgOpenGPS
 
                             line = coordinates;
                             char[] delimiterChars = { ' ', '\t', '\r', '\n' };
-                            string[] numberSets = line.Split(delimiterChars);
+                            string[] numberSets = line.Split();
 
                             //at least 3 points
                             if (numberSets.Length > 2)
@@ -171,6 +171,8 @@ namespace AgOpenGPS
 
                                 foreach (var item in numberSets)
                                 {
+                                    if (item.Length < 3)
+                                        continue;
                                     string[] fix = item.Split(',');
                                     double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
                                     double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
@@ -285,10 +287,12 @@ namespace AgOpenGPS
                             //at least 3 points
                             if (numberSets.Length > 2)
                             {
-                                double counter = 0, lat=0, lon=0;
+                                double counter = 0, lat = 0, lon = 0;
                                 latK = lonK = 0;
                                 foreach (var item in numberSets)
                                 {
+                                    if (item.Length < 3)
+                                        continue;
                                     string[] fix = item.Split(',');
                                     double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
                                     double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
@@ -423,7 +427,7 @@ namespace AgOpenGPS
                         writer.WriteLine("StartFix");
                         writer.WriteLine(mf.pn.latStart.ToString(CultureInfo.InvariantCulture) + "," + mf.pn.lonStart.ToString(CultureInfo.InvariantCulture));
                     }
-                
+
                     mf.FileCreateSections();
                     mf.FileCreateRecPath();
                     mf.FileCreateContour();

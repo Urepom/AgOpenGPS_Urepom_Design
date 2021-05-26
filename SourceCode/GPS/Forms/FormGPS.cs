@@ -961,8 +961,9 @@ namespace AgOpenGPS
                     TimedMessageBox(2000, "No File Found", "Can't Find AgIO");
                 }
             }
+            //nmea limiter
+            udpWatch.Start();
         }
-
         //form is closing so tidy up and save settings
         private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1561,7 +1562,7 @@ namespace AgOpenGPS
             btnCycleLines.Enabled = false;
 
             //AutoSteer
-            btnAutoSteer.Enabled = false;
+            //btnAutoSteer.Enabled = false;
             isAutoSteerBtnOn = false;
             btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
 
