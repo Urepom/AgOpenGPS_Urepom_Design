@@ -22,6 +22,10 @@ namespace AgOpenGPS
 
         private void FormEditAB_Load(object sender, EventArgs e)
         {
+            //----SPailleau - Applique la position enregistrée
+            this.Location = Properties.Settings.Default.FormEditAB_Location;
+            //----Fin
+
             if (mf.isMetric)
             {
                 nudMinTurnRadius.DecimalPlaces = 0;
@@ -171,6 +175,13 @@ namespace AgOpenGPS
             mf.ABLine.abHeading = glm.toRadians(double.Parse(cboxDegrees.SelectedItem.ToString()));
             mf.ABLine.SetABLineByHeading();
             tboxHeading.Text = Math.Round(glm.toDegrees(mf.ABLine.abHeading), 5).ToString();
+        }
+
+        private void FormEditAB_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //----SPailleau - Enregistre la position de la fenêtre
+            Properties.Settings.Default.FormEditAB_Location = this.Location;
+            //----Fin
         }
     }
 }

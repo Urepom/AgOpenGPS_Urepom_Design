@@ -155,7 +155,23 @@ namespace AgOpenGPS
                 }
 
                 lblDateTime.Text = DateTime.Now.ToString("HH:mm:ss") + "\n\r" + DateTime.Now.ToString("ddd dd MMMM yyyy");
-             
+
+                //----SPailleau - Affiche image batterie en fonction du niveau de charge
+                PowerStatus status = SystemInformation.PowerStatus;
+                string NiveauBatterie = status.BatteryLifePercent.ToString("P0");
+                string EtatAlim = status.PowerLineStatus.ToString();
+                float NiveauBatterieEntier = status.BatteryLifePercent;
+                if (EtatAlim == "Online") BatImage.BackgroundImage = Properties.Resources.BatterieOnline;
+                else
+                {
+                    if (NiveauBatterieEntier > 0.75) BatImage.BackgroundImage = Properties.Resources.Batterie100;
+                    if (NiveauBatterieEntier > 0.50 && NiveauBatterieEntier <= 0.75) BatImage.BackgroundImage = Properties.Resources.Batterie75;
+                    if (NiveauBatterieEntier > 0.25 && NiveauBatterieEntier <= 0.50) BatImage.BackgroundImage = Properties.Resources.Batterie50;
+                    if (NiveauBatterieEntier > 0.10 && NiveauBatterieEntier <= 0.25) BatImage.BackgroundImage = Properties.Resources.Batterie25;
+                    if (NiveauBatterieEntier <= 0.10) BatImage.BackgroundImage = Properties.Resources.BatterieWarning;
+                }
+                BatImage.Text = NiveauBatterie;
+                //----
 
                 if (isJobStarted)
                 {
@@ -381,6 +397,7 @@ namespace AgOpenGPS
                 displayUpdateOneFifthCounter = oneFifthSecond;
 
                 btnAutoSteerConfig.Text = SetSteerAngle + "\r\n" + ActualSteerAngle;
+                SteerSettings.Text = SetSteerAngle + "\r\n" + ActualSteerAngle; //Ajout SPailleau
 
                 //integralStatusLeftSide.Text = "I: " + gyd.inty.ToString("N3");
 

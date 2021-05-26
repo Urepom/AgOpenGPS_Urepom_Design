@@ -1279,6 +1279,11 @@ namespace AgOpenGPS
             GL.LoadMatrix(ref mat);
 
             GL.MatrixMode(MatrixMode.Modelview);
+
+            //----SPailleau - Enregistre la position de la fenêtre
+            Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
+            Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
+            //----Fin
         }
 
         private void oglZoom_Paint(object sender, PaintEventArgs e)

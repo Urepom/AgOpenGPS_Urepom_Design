@@ -28,6 +28,16 @@ namespace AgOpenGPS
         [System.Runtime.InteropServices.DllImport("User32.dll")]        
         private static extern bool ShowWindow(IntPtr hWind, int nCmdShow);
 
+        //----SPailleau
+        //Création de variables pour location et size avec les valeurs respectives de oglzoom de la session précédente 
+        //car la winform initialization InitializeComponent() réinitialise sa position
+        //Utilisation de ces variables dans FormGPS_Load (plus bas)
+        public int oglZoom_LocationX = Properties.Settings.Default.OGLZoom_Location.X;
+        public int oglZoom_LocationY = Properties.Settings.Default.OGLZoom_Location.Y;
+        public int oglZoom_SizeWidth = Properties.Settings.Default.OGLZoom_Size.Width;
+        public int oglZoom_SizeHeight = Properties.Settings.Default.OGLZoom_Size.Height;
+        //----
+
         #region // Class Props and instances
 
         //list of vec3 points of Dubins shortest path between 2 points - To be converted to RecPt
@@ -691,6 +701,128 @@ namespace AgOpenGPS
             }
         }
 
+        private void lbludpWatchCounts_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BatLevel_Click(object sender, EventArgs e)
+        {
+            //----SPailleau - Affiche niveau charge batterie
+            String RC = System.Environment.NewLine;
+            PowerStatus status = SystemInformation.PowerStatus;
+            string NiveauBatterie = status.BatteryLifePercent.ToString("P0");
+
+            double TempsRestantSeconde = status.BatteryLifeRemaining;
+            string TempsRestantHM;
+            TimeSpan ts = TimeSpan.FromSeconds(TempsRestantSeconde);
+            if (ts.Minutes.ToString().Length == 1) TempsRestantHM = ts.Hours + "h0" + ts.Minutes;
+            else TempsRestantHM = ts.Hours + "h" + ts.Minutes;
+
+            string EtatAlim = status.PowerLineStatus.ToString();
+            String MessageBatt;
+            if (EtatAlim == "Online")
+            {
+                EtatAlim = "En charge";
+                MessageBatt = NiveauBatterie + " | " + EtatAlim; //Pas d'estimation de temps restant si Online
+            }
+            else
+            {
+                EtatAlim = "Débranchée";
+                MessageBatt = NiveauBatterie + " | " + "Temps restant : " + TempsRestantHM + " | " + EtatAlim;
+            }
+
+            TimedMessageBox(3000, "Infos batterie", MessageBatt);
+            //----
+        }
+
+        private void SteerSettings_Click(object sender, EventArgs e)
+        {
+            //Ajout SPailleau - Original code : check if window already exists
+            Form fc = Application.OpenForms["FormSteer"];
+
+            if (fc != null)
+            {
+                fc.Focus();
+                fc.Close();
+                return;
+            }
+
+            //
+            Form form = new FormSteer(this);
+            form.Show(this);
+        }
+
+        //Ajout SPailleau
+        private void btnAdjLeftMain_Click(object sender, EventArgs e)
+        {
+            if (!ct.isContourBtnOn)
+            {
+                if (ABLine.isABLineSet)
+                {
+                    //snap distance is in cm
+                    yt.ResetCreatedYouTurn();
+                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
+
+                    ABLine.MoveABLine(-dist);
+
+                    //FileSaveABLine();
+                }
+                else if (curve.isCurveSet)
+                {
+                    //snap distance is in cm
+                    yt.ResetCreatedYouTurn();
+                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
+
+                    curve.MoveABCurve(-dist);
+
+                }
+                else
+                {
+                    var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
+                    form.Show();
+                }
+            }
+        }
+
+        //Ajout SPailleau
+        private void btnAdjRightMain_Click(object sender, EventArgs e)
+        {
+            
+            if (!ct.isContourBtnOn)
+            {
+                if (ABLine.isABLineSet)
+                {
+                    //snap distance is in cm
+                    yt.ResetCreatedYouTurn();
+                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
+
+                    ABLine.MoveABLine(dist);
+                }
+                else if (curve.isCurveSet)
+                {
+                    //snap distance is in cm
+                    yt.ResetCreatedYouTurn();
+                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
+                    curve.MoveABCurve(dist);
+
+                }
+                else
+                {
+                    var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
+                    form.Show();
+                }
+            }
+        }
+
+        private void oglZoom_Move(object sender, EventArgs e)
+        {
+            //----SPailleau - Enregistre la position de la fenêtre
+            Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
+            Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
+            //----Fin
+        }
+
         /// <summary>
         /// The font class
         /// </summary>
@@ -830,8 +962,19 @@ namespace AgOpenGPS
         {
             this.MouseWheel += ZoomByMouseWheel;
             round_table5.Left = this.Width / 2 - round_table5.Width / 2;
-            roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
+            //roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
             panel_top.Left = this.Width / 2 - panel_top.Width / 2 + 3;
+
+            //----SPailleau
+            SnapCenterMain.Left = this.Width / 2 - SnapCenterMain.Width / 2;
+            SnapCenterMain.Top = round_table5.Top - SnapCenterMain.Height - 5;
+
+            btnAdjLeftMain.Left = (this.Width / 2 - round_table5.Width / 2) - 70;
+            btnAdjLeftMain.Top = round_table5.Top + 5;
+
+            btnAdjRightMain.Left = (this.Width / 2 + round_table5.Width / 2) - btnAdjRightMain.Width + 70;
+            btnAdjRightMain.Top = round_table5.Top + 5;
+            //----
 
             label1.Visible = false;
             round_table1.Visible = false;
@@ -929,10 +1072,22 @@ namespace AgOpenGPS
             else topFieldViewToolStripMenuItem.Checked = false;
 
             //ajout max
+            /*
             oglZoom.Width = 160;
             oglZoom.Height = 160;
             oglZoom.Left = 0;
             oglZoom.Top = 68;
+            */
+
+            //----SPailleau - On applique la position de la session précédente
+            oglZoom.Width = oglZoom_SizeWidth;
+            oglZoom.Height = oglZoom_SizeHeight;
+            oglZoom.Left = oglZoom_LocationX;
+            oglZoom.Top = oglZoom_LocationY;
+            //On enregistre la position dans user.config
+            Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
+            Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
+            //----Fin
 
             if (!topFieldViewToolStripMenuItem.Checked)
             {
@@ -1323,13 +1478,19 @@ namespace AgOpenGPS
             {
                 //ajout max
                 oglZoom.BringToFront();
+                /*
                 oglZoom.Width = 160;
                 oglZoom.Height = 160;
                 oglZoom.Left = 0;
                 oglZoom.Top = 68;
+                */
+                //----SPailleau - Applique la position enregistrée
+                oglZoom.Location = Properties.Settings.Default.OGLZoom_Location;
+                oglZoom.Size = Properties.Settings.Default.OGLZoom_Size;
+                //----Fin
             }
 
-                //SendSteerSettingsOutAutoSteerPort();
+            //SendSteerSettingsOutAutoSteerPort();
             isJobStarted = true;
             startCounter = 0;
 
@@ -1421,7 +1582,7 @@ namespace AgOpenGPS
             lblFieldDataTopDone.Visible = isOn;
             lblFieldDataTopRemain.Visible = isOn;
 
-            roundButton1.Visible = true;
+            //roundButton1.Visible = true; //Commenté SPailleau (ancien bouton)
             cboxpRowWidth.Visible = true;
             btnYouSkipEnable.Visible = true;
         }

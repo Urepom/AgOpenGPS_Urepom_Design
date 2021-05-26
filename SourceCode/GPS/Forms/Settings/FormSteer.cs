@@ -37,6 +37,10 @@ namespace AgOpenGPS
 
         private void FormSteer_Load(object sender, EventArgs e)
         {
+            //----SPailleau - Applique la position enregistrée
+            this.Location = Properties.Settings.Default.FormSteer_Location;
+            //----Fin
+
             //WAS Zero, CPD
             hsbarWasOffset.ValueChanged -= hsbarSteerAngleSensorZero_ValueChanged;
             hsbarCountsPerDegree.ValueChanged -= hsbarCountsPerDegree_ValueChanged;
@@ -207,6 +211,10 @@ namespace AgOpenGPS
 
         private void FormSteer_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //----SPailleau - Enregistre la position de la fenêtre
+            Properties.Settings.Default.FormSteer_Location = this.Location;
+            //----Fin
+
             mf.vehicle.ast.isInFreeDriveMode = false;
 
             Properties.Vehicle.Default.setVehicle_goalPointLookAhead = mf.vehicle.goalPointLookAhead;

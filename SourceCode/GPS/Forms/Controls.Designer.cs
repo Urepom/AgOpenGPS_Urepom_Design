@@ -938,23 +938,33 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
             {
+                //----SPailleau - Enregistre la position de la fenêtre
+                Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
+                Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
+                //----Fin
+
                 Settings.Default.setMenu_isOGLZoomOn = 0;
                 Settings.Default.Save();
                 topFieldViewToolStripMenuItem.Checked = false;
-                oglZoom.Width = 400;
-                oglZoom.Height = 400;
+                //oglZoom.Width = 400;
+                //oglZoom.Height = 400;
                 oglZoom.SendToBack();
             }
             else
             {
+                //----SPailleau - Applique la position enregistrée
+                oglZoom.Location = Properties.Settings.Default.OGLZoom_Location;
+                oglZoom.Size = Properties.Settings.Default.OGLZoom_Size;
+                //----Fin
+
                 Settings.Default.setMenu_isOGLZoomOn = 1;
                 Settings.Default.Save();
                 topFieldViewToolStripMenuItem.Checked = true;
                 oglZoom.Visible = true;
-                oglZoom.Width = 300;
-                oglZoom.Height = 300;
-                oglZoom.Left = 80;
-                oglZoom.Top = 80;
+                //oglZoom.Width = 300;
+                //oglZoom.Height = 300;
+                //oglZoom.Left = 80;
+                //oglZoom.Top = 80;
                 if (isJobStarted) oglZoom.BringToFront();
             }
         }

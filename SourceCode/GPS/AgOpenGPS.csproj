@@ -774,6 +774,15 @@
   <ItemGroup>
     <Content Include="AOG.ico" />
     <Content Include="aChangeLog.txt" />
+    <None Include="Resources\SnapToPivotSP.png" />
+    <None Include="Resources\ArrowRightSP.png" />
+    <None Include="Resources\ArrowLeftSP.png" />
+    <None Include="Resources\BatterieWarning.png" />
+    <None Include="Resources\BatterieOnline.png" />
+    <None Include="Resources\Batterie100.png" />
+    <None Include="Resources\Batterie75.png" />
+    <None Include="Resources\Batterie50.png" />
+    <None Include="Resources\Batterie25.png" />
     <None Include="btnImages\Config\ConV_ABLineLength.png" />
     <None Include="btnImages\Config\ConD_FloorTexture.png" />
     <None Include="btnImages\synchronize.png" />

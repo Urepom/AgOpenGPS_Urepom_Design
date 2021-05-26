@@ -69,12 +69,25 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
+            //----SPailleau - Applique la position enregistrée
+            this.Location = Properties.Settings.Default.FormSteerGraph_Location;
+            this.Size = Properties.Settings.Default.FormSteerGraph_Size;
+            //----Fin
+
             timer1.Interval = (int)((1 / (double)mf.fixUpdateHz) * 1000);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void FormSteerGraph_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //----SPailleau - Enregistre la position de la fenêtre
+            Properties.Settings.Default.FormSteerGraph_Location = this.Location;
+            Properties.Settings.Default.FormSteerGraph_Size = this.Size;
+            //----Fin
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AgOpenGPS.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1064,6 +1064,78 @@ namespace AgOpenGPS.Properties {
             }
             set {
                 this["setAS_isAngVelGuidance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 65")]
+        public global::System.Drawing.Point FormSteer_Location {
+            get {
+                return ((global::System.Drawing.Point)(this["FormSteer_Location"]));
+            }
+            set {
+                this["FormSteer_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 65")]
+        public global::System.Drawing.Point FormSteerGraph_Location {
+            get {
+                return ((global::System.Drawing.Point)(this["FormSteerGraph_Location"]));
+            }
+            set {
+                this["FormSteerGraph_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("514, 251")]
+        public global::System.Drawing.Size FormSteerGraph_Size {
+            get {
+                return ((global::System.Drawing.Size)(this["FormSteerGraph_Size"]));
+            }
+            set {
+                this["FormSteerGraph_Size"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 65")]
+        public global::System.Drawing.Point FormEditAB_Location {
+            get {
+                return ((global::System.Drawing.Point)(this["FormEditAB_Location"]));
+            }
+            set {
+                this["FormEditAB_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 68")]
+        public global::System.Drawing.Point OGLZoom_Location {
+            get {
+                return ((global::System.Drawing.Point)(this["OGLZoom_Location"]));
+            }
+            set {
+                this["OGLZoom_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("160, 160")]
+        public global::System.Drawing.Size OGLZoom_Size {
+            get {
+                return ((global::System.Drawing.Size)(this["OGLZoom_Size"]));
+            }
+            set {
+                this["OGLZoom_Size"] = value;
             }
         }
     }
