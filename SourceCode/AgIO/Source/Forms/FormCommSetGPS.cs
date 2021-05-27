@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Linq;
+using System.Management;
 using System.Windows.Forms;
 
 namespace AgIO
@@ -166,6 +168,9 @@ namespace AgIO
             lblCurrentModule1Port.Text = mf.spModule1.PortName;
             lblCurrentModule2Port.Text = mf.spModule2.PortName;
             lblCurrentModule3Port.Text = mf.spModule3.PortName;
+
+            ListComPort.Text = "Click on scan to search";
+
         }
 
         #region PortSettings //----------------------------------------------------------------
@@ -309,6 +314,8 @@ namespace AgIO
 
         private void btnRescan_Click(object sender, EventArgs e)
         {
+            int i = 0; //SPailleau
+
             cboxPort.Items.Clear();
             cboxPort2.Items.Clear();
             cboxIMU.Items.Clear();
@@ -316,6 +323,9 @@ namespace AgIO
             cboxModule1Port.Items.Clear();
             cboxModule2Port.Items.Clear();
 
+            ListComPort.Clear(); //SPailleau
+
+            Waiting.Visible = true; //SPailleau
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
             {
                 cboxPort.Items.Add(s);
@@ -324,8 +334,93 @@ namespace AgIO
                 cboxModule1Port.Items.Add(s);
                 cboxModule2Port.Items.Add(s);
                 cboxModule3Port.Items.Add(s);
+
+                //----SPailleau
+                MoreInfoCOMPort(s, i);
+                i++;
+                //----
+            }
+            Waiting.Visible = false; //SPailleau
+        }
+
+        //----SPailleau
+        private void MoreInfoCOMPort(string PortName, int i)
+        {
+            string Probably = "";
+            int CompteurSteerMachine = 0;
+            string[] ListeCom = new string[20];
+            int c = 0;
+            bool AddCom = true;
+            String RC = System.Environment.NewLine;
+
+            using (ManagementClass i_Entity = new ManagementClass("Win32_PnPEntity"))
+            {
+                foreach (ManagementObject i_Inst in i_Entity.GetInstances())
+                {
+                    Object o_Guid = i_Inst.GetPropertyValue("ClassGuid");
+                    if (o_Guid == null || o_Guid.ToString().ToUpper() != "{4D36E978-E325-11CE-BFC1-08002BE10318}")
+                        continue; // Skip all devices except device class "PORTS"
+
+                    String s_Caption = i_Inst.GetPropertyValue("Caption").ToString();
+                    String s_Manufact = i_Inst.GetPropertyValue("Manufacturer").ToString();
+                    String s_DeviceID = i_Inst.GetPropertyValue("PnpDeviceID").ToString();
+                    String s_RegPath = "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Enum\\" + s_DeviceID + "\\Device Parameters";
+                    String s_PortName = Registry.GetValue(s_RegPath, "PortName", "").ToString();
+
+                    int s32_Pos = s_Caption.IndexOf(" (COM");
+                    if (s32_Pos > 0) // remove COM port from description
+                        s_Caption = s_Caption.Substring(0, s32_Pos);
+
+                    if (s_PortName == PortName)
+                    {
+                        //On évite les doublons en cas de problèmee USB
+                        if (c == 0) ListeCom[c] = s_PortName; //Enregistre le nom du port com dans un tableau
+                        else
+                        {
+                            for (int j = 0; j <= c; j++)
+                            {
+                                if (s_PortName == ListeCom[j] && c != 0) AddCom = false;
+                            }
+                        }
+
+                        if (AddCom) //Ajout autorisé
+                        {
+                            ListeCom[c] = s_PortName;
+
+                            //Check Machine
+                            if (s_Manufact.Contains("FTDI") || s_Caption.Contains("CH340"))
+                            {
+                                if (!mf.spModule1.IsOpen) cboxModule1Port.SelectedIndex = i;
+                                Probably = "---> Steer / Machine probable";
+                                CompteurSteerMachine++;
+                            }
+                            //Check GPS
+                            else if (s_Manufact.Contains("Microsoft") && s_Caption.Contains("USB"))
+                            {
+                                if (!mf.spGPS.IsOpen)
+                                {
+                                    cboxPort.SelectedIndex = i;
+                                    cboxBaud.SelectedItem = "115200";
+                                }
+                                Probably = "---> GPS probable";
+                            }
+                            else if (s_Manufact.Contains("standar"))
+                            {
+                                Probably = "---> Inutile";
+                            }
+                            else Probably = "---> Inconnu";
+
+                            ListComPort.Text += s_PortName + " " + Probably + RC + s_Caption + " - " + s_Manufact + RC + RC;
+                            Probably = "";
+                        }
+
+                        c++;
+
+                    }
+                }
             }
         }
+        //----
 
         private void btnClrGPS_Click(object sender, EventArgs e)
         {

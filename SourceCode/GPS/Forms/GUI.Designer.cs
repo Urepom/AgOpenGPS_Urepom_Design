@@ -805,7 +805,7 @@ namespace AgOpenGPS
         //line up section On Off Auto buttons based on how many there are
         public void LineUpManualBtns()
         {
-            panelSim.Top = roundButton1.Top - 110;
+            panelSim.Top = SnapCenterMain.Top - 100; //Modif SPailleau : code original basé sur roundButton1.Top - 110
 
             if (issections_buttonOn)
             {
@@ -824,7 +824,7 @@ namespace AgOpenGPS
                     if (panelSim.Visible == true)
                     {
                         top = Height - 180;
-                        panelSim.Top = roundButton1.Top - 110;
+                        panelSim.Top = SnapCenterMain.Top - 100; //Modif SPailleau : code original basé sur roundButton1.Top
                     }
 
                 }
@@ -834,7 +834,7 @@ namespace AgOpenGPS
                     if (panelSim.Visible == true)
                     {
                         top = Height - 180;
-                        panelSim.Top = roundButton1.Top - 110;
+                        panelSim.Top = SnapCenterMain.Top - 100; //Modif SPailleau : code original basé sur roundButton1.Top
                     }
                 }
 
@@ -1164,6 +1164,34 @@ namespace AgOpenGPS
                         return;
                     }
                 }
+
+                //----SPailleau - detect clic ABLineName
+                if (isJobStarted)
+                {
+                    if (ABLine.isBtnABLineOn || curve.isBtnCurveOn) //Si ligne active
+                    {
+                        int NameLineLength = lblCurveLineName.Text.Length * 16;
+                        if (point.X < NameLineLength)
+                        {
+                            if (point.Y > statusStripLeft.Top - 60 && point.Y < statusStripLeft.Top)
+                            {
+                                //Prévention fausse manip / clic involontaire
+                                if (isAutoSteerBtnOn && (int)avgSpeed != 0)
+                                {
+                                    TimedMessageBox(2000, "Changement de ligne", "Désactiver autoguidage OU arrêtez vous");
+                                    return;
+                                }
+                                else
+                                {
+                                    btnCycleLines_Click(sender, e);
+                                    return;
+                                }
+
+                            }
+                        }
+                    }
+                }
+                //----
 
 
                 mouseX = point.X;

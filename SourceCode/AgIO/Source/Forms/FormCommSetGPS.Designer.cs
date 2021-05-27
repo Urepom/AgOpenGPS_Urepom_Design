@@ -36,43 +36,25 @@
             this.cboxBaud = new System.Windows.Forms.ComboBox();
             this.lblCurrentPort = new System.Windows.Forms.Label();
             this.lblCurrentBaud = new System.Windows.Forms.Label();
-            this.btnCloseSerial = new System.Windows.Forms.Button();
             this.textBoxRcv = new System.Windows.Forms.TextBox();
-            this.btnOpenSerial = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cboxPort2 = new System.Windows.Forms.ComboBox();
             this.cboxBaud2 = new System.Windows.Forms.ComboBox();
             this.lblCurrentPort2 = new System.Windows.Forms.Label();
             this.lblCurrentBaud2 = new System.Windows.Forms.Label();
-            this.btnCloseSerial2 = new System.Windows.Forms.Button();
             this.textBoxRcv2 = new System.Windows.Forms.TextBox();
-            this.btnOpenSerial2 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboxModule1Port = new System.Windows.Forms.ComboBox();
             this.lblCurrentModule1Port = new System.Windows.Forms.Label();
-            this.btnOpenSerialModule1 = new System.Windows.Forms.Button();
-            this.btnCloseSerialModule1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cboxModule2Port = new System.Windows.Forms.ComboBox();
             this.lblCurrentModule2Port = new System.Windows.Forms.Label();
-            this.btnOpenSerialModule2 = new System.Windows.Forms.Button();
-            this.btnCloseSerialModule2 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblCurrentModule3Port = new System.Windows.Forms.Label();
             this.cboxModule3Port = new System.Windows.Forms.ComboBox();
-            this.btnOpenSerialModule3 = new System.Windows.Forms.Button();
-            this.btnCloseSerialModule3 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lblCurrentIMU = new System.Windows.Forms.Label();
             this.cboxIMU = new System.Windows.Forms.ComboBox();
-            this.btnCloseIMU = new System.Windows.Forms.Button();
-            this.btnOpenIMU = new System.Windows.Forms.Button();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnRescan = new System.Windows.Forms.Button();
-            this.btnSerialOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -86,12 +68,34 @@
             this.lblFromMU = new System.Windows.Forms.Label();
             this.lblFromModule1 = new System.Windows.Forms.Label();
             this.lblFromModule2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ListComPort = new System.Windows.Forms.TextBox();
+            this.Waiting = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnCloseIMU = new System.Windows.Forms.Button();
+            this.btnOpenIMU = new System.Windows.Forms.Button();
+            this.btnOpenSerialModule2 = new System.Windows.Forms.Button();
+            this.btnCloseSerialModule2 = new System.Windows.Forms.Button();
+            this.btnOpenSerialModule3 = new System.Windows.Forms.Button();
+            this.btnCloseSerialModule3 = new System.Windows.Forms.Button();
+            this.btnOpenSerialModule1 = new System.Windows.Forms.Button();
+            this.btnCloseSerialModule1 = new System.Windows.Forms.Button();
+            this.btnCloseSerial2 = new System.Windows.Forms.Button();
+            this.btnOpenSerial2 = new System.Windows.Forms.Button();
+            this.btnRescan = new System.Windows.Forms.Button();
+            this.btnSerialOK = new System.Windows.Forms.Button();
+            this.btnCloseSerial = new System.Windows.Forms.Button();
+            this.btnOpenSerial = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -177,20 +181,6 @@
             this.lblCurrentBaud.TabIndex = 46;
             this.lblCurrentBaud.Text = "Baud";
             // 
-            // btnCloseSerial
-            // 
-            this.btnCloseSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseSerial.FlatAppearance.BorderSize = 0;
-            this.btnCloseSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSerial.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerial.Image")));
-            this.btnCloseSerial.Location = new System.Drawing.Point(459, 16);
-            this.btnCloseSerial.Name = "btnCloseSerial";
-            this.btnCloseSerial.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseSerial.TabIndex = 44;
-            this.btnCloseSerial.UseVisualStyleBackColor = false;
-            this.btnCloseSerial.Click += new System.EventHandler(this.btnCloseSerial_Click);
-            // 
             // textBoxRcv
             // 
             this.textBoxRcv.BackColor = System.Drawing.SystemColors.Window;
@@ -202,20 +192,6 @@
             this.textBoxRcv.ReadOnly = true;
             this.textBoxRcv.Size = new System.Drawing.Size(661, 53);
             this.textBoxRcv.TabIndex = 40;
-            // 
-            // btnOpenSerial
-            // 
-            this.btnOpenSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenSerial.FlatAppearance.BorderSize = 0;
-            this.btnOpenSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenSerial.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerial.Image")));
-            this.btnOpenSerial.Location = new System.Drawing.Point(329, 16);
-            this.btnOpenSerial.Name = "btnOpenSerial";
-            this.btnOpenSerial.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenSerial.TabIndex = 45;
-            this.btnOpenSerial.UseVisualStyleBackColor = false;
-            this.btnOpenSerial.Click += new System.EventHandler(this.btnOpenSerial_Click);
             // 
             // groupBox2
             // 
@@ -288,20 +264,6 @@
             this.lblCurrentBaud2.TabIndex = 46;
             this.lblCurrentBaud2.Text = "Baud";
             // 
-            // btnCloseSerial2
-            // 
-            this.btnCloseSerial2.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseSerial2.FlatAppearance.BorderSize = 0;
-            this.btnCloseSerial2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSerial2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSerial2.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerial2.Image")));
-            this.btnCloseSerial2.Location = new System.Drawing.Point(313, 37);
-            this.btnCloseSerial2.Name = "btnCloseSerial2";
-            this.btnCloseSerial2.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseSerial2.TabIndex = 44;
-            this.btnCloseSerial2.UseVisualStyleBackColor = false;
-            this.btnCloseSerial2.Click += new System.EventHandler(this.btnCloseSerial2_Click);
-            // 
             // textBoxRcv2
             // 
             this.textBoxRcv2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -314,20 +276,6 @@
             this.textBoxRcv2.ReadOnly = true;
             this.textBoxRcv2.Size = new System.Drawing.Size(176, 31);
             this.textBoxRcv2.TabIndex = 40;
-            // 
-            // btnOpenSerial2
-            // 
-            this.btnOpenSerial2.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenSerial2.FlatAppearance.BorderSize = 0;
-            this.btnOpenSerial2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenSerial2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenSerial2.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerial2.Image")));
-            this.btnOpenSerial2.Location = new System.Drawing.Point(224, 54);
-            this.btnOpenSerial2.Name = "btnOpenSerial2";
-            this.btnOpenSerial2.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenSerial2.TabIndex = 45;
-            this.btnOpenSerial2.UseVisualStyleBackColor = false;
-            this.btnOpenSerial2.Click += new System.EventHandler(this.btnOpenSerial2_Click);
             // 
             // groupBox3
             // 
@@ -365,34 +313,6 @@
             this.lblCurrentModule1Port.TabIndex = 69;
             this.lblCurrentModule1Port.Text = "Port";
             // 
-            // btnOpenSerialModule1
-            // 
-            this.btnOpenSerialModule1.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenSerialModule1.FlatAppearance.BorderSize = 0;
-            this.btnOpenSerialModule1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenSerialModule1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenSerialModule1.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenSerialModule1.Location = new System.Drawing.Point(161, 29);
-            this.btnOpenSerialModule1.Name = "btnOpenSerialModule1";
-            this.btnOpenSerialModule1.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenSerialModule1.TabIndex = 53;
-            this.btnOpenSerialModule1.UseVisualStyleBackColor = false;
-            this.btnOpenSerialModule1.Click += new System.EventHandler(this.btnOpenSerialModule1_Click);
-            // 
-            // btnCloseSerialModule1
-            // 
-            this.btnCloseSerialModule1.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseSerialModule1.FlatAppearance.BorderSize = 0;
-            this.btnCloseSerialModule1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSerialModule1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSerialModule1.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModule1.Image")));
-            this.btnCloseSerialModule1.Location = new System.Drawing.Point(268, 29);
-            this.btnCloseSerialModule1.Name = "btnCloseSerialModule1";
-            this.btnCloseSerialModule1.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseSerialModule1.TabIndex = 52;
-            this.btnCloseSerialModule1.UseVisualStyleBackColor = false;
-            this.btnCloseSerialModule1.Click += new System.EventHandler(this.btnCloseSerialModule1_Click);
-            // 
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.Control;
@@ -428,34 +348,6 @@
             this.lblCurrentModule2Port.Size = new System.Drawing.Size(40, 18);
             this.lblCurrentModule2Port.TabIndex = 70;
             this.lblCurrentModule2Port.Text = "Port";
-            // 
-            // btnOpenSerialModule2
-            // 
-            this.btnOpenSerialModule2.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenSerialModule2.FlatAppearance.BorderSize = 0;
-            this.btnOpenSerialModule2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenSerialModule2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenSerialModule2.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerialModule2.Image")));
-            this.btnOpenSerialModule2.Location = new System.Drawing.Point(161, 31);
-            this.btnOpenSerialModule2.Name = "btnOpenSerialModule2";
-            this.btnOpenSerialModule2.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenSerialModule2.TabIndex = 53;
-            this.btnOpenSerialModule2.UseVisualStyleBackColor = false;
-            this.btnOpenSerialModule2.Click += new System.EventHandler(this.btnOpenSerialModule2_Click);
-            // 
-            // btnCloseSerialModule2
-            // 
-            this.btnCloseSerialModule2.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseSerialModule2.FlatAppearance.BorderSize = 0;
-            this.btnCloseSerialModule2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSerialModule2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSerialModule2.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModule2.Image")));
-            this.btnCloseSerialModule2.Location = new System.Drawing.Point(268, 31);
-            this.btnCloseSerialModule2.Name = "btnCloseSerialModule2";
-            this.btnCloseSerialModule2.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseSerialModule2.TabIndex = 52;
-            this.btnCloseSerialModule2.UseVisualStyleBackColor = false;
-            this.btnCloseSerialModule2.Click += new System.EventHandler(this.btnCloseSerialModule2_Click);
             // 
             // groupBox5
             // 
@@ -493,34 +385,6 @@
             this.cboxModule3Port.Size = new System.Drawing.Size(124, 37);
             this.cboxModule3Port.TabIndex = 64;
             this.cboxModule3Port.SelectedIndexChanged += new System.EventHandler(this.cboxModule3Port_SelectedIndexChanged);
-            // 
-            // btnOpenSerialModule3
-            // 
-            this.btnOpenSerialModule3.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenSerialModule3.FlatAppearance.BorderSize = 0;
-            this.btnOpenSerialModule3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenSerialModule3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenSerialModule3.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerialModule3.Image")));
-            this.btnOpenSerialModule3.Location = new System.Drawing.Point(161, 21);
-            this.btnOpenSerialModule3.Name = "btnOpenSerialModule3";
-            this.btnOpenSerialModule3.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenSerialModule3.TabIndex = 53;
-            this.btnOpenSerialModule3.UseVisualStyleBackColor = false;
-            this.btnOpenSerialModule3.Click += new System.EventHandler(this.btnOpenSerialModule3_Click);
-            // 
-            // btnCloseSerialModule3
-            // 
-            this.btnCloseSerialModule3.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseSerialModule3.FlatAppearance.BorderSize = 0;
-            this.btnCloseSerialModule3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSerialModule3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSerialModule3.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModule3.Image")));
-            this.btnCloseSerialModule3.Location = new System.Drawing.Point(268, 19);
-            this.btnCloseSerialModule3.Name = "btnCloseSerialModule3";
-            this.btnCloseSerialModule3.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseSerialModule3.TabIndex = 52;
-            this.btnCloseSerialModule3.UseVisualStyleBackColor = false;
-            this.btnCloseSerialModule3.Click += new System.EventHandler(this.btnCloseSerialModule3_Click);
             // 
             // groupBox6
             // 
@@ -560,33 +424,191 @@
             this.cboxIMU.TabIndex = 50;
             this.cboxIMU.SelectedIndexChanged += new System.EventHandler(this.cboxIMU_SelectedIndexChanged);
             // 
-            // btnCloseIMU
+            // label1
             // 
-            this.btnCloseIMU.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseIMU.FlatAppearance.BorderSize = 0;
-            this.btnCloseIMU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseIMU.Image = global::AgIO.Properties.Resources.USB_Disconnect;
-            this.btnCloseIMU.Location = new System.Drawing.Point(262, 34);
-            this.btnCloseIMU.Name = "btnCloseIMU";
-            this.btnCloseIMU.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseIMU.TabIndex = 44;
-            this.btnCloseIMU.UseVisualStyleBackColor = false;
-            this.btnCloseIMU.Click += new System.EventHandler(this.btnCloseIMU_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(625, 163);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 23);
+            this.label1.TabIndex = 73;
+            this.label1.Text = "GPS:";
             // 
-            // btnOpenIMU
+            // label2
             // 
-            this.btnOpenIMU.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenIMU.FlatAppearance.BorderSize = 0;
-            this.btnOpenIMU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenIMU.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenIMU.Location = new System.Drawing.Point(161, 34);
-            this.btnOpenIMU.Name = "btnOpenIMU";
-            this.btnOpenIMU.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenIMU.TabIndex = 45;
-            this.btnOpenIMU.UseVisualStyleBackColor = false;
-            this.btnOpenIMU.Click += new System.EventHandler(this.btnOpenIMU_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(413, 322);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 18);
+            this.label2.TabIndex = 74;
+            this.label2.Text = "GPS";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label4.Location = new System.Drawing.Point(584, 280);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(96, 23);
+            this.label4.TabIndex = 76;
+            this.label4.Text = "Machine:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(613, 250);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 23);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "Steer:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label6.Location = new System.Drawing.Point(623, 207);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 23);
+            this.label6.TabIndex = 78;
+            this.label6.Text = "IMU:";
+            // 
+            // lblIMU
+            // 
+            this.lblIMU.AutoSize = true;
+            this.lblIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIMU.Location = new System.Drawing.Point(679, 207);
+            this.lblIMU.Name = "lblIMU";
+            this.lblIMU.Size = new System.Drawing.Size(50, 23);
+            this.lblIMU.TabIndex = 83;
+            this.lblIMU.Text = "IMU";
+            // 
+            // lblSteer
+            // 
+            this.lblSteer.AutoSize = true;
+            this.lblSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSteer.Location = new System.Drawing.Point(679, 250);
+            this.lblSteer.Name = "lblSteer";
+            this.lblSteer.Size = new System.Drawing.Size(60, 23);
+            this.lblSteer.TabIndex = 82;
+            this.lblSteer.Text = "Steer";
+            // 
+            // lblMachine
+            // 
+            this.lblMachine.AutoSize = true;
+            this.lblMachine.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMachine.Location = new System.Drawing.Point(679, 280);
+            this.lblMachine.Name = "lblMachine";
+            this.lblMachine.Size = new System.Drawing.Size(60, 23);
+            this.lblMachine.TabIndex = 81;
+            this.lblMachine.Text = "Mach";
+            // 
+            // lblGPS
+            // 
+            this.lblGPS.AutoSize = true;
+            this.lblGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGPS.Location = new System.Drawing.Point(679, 163);
+            this.lblGPS.Name = "lblGPS";
+            this.lblGPS.Size = new System.Drawing.Size(48, 23);
+            this.lblGPS.TabIndex = 79;
+            this.lblGPS.Text = "GPS";
+            // 
+            // lblFromGPS
+            // 
+            this.lblFromGPS.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromGPS.ForeColor = System.Drawing.Color.Black;
+            this.lblFromGPS.Location = new System.Drawing.Point(758, 161);
+            this.lblFromGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFromGPS.Name = "lblFromGPS";
+            this.lblFromGPS.Size = new System.Drawing.Size(64, 27);
+            this.lblFromGPS.TabIndex = 172;
+            this.lblFromGPS.Text = "---";
+            this.lblFromGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFromMU
+            // 
+            this.lblFromMU.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromMU.ForeColor = System.Drawing.Color.Black;
+            this.lblFromMU.Location = new System.Drawing.Point(758, 204);
+            this.lblFromMU.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFromMU.Name = "lblFromMU";
+            this.lblFromMU.Size = new System.Drawing.Size(64, 27);
+            this.lblFromMU.TabIndex = 175;
+            this.lblFromMU.Text = "---";
+            this.lblFromMU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFromModule1
+            // 
+            this.lblFromModule1.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromModule1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromModule1.ForeColor = System.Drawing.Color.Black;
+            this.lblFromModule1.Location = new System.Drawing.Point(758, 248);
+            this.lblFromModule1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFromModule1.Name = "lblFromModule1";
+            this.lblFromModule1.Size = new System.Drawing.Size(64, 27);
+            this.lblFromModule1.TabIndex = 173;
+            this.lblFromModule1.Text = "---";
+            this.lblFromModule1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFromModule2
+            // 
+            this.lblFromModule2.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromModule2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromModule2.ForeColor = System.Drawing.Color.Black;
+            this.lblFromModule2.Location = new System.Drawing.Point(758, 278);
+            this.lblFromModule2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFromModule2.Name = "lblFromModule2";
+            this.lblFromModule2.Size = new System.Drawing.Size(64, 27);
+            this.lblFromModule2.TabIndex = 174;
+            this.lblFromModule2.Text = "---";
+            this.lblFromModule2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(550, 320);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 18);
+            this.label3.TabIndex = 180;
+            this.label3.Text = "COM infos";
+            // 
+            // ListComPort
+            // 
+            this.ListComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListComPort.BackColor = System.Drawing.SystemColors.Window;
+            this.ListComPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ListComPort.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListComPort.Location = new System.Drawing.Point(551, 339);
+            this.ListComPort.Multiline = true;
+            this.ListComPort.Name = "ListComPort";
+            this.ListComPort.ReadOnly = true;
+            this.ListComPort.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ListComPort.Size = new System.Drawing.Size(302, 294);
+            this.ListComPort.TabIndex = 179;
+            this.ListComPort.TabStop = false;
+            // 
+            // Waiting
+            // 
+            this.Waiting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Waiting.BackColor = System.Drawing.Color.Transparent;
+            this.Waiting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Waiting.Image = global::AgIO.Properties.Resources.Sablier;
+            this.Waiting.Location = new System.Drawing.Point(681, 470);
+            this.Waiting.Name = "Waiting";
+            this.Waiting.Size = new System.Drawing.Size(32, 32);
+            this.Waiting.TabIndex = 181;
+            this.Waiting.TabStop = false;
+            this.Waiting.Visible = false;
             // 
             // pictureBox4
             // 
@@ -628,6 +650,146 @@
             this.pictureBox1.TabIndex = 69;
             this.pictureBox1.TabStop = false;
             // 
+            // btnCloseIMU
+            // 
+            this.btnCloseIMU.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseIMU.FlatAppearance.BorderSize = 0;
+            this.btnCloseIMU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseIMU.Image = global::AgIO.Properties.Resources.USB_Disconnect;
+            this.btnCloseIMU.Location = new System.Drawing.Point(262, 34);
+            this.btnCloseIMU.Name = "btnCloseIMU";
+            this.btnCloseIMU.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseIMU.TabIndex = 44;
+            this.btnCloseIMU.UseVisualStyleBackColor = false;
+            this.btnCloseIMU.Click += new System.EventHandler(this.btnCloseIMU_Click);
+            // 
+            // btnOpenIMU
+            // 
+            this.btnOpenIMU.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenIMU.FlatAppearance.BorderSize = 0;
+            this.btnOpenIMU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenIMU.Image = global::AgIO.Properties.Resources.USB_Connect;
+            this.btnOpenIMU.Location = new System.Drawing.Point(161, 34);
+            this.btnOpenIMU.Name = "btnOpenIMU";
+            this.btnOpenIMU.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenIMU.TabIndex = 45;
+            this.btnOpenIMU.UseVisualStyleBackColor = false;
+            this.btnOpenIMU.Click += new System.EventHandler(this.btnOpenIMU_Click);
+            // 
+            // btnOpenSerialModule2
+            // 
+            this.btnOpenSerialModule2.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSerialModule2.FlatAppearance.BorderSize = 0;
+            this.btnOpenSerialModule2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenSerialModule2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenSerialModule2.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerialModule2.Image")));
+            this.btnOpenSerialModule2.Location = new System.Drawing.Point(161, 31);
+            this.btnOpenSerialModule2.Name = "btnOpenSerialModule2";
+            this.btnOpenSerialModule2.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenSerialModule2.TabIndex = 53;
+            this.btnOpenSerialModule2.UseVisualStyleBackColor = false;
+            this.btnOpenSerialModule2.Click += new System.EventHandler(this.btnOpenSerialModule2_Click);
+            // 
+            // btnCloseSerialModule2
+            // 
+            this.btnCloseSerialModule2.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseSerialModule2.FlatAppearance.BorderSize = 0;
+            this.btnCloseSerialModule2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSerialModule2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseSerialModule2.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModule2.Image")));
+            this.btnCloseSerialModule2.Location = new System.Drawing.Point(268, 31);
+            this.btnCloseSerialModule2.Name = "btnCloseSerialModule2";
+            this.btnCloseSerialModule2.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseSerialModule2.TabIndex = 52;
+            this.btnCloseSerialModule2.UseVisualStyleBackColor = false;
+            this.btnCloseSerialModule2.Click += new System.EventHandler(this.btnCloseSerialModule2_Click);
+            // 
+            // btnOpenSerialModule3
+            // 
+            this.btnOpenSerialModule3.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSerialModule3.FlatAppearance.BorderSize = 0;
+            this.btnOpenSerialModule3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenSerialModule3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenSerialModule3.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerialModule3.Image")));
+            this.btnOpenSerialModule3.Location = new System.Drawing.Point(161, 21);
+            this.btnOpenSerialModule3.Name = "btnOpenSerialModule3";
+            this.btnOpenSerialModule3.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenSerialModule3.TabIndex = 53;
+            this.btnOpenSerialModule3.UseVisualStyleBackColor = false;
+            this.btnOpenSerialModule3.Click += new System.EventHandler(this.btnOpenSerialModule3_Click);
+            // 
+            // btnCloseSerialModule3
+            // 
+            this.btnCloseSerialModule3.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseSerialModule3.FlatAppearance.BorderSize = 0;
+            this.btnCloseSerialModule3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSerialModule3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseSerialModule3.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModule3.Image")));
+            this.btnCloseSerialModule3.Location = new System.Drawing.Point(268, 19);
+            this.btnCloseSerialModule3.Name = "btnCloseSerialModule3";
+            this.btnCloseSerialModule3.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseSerialModule3.TabIndex = 52;
+            this.btnCloseSerialModule3.UseVisualStyleBackColor = false;
+            this.btnCloseSerialModule3.Click += new System.EventHandler(this.btnCloseSerialModule3_Click);
+            // 
+            // btnOpenSerialModule1
+            // 
+            this.btnOpenSerialModule1.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSerialModule1.FlatAppearance.BorderSize = 0;
+            this.btnOpenSerialModule1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenSerialModule1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenSerialModule1.Image = global::AgIO.Properties.Resources.USB_Connect;
+            this.btnOpenSerialModule1.Location = new System.Drawing.Point(161, 29);
+            this.btnOpenSerialModule1.Name = "btnOpenSerialModule1";
+            this.btnOpenSerialModule1.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenSerialModule1.TabIndex = 53;
+            this.btnOpenSerialModule1.UseVisualStyleBackColor = false;
+            this.btnOpenSerialModule1.Click += new System.EventHandler(this.btnOpenSerialModule1_Click);
+            // 
+            // btnCloseSerialModule1
+            // 
+            this.btnCloseSerialModule1.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseSerialModule1.FlatAppearance.BorderSize = 0;
+            this.btnCloseSerialModule1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSerialModule1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseSerialModule1.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModule1.Image")));
+            this.btnCloseSerialModule1.Location = new System.Drawing.Point(268, 29);
+            this.btnCloseSerialModule1.Name = "btnCloseSerialModule1";
+            this.btnCloseSerialModule1.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseSerialModule1.TabIndex = 52;
+            this.btnCloseSerialModule1.UseVisualStyleBackColor = false;
+            this.btnCloseSerialModule1.Click += new System.EventHandler(this.btnCloseSerialModule1_Click);
+            // 
+            // btnCloseSerial2
+            // 
+            this.btnCloseSerial2.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseSerial2.FlatAppearance.BorderSize = 0;
+            this.btnCloseSerial2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSerial2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseSerial2.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerial2.Image")));
+            this.btnCloseSerial2.Location = new System.Drawing.Point(313, 37);
+            this.btnCloseSerial2.Name = "btnCloseSerial2";
+            this.btnCloseSerial2.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseSerial2.TabIndex = 44;
+            this.btnCloseSerial2.UseVisualStyleBackColor = false;
+            this.btnCloseSerial2.Click += new System.EventHandler(this.btnCloseSerial2_Click);
+            // 
+            // btnOpenSerial2
+            // 
+            this.btnOpenSerial2.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSerial2.FlatAppearance.BorderSize = 0;
+            this.btnOpenSerial2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenSerial2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenSerial2.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerial2.Image")));
+            this.btnOpenSerial2.Location = new System.Drawing.Point(224, 54);
+            this.btnOpenSerial2.Name = "btnOpenSerial2";
+            this.btnOpenSerial2.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenSerial2.TabIndex = 45;
+            this.btnOpenSerial2.UseVisualStyleBackColor = false;
+            this.btnOpenSerial2.Click += new System.EventHandler(this.btnOpenSerial2_Click);
+            // 
             // btnRescan
             // 
             this.btnRescan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -637,7 +799,7 @@
             this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRescan.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnRescan.Image = global::AgIO.Properties.Resources.ScanPorts;
-            this.btnRescan.Location = new System.Drawing.Point(601, 589);
+            this.btnRescan.Location = new System.Drawing.Point(601, 631);
             this.btnRescan.Name = "btnRescan";
             this.btnRescan.Size = new System.Drawing.Size(89, 63);
             this.btnRescan.TabIndex = 58;
@@ -655,7 +817,7 @@
             this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnSerialOK.Image = global::AgIO.Properties.Resources.OK64;
-            this.btnSerialOK.Location = new System.Drawing.Point(762, 588);
+            this.btnSerialOK.Location = new System.Drawing.Point(762, 630);
             this.btnSerialOK.Name = "btnSerialOK";
             this.btnSerialOK.Size = new System.Drawing.Size(91, 63);
             this.btnSerialOK.TabIndex = 59;
@@ -663,158 +825,43 @@
             this.btnSerialOK.UseVisualStyleBackColor = false;
             this.btnSerialOK.Click += new System.EventHandler(this.btnSerialOK_Click);
             // 
-            // label1
+            // btnCloseSerial
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(625, 232);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 23);
-            this.label1.TabIndex = 73;
-            this.label1.Text = "GPS:";
+            this.btnCloseSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseSerial.FlatAppearance.BorderSize = 0;
+            this.btnCloseSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseSerial.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerial.Image")));
+            this.btnCloseSerial.Location = new System.Drawing.Point(459, 16);
+            this.btnCloseSerial.Name = "btnCloseSerial";
+            this.btnCloseSerial.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseSerial.TabIndex = 44;
+            this.btnCloseSerial.UseVisualStyleBackColor = false;
+            this.btnCloseSerial.Click += new System.EventHandler(this.btnCloseSerial_Click);
             // 
-            // label2
+            // btnOpenSerial
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(413, 322);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 18);
-            this.label2.TabIndex = 74;
-            this.label2.Text = "GPS";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(584, 349);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 23);
-            this.label4.TabIndex = 76;
-            this.label4.Text = "Machine:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(613, 319);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 23);
-            this.label5.TabIndex = 77;
-            this.label5.Text = "Steer:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(623, 276);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 23);
-            this.label6.TabIndex = 78;
-            this.label6.Text = "IMU:";
-            // 
-            // lblIMU
-            // 
-            this.lblIMU.AutoSize = true;
-            this.lblIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIMU.Location = new System.Drawing.Point(679, 276);
-            this.lblIMU.Name = "lblIMU";
-            this.lblIMU.Size = new System.Drawing.Size(50, 23);
-            this.lblIMU.TabIndex = 83;
-            this.lblIMU.Text = "IMU";
-            // 
-            // lblSteer
-            // 
-            this.lblSteer.AutoSize = true;
-            this.lblSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSteer.Location = new System.Drawing.Point(679, 319);
-            this.lblSteer.Name = "lblSteer";
-            this.lblSteer.Size = new System.Drawing.Size(60, 23);
-            this.lblSteer.TabIndex = 82;
-            this.lblSteer.Text = "Steer";
-            // 
-            // lblMachine
-            // 
-            this.lblMachine.AutoSize = true;
-            this.lblMachine.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMachine.Location = new System.Drawing.Point(679, 349);
-            this.lblMachine.Name = "lblMachine";
-            this.lblMachine.Size = new System.Drawing.Size(60, 23);
-            this.lblMachine.TabIndex = 81;
-            this.lblMachine.Text = "Mach";
-            // 
-            // lblGPS
-            // 
-            this.lblGPS.AutoSize = true;
-            this.lblGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGPS.Location = new System.Drawing.Point(679, 232);
-            this.lblGPS.Name = "lblGPS";
-            this.lblGPS.Size = new System.Drawing.Size(48, 23);
-            this.lblGPS.TabIndex = 79;
-            this.lblGPS.Text = "GPS";
-            // 
-            // lblFromGPS
-            // 
-            this.lblFromGPS.BackColor = System.Drawing.Color.Transparent;
-            this.lblFromGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFromGPS.ForeColor = System.Drawing.Color.Black;
-            this.lblFromGPS.Location = new System.Drawing.Point(758, 230);
-            this.lblFromGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFromGPS.Name = "lblFromGPS";
-            this.lblFromGPS.Size = new System.Drawing.Size(64, 27);
-            this.lblFromGPS.TabIndex = 172;
-            this.lblFromGPS.Text = "---";
-            this.lblFromGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFromMU
-            // 
-            this.lblFromMU.BackColor = System.Drawing.Color.Transparent;
-            this.lblFromMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFromMU.ForeColor = System.Drawing.Color.Black;
-            this.lblFromMU.Location = new System.Drawing.Point(758, 273);
-            this.lblFromMU.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFromMU.Name = "lblFromMU";
-            this.lblFromMU.Size = new System.Drawing.Size(64, 27);
-            this.lblFromMU.TabIndex = 175;
-            this.lblFromMU.Text = "---";
-            this.lblFromMU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFromModule1
-            // 
-            this.lblFromModule1.BackColor = System.Drawing.Color.Transparent;
-            this.lblFromModule1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFromModule1.ForeColor = System.Drawing.Color.Black;
-            this.lblFromModule1.Location = new System.Drawing.Point(758, 317);
-            this.lblFromModule1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFromModule1.Name = "lblFromModule1";
-            this.lblFromModule1.Size = new System.Drawing.Size(64, 27);
-            this.lblFromModule1.TabIndex = 173;
-            this.lblFromModule1.Text = "---";
-            this.lblFromModule1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFromModule2
-            // 
-            this.lblFromModule2.BackColor = System.Drawing.Color.Transparent;
-            this.lblFromModule2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFromModule2.ForeColor = System.Drawing.Color.Black;
-            this.lblFromModule2.Location = new System.Drawing.Point(758, 347);
-            this.lblFromModule2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFromModule2.Name = "lblFromModule2";
-            this.lblFromModule2.Size = new System.Drawing.Size(64, 27);
-            this.lblFromModule2.TabIndex = 174;
-            this.lblFromModule2.Text = "---";
-            this.lblFromModule2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnOpenSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSerial.FlatAppearance.BorderSize = 0;
+            this.btnOpenSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenSerial.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerial.Image")));
+            this.btnOpenSerial.Location = new System.Drawing.Point(329, 16);
+            this.btnOpenSerial.Name = "btnOpenSerial";
+            this.btnOpenSerial.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenSerial.TabIndex = 45;
+            this.btnOpenSerial.UseVisualStyleBackColor = false;
+            this.btnOpenSerial.Click += new System.EventHandler(this.btnOpenSerial_Click);
             // 
             // FormCommSetGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(865, 663);
+            this.ClientSize = new System.Drawing.Size(865, 696);
             this.ControlBox = false;
+            this.Controls.Add(this.Waiting);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.ListComPort);
             this.Controls.Add(this.lblFromGPS);
             this.Controls.Add(this.lblFromMU);
             this.Controls.Add(this.lblFromModule1);
@@ -858,6 +905,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -925,5 +973,8 @@
         private System.Windows.Forms.Label lblFromMU;
         private System.Windows.Forms.Label lblFromModule1;
         private System.Windows.Forms.Label lblFromModule2;
+        private System.Windows.Forms.PictureBox Waiting;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox ListComPort;
     }
 }

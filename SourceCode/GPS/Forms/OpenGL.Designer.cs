@@ -118,9 +118,16 @@ namespace AgOpenGPS
 
                 GL.Color3(0.98f, 0.98f, 0.70f);
 
+                /* //Commenté par SPailleau pour adaptation version urepom
                 int edge = -oglMain.Width / 2 + 10;
-
                 font.DrawText(edge, oglMain.Height - 240, "<-- AgIO Started ?");
+                */
+                //----SPailleau - Nouvelle position
+                int edge = -oglMain.Width / 2 + 144;
+                font.DrawText(edge, oglMain.Height - 145, "AgIO Started ?");
+                font.DrawText(edge + 90, oglMain.Height - 115, "|");
+                font.DrawText(edge + 90, oglMain.Height - 100, "v");
+                //----
 
                 GL.Flush();//finish openGL commands
                 GL.PopMatrix();//  Pop the modelview.
@@ -429,6 +436,8 @@ namespace AgOpenGPS
 
                     //if (isCompassOn) DrawCompass();
                     DrawCompassText();
+
+                    ABLineName(); //SPailleau
 
                     if (isSpeedoOn) DrawSpeedo();
 
@@ -1662,6 +1671,99 @@ namespace AgOpenGPS
 
             //font.DrawText(center, 65, pwm, 0.8);
         }
+
+        //----SPailleau - Ouvrir parcelle avec clic sur le fond quand aucune n'est ouverte
+        private void OpenField()
+        {
+            leftMouseDownOnOpenGL = false;
+            byte[] data1 = new byte[768];
+
+            //scan the center of click and a set of square points around
+            GL.ReadPixels(mouseX, mouseY, 2, 2, PixelFormat.Rgb, 0, data1);
+
+            if (!isJobStarted)
+            {
+                //Same clic on field button
+                //bring up dialog if no job active
+                if (!isJobStarted)
+                {
+                    using (var form = new FormJob(this))
+                    {
+                        var result = form.ShowDialog();
+                        if (result == DialogResult.Yes)
+                        {
+                            //ask for a directory name
+                            using (var form2 = new FormFieldDir(this))
+                            { form2.ShowDialog(); }
+                        }
+
+                        //load from  KML
+                        else if (result == DialogResult.No)
+                        {
+                            //ask for a directory name
+                            using (var form2 = new FormFieldKML(this))
+                            { form2.ShowDialog(); }
+                        }
+                    }
+
+                    if (isJobStarted)
+                    {
+                        //panelRight.Enabled = true;
+                        //boundaryToolStripBtn.Enabled = true;
+                        FieldMenuButtonEnableDisable(true);
+
+                        if (currentFieldDirectory.Contains("2020."))
+                        {
+                            if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                        }
+                        else if (currentFieldDirectory.Contains("2021."))
+                        {
+                            if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                        }
+                        else
+                        {
+                            toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "- " + fd.AreaBoundaryLessInnersHectares;
+                        }
+
+                        label1.Text = vehicleFileName + " - " + (Math.Round(tool.toolWidth, 2)).ToString() + " m";
+                        round_table1.Visible = true;
+                        round_table4.Visible = true;
+                        round_table3.Visible = true;
+                        round_table2.Visible = true;
+                        round_table6.Visible = true;
+                        round_table8.Visible = true;
+                        label1.Visible = true;
+                        toolStripStatusLabel2.Visible = true;
+                        //lblCurveLineName.Visible = true; //SPailleau - Nom de la ligne déplacé
+                        round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
+                        round_table10.Width = 290;
+                        //toolStripBtnFieldClose.Visible = true; //SPailleau 
+                    }
+                    else
+                    {
+                        // panelRight.Enabled = false;
+                        //boundaryToolStripBtn.Enabled = false;
+                        FieldMenuButtonEnableDisable(false);
+                        lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
+                        label1.Visible = false;
+                        round_table1.Visible = false;
+                        round_table4.Visible = false;
+                        round_table3.Visible = false;
+                        round_table2.Visible = false;
+                        round_table6.Visible = false;
+                        round_table8.Visible = false;
+                        lblCurveLineName.Visible = false;
+                        round_StatusStrip1.Width = 176;
+                        toolStripStatusLabel2.Visible = false;
+                        round_table10.Width = 176;
+                    }
+                }
+            }
+        }
+        //----
+
+
+        //----SPailleau - Clic sur le fond de carte pour afficher/masquer outils
         private void ShowHideTools()
         {
             leftMouseDownOnOpenGL = false;
@@ -1675,6 +1777,9 @@ namespace AgOpenGPS
                 if (round_StatusStrip1.Visible)
                 {
                     round_StatusStrip1.Visible = false;
+                    menuStrip1.Visible = false; //Haut gauche
+                    btn_synchro.Visible = false; //Bouton synchro
+                    round_table11.Visible = false; //Haut droite
                     round_table10.Visible = false;
                     round_table7.Visible = false;
                     round_table8.Visible = false;
@@ -1684,13 +1789,16 @@ namespace AgOpenGPS
                     round_table3.Visible = false;
                     round_table2.Visible = false;
                     round_table6.Visible = false;
-                    round_table12.Visible = false;
-                    statusStripLeft.Visible = false;
-                    lblCurveLineName.Visible = false;
+                    panelNavigation.Visible = false; //Panneau zoom, jour/nuit...
+                    //round_table12.Visible = false; //Bas droite
+                    //statusStripLeft.Visible = false; //Bas gauche
                 }
                 else
                 {
                     round_StatusStrip1.Visible = true;
+                    menuStrip1.Visible = true; //Haut gauche
+                    btn_synchro.Visible = true; //Bouton synchro
+                    round_table11.Visible = true; //Haut droite
                     round_table10.Visible = true;
                     round_table7.Visible = true;
                     round_table8.Visible = true;
@@ -1700,12 +1808,39 @@ namespace AgOpenGPS
                     round_table3.Visible = true;
                     round_table2.Visible = true;
                     round_table6.Visible = true;
-                    round_table12.Visible = true;
-                    statusStripLeft.Visible = true;
-                    lblCurveLineName.Visible = true;
+                    //round_table12.Visible = true; //Bas droite
+                    //statusStripLeft.Visible = true; //Bas gauche
                 }
             }
         }
+        //----
+
+        //----SPailleau
+        private void ABLineName()
+        {
+            string LineName;
+            GL.Color3((byte)242, (byte)120, (byte)242);
+            if (isJobStarted)
+            {
+                if (curve.numCurveLineSelected > 0 && curve.isBtnCurveOn)
+                {
+                    LineName = "Cur-" + curve.curveArr[curve.numCurveLineSelected - 1].Name;
+                }
+
+                else if (ABLine.numABLineSelected > 0 && ABLine.isBtnABLineOn)
+                {
+                    LineName = "AB-" + ABLine.lineArr[ABLine.numABLineSelected - 1].Name;
+                }
+                else
+                {
+                    LineName = string.Empty;
+                }
+                font.DrawText((-oglMain.Width / 4 * 2) + 5, oglMain.Height - 120, LineName, 0.9);
+                GL.End();
+            }
+        }
+        //----
+
         private void MakeFlagMark()
         {
             leftMouseDownOnOpenGL = false;
@@ -1804,6 +1939,8 @@ namespace AgOpenGPS
             //if (dotDistance < -10) dotDistance -= 30;
             //if (dotDistance > 10) dotDistance += 30;
 
+
+            /* //Paragraphe commenté par SPailleau, pas besoin des petits points à gauche et à droite
             // dot background
             GL.PointSize(8.0f);
             GL.Color3(0.00f, 0.0f, 0.0f);
@@ -1824,6 +1961,7 @@ namespace AgOpenGPS
             GL.Color3(0.0f, 0.9750f, 0.0f);
             for (int i = 1; i < 9; i++) GL.Vertex2((i * 32), down);
             GL.End();
+            */
 
             //Are you on the right side of line? So its green.
             //GL.Translate(0, 0, 0.01);
@@ -1831,14 +1969,15 @@ namespace AgOpenGPS
                 {
                     int dots = (dotDistance * -1 / lightbarCmPerPixel);
 
-                    GL.PointSize(24.0f);
+                    GL.PointSize(20.0f); //SPailleau original 24
                     GL.Color3(0.0f, 0.0f, 0.0f);
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 1; i < dots + 1; i++) GL.Vertex2((i * 32), down);
                     GL.End();
 
                     GL.PointSize(16.0f);
-                    GL.Color3(0.0f, 0.980f, 0.0f);
+                    //GL.Color3(0.0f, 0.980f, 0.0f);
+                    GL.Color3(0.980f, 0.98f, 0.0f); //Yellow //SPailleau
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 0; i < dots; i++) GL.Vertex2((i * 32 + 32), down);
                     GL.End();
@@ -1849,14 +1988,14 @@ namespace AgOpenGPS
                 {
                     int dots = (int)(dotDistance / lightbarCmPerPixel);
 
-                    GL.PointSize(24.0f);
+                    GL.PointSize(20.0f); //SPailleau original 24
                     GL.Color3(0.0f, 0.0f, 0.0f);
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 1; i < dots + 1; i++) GL.Vertex2((i * -32), down);
                     GL.End();
 
                     GL.PointSize(16.0f);
-                    GL.Color3(0.980f, 0.30f, 0.0f);
+                    GL.Color3(0.980f, 0.30f, 0.0f); //red
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 0; i < dots; i++) GL.Vertex2((i * -32 - 32), down);
                     GL.End();
@@ -1866,7 +2005,7 @@ namespace AgOpenGPS
             //yellow center dot
             if (dotDistance >= -lightbarCmPerPixel && dotDistance <= lightbarCmPerPixel)
             {
-                GL.PointSize(32.0f);                
+                GL.PointSize(30.0f); //SPailleau original 32                
                 GL.Color3(0.0f, 0.0f, 0.0f);
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
@@ -1874,7 +2013,8 @@ namespace AgOpenGPS
                 GL.End();
 
                 GL.PointSize(24.0f);
-                GL.Color3(0.980f, 0.98f, 0.0f);
+                //GL.Color3(0.980f, 0.98f, 0.0f);
+                GL.Color3(0.0f, 0.980f, 0.0f); //green //SPailleau
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
                 //GL.Vertex(0, down + 50);
@@ -1892,7 +2032,8 @@ namespace AgOpenGPS
                 GL.End();
 
                 GL.PointSize(8.0f);
-                GL.Color3(0.980f, 0.98f, 0.0f);
+                //GL.Color3(0.980f, 0.98f, 0.0f);
+                GL.Color3(0.0f, 0.980f, 0.0f); //green //SPailleau
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
                 //GL.Vertex(0, down + 50);
@@ -1921,6 +2062,7 @@ namespace AgOpenGPS
 
                     DrawLightBar(oglMain.Width, oglMain.Height, avgPivotDistance);
 
+                    /* //Commenté SPailleau
                     if (avgPivotDistance > 0.0)
                     {
                         GL.Color3(0.9752f, 0.50f, 0.3f);
@@ -1934,6 +2076,37 @@ namespace AgOpenGPS
 
                     int center = -(int)(((double)(hede.Length) * 0.5) * 16);
                     font.DrawText(center, 67, hede, 1);
+                    */
+
+                    //----Modification SPailleau pour ne pas afficher les flèches quand on est à 0
+                    // + converver la valeur au centre puis les flèches si besoin d'un côté ou de l'autre
+                    int center;
+                    if (avgPivotDistance < 0.5 && avgPivotDistance > -0.5)
+                    {
+                        GL.Color3(0.50f, 0.952f, 0.3f);
+                        hede = (Math.Abs(avgPivotDistance)).ToString("N0");
+                    }
+                    else
+                    {
+                        if (avgPivotDistance > 0.0)
+                        {
+                            GL.Color3(0.9752f, 0.50f, 0.3f); //rouge
+                            hede = (Math.Abs(avgPivotDistance)).ToString("N0");
+                            center = -(int)(((double)(hede.Length) * 0.5) * 16);
+                            font.DrawText(center - 25, 78, "< ", 1.1); //Fleches
+                        }
+                        else
+                        {
+                            GL.Color3(0.9752f, 0.50f, 0.3f); //rouge
+                            hede = (Math.Abs(avgPivotDistance)).ToString("N0");
+                            center = (int)(((double)(hede.Length) * 0.5) * 16);
+                            font.DrawText(center - 7, 78, " >", 1.1); //Fleches
+                        }
+                    }
+
+                    center = -(int)(((double)(hede.Length) * 0.5) * 16);
+                    font.DrawText(center, 78, hede, 1.1);
+                    //----
                 }
             }
         }

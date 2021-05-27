@@ -661,44 +661,24 @@ namespace AgOpenGPS
 
         private void oglMain_DoubleClick(object sender, EventArgs e)
         {
-
+            OpenField(); //SPailleau
         }
 
         private void lblSpeed_Click_1(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            Form f = Application.OpenForms["FormGPSData"];
+
+            if (f != null)
             {
-                if (round_StatusStrip1.Visible)
-                {
-                    round_StatusStrip1.Visible = false;
-                    round_table10.Visible = false;
-                    round_table7.Visible = false;
-                    round_table8.Visible = false;
-                    round_table9.Visible = false;
-                    round_table1.Visible = false;
-                    round_table4.Visible = false;
-                    round_table3.Visible = false;
-                    round_table2.Visible = false;
-                    round_table6.Visible = false;
-                    round_table12.Visible = false;
-                    statusStripLeft.Visible = false;
-                }
-                else
-                {
-                    round_StatusStrip1.Visible = true;
-                    round_table10.Visible = true;
-                    round_table7.Visible = true;
-                    round_table8.Visible = true;
-                    round_table9.Visible = true;
-                    round_table1.Visible = true;
-                    round_table4.Visible = true;
-                    round_table3.Visible = true;
-                    round_table2.Visible = true;
-                    round_table6.Visible = true;
-                    round_table12.Visible = true;
-                    statusStripLeft.Visible = true;
-                }
+                f.Focus();
+                f.Close();
+                return;
             }
+
+            isGPSSentencesOn = true;
+
+            Form form = new FormGPSData(this);
+            form.Show(this);
         }
 
         private void lbludpWatchCounts_Click(object sender, EventArgs e)
@@ -965,7 +945,7 @@ namespace AgOpenGPS
             //roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
             panel_top.Left = this.Width / 2 - panel_top.Width / 2 + 3;
 
-            //----SPailleau
+            //----SPailleau - Position des bouton d'action sur la ligne AB (gauche / droite / snap)
             SnapCenterMain.Left = this.Width / 2 - SnapCenterMain.Width / 2;
             SnapCenterMain.Top = round_table5.Top - SnapCenterMain.Height - 5;
 
@@ -1010,7 +990,7 @@ namespace AgOpenGPS
             //oglMain.Width = this.Width - statusStripLeft.Width - 84;
 
             panelSim.Left = 100;
-            panelSim.Width = Width - 300;
+            panelSim.Width = Width - 250;
 
             timer2.Enabled = true;
             //panel1.BringToFront();

@@ -382,40 +382,50 @@ namespace AgIO
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (recvFromAOGLoopBackSocket != null)
+            //----Ajout SPailleau - Message de confirmation à la fermeture
+            if (MessageBox.Show("Close all connexions ?", "Confirm closing ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
-                try
-                {
-                    recvFromAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
-                }
-                finally { recvFromAOGLoopBackSocket.Close(); }
+                e.Cancel = true;
             }
-
-            if (sendToAOGLoopBackSocket != null)
+            else
             {
-                try
-                {
-                    sendToAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
-                }
-                finally { sendToAOGLoopBackSocket.Close(); }
-            }
+                e.Cancel = false;
 
-            if (sendToUDPSocket != null)
-            {
-                try
+                if (recvFromAOGLoopBackSocket != null)
                 {
-                    sendToUDPSocket.Shutdown(SocketShutdown.Both);
+                    try
+                    {
+                        recvFromAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
+                    }
+                    finally { recvFromAOGLoopBackSocket.Close(); }
                 }
-                finally { sendToUDPSocket.Close(); }
-            }
 
-            if (recvFromUDPSocket != null)
-            {
-                try
+                if (sendToAOGLoopBackSocket != null)
                 {
-                    recvFromUDPSocket.Shutdown(SocketShutdown.Both);
+                    try
+                    {
+                        sendToAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
+                    }
+                    finally { sendToAOGLoopBackSocket.Close(); }
                 }
-                finally { recvFromUDPSocket.Close(); }
+
+                if (sendToUDPSocket != null)
+                {
+                    try
+                    {
+                        sendToUDPSocket.Shutdown(SocketShutdown.Both);
+                    }
+                    finally { sendToUDPSocket.Close(); }
+                }
+
+                if (recvFromUDPSocket != null)
+                {
+                    try
+                    {
+                        recvFromUDPSocket.Shutdown(SocketShutdown.Both);
+                    }
+                    finally { recvFromUDPSocket.Close(); }
+                }
             }
         }
 

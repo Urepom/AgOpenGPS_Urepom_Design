@@ -615,13 +615,23 @@ namespace AgOpenGPS
 
         private void btnTurnOffHeadland_Click(object sender, EventArgs e)
         {
-            mf.hd.headArr[0].hdLine?.Clear();
+            //----SPailleau - Ajout de confirmation de suppression
+            if (MessageBox.Show("Supprimer les limites de toutes les fourrières ?", "Confirm deleting headland", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                mf.FileSaveHeadland();
+                Close();
+            }
+            else
+            {
+                mf.hd.headArr[0].hdLine?.Clear();
 
-            mf.hd.headArr[0].calcList?.Clear();
+                mf.hd.headArr[0].calcList?.Clear();
 
-            mf.FileSaveHeadland();
+                mf.FileSaveHeadland();
 
-            Close();
+                Close();
+            }
+            //----
         }
 
         private void btnDeletePoints_Click(object sender, EventArgs e)
