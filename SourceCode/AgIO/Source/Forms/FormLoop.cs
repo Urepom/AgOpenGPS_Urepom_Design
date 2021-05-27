@@ -383,7 +383,7 @@ namespace AgIO
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
             //----Ajout SPailleau - Message de confirmation à la fermeture
-            if (MessageBox.Show("Close all connexions ?", "Confirm closing ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show(gStr.gsCloseallconnexions, gStr.gsConfirmClosing, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }

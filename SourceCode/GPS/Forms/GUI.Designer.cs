@@ -435,6 +435,8 @@ namespace AgOpenGPS
         {            //metric settings
 
             CheckSettingsNotNull();
+            btnAdjLeftMain.Visible = Properties.Vehicle.Default.SetArrowsRL;
+            btnAdjRightMain.Visible = Properties.Vehicle.Default.SetArrowsRL;
 
             isMetric = Settings.Default.setMenu_isMetric;
 
@@ -491,6 +493,7 @@ namespace AgOpenGPS
             }
 
             //timeToShowMenus = Properties.Settings.Default.setDisplay_showMenusTime;
+
             udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
 
             startSpeed = Vehicle.Default.setVehicle_startSpeed;

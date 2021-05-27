@@ -130,6 +130,7 @@ namespace AgOpenGPS
                         chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
                         cboxheading.Checked = Properties.Vehicle.Default.SetHeadingOFF;
                         cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
+                        ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
 
                         if (mf.isMetric) rbtnDisplayMetric.Checked = true;
                         else rbtnDisplayImperial.Checked = true;
@@ -284,6 +285,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_islong_touchOn = mf.islong_touchOn;
             Properties.Vehicle.Default.SetHeadingOFF = cboxheading.Checked;
             Properties.Vehicle.Default.SetRollOFF = cboxroll.Checked;
+            Properties.Vehicle.Default.SetArrowsRL = ArrowsRL.Checked;
 
             //Properties.Settings.Default.setDisplay_showMenusTime = mf.timeToShowMenus;
 

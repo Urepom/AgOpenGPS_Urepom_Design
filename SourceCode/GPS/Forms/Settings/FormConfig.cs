@@ -41,6 +41,7 @@ namespace AgOpenGPS
             lblCurrentVehicle.Text = gStr.gsCurrentVehicle;
             label22.Text = gStr.gsUnits;
             label52.Text = gStr.gsToolWidth;
+            ArrowsRL.Text = gStr.gsArrowsRL;
 
             //tConfig
             groupBox1.Text = gStr.gsVehicleType;
@@ -104,6 +105,7 @@ namespace AgOpenGPS
             //tTram
             groupBox2.Text = gStr.gsTramType; //+
             label75.Text = gStr.gsTramWidth; //+
+
 
 
 
@@ -236,6 +238,7 @@ namespace AgOpenGPS
             cbox_long_touch.Checked = mf.islong_touchOn;
             cboxheading.Checked = Properties.Vehicle.Default.SetHeadingOFF;
             cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
+            ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
@@ -385,6 +388,7 @@ namespace AgOpenGPS
             cbox_long_touch.Checked = mf.islong_touchOn;
             cboxheading.Checked = Properties.Vehicle.Default.SetHeadingOFF;
             cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
+            ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
             //nudMenusOnTime.Value = mf.timeToShowMenus;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;

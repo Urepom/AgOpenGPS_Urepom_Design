@@ -147,6 +147,9 @@
   <data name="gsArea" xml:space="preserve">
     <value>Zone</value>
   </data>
+  <data name="gsArrowsRL" xml:space="preserve">
+    <value>Flèches G / D</value>
+  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Type d'outil</value>
   </data>

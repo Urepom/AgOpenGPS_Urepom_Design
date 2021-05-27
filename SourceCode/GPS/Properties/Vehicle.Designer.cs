@@ -958,5 +958,17 @@ namespace AgOpenGPS.Properties {
                 this["SetRollOFF"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SetArrowsRL {
+            get {
+                return ((bool)(this["SetArrowsRL"]));
+            }
+            set {
+                this["SetArrowsRL"] = value;
+            }
+        }
     }
 }

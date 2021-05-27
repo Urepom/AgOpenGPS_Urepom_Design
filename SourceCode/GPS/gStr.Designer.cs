@@ -151,6 +151,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Arrows R / L.
+        /// </summary>
+        public static string gsArrowsRL {
+            get {
+                return ResourceManager.GetString("gsArrowsRL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Attachment Style.
         /// </summary>
         public static string gsAttachmentStyle {

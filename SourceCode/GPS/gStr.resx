@@ -147,6 +147,9 @@
   <data name="gsArea" xml:space="preserve">
     <value>Area</value>
   </data>
+  <data name="gsArrowsRL" xml:space="preserve">
+    <value>Arrows R / L</value>
+  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Attachment Style</value>
   </data>

@@ -803,6 +803,11 @@ namespace AgOpenGPS
             //----Fin
         }
 
+        private void btnZoomOut_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// The font class
         /// </summary>
