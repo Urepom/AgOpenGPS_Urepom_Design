@@ -1,0 +1,15 @@
+AOG :
+- Affichage du niveau de charge de la batterie (tablette) à côté de l'heure en bas
+- Affichage du nom de la ligne active en OpenGL sur le fond avec clic dessus pour changer de ligne : pratique et c'est la conséquence du fait de masquer les outils)
+- Enregistrement de la position des fenêtres (comme vu la dernière fois)
+- Ajout des boutons flèche de décalage ligne AB temporaire (+réglages positions des boutons)
+- Ajout du bouton SteerSettings en bas de l'écran, je trouve pratique de l'avoir facile d'accès pour les réglages (avec affichage erreur/angle)
+- Masquage des petits carrés de la barre lumineuse car inutiles, s'affiche seulement les grands carrés quand nécessaire + Modification mineure : changement de couleur des points, je trouve plus logique d'afficher le point central en vert les points droite en jaune et non l'inverse.
+- Modification LightBarText (distance de la ligne) pour ne pas afficher les flèches quand on est à 0 + converver la valeur au centre puis les flèches si besoin d'un côté ou de l'autre
+- Ajout double clic sur le fond de carte pour ouvrir un job (si aucun est ouvert)
+- Message de confirmation quand clic sur bouton rouge de la fenêtre de création de fourrières
+- Correction affichage surface restante tronquée
+
+AgIO :
+- Ajout de la recherche de ports COM avec détails (libellé + fabriquant), permet de facilité le choix du bon port COM + paramétrage automatique en fonction des informations détectées (testé avec nano CH340, nano officiel driver FTDI et F9P drotek/ardusimple si driver Microsoft)
+- Ajout d'un message de confirmation à la fermeture, empêche de fermer AgIO sans le vouloir et donc de déconnecter les ports
