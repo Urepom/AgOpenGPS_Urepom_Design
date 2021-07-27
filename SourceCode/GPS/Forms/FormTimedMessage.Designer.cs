@@ -70,7 +70,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(527, 137);
+            this.panel1.Size = new System.Drawing.Size(380, 137);
             this.panel1.TabIndex = 2;
             // 
             // FormTimedMessage
@@ -78,7 +78,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
-            this.ClientSize = new System.Drawing.Size(541, 151);
+            this.ClientSize = new System.Drawing.Size(394, 151);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 14.25F);

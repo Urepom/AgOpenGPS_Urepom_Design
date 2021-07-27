@@ -27,12 +27,12 @@ namespace AgOpenGPS
         }
 
         private void FormTram_Load(object sender, EventArgs e)
-        { 
+        {
             nudPasses.ValueChanged -= nudPasses_ValueChanged;
             nudPasses.Value = Properties.Settings.Default.setTram_passes;
             nudPasses.ValueChanged += nudPasses_ValueChanged;
 
-            //mf.panelRight.Enabled = false;
+           // mf.panelRight.Enabled = false;
 
             lblTrack.Text = (mf.vehicle.trackWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
             mf.tool.halfToolWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) / 2.0;
@@ -63,7 +63,7 @@ namespace AgOpenGPS
         private void btnSave_Click(object sender, EventArgs e)
         {
             //mf.ABLine.moveDistance = 0;
-            //mf.panelRight.Enabled = true;
+           // mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
 
             mf.offX = 0;
@@ -79,7 +79,7 @@ namespace AgOpenGPS
                     mf.curve.curveArr[idx].aveHeading = mf.curve.aveLineHeading;
                     mf.curve.curveArr[idx].curvePts.Clear();
                     //write out the Curve Points
-                    foreach (var item in mf.curve.refList)
+                    foreach (vec3 item in mf.curve.refList)
                     {
                         mf.curve.curveArr[idx].curvePts.Add(item);
                     }

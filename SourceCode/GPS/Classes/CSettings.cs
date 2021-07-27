@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -37,6 +35,9 @@ namespace AgOpenGPS
         public bool isCurveOn = true;
         public bool isAutoSteerOn = true;
 
+        public bool isUTurnOn = true;
+        public bool isLateralOn = true;
+
         public CFeatureSettings(CFeatureSettings _feature)
         {
             isHeadlandOn = _feature.isHeadlandOn;
@@ -62,6 +63,8 @@ namespace AgOpenGPS
             isCurveOn = _feature.isCurveOn;
 
             isAutoSteerOn = _feature.isAutoSteerOn;
+            isLateralOn = _feature.isLateralOn;
+            isUTurnOn = _feature.isUTurnOn;
 
 
         }
@@ -84,7 +87,7 @@ namespace AgOpenGPS
             //var appSettings = Properties.Settings.Default;
             try
             {
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
 
                 string sectionName = "";
 
@@ -105,8 +108,8 @@ namespace AgOpenGPS
                 //    sectionName = Properties.Tool.Default.Context["GroupName"].ToString();
                 //}
 
-                var document = XDocument.Load(Path.Combine(settingsFilePath));
-                var settingsSection = document.XPathSelectElements($"//{sectionName}").Single().ToString();
+                XDocument document = XDocument.Load(Path.Combine(settingsFilePath));
+                string settingsSection = document.XPathSelectElements($"//{sectionName}").Single().ToString();
                 config.GetSectionGroup("userSettings").Sections[sectionName].SectionInformation.SetRawXml(settingsSection);
                 config.Save(ConfigurationSaveMode.Modified);
 
@@ -139,7 +142,7 @@ namespace AgOpenGPS
             Properties.Vehicle.Default.Save();
 
             //Export the entire settings as an xml
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
             config.SaveAs(settingsFilePath);
         }
 
@@ -149,7 +152,7 @@ namespace AgOpenGPS
             Properties.Vehicle.Default.Save();
 
             //Export the entire settings as an xml
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
             config.SaveAs(settingsFilePath);
         }
 
@@ -162,11 +165,11 @@ namespace AgOpenGPS
 
             try
             {
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
                 string sectionName = Properties.Settings.Default.Context["GroupName"].ToString();
 
-                var document = XDocument.Load(Path.Combine(settingsFilePath));
-                var settingsA = document.XPathSelectElements($"//{sectionName}").Single().ToString();
+                XDocument document = XDocument.Load(Path.Combine(settingsFilePath));
+                string settingsA = document.XPathSelectElements($"//{sectionName}").Single().ToString();
 
                 config.GetSectionGroup("userSettings").Sections[sectionName].SectionInformation.SetRawXml(settingsA);
                 config.Save(ConfigurationSaveMode.Modified);
@@ -192,7 +195,7 @@ namespace AgOpenGPS
                 // Could not import settings.
                 Properties.Settings.Default.Reload();
                 Properties.Vehicle.Default.Reload();
-            }            
+            }
         }
     }
 }

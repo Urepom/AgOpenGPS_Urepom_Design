@@ -373,7 +373,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        [global::System.Configuration.DefaultSettingValueAttribute("400")]
         public double setVehicle_maxAngularVelocity {
             get {
                 return ((double)(this["setVehicle_maxAngularVelocity"]));
@@ -938,24 +938,12 @@ namespace AgOpenGPS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SetHeadingOFF {
+        public bool setSection_isFast {
             get {
-                return ((bool)(this["SetHeadingOFF"]));
+                return ((bool)(this["setSection_isFast"]));
             }
             set {
-                this["SetHeadingOFF"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SetRollOFF {
-            get {
-                return ((bool)(this["SetRollOFF"]));
-            }
-            set {
-                this["SetRollOFF"] = value;
+                this["setSection_isFast"] = value;
             }
         }
         
@@ -968,6 +956,18 @@ namespace AgOpenGPS.Properties {
             }
             set {
                 this["SetArrowsRL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SetRollOFF {
+            get {
+                return ((bool)(this["SetRollOFF"]));
+            }
+            set {
+                this["SetRollOFF"] = value;
             }
         }
     }

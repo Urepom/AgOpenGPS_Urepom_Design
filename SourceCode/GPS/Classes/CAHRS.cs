@@ -17,26 +17,30 @@ namespace AgOpenGPS
         public double rollFilter;
 
         //is the auto steer in auto turn on mode or not
-        public bool isAutoSteerAuto, isRollInvert;
+        public bool isAutoSteerAuto, isRollInvert, isDualAsIMU, isReverseOn;
 
         //the factor for fusion of GPS and IMU
-        public double fusionWeight;
+        public double forwardComp, reverseComp, fusionWeight;
 
         //constructor
         public CAHRS()
         {
-            //mf = _f;
-
             rollZero = Properties.Settings.Default.setIMU_rollZero;
-            //pitchZeroX16 = Properties.Settings.Default.setIMU_pitchZeroX16;
 
             rollFilter = Properties.Settings.Default.setIMU_rollFilter;
 
+            fusionWeight = Properties.Settings.Default.setIMU_fusionWeight;
+
             isAutoSteerAuto = Properties.Settings.Default.setAS_isAutoSteerAutoOn;
 
-            fusionWeight = Properties.Settings.Default.setIMU_fusionWeight;
+            forwardComp = Properties.Settings.Default.setGPS_forwardComp;
+            reverseComp = Properties.Settings.Default.setGPS_reverseComp;
+
             isRollInvert = Properties.Settings.Default.setIMU_invertRoll;
 
+            isDualAsIMU = Properties.Settings.Default.setIMU_isDualAsIMU;
+
+            isReverseOn = Properties.Settings.Default.setIMU_isReverseOn;
         }
     }
 }

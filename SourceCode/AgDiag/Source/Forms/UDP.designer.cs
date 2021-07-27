@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AgDiag
@@ -21,9 +18,7 @@ namespace AgDiag
         public bool isTrafficOn = true;
 
         public int enableCounter = 0;
-
     }
-
     public partial class FormLoop
     {
         // Server socket
@@ -38,10 +33,6 @@ namespace AgDiag
 
         // Data stream
         private byte[] buffer = new byte[1024];
-
-        // Status delegate
-        private delegate void UpdateStatusDelegate(int port, byte[] msg);
-        private UpdateStatusDelegate updateStatusDelegate = null;
 
         // Send and Recv socket for udp network
         private Socket sendSocket;
@@ -94,13 +85,11 @@ namespace AgDiag
             }
         }
 
+
         private void LoadLoopback()
         { 
             try //loopback
             {
-                // Initialise the delegate which updates the status
-                updateStatusDelegate = new UpdateStatusDelegate(ReceiveFromLoopBack);
-
                 // Initialise the socket
                 sendToLoopBackSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 sendToLoopBackSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
@@ -295,7 +284,7 @@ namespace AgDiag
 
                 // Update status through a delegate
                 int port = ((IPEndPoint)epSender).Port;
-                Invoke(updateStatusDelegate, new object[] { port, localMsg });
+                BeginInvoke((MethodInvoker)(() => ReceiveFromLoopBack(port, localMsg)));
             }
             catch (Exception)
             {
@@ -387,8 +376,7 @@ namespace AgDiag
                 //string text =  Encoding.ASCII.GetString(localMsg);
 
                 int port = ((IPEndPoint)epSender).Port;
-                // Update status through a delegate
-                Invoke(updateRecvMessageDelegate, new object[] { port, localMsg });
+                BeginInvoke((MethodInvoker)(() => ReceiveFromUDP(port, localMsg)));
             }
             catch (Exception)
             {

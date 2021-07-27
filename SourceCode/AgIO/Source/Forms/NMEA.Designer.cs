@@ -15,11 +15,11 @@ namespace AgIO
 
         public float hdopData, altitude = float.MaxValue, headingTrue = float.MaxValue,
             headingTrueDual = float.MaxValue, speed = float.MaxValue, roll = float.MaxValue,
-            altitudeData, speedData, rollData, headingTrueData, headingTrueDualData;
+            altitudeData, speedData, rollData, headingTrueData, headingTrueDualData, ageData;
 
         public double latitudeSend = double.MaxValue, longitudeSend = double.MaxValue, latitude, longitude;
 
-        public ushort satellitesData, satellitesTracked = ushort.MaxValue, hdopX100 = ushort.MaxValue;
+        public ushort satellitesData, satellitesTracked = ushort.MaxValue, hdopX100 = ushort.MaxValue, ageX100 = ushort.MaxValue;
         public byte fixQualityData, fixQuality = byte.MaxValue;
 
         private float rollK, Pc, G, Xp, Zp, XeRoll, P = 1.0f;
@@ -107,7 +107,7 @@ namespace AgIO
             {
                 if (isLogNMEA)
                 {
-                    logNMEASentence.Append("\r\n" +
+                    logNMEASentence.Append("\r\n" + 
                         DateTime.UtcNow.ToString(" ->>  mm:ss.fff ", CultureInfo.InvariantCulture) + "\r\n" + rawBuffer + "\r\n");
                 }
 
@@ -189,13 +189,13 @@ namespace AgIO
             {
                 isNMEAToSend = false;
 
-                byte[] nmeaPGN = new byte[47];
+                byte[] nmeaPGN = new byte[49];
 
                 nmeaPGN[0] = 0x80;
                 nmeaPGN[1] = 0x81;
                 nmeaPGN[2] = 0x7C;
                 nmeaPGN[3] = 0xD6;
-                nmeaPGN[4] = 0x29;
+                nmeaPGN[4] = 0x2B;
 
                 //longitude
                 Buffer.BlockCopy(BitConverter.GetBytes(longitudeSend), 0, nmeaPGN, 5, 8);
@@ -234,13 +234,17 @@ namespace AgIO
                 Buffer.BlockCopy(BitConverter.GetBytes(hdopX100), 0, nmeaPGN, 44, 2);
                 hdopX100 = ushort.MaxValue;
 
+                Buffer.BlockCopy(BitConverter.GetBytes(ageX100), 0, nmeaPGN, 46, 2);
+                ageX100 = ushort.MaxValue;
+
+
                 int CK_A = 0;
                 for (int j = 2; j < nmeaPGN.Length; j++)
                 {
                     CK_A += nmeaPGN[j];
                 }
 
-                nmeaPGN[46] = (byte)CK_A;
+                nmeaPGN[48] = (byte)CK_A;
 
                 SendToLoopBackMessageAOG(nmeaPGN);
             }
@@ -295,6 +299,10 @@ namespace AgIO
                 //altitude
                 float.TryParse(words[9], NumberStyles.Float, CultureInfo.InvariantCulture, out altitude);
                 altitudeData = altitude;
+
+                //age
+                float.TryParse(words[13], NumberStyles.Float, CultureInfo.InvariantCulture, out ageData);
+                ageX100 = (ushort)(ageData*100.0);
 
                 //LastUpdateUTC = UTC;
 
@@ -362,7 +370,7 @@ namespace AgIO
             }
 
             if (!string.IsNullOrEmpty(words[1]))
-            {
+            { 
                 //True heading
                 float.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
                 headingTrueData = headingTrue;
@@ -444,9 +452,11 @@ namespace AgIO
             /*
             $PAOGI
             (1) 123519 Fix taken at 1219 UTC
+
             Roll corrected position
             (2,3) 4807.038,N Latitude 48 deg 07.038' N
             (4,5) 01131.000,E Longitude 11 deg 31.000' E
+
             (6) 1 Fix quality: 
                 0 = invalid
                 1 = GPS fix(SPS)
@@ -461,12 +471,15 @@ namespace AgIO
             (8) 0.9 Horizontal dilution of position
             (9) 545.4 Altitude (ALWAYS in Meters, above mean sea level)
             (10) 1.2 time in seconds since last DGPS update
+
             (11) 022.4 Speed over the ground in knots - can be positive or negative
+
             FROM AHRS:
             (12) Heading in degrees
             (13) Roll angle in degrees(positive roll = right leaning - right down, left up)
             (14) Pitch angle in degrees(Positive pitch = nose up)
             (15) Yaw Rate in Degrees / second
+
             * CHKSUM
             */
             #endregion PAOGI Message
@@ -514,6 +527,10 @@ namespace AgIO
                     words[2] += ".00";
                     decim = words[2].IndexOf(".", StringComparison.Ordinal);
                 }
+
+                //age
+                float.TryParse(words[10], NumberStyles.Float, CultureInfo.InvariantCulture, out ageData);
+                ageX100 = (ushort)(ageData * 100.0);
 
                 decim -= 2;
                 double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);

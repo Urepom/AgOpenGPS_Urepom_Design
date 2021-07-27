@@ -131,8 +131,8 @@ namespace AgIO
         public string commDirectory, commFileName = "";
 
         private void btnDeviceManager_Click(object sender, EventArgs e)
-        {            
-            Process.Start("devmgmt.msc");            
+        {
+            Process.Start("devmgmt.msc");
         }
 
         private void btnRescanPorts_Click(object sender, EventArgs e)
@@ -156,7 +156,6 @@ namespace AgIO
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             if (timer1.Interval > 1000)
             {
                 Controls.Remove(pictureBox1);
@@ -351,11 +350,13 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    //processInfo.ErrorDialog = true;
-                    //processInfo.UseShellExecute = false;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new ProcessStartInfo
+                    {
+                        FileName = strPath,
+                        //processInfo.ErrorDialog = true;
+                        //processInfo.UseShellExecute = false;
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -373,59 +374,49 @@ namespace AgIO
             }
 
         }
+
         public bool isLogNMEA;
         private void cboxLogNMEA_CheckedChanged(object sender, EventArgs e)
         {
             isLogNMEA = cboxLogNMEA.Checked;
         }
 
-
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //----Ajout SPailleau - Message de confirmation à la fermeture
-            if (MessageBox.Show(gStr.gsCloseallconnexions, gStr.gsConfirmClosing, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (recvFromAOGLoopBackSocket != null)
             {
-                e.Cancel = true;
+                try
+                {
+                    recvFromAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
+                }
+                finally { recvFromAOGLoopBackSocket.Close(); }
             }
-            else
+
+            if (sendToAOGLoopBackSocket != null)
             {
-                e.Cancel = false;
-
-                if (recvFromAOGLoopBackSocket != null)
+                try
                 {
-                    try
-                    {
-                        recvFromAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
-                    }
-                    finally { recvFromAOGLoopBackSocket.Close(); }
+                    sendToAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
                 }
+                finally { sendToAOGLoopBackSocket.Close(); }
+            }
 
-                if (sendToAOGLoopBackSocket != null)
+            if (sendToUDPSocket != null)
+            {
+                try
                 {
-                    try
-                    {
-                        sendToAOGLoopBackSocket.Shutdown(SocketShutdown.Both);
-                    }
-                    finally { sendToAOGLoopBackSocket.Close(); }
+                    sendToUDPSocket.Shutdown(SocketShutdown.Both);
                 }
+                finally { sendToUDPSocket.Close(); }
+            }
 
-                if (sendToUDPSocket != null)
+            if (recvFromUDPSocket != null)
+            {
+                try
                 {
-                    try
-                    {
-                        sendToUDPSocket.Shutdown(SocketShutdown.Both);
-                    }
-                    finally { sendToUDPSocket.Close(); }
+                    recvFromUDPSocket.Shutdown(SocketShutdown.Both);
                 }
-
-                if (recvFromUDPSocket != null)
-                {
-                    try
-                    {
-                        recvFromUDPSocket.Shutdown(SocketShutdown.Both);
-                    }
-                    finally { recvFromUDPSocket.Close(); }
-                }
+                finally { recvFromUDPSocket.Close(); }
             }
         }
 

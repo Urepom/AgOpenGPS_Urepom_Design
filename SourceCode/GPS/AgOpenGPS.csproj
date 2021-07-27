@@ -142,7 +142,6 @@
     <Compile Include="Classes\CModuleComm.cs" />
     <Compile Include="Classes\CNMEA.cs" />
     <Compile Include="Classes\CSection.cs" />
-    <Compile Include="Classes\CPointData.cs" />
     <Compile Include="Classes\CVehicle.cs" />
     <Compile Include="Classes\CWorldGrid.cs" />
     <Compile Include="Classes\CTurn.cs" />
@@ -232,37 +231,11 @@
     <Compile Include="Forms\Guidance\FormMakeBndCon.Designer.cs">
       <DependentUpon>FormMakeBndCon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Settings\ConfigData.Designer - Copier.cs">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Settings\ConfigMenu.Designer - Copier.cs">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Settings\ConfigModule.Designer - Copier.cs">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Settings\ConfigTool.Designer - Copier.cs">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Settings\ConfigVehicle.Designer - Copier.cs">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Settings\FormColor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Settings\FormColor.Designer.cs">
       <DependentUpon>FormColor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Settings\FormTool_config.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Settings\FormTool_config.Designer.cs">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\FormConfig.cs">
       <SubType>Form</SubType>
@@ -301,6 +274,12 @@
     </Compile>
     <Compile Include="Forms\FormFlags.Designer.cs">
       <DependentUpon>FormFlags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings\FormHeadingGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\FormHeadingGraph.Designer.cs">
+      <DependentUpon>FormHeadingGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\FormSteerGraph.cs">
       <SubType>Form</SubType>
@@ -513,6 +492,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UDPComm.Designer.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>FormGPS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\vec3.cs" />
+    <Compile Include="Properties\Vehicle.Designer.cs">
+      <DependentUpon>Vehicle.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
     <Compile Include="RoundButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -528,21 +517,8 @@
     <Compile Include="Round_table.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\UDPComm.Designer.cs">
-      <SubType>Form</SubType>
-      <DependentUpon>FormGPS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\vec3.cs" />
-    <Compile Include="Properties\Vehicle.Designer.cs">
-      <DependentUpon>Vehicle.settings</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Forms\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSynchro.resx">
-      <DependentUpon>FormSynchro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormColorPicker.resx">
       <DependentUpon>FormColorPicker.cs</DependentUpon>
@@ -583,9 +559,6 @@
     <EmbeddedResource Include="Forms\Settings\FormColor.resx">
       <DependentUpon>FormColor.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Settings\FormTool_config.resx">
-      <DependentUpon>FormTool_config.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormConfig.resx">
       <DependentUpon>FormConfig.cs</DependentUpon>
@@ -639,6 +612,9 @@
       <DependentUpon>FormSteer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\FormHeadingGraph.resx">
+      <DependentUpon>FormHeadingGraph.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormSteerGraph.resx">
       <DependentUpon>FormSteerGraph.cs</DependentUpon>
     </EmbeddedResource>
@@ -664,7 +640,6 @@
     <EmbeddedResource Include="gStr.da.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>gStr.da.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="gStr.sk.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -679,7 +654,6 @@
     <EmbeddedResource Include="gStr.de.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>gStr.de.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="gStr.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -697,12 +671,10 @@
     <EmbeddedResource Include="gStr.nl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>gStr.nl.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="gStr.pl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>gStr.pl.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="gStr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -725,10 +697,18 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Manual.de.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Manual.es.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Manual.fr.pdf" />
+    <None Include="Manual.fr.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Manual.it.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Manual.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -774,18 +754,18 @@
   <ItemGroup>
     <Content Include="AOG.ico" />
     <Content Include="aChangeLog.txt" />
-    <None Include="Resources\SnapToPivotSP.png" />
-    <None Include="Resources\ArrowRightSP.png" />
-    <None Include="Resources\ArrowLeftSP.png" />
+    <None Include="btnImages\synchronize.png" />
     <None Include="Resources\BatterieWarning.png" />
     <None Include="Resources\BatterieOnline.png" />
     <None Include="Resources\Batterie100.png" />
     <None Include="Resources\Batterie75.png" />
     <None Include="Resources\Batterie50.png" />
     <None Include="Resources\Batterie25.png" />
+    <None Include="btnImages\Images\z_LateralManual.png" />
+    <None Include="btnImages\Config\ConV_GuidanceLookAhead.png" />
+    <None Include="btnImages\Config\ConS_Respnse.png" />
     <None Include="btnImages\Config\ConV_ABLineLength.png" />
     <None Include="btnImages\Config\ConD_FloorTexture.png" />
-    <None Include="btnImages\synchronize.png" />
     <None Include="btnImages\Config\Con_FeatureMenu.png" />
     <None Include="btnImages\Config\ConSt_Mandatory.png" />
     <None Include="btnImages\Config\ConSt_TurnSensorCurrent.png" />
@@ -1079,7 +1059,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

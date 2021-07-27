@@ -121,7 +121,7 @@ namespace AgOpenGPS
             public int maxPulse = 6;
             public int minSpeed = 7;
             public int set1 = 8;
-            public int angVel = 9;
+            public int angVel  = 9;
             //public int  = 10;
             //public int  = 11;
             //public int  = 12;

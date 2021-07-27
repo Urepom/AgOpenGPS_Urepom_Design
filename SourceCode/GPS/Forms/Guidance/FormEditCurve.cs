@@ -36,7 +36,7 @@ namespace AgOpenGPS
             else
             {
                 nudMinTurnRadius.DecimalPlaces = 1;
-                nudMinTurnRadius.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn),1);
+                nudMinTurnRadius.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1);
             }
 
 
@@ -76,7 +76,7 @@ namespace AgOpenGPS
                     mf.curve.curveArr[idx].aveHeading = mf.curve.aveLineHeading;
                     mf.curve.curveArr[idx].curvePts.Clear();
                     //write out the Curve Points
-                    foreach (var item in mf.curve.refList)
+                    foreach (vec3 item in mf.curve.refList)
                     {
                         mf.curve.curveArr[idx].curvePts.Add(item);
                     }
@@ -85,6 +85,7 @@ namespace AgOpenGPS
                 //save entire list
                 mf.FileSaveCurveLines();
                 mf.curve.moveDistance = 0;
+                mf.curve.isCurveValid = false;
 
                 Close();
             }
@@ -108,6 +109,7 @@ namespace AgOpenGPS
                 mf.curve.isCurveSet = true;
             }
 
+            mf.curve.isCurveValid = false;
             Close();
         }
 
@@ -143,16 +145,14 @@ namespace AgOpenGPS
         private void btnContourPriority_Click(object sender, EventArgs e)
         {
             if (mf.curve.isBtnCurveOn)
-            {
-                mf.curve.SnapABCurve();
-            }
+                mf.curve.MoveABCurve(mf.isStanleyUsed ? mf.gyd.distanceFromCurrentLinePivot : mf.curve.distanceFromCurrentLinePivot);
         }
 
         private void btnRightHalfWidth_Click(object sender, EventArgs e)
         {
             double dist = mf.tool.toolWidth;
 
-            mf.curve.MoveABCurve(dist*0.5);
+            mf.curve.MoveABCurve(dist * 0.5);
 
         }
 
@@ -160,12 +160,13 @@ namespace AgOpenGPS
         {
             double dist = mf.tool.toolWidth;
 
-            mf.curve.MoveABCurve(-dist*0.5);
+            mf.curve.MoveABCurve(-dist * 0.5);
 
         }
 
         private void btnNosave_Click(object sender, EventArgs e)
         {
+            mf.curve.isCurveValid = false;
             Close();
         }
     }

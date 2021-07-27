@@ -33,7 +33,7 @@
       <Value Profile="(Default)">8888</Value>
     </Setting>
     <Setting Name="setNTRIP_casterIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">147.100.179.214</Value>
+      <Value Profile="(Default)">69.75.31.235</Value>
     </Setting>
     <Setting Name="setNTRIP_casterPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2101</Value>
@@ -51,7 +51,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setNTRIP_sendGGAInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="setNTRIP_sendToUDPPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -63,7 +63,7 @@
       <Value Profile="(Default)">-111</Value>
     </Setting>
     <Setting Name="setNTRIP_casterURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">caster.centipede.fr</Value>
+      <Value Profile="(Default)">www.rtk2go.com</Value>
     </Setting>
     <Setting Name="setNTRIP_isGGAManual" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

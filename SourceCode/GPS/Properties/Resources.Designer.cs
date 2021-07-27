@@ -222,29 +222,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ArrowLeftSP {
-            get {
-                object obj = ResourceManager.GetObject("ArrowLeftSP", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ArrowRight {
             get {
                 object obj = ResourceManager.GetObject("ArrowRight", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ArrowRightSP {
-            get {
-                object obj = ResourceManager.GetObject("ArrowRightSP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1012,6 +992,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConS_Respnse {
+            get {
+                object obj = ResourceManager.GetObject("ConS_Respnse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConS_SourceFix {
             get {
                 object obj = ResourceManager.GetObject("ConS_SourceFix", resourceCulture);
@@ -1275,6 +1265,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap ConV_CmPixel {
             get {
                 object obj = ResourceManager.GetObject("ConV_CmPixel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConV_GuidanceLookAhead {
+            get {
+                object obj = ResourceManager.GetObject("ConV_GuidanceLookAhead", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2230,16 +2230,6 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SnapToPivotSP {
-            get {
-                object obj = ResourceManager.GetObject("SnapToPivotSP", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Sort {
             get {
                 object obj = ResourceManager.GetObject("Sort", resourceCulture);
@@ -2333,6 +2323,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap SwitchOn {
             get {
                 object obj = ResourceManager.GetObject("SwitchOn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap synchronize {
+            get {
+                object obj = ResourceManager.GetObject("synchronize", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2813,6 +2813,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap z_Harvester {
             get {
                 object obj = ResourceManager.GetObject("z_Harvester", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z_LateralManual {
+            get {
+                object obj = ResourceManager.GetObject("z_LateralManual", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

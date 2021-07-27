@@ -42,8 +42,8 @@ namespace AgOpenGPS
         public bool mappingOnRequest = false;
         public bool mappingOffRequest = false;
         public bool mappingOnOffCycle = false;
-        public int  mappingOnTimer = 0;
-        public int  mappingOffTimer = 0;
+        public int mappingOnTimer = 0;
+        public int mappingOffTimer = 0;
 
         public double speedPixels = 0;
 
@@ -88,6 +88,8 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
+            patchList.Capacity = 2048;
+            //triangleList.Capacity = 
         }
 
         public void TurnMappingOn()
@@ -97,11 +99,13 @@ namespace AgOpenGPS
             //do not tally square meters on inital point, that would be silly
             if (!isMappingOn)
             {
-               //set the section bool to on
+                //set the section bool to on
                 isMappingOn = true;
 
                 //starting a new patch chunk so create a new triangle list
                 triangleList = new List<vec3>();
+                triangleList.Capacity = 16;
+
                 patchList.Add(triangleList);
 
                 vec3 colur = new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B);
@@ -143,7 +147,7 @@ namespace AgOpenGPS
         {
             //add two triangles for next step.
             //left side
-            vec3 point = new vec3(leftPoint.easting,leftPoint.northing, 0);
+            vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
 
             //add the point to List
             triangleList.Add(point);
@@ -185,7 +189,7 @@ namespace AgOpenGPS
                 }
             }
 
-            if (numTriangles > 36)
+            if (numTriangles > 61)
             {
                 numTriangles = 0;
 
@@ -193,6 +197,8 @@ namespace AgOpenGPS
                 mf.patchSaveList.Add(triangleList);
 
                 triangleList = new List<vec3>();
+                triangleList.Capacity = 32;
+
                 patchList.Add(triangleList);
 
                 //Add Patch colour

@@ -20,7 +20,7 @@ namespace AgOpenGPS
             lblTramWidth.Text = (mf.tram.tramWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
 
             nudPasses.Controls[0].Enabled = false;
-            
+
         }
 
         private void FormTram_Load(object sender, EventArgs e)
@@ -71,12 +71,6 @@ namespace AgOpenGPS
                 //calculate the new points for the reference line and points
                 mf.ABLine.lineArr[idx].origin.easting = mf.ABLine.refPoint1.easting;
                 mf.ABLine.lineArr[idx].origin.northing = mf.ABLine.refPoint1.northing;
-
-                //sin x cos z for endpoints, opposite for additional lines
-                mf.ABLine.lineArr[idx].ref1.easting = mf.ABLine.lineArr[idx].origin.easting - (Math.Sin(mf.ABLine.lineArr[idx].heading) *   mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref1.northing = mf.ABLine.lineArr[idx].origin.northing - (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref2.easting = mf.ABLine.lineArr[idx].origin.easting + (Math.Sin(mf.ABLine.lineArr[idx].heading) *   mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref2.northing = mf.ABLine.lineArr[idx].origin.northing + (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
             }
 
             mf.FileSaveABLines();
@@ -144,10 +138,10 @@ namespace AgOpenGPS
             mf.ABLine.abHeading += Math.PI;
             if (mf.ABLine.abHeading > glm.twoPI) mf.ABLine.abHeading -= glm.twoPI;
 
-            mf.ABLine.refABLineP1.easting = mf.ABLine.refPoint1.easting - (Math.Sin(mf.ABLine.abHeading) *   mf.ABLine.abLength);
+            mf.ABLine.refABLineP1.easting = mf.ABLine.refPoint1.easting - (Math.Sin(mf.ABLine.abHeading) * mf.ABLine.abLength);
             mf.ABLine.refABLineP1.northing = mf.ABLine.refPoint1.northing - (Math.Cos(mf.ABLine.abHeading) * mf.ABLine.abLength);
-                                                                                                             
-            mf.ABLine.refABLineP2.easting = mf.ABLine.refPoint1.easting + (Math.Sin(mf.ABLine.abHeading) *   mf.ABLine.abLength);
+
+            mf.ABLine.refABLineP2.easting = mf.ABLine.refPoint1.easting + (Math.Sin(mf.ABLine.abHeading) * mf.ABLine.abLength);
             mf.ABLine.refABLineP2.northing = mf.ABLine.refPoint1.northing + (Math.Cos(mf.ABLine.abHeading) * mf.ABLine.abLength);
 
             mf.ABLine.refPoint2.easting = mf.ABLine.refABLineP2.easting;
@@ -192,7 +186,7 @@ namespace AgOpenGPS
         {
             mf.tram.displayMode++;
             if (mf.tram.displayMode > 3) mf.tram.displayMode = 0;
-            
+
             switch (mf.tram.displayMode)
             {
                 case 0:

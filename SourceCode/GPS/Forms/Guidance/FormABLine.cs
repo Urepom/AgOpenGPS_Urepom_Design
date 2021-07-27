@@ -71,7 +71,7 @@ namespace AgOpenGPS
             lvLines.Clear();
             ListViewItem itm;
 
-            foreach (var item in mf.ABLine.lineArr)
+            foreach (CABLines item in mf.ABLine.lineArr)
             {
                 itm = new ListViewItem(item.Name);
                 lvLines.Items.Add(itm);
@@ -106,8 +106,8 @@ namespace AgOpenGPS
         {
             vec3 fix = new vec3(mf.pivotAxlePos);
 
-            mf.ABLine.desPoint1.easting = fix.easting;
-            mf.ABLine.desPoint1.northing = fix.northing;
+            mf.ABLine.desPoint1.easting = fix.easting + Math.Cos(fix.heading) * mf.tool.toolOffset;
+            mf.ABLine.desPoint1.northing = fix.northing - Math.Sin(fix.heading) * mf.tool.toolOffset;
             mf.ABLine.desHeading = fix.heading;
 
             mf.ABLine.desPoint2.easting = 99999;
@@ -131,8 +131,8 @@ namespace AgOpenGPS
 
             btnBPoint.BackColor = System.Drawing.Color.Teal;
 
-            mf.ABLine.desPoint2.easting = fix.easting;
-            mf.ABLine.desPoint2.northing = fix.northing;
+            mf.ABLine.desPoint2.easting = fix.easting + Math.Cos(fix.heading) * mf.tool.toolOffset;
+            mf.ABLine.desPoint2.northing = fix.northing - Math.Sin(fix.heading) * mf.tool.toolOffset;
 
             // heading based on AB points
             mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPoint2.easting - mf.ABLine.desPoint1.easting,
@@ -142,7 +142,6 @@ namespace AgOpenGPS
             nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
 
             BuildDesLine();
-
         }
 
         private void nudHeading_Click(object sender, EventArgs e)
@@ -263,12 +262,6 @@ namespace AgOpenGPS
 
             mf.ABLine.lineArr[idx].Name = textBox1.Text.Trim();
 
-            //sin x cos z for endpoints, opposite for additional lines
-            mf.ABLine.lineArr[idx].ref1.easting = mf.ABLine.lineArr[idx].origin.easting - (Math.Sin(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-            mf.ABLine.lineArr[idx].ref1.northing = mf.ABLine.lineArr[idx].origin.northing - (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-            mf.ABLine.lineArr[idx].ref2.easting = mf.ABLine.lineArr[idx].origin.easting + (Math.Sin(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-            mf.ABLine.lineArr[idx].ref2.northing = mf.ABLine.lineArr[idx].origin.northing + (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-
             mf.FileSaveABLines();
 
             panelPick.Visible = true;
@@ -317,7 +310,7 @@ namespace AgOpenGPS
         {
             mf.ABLine.moveDistance = 0;
             //reset to generate new reference
-            mf.curve.lastSecond = mf.ABLine.lastSecond = 0;
+            mf.ABLine.isABValid = false;
 
             if (lvLines.SelectedItems.Count > 0)
             {
@@ -353,17 +346,13 @@ namespace AgOpenGPS
         {
             if (lvLines.SelectedItems.Count > 0)
             {
+                mf.ABLine.isABValid = false;
                 int idx = lvLines.SelectedIndices[0];
 
 
                 mf.ABLine.lineArr[idx].heading += Math.PI;
                 if (mf.ABLine.lineArr[idx].heading > glm.twoPI) mf.ABLine.lineArr[idx].heading -= glm.twoPI;
 
-                //sin x cos z for endpoints, opposite for additional lines
-                mf.ABLine.lineArr[idx].ref1.easting = mf.ABLine.lineArr[idx].origin.easting - (Math.Sin(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref1.northing = mf.ABLine.lineArr[idx].origin.northing - (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref2.easting = mf.ABLine.lineArr[idx].origin.easting + (Math.Sin(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref2.northing = mf.ABLine.lineArr[idx].origin.northing + (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
 
                 mf.FileSaveABLines();
 
@@ -433,8 +422,8 @@ namespace AgOpenGPS
                 if (mf.isAutoSteerBtnOn) mf.btnAutoSteer.PerformClick();
                 if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
                 Close();
+                mf.ABLine.isABValid = false;
             }
-
         }
 
         private void textBox2_Enter(object sender, EventArgs e)

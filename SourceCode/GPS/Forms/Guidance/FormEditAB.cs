@@ -22,10 +22,6 @@ namespace AgOpenGPS
 
         private void FormEditAB_Load(object sender, EventArgs e)
         {
-            //----SPailleau - Applique la position enregistrée
-            this.Location = Properties.Settings.Default.FormEditAB_Location;
-            //----Fin
-
             if (mf.isMetric)
             {
                 nudMinTurnRadius.DecimalPlaces = 0;
@@ -40,7 +36,7 @@ namespace AgOpenGPS
             label1.Text = mf.unitsInCm;
             btnCancel.Focus();
             lblHalfSnapFtM.Text = mf.unitsFtM;
-            lblHalfWidth.Text = (mf.tool.toolWidth*0.5*mf.m2FtOrM).ToString("N2");
+            lblHalfWidth.Text = (mf.tool.toolWidth * 0.5 * mf.m2FtOrM).ToString("N2");
             tboxHeading.Text = Math.Round(glm.toDegrees(mf.ABLine.abHeading), 5).ToString();
         }
 
@@ -48,9 +44,9 @@ namespace AgOpenGPS
         {
             tboxHeading.Text = "";
 
-            using (var form = new FormNumeric(0, 360, Math.Round(glm.toDegrees(mf.ABLine.abHeading), 5)))
+            using (FormNumeric form = new FormNumeric(0, 360, Math.Round(glm.toDegrees(mf.ABLine.abHeading), 5)))
             {
-                var result = form.ShowDialog();
+                DialogResult result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     tboxHeading.Text = ((double)form.ReturnValue).ToString();
@@ -61,6 +57,7 @@ namespace AgOpenGPS
 
             }
 
+            mf.ABLine.isABValid = false;
             btnCancel.Focus();
         }
 
@@ -96,18 +93,13 @@ namespace AgOpenGPS
                 //calculate the new points for the reference line and points
                 mf.ABLine.lineArr[idx].origin.easting = mf.ABLine.refPoint1.easting;
                 mf.ABLine.lineArr[idx].origin.northing = mf.ABLine.refPoint1.northing;
-
-                //sin x cos z for endpoints, opposite for additional lines
-                mf.ABLine.lineArr[idx].ref1.easting = mf.ABLine.lineArr[idx].origin.easting - (Math.Sin(mf.ABLine.lineArr[idx].heading) *   mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref1.northing = mf.ABLine.lineArr[idx].origin.northing - (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref2.easting = mf.ABLine.lineArr[idx].origin.easting + (Math.Sin(mf.ABLine.lineArr[idx].heading) *   mf.ABLine.abLength);
-                mf.ABLine.lineArr[idx].ref2.northing = mf.ABLine.lineArr[idx].origin.northing + (Math.Cos(mf.ABLine.lineArr[idx].heading) * mf.ABLine.abLength);
             }
 
             mf.FileSaveABLines();
             mf.ABLine.moveDistance = 0;
 
-           // mf.panelRight.Enabled = true;
+            //mf.panelRight.Enabled = true;
+            mf.ABLine.isABValid = false;
             Close();
         }
 
@@ -125,6 +117,7 @@ namespace AgOpenGPS
             mf.ABLine.moveDistance = 0;
 
             //mf.panelRight.Enabled = true;
+            mf.ABLine.isABValid = false;
             Close();
         }
 
@@ -133,21 +126,22 @@ namespace AgOpenGPS
             mf.ABLine.abHeading += Math.PI;
             if (mf.ABLine.abHeading > glm.twoPI) mf.ABLine.abHeading -= glm.twoPI;
 
-            mf.ABLine.refABLineP1.easting = mf.ABLine.refPoint1.easting - (Math.Sin(mf.ABLine.abHeading) *   mf.ABLine.abLength);
+            mf.ABLine.refABLineP1.easting = mf.ABLine.refPoint1.easting - (Math.Sin(mf.ABLine.abHeading) * mf.ABLine.abLength);
             mf.ABLine.refABLineP1.northing = mf.ABLine.refPoint1.northing - (Math.Cos(mf.ABLine.abHeading) * mf.ABLine.abLength);
-            mf.ABLine.refABLineP2.easting = mf.ABLine.refPoint1.easting + (Math.Sin(mf.ABLine.abHeading) *   mf.ABLine.abLength);
+            mf.ABLine.refABLineP2.easting = mf.ABLine.refPoint1.easting + (Math.Sin(mf.ABLine.abHeading) * mf.ABLine.abLength);
             mf.ABLine.refABLineP2.northing = mf.ABLine.refPoint1.northing + (Math.Cos(mf.ABLine.abHeading) * mf.ABLine.abLength);
 
             mf.ABLine.refPoint2.easting = mf.ABLine.refABLineP2.easting;
             mf.ABLine.refPoint2.northing = mf.ABLine.refABLineP2.northing;
             tboxHeading.Text = Math.Round(glm.toDegrees(mf.ABLine.abHeading), 5).ToString();
+            mf.ABLine.isABValid = false;
         }
 
         private void btnContourPriority_Click(object sender, EventArgs e)
         {
             if (mf.ABLine.isABLineSet)
             {
-                mf.ABLine.SnapABLine();
+                mf.ABLine.MoveABLine(mf.ABLine.distanceFromCurrentLinePivot);
             }
         }
 
@@ -162,11 +156,12 @@ namespace AgOpenGPS
         {
             double dist = mf.tool.toolWidth;
 
-            mf.ABLine.MoveABLine(-dist*0.5);
+            mf.ABLine.MoveABLine(-dist * 0.5);
         }
 
         private void btnNoSave_Click(object sender, EventArgs e)
         {
+            mf.ABLine.isABValid = false;
             Close();
         }
 
@@ -175,13 +170,6 @@ namespace AgOpenGPS
             mf.ABLine.abHeading = glm.toRadians(double.Parse(cboxDegrees.SelectedItem.ToString()));
             mf.ABLine.SetABLineByHeading();
             tboxHeading.Text = Math.Round(glm.toDegrees(mf.ABLine.abHeading), 5).ToString();
-        }
-
-        private void FormEditAB_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //----SPailleau - Enregistre la position de la fenêtre
-            Properties.Settings.Default.FormEditAB_Location = this.Location;
-            //----Fin
         }
     }
 }

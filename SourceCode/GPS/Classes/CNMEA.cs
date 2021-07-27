@@ -22,9 +22,9 @@ namespace AgOpenGPS
         //other GIS Info
         public double altitude, speed;
 
-        public double headingTrueDual, headingTrue, hdop;
+        public double headingTrueDual, headingTrue, hdop, age;
 
-        public int fixQuality;
+        public int fixQuality, ageAlarm;
         public int satellitesTracked;
 
         public StringBuilder logNMEASentence = new StringBuilder();
@@ -36,6 +36,7 @@ namespace AgOpenGPS
             mf = f;
             latStart = 0;
             lonStart = 0;
+            ageAlarm = Properties.Settings.Default.setGPS_ageAlarm;
         }
 
         public void AverageTheSpeed()
@@ -55,6 +56,9 @@ namespace AgOpenGPS
             mPerDegreeLon = 111412.84 * Math.Cos(latStart * 0.01745329251994329576923690766743) - 93.5
             * Math.Cos(3.0 * latStart * 0.01745329251994329576923690766743) + 0.118
             * Math.Cos(5.0 * latStart * 0.01745329251994329576923690766743);
+
+            ConvertWGS84ToLocal(latitude, longitude, out double northing, out double easting);
+            mf.worldGrid.checkZoomWorldGrid(northing, easting);
         }
 
         public void ConvertWGS84ToLocal(double Lat, double Lon, out double Northing, out double Easting)
@@ -64,7 +68,7 @@ namespace AgOpenGPS
             Northing = (Lat - latStart) * mPerDegreeLat;
             Easting = (Lon - lonStart) * mPerDegreeLon;
         }
-        
+
         public void ConvertLocalToWGS84(double Northing, double Easting, out double Lat, out double Lon)
         {
             Lat = (Northing / mPerDegreeLat) + latStart;

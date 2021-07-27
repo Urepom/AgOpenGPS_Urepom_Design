@@ -263,12 +263,6 @@ namespace AgOpenGPS
                             ABLine.lineArr[i].heading = glm.toRadians(double.Parse(words[1], CultureInfo.InvariantCulture));
                             ABLine.lineArr[i].origin.easting = double.Parse(words[2], CultureInfo.InvariantCulture);
                             ABLine.lineArr[i].origin.northing = double.Parse(words[3], CultureInfo.InvariantCulture);
-
-                            ABLine.lineArr[i].ref1.easting = ABLine.lineArr[i].origin.easting - (Math.Sin(ABLine.lineArr[i].heading) * 1000.0);
-                            ABLine.lineArr[i].ref1.northing = ABLine.lineArr[i].origin.northing - (Math.Cos(ABLine.lineArr[i].heading) *1000.0);
-
-                            ABLine.lineArr[i].ref2.easting = ABLine.lineArr[i].origin.easting + (Math.Sin(ABLine.lineArr[i].heading) * 1000.0);
-                            ABLine.lineArr[i].ref2.northing = ABLine.lineArr[i].origin.northing + (Math.Cos(ABLine.lineArr[i].heading) * 1000.0);
                             ABLine.numABLines++;
                         }
                     }
@@ -370,9 +364,6 @@ namespace AgOpenGPS
                     line = reader.ReadLine();
                     string[] offs = line.Split(',');
 
-                    //create a new grid
-                    worldGrid.CreateWorldGrid(pn.fix.northing, pn.fix.easting);
-
                     //convergence angle update
                     if (!reader.EndOfStream)
                     {
@@ -398,8 +389,6 @@ namespace AgOpenGPS
                             sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = pn.latitude;
                             sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = pn.longitude;
                             Properties.Settings.Default.Save();
-
-                            worldGrid.CreateWorldGrid(0, 0);
                         }
 
                         pn.SetLocalMetersPerDegree();
@@ -490,6 +479,8 @@ namespace AgOpenGPS
                             int verts = int.Parse(line);
 
                             section[0].triangleList = new List<vec3>();
+                            section[0].triangleList.Capacity = verts + 1;
+
                             section[0].patchList.Add(section[0].triangleList);
 
 
@@ -568,6 +559,7 @@ namespace AgOpenGPS
                             vec3 vecFix = new vec3(0, 0, 0);
 
                             ct.ptList = new List<vec3>();
+                            ct.ptList.Capacity = verts + 1;
                             ct.stripList.Add(ct.ptList);
 
                             for (int v = 0; v < verts; v++)
@@ -843,8 +835,8 @@ namespace AgOpenGPS
             {
                 hd.isOn = true;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
-                //btnHeadlandOnOff.Visible = true;
-                //btnHydLift.Visible = true;
+                btnHeadlandOnOff.Visible = true;
+                btnHydLift.Visible = true;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
 
             }
@@ -852,8 +844,8 @@ namespace AgOpenGPS
             {
                 hd.isOn = false;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-                //btnHeadlandOnOff.Visible = false;
-                //btnHydLift.Visible = false;
+                //ajout max btnHeadlandOnOff.Visible = false;
+                //ajout max btnHydLift.Visible = false;
             }
 
             //trams ---------------------------------------------------------------------------------
@@ -863,7 +855,7 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramList?.Clear();
             tram.displayMode = 0;
-            //btnTramDisplayMode.Visible = false;
+            //ajout max btnTramDisplayMode.Visible = false;
 
             if (File.Exists(fileAndDirectory))
             {
@@ -1809,8 +1801,10 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                linePts = pn.GetLocalToWSG84_KML(ABLine.lineArr[i].ref1.easting, ABLine.lineArr[i].ref1.northing);
-                linePts += pn.GetLocalToWSG84_KML(ABLine.lineArr[i].ref2.easting, ABLine.lineArr[i].ref2.northing);
+                linePts = pn.GetLocalToWSG84_KML(ABLine.lineArr[i].origin.easting - (Math.Sin(ABLine.lineArr[i].heading) * ABLine.abLength),
+                    ABLine.lineArr[i].origin.northing - (Math.Cos(ABLine.lineArr[i].heading) * ABLine.abLength));
+                linePts += pn.GetLocalToWSG84_KML(ABLine.lineArr[i].origin.easting + (Math.Sin(ABLine.lineArr[i].heading) * ABLine.abLength),
+                    ABLine.lineArr[i].origin.northing + (Math.Cos(ABLine.lineArr[i].heading) * ABLine.abLength));
                 kml.WriteRaw(linePts);
 
                 kml.WriteEndElement(); // <coordinates>

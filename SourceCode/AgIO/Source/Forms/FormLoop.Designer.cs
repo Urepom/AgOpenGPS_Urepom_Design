@@ -1,4 +1,5 @@
-﻿namespace AgIO
+﻿
+namespace AgIO
 {
     partial class FormLoop
     {
@@ -35,8 +36,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lblCurentLon = new System.Windows.Forms.Label();
             this.lblCurrentLat = new System.Windows.Forms.Label();
-            this.pcCPU = new System.Diagnostics.PerformanceCounter();
-            this.pcRAM = new System.Diagnostics.PerformanceCounter();
             this.lblWatch = new System.Windows.Forms.Label();
             this.lblNTRIPBytes = new System.Windows.Forms.Label();
             this.lblBytes = new System.Windows.Forms.Label();
@@ -80,8 +79,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cboxLogNMEA = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pcCPU)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcRAM)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -144,17 +141,6 @@
             this.lblCurrentLat.Size = new System.Drawing.Size(28, 18);
             this.lblCurrentLat.TabIndex = 153;
             this.lblCurrentLat.Text = "53";
-            // 
-            // pcCPU
-            // 
-            this.pcCPU.CategoryName = "Processor";
-            this.pcCPU.CounterName = "% Processor Time";
-            this.pcCPU.InstanceName = "_Total";
-            // 
-            // pcRAM
-            // 
-            this.pcRAM.CategoryName = "Memory";
-            this.pcRAM.CounterName = "% Committed Bytes In Use";
             // 
             // lblWatch
             // 
@@ -816,8 +802,6 @@
             this.Text = "AgIO";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLoop_FormClosing);
             this.Load += new System.EventHandler(this.FormLoop_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pcCPU)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcRAM)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -834,8 +818,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblCurentLon;
         private System.Windows.Forms.Label lblCurrentLat;
-        private System.Diagnostics.PerformanceCounter pcCPU;
-        private System.Diagnostics.PerformanceCounter pcRAM;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblWatch;
         private System.Windows.Forms.Button btnStartStopNtrip;
@@ -881,3 +863,4 @@
         private System.Windows.Forms.CheckBox cboxLogNMEA;
     }
 }
+

@@ -31,8 +31,8 @@ namespace AgOpenGPS
 
         private void tboxFieldName_TextChanged(object sender, EventArgs e)
         {
-            var textboxSender = (TextBox)sender;
-            var cursorPosition = textboxSender.SelectionStart;
+            TextBox textboxSender = (TextBox)sender;
+            int cursorPosition = textboxSender.SelectionStart;
             textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
@@ -169,7 +169,7 @@ namespace AgOpenGPS
                                 mf.bnd.bndArr.Add(new CBoundaryLines());
                                 mf.turn.turnArr.Add(new CTurnLines());
 
-                                foreach (var item in numberSets)
+                                foreach (string item in numberSets)
                                 {
                                     if (item.Length < 3)
                                         continue;
@@ -289,7 +289,7 @@ namespace AgOpenGPS
                             {
                                 double counter = 0, lat = 0, lon = 0;
                                 latK = lonK = 0;
-                                foreach (var item in numberSets)
+                                foreach (string item in numberSets)
                                 {
                                     if (item.Length < 3)
                                         continue;
@@ -378,8 +378,6 @@ namespace AgOpenGPS
                         mf.pn.longitude = lonK;
 
                         Properties.Settings.Default.Save();
-
-                        mf.worldGrid.CreateWorldGrid(0, 0);
                     }
 
                     mf.pn.SetLocalMetersPerDegree();
@@ -394,7 +392,7 @@ namespace AgOpenGPS
 
                     if (!mf.isJobStarted)
                     {
-                        using (var form = new FormTimedMessage(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField))
+                        using (FormTimedMessage form = new FormTimedMessage(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField))
                         { form.Show(this); }
                         return;
                     }

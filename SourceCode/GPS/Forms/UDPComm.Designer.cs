@@ -39,8 +39,8 @@ namespace AgOpenGPS
                             {
                                 udpWatchCounts++;
                                 if (isLogNMEA) pn.logNMEASentence.Append("*** "
-                                + DateTime.UtcNow.ToString("ss.ff -> ", CultureInfo.InvariantCulture)
-                                + udpWatch.ElapsedMilliseconds + "\r\n");
+                                    + DateTime.UtcNow.ToString("ss.ff -> ", CultureInfo.InvariantCulture)
+                                    + udpWatch.ElapsedMilliseconds + "\r\n");
                                 return;
                             }
                             udpWatch.Reset();
@@ -60,9 +60,12 @@ namespace AgOpenGPS
                                 pn.ConvertWGS84ToLocal(Lat, Lon, out pn.fix.northing, out pn.fix.easting);
 
                                 //From dual antenna heading sentences
-                                float temp = BitConverter.ToSingle(data, 21); 
+                                float temp = BitConverter.ToSingle(data, 21);
                                 if (temp != float.MaxValue)
+                                {
                                     pn.headingTrueDual = temp;
+                                    if (ahrs.isDualAsIMU) ahrs.imuHeading = temp;
+                                }
 
                                 //from single antenna sentences (VTG,RMC)
                                 temp = BitConverter.ToSingle(data, 25);
@@ -78,6 +81,7 @@ namespace AgOpenGPS
                                 }
 
                                 //roll in degrees
+                                //ajout max
                                 if (Properties.Vehicle.Default.SetRollOFF == false)
                                 {
                                     temp = BitConverter.ToSingle(data, 33);
@@ -90,6 +94,8 @@ namespace AgOpenGPS
                                         ahrs.imuRoll = 0;
                                 }
                                 else ahrs.imuRoll = 88888;
+                                //fin
+
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
                                 if (temp != float.MaxValue)
@@ -107,12 +113,16 @@ namespace AgOpenGPS
                                 if (hdop != ushort.MaxValue)
                                     pn.hdop = hdop * 0.01;
 
+                                ushort age = BitConverter.ToUInt16(data, 46);
+                                if (age != ushort.MaxValue)
+                                    pn.age = age * 0.01;
+
                                 sentenceCounter = 0;
 
                                 if (isLogNMEA)
                                     pn.logNMEASentence.Append(
-                                        DateTime.UtcNow.ToString("mm:ss.ff", CultureInfo.InvariantCulture) + " " +
-                                        Lat.ToString("N7") + " " + Lon.ToString("N7") + " " +
+                                        DateTime.UtcNow.ToString("mm:ss.ff",CultureInfo.InvariantCulture)+ " " +
+                                        Lat.ToString("N7") + " " + Lon.ToString("N7") + " " + 
                                         pn.speed.ToString("N1") + " " +
                                         pn.headingTrueDual.ToString("N1") + "\r\n"
                                         );
@@ -124,16 +134,13 @@ namespace AgOpenGPS
 
                     case 0xD3: //external IMU
                         {
-                            if (Properties.Vehicle.Default.SetHeadingOFF == false)
-                            {
-                                if (data.Length != 14)
-                                    break;
-
-                                //Heading
-                                ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
-                                ahrs.imuHeading *= 0.1;
-                            }
-                            else ahrs.imuHeading = 99999;
+                            if (data.Length != 14)
+                                break;
+                            if (ahrs.imuRoll > 25 || ahrs.imuRoll < -25) ahrs.imuRoll = 0;
+                            //Heading
+                            ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
+                            ahrs.imuHeading *= 0.1;
+                            //ajout max
                             if (Properties.Vehicle.Default.SetRollOFF == false)
                             {
                                 //Roll
@@ -145,11 +152,11 @@ namespace AgOpenGPS
                                 ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
                             }
                             else ahrs.imuRoll = 88888;
+                            //fin
 
                             //Angular velocity
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
-
-                            ahrs.angVel *= -1;
+                            ahrs.angVel /= -2;
 
                             //Log activity
                             //if (isLogNMEA)
@@ -181,17 +188,15 @@ namespace AgOpenGPS
                             mc.actualSteerAngleChart = (Int16)((data[6] << 8) + data[5]);
                             mc.actualSteerAngleDegrees = (double)mc.actualSteerAngleChart * 0.01;
 
-                            if (Properties.Vehicle.Default.SetHeadingOFF == false)
+                            //Heading
+                            double head253 = (Int16)((data[8] << 8) + data[7]);
+                            if (head253 != 9999)
                             {
-                                //Heading
-                                double head253 = (Int16)((data[8] << 8) + data[7]);
-                                if (head253 != 9999)
-                                {
-                                    ahrs.imuHeading = head253 * 0.1;
-                                }
+                                ahrs.imuHeading = head253 * 0.1;
                             }
-                            else ahrs.imuHeading = 99999;
+
                             //Roll
+                            //ajout max
                             if (Properties.Vehicle.Default.SetRollOFF == false)
                             {
                                 rollK = (Int16)((data[10] << 8) + data[9]);
@@ -204,6 +209,7 @@ namespace AgOpenGPS
                                 }
                             }
                             else ahrs.imuRoll = 88888;
+                            //fin
 
                             //switch status
                             mc.steerSwitchValue = data[11];
@@ -562,7 +568,9 @@ namespace AgOpenGPS
 
             if (keyData == (Keys.P)) // Snap/Prioritu click
             {
-                //btnSnapToPivot.PerformClick();
+                //modif max
+                roundButton1.PerformClick();
+                //
                 return true;    // indicate that you handled this keystroke
             }
 

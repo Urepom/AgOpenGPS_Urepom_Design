@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace AgOpenGPS
 {
 
-        public partial class FormSynchro : Form
+    public partial class FormSynchro : Form
     {
         public FormSynchro(FormGPS formGPS)
         {

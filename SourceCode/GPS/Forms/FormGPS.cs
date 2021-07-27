@@ -25,9 +25,9 @@ namespace AgOpenGPS
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool SetForegroundWindow(IntPtr handle);
 
-        [System.Runtime.InteropServices.DllImport("User32.dll")]        
+        [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool ShowWindow(IntPtr hWind, int nCmdShow);
-
+        //ajout max
         //----SPailleau
         //Création de variables pour location et size avec les valeurs respectives de oglzoom de la session précédente 
         //car la winform initialization InitializeComponent() réinitialise sa position
@@ -36,7 +36,8 @@ namespace AgOpenGPS
         public int oglZoom_LocationY = Properties.Settings.Default.OGLZoom_Location.Y;
         public int oglZoom_SizeWidth = Properties.Settings.Default.OGLZoom_Size.Width;
         public int oglZoom_SizeHeight = Properties.Settings.Default.OGLZoom_Size.Height;
-        //----
+        public bool config_tool = false; 
+        //fin
 
         #region // Class Props and instances
 
@@ -191,7 +192,7 @@ namespace AgOpenGPS
         /// Just the tool attachment that includes the sections
         /// </summary>
         public CTool tool;
-        
+
         /// <summary>
         /// All the structs for recv and send of information out ports
         /// </summary>
@@ -249,8 +250,9 @@ namespace AgOpenGPS
 
         private void stripBtnConfig_Click(object sender, EventArgs e)
         {
-            using (var form = new FormConfig(this))
+            using (FormConfig form = new FormConfig(this))
             {
+                config_tool = false;
                 form.ShowDialog(this);
             }
         }
@@ -283,530 +285,17 @@ namespace AgOpenGPS
         /// </summary>
         public SoundPlayer sndHydraulicLower;
 
-        private void roundButton1_Click(object sender, EventArgs e)
-        {
-
-            if (ABLine.isBtnABLineOn)
-            {
-                ABLine.SnapABLine();
-            }
-            else if (curve.isBtnCurveOn)
-            {
-                curve.SnapABCurve();
-            }
-            else
-            {
-                var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
-                form.Show(this);
-            }
-        }
-
-        private void panel_top_Paint(object sender, PaintEventArgs e)
+        public bool isJump = false;
+        private void btnRight_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pbarNtripMenu_Click(object sender, EventArgs e)
+        private void btnLeft_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void NTRIPBytesMenu_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void round_table10_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem16_Click(object sender, EventArgs e)
-        {
-            //check if window already exists
-            Form fc = Application.OpenForms["FormSteer"];
-
-            if (fc != null)
-            {
-                fc.Focus();
-                fc.Close();
-                return;
-            }
-
-            //
-            Form form = new FormSteer(this);
-            form.Show(this);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            using (var form = new FormTool_config(this))
-            {
-                form.ShowDialog(this);
-            }
-        }
-
-        private void contextMenuStrip_headlane_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (bnd.bndArr.Count == 0)
-            {
-                TimedMessageBox(2000, gStr.gsNoBoundary, gStr.gsCreateABoundaryFirst);
-                return;
-            }
-
-            GetHeadland();
-            contextMenuStrip_headlane.Close();
-        }
-
-        private void contextMenuStrip_tram_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            curve.isOkToAddPoints = false;
-
-            if (ct.isContourBtnOn) btnContour.PerformClick();
-
-            if (ABLine.numABLineSelected > 0 && ABLine.isBtnABLineOn)
-            {
-                Form form99 = new FormTram(this);
-                form99.Show(this);
-                form99.Left = Width - 275;
-                form99.Top = 100;
-            }
-            else if (curve.numCurveLineSelected > 0 && curve.isBtnCurveOn)
-            {
-                Form form97 = new FormTramCurve(this);
-                form97.Show(this);
-                form97.Left = Width - 275;
-                form97.Top = 100;
-            }
-            else
-            {
-                var form = new FormTimedMessage(1500, gStr.gsNoABLineActive, gStr.gsPleaseEnterABLine);
-                form.Show(this);
-                //panelRight.Enabled = true;
-                //ABLine.isEditing = false;
-                return;
-            }
-            contextMenuStrip_tram.Close();
-        }
-
-        private void contextMenuStrip_contour_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //build all the contour guidance lines from boundaries, all of them.
-            using (var form = new FormMakeBndCon(this))
-            {
-                var result = form.ShowDialog();
-                if (result == DialogResult.OK) { }
-            }
-            contextMenuStrip_contour.Close();
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            using (var form = new FormTool_config(this))
-            {
-                form.ShowDialog(this);
-            }
-        }
-
-        private void toolStripMenuItem8_Click(object sender, EventArgs e)
-        {
-            if (isJobStarted)
-            {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                form.Show(this);
-                return;
-            }
-
-            FolderBrowserDialog fsync = new FolderBrowserDialog();
-            fsync.ShowNewFolderButton = true;
-            fsync.Description = "Currently: " + Settings.Default.setF_local;
-            fsync.SelectedPath = Settings.Default.setF_local;
-
-            if (fsync.ShowDialog() == DialogResult.OK)
-            {
-
-                    Settings.Default.setF_local = fsync.SelectedPath;
-                    Settings.Default.Save();
-
-                //restart program
-               // MessageBox.Show(gStr.gsProgramWillExitPleaseRestart);
-               // Close();
-            }
-        }
-
-        private void dossierDeSynchronisationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (isJobStarted)
-            {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                form.Show(this);
-                return;
-            }
-
-            FolderBrowserDialog fsync = new FolderBrowserDialog();
-            fsync.ShowNewFolderButton = true;
-            fsync.Description = "Currently: " + Settings.Default.setF_synchro;
-            fsync.SelectedPath = Settings.Default.setF_synchro;
-
-            if (fsync.ShowDialog() == DialogResult.OK)
-            {
-                Settings.Default.setF_synchro = fsync.SelectedPath;
-                Settings.Default.Save();
-
-                //restart program
-                // MessageBox.Show(gStr.gsProgramWillExitPleaseRestart);
-                // Close();
-            }
-        }
-
-        private void btn_synchro_Click(object sender, EventArgs e)
-        {
-            if (Settings.Default.setF_local != "Default" & Settings.Default.setF_synchro != "Default")
-            {
-                using (var form = new FormSynchro(this))
-                {
-                    form.ShowDialog(this);
-                }
-                //DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
-                //DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
-
-                TimedMessageBox(1000,"Synchronisation terminée !","Synchronisation") ;
-            }
-            else
-            {
-                MessageBox.Show("Veuillez d'abord sélectionner un dossier local un dossier de synchronisation !");
-            }
-        }
-        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
-        {
-            // Get the subdirectories for the specified directory.
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
-            if (!dir.Exists)
-            {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
-            }
-
-            DirectoryInfo[] dirs = dir.GetDirectories();
-
-            // If the destination directory doesn't exist, create it.       
-            Directory.CreateDirectory(destDirName);
-
-            // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string tempPath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(tempPath, true);
-            }
-
-            // If copying subdirectories, copy them and their contents to new location.
-            if (copySubDirs)
-            {
-                foreach (DirectoryInfo subdir in dirs)
-                {
-                    string tempPath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, tempPath, copySubDirs);
-                }
-            }
-        }
-
-        private void toolStripDropDownButton3_Click(object sender, EventArgs e)
-        {
-            if (panelNavigation.Visible)
-            {
-                panelNavigation.Visible = false;
-            }
-            else
-            {
-                
-                panelNavigation.Visible = true;
-                navPanelCounter = 2;
-                panelNavigation.BringToFront();
-            }
-        }
-
-        private void deleteAppliedAreaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (isJobStarted)
-            {
-                if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
-                {
-
-                    DialogResult result3 = MessageBox.Show(gStr.gsDeleteAllContoursAndSections,
-                        gStr.gsDeleteForSure,
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button2);
-                    if (result3 == DialogResult.Yes)
-                    {
-                        //FileCreateElevation();
-
-                        //turn auto button off
-                        autoBtnState = btnStates.Off;
-                        btnSectionOffAutoOn.Image = Properties.Resources.SectionMasterOff;
-
-                        //turn section buttons all OFF and zero square meters
-                        for (int j = 0; j < MAXSECTIONS; j++)
-                        {
-                            section[j].isAllowedOn = false;
-                            section[j].manBtnState = manBtn.On;
-                        }
-
-                        //turn manual button off
-                        manualBtnState = btnStates.Off;
-                        btnManualOffOn.Image = Properties.Resources.ManualOff;
-
-                        //Update the button colors and text
-                        ManualAllBtnsUpdate();
-
-                        //enable disable manual buttons
-                        LineUpManualBtns();
-
-                        //clear out the contour Lists
-                        ct.StopContourLine(pivotAxlePos);
-                        ct.ResetContour();
-                        fd.workedAreaTotal = 0;
-
-                        //clear the section lists
-                        for (int j = 0; j < MAXSECTIONS; j++)
-                        {
-                            //clean out the lists
-                            section[j].patchList?.Clear();
-                            section[j].triangleList?.Clear();
-                        }
-                        patchSaveList?.Clear();
-
-                        FileCreateContour();
-                        FileCreateSections();
-
-                    }
-                    else
-                    {
-                        TimedMessageBox(1500, gStr.gsNothingDeleted, gStr.gsActionHasBeenCancelled);
-                    }
-                }
-                else
-                {
-                    TimedMessageBox(1500, "Sections are on", "Turn Auto or Manual Off First");
-                }
-            }
-        }
-
-        private void statusStripLeft_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void btnStartAgIO_Click_1(object sender, EventArgs e)
-        {
-            Process[] processName = Process.GetProcessesByName("AgIO");
-            if (processName.Length == 0)
-            {
-                //Start application here
-                DirectoryInfo di = new DirectoryInfo(Application.StartupPath);
-                string strPath = di.ToString();
-                strPath += "\\AgIO.exe";
-                try
-                {
-                    //TimedMessageBox(2000, "Please Wait", "Starting AgIO");
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    //processInfo.ErrorDialog = true;
-                    //processInfo.UseShellExecute = false;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
-                    Process proc = Process.Start(processInfo);
-                }
-                catch
-                {
-                    TimedMessageBox(2000, "No File Found", "Can't Find AgIO");
-                }
-            }
-            else
-            {
-                //Set foreground window
-                ShowWindow(processName[0].MainWindowHandle, 9);
-                SetForegroundWindow(processName[0].MainWindowHandle);
-            }
-        }
-
-        private void btnpTiltUp_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStanleyPure_Click_1(object sender, EventArgs e)
-        {
-            isStanleyUsed = !isStanleyUsed;
-
-            if (isStanleyUsed)
-            {
-                btnStanleyPure.Image = Resources.ModeStanley;
-            }
-            else
-            {
-                btnStanleyPure.Image = Resources.ModePurePursuit;
-            }
-
-            Properties.Vehicle.Default.setVehicle_isStanleyUsed = isStanleyUsed;
-            Properties.Vehicle.Default.Save();
-        }
-
-        private void panel_top_Click(object sender, EventArgs e)
-        {
-      
-        }
-
-        private void oglMain_DoubleClick(object sender, EventArgs e)
-        {
-            OpenField(); //SPailleau
-        }
-
-        private void lblSpeed_Click_1(object sender, EventArgs e)
-        {
-            Form f = Application.OpenForms["FormGPSData"];
-
-            if (f != null)
-            {
-                f.Focus();
-                f.Close();
-                return;
-            }
-
-            isGPSSentencesOn = true;
-
-            Form form = new FormGPSData(this);
-            form.Show(this);
-        }
-
-        private void lbludpWatchCounts_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BatLevel_Click(object sender, EventArgs e)
-        {
-            //----SPailleau - Affiche niveau charge batterie
-            String RC = System.Environment.NewLine;
-            PowerStatus status = SystemInformation.PowerStatus;
-            string NiveauBatterie = status.BatteryLifePercent.ToString("P0");
-
-            double TempsRestantSeconde = status.BatteryLifeRemaining;
-            string TempsRestantHM;
-            TimeSpan ts = TimeSpan.FromSeconds(TempsRestantSeconde);
-            if (ts.Minutes.ToString().Length == 1) TempsRestantHM = ts.Hours + "h0" + ts.Minutes;
-            else TempsRestantHM = ts.Hours + "h" + ts.Minutes;
-
-            string EtatAlim = status.PowerLineStatus.ToString();
-            String MessageBatt;
-            if (EtatAlim == "Online")
-            {
-                EtatAlim = "En charge";
-                MessageBatt = NiveauBatterie + " | " + EtatAlim; //Pas d'estimation de temps restant si Online
-            }
-            else
-            {
-                EtatAlim = "Débranchée";
-                MessageBatt = NiveauBatterie + " | " + "Temps restant : " + TempsRestantHM + " | " + EtatAlim;
-            }
-
-            TimedMessageBox(3000, "Infos batterie", MessageBatt);
-            //----
-        }
-
-        private void SteerSettings_Click(object sender, EventArgs e)
-        {
-            //Ajout SPailleau - Original code : check if window already exists
-            Form fc = Application.OpenForms["FormSteer"];
-
-            if (fc != null)
-            {
-                fc.Focus();
-                fc.Close();
-                return;
-            }
-
-            //
-            Form form = new FormSteer(this);
-            form.Show(this);
-        }
-
-        //Ajout SPailleau
-        private void btnAdjLeftMain_Click(object sender, EventArgs e)
-        {
-            if (!ct.isContourBtnOn)
-            {
-                if (ABLine.isABLineSet)
-                {
-                    //snap distance is in cm
-                    yt.ResetCreatedYouTurn();
-                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
-
-                    ABLine.MoveABLine(-dist);
-
-                    //FileSaveABLine();
-                }
-                else if (curve.isCurveSet)
-                {
-                    //snap distance is in cm
-                    yt.ResetCreatedYouTurn();
-                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
-
-                    curve.MoveABCurve(-dist);
-
-                }
-                else
-                {
-                    var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
-                    form.Show();
-                }
-            }
-        }
-
-        //Ajout SPailleau
-        private void btnAdjRightMain_Click(object sender, EventArgs e)
-        {
-            
-            if (!ct.isContourBtnOn)
-            {
-                if (ABLine.isABLineSet)
-                {
-                    //snap distance is in cm
-                    yt.ResetCreatedYouTurn();
-                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
-
-                    ABLine.MoveABLine(dist);
-                }
-                else if (curve.isCurveSet)
-                {
-                    //snap distance is in cm
-                    yt.ResetCreatedYouTurn();
-                    double dist = 0.01 * Properties.Settings.Default.setAS_snapDistance;
-                    curve.MoveABCurve(dist);
-
-                }
-                else
-                {
-                    var form = new FormTimedMessage(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
-                    form.Show();
-                }
-            }
-        }
-
-        private void oglZoom_Move(object sender, EventArgs e)
-        {
-            //----SPailleau - Enregistre la position de la fenêtre
-            Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
-            Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
-            //----Fin
-        }
-
-        private void btnZoomOut_Click(object sender, EventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// The font class
@@ -850,7 +339,9 @@ namespace AgOpenGPS
             steerChartStripMenu.Text = gStr.gsSteerChart;
 
             //Tools Menu
+            //ajout max
             toolStripMenuItem9.Text = gStr.gsField;
+            //fin
             SmoothABtoolStripMenu.Text = gStr.gsSmoothABCurve;
             toolStripBtnMakeBndContour.Text = gStr.gsMakeBoundaryContours;
             boundariesToolStripMenuItem.Text = gStr.gsBoundary;
@@ -862,7 +353,7 @@ namespace AgOpenGPS
             //googleEarthFlagsToolStrip.Text = gStr.gsGoogleEarth;
             offsetFixToolStrip.Text = gStr.gsOffsetFix;
 
-            //btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
             //time keeper
             secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
@@ -909,7 +400,7 @@ namespace AgOpenGPS
             turn = new CTurn(this);
 
             //headland object
-            hd = new CHead( this);
+            hd = new CHead(this);
 
             //nmea simulator built in.
             sim = new CSim(this);
@@ -945,7 +436,7 @@ namespace AgOpenGPS
         //Initialize items before the form Loads or is visible
         private void FormGPS_Load(object sender, EventArgs e)
         {
-            this.MouseWheel += ZoomByMouseWheel;
+            //ajout max
             round_table5.Left = this.Width / 2 - round_table5.Width / 2;
             //roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
             panel_top.Left = this.Width / 2 - panel_top.Width / 2 + 3;
@@ -982,20 +473,7 @@ namespace AgOpenGPS
                 toolStripBtnMakeBndContour.Visible = true;
 
             }
-
-            //start udp server is required
-                StartLoopbackServer();
-
-            //boundaryToolStripBtn.Enabled = false;
-            FieldMenuButtonEnableDisable(false);
-            
-            //panelRight.Enabled = false;
-
-            //oglMain.Left = 75;
-            //oglMain.Width = this.Width - statusStripLeft.Width - 84;
-
-            panelSim.Left = 100;
-            panelSim.Width = Width - 250;
+            //fin
 
             timer2.Enabled = true;
             //panel1.BringToFront();
@@ -1049,21 +527,13 @@ namespace AgOpenGPS
                     Settings.Default.Save();
                 }
             }
-                // load all the gui elements in gui.designer.cs
-                LoadSettings();
+            // load all the gui elements in gui.designer.cs
+            LoadSettings();
 
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
                 topFieldViewToolStripMenuItem.Checked = true;
             else topFieldViewToolStripMenuItem.Checked = false;
-
             //ajout max
-            /*
-            oglZoom.Width = 160;
-            oglZoom.Height = 160;
-            oglZoom.Left = 0;
-            oglZoom.Top = 68;
-            */
-
             //----SPailleau - On applique la position de la session précédente
             oglZoom.Width = oglZoom_SizeWidth;
             oglZoom.Height = oglZoom_SizeHeight;
@@ -1072,7 +542,7 @@ namespace AgOpenGPS
             //On enregistre la position dans user.config
             Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
             Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
-            //----Fin
+            //fin
 
             if (!topFieldViewToolStripMenuItem.Checked)
             {
@@ -1101,9 +571,11 @@ namespace AgOpenGPS
                     TimedMessageBox(2000, "No File Found", "Can't Find AgIO");
                 }
             }
+
             //nmea limiter
             udpWatch.Start();
         }
+
         //form is closing so tidy up and save settings
         private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1111,6 +583,7 @@ namespace AgOpenGPS
             {
                 if (autoBtnState == btnStates.Auto)
                 {
+                    //ajout max
                     TimedMessageBox(2000, "Safe Shutdown", gStr.gsTurnoffAutoSectionControl);
                     e.Cancel = true;
                     return;
@@ -1118,6 +591,7 @@ namespace AgOpenGPS
 
                 if (manualBtnState == btnStates.On)
                 {
+                    //ajout max
                     TimedMessageBox(2000, "Safe Shutdown", gStr.gsTurnoffAutoSectionControl);
                     e.Cancel = true;
                     return;
@@ -1153,7 +627,7 @@ namespace AgOpenGPS
                         mc.ResetAllModuleCommValues();
                     }
                 }
-            }     
+            }
 
             SaveFormGPSWindowSettings();
 
@@ -1176,6 +650,7 @@ namespace AgOpenGPS
                 catch { }
                 finally { recvFromAppSocket.Close(); }
             }
+
             //save current vehicle
             SettingsIO.ExportAll(vehiclesDirectory + vehicleFileName + ".XML");
         }
@@ -1185,8 +660,6 @@ namespace AgOpenGPS
         {
             FixPanelsAndMenus(true);
             if (isGPSPositionInitialized) SetZoom();
-            btn_synchro.Left = menuStrip1.Right - 82;
-            btn_synchro.Top = menuStrip1.Top + 2;
         }
 
         // Load Bitmaps And Convert To Textures
@@ -1199,7 +672,7 @@ namespace AgOpenGPS
             Lift, SkyNight, SteerPointer,
             SteerDot, Tractor, QuestionMark,
             FrontWheels, FourWDFront, FourWDRear,
-            Harvester
+            Harvester, Lateral
         }
 
         public void CheckSettingsNotNull()
@@ -1210,21 +683,21 @@ namespace AgOpenGPS
             }
         }
 
-            public void LoadGLTextures() 
+        public void LoadGLTextures()
         {
             GL.Enable(EnableCap.Texture2D);
 
             Bitmap[] oglTextures = new Bitmap[]
             {
-                Properties.Resources.z_SkyDay,Properties.Resources.z_Floor,Properties.Resources.z_Font, 
+                Properties.Resources.z_SkyDay,Properties.Resources.z_Floor,Properties.Resources.z_Font,
                 Properties.Resources.z_Turn,Properties.Resources.z_TurnCancel,Properties.Resources.z_TurnManual,
                 Properties.Resources.z_Compass,Properties.Resources.z_Speedo,Properties.Resources.z_SpeedoNeedle,
                 Properties.Resources.z_Lift,Properties.Resources.z_SkyNight,Properties.Resources.z_SteerPointer,
                 Properties.Resources.z_SteerDot,Properties.Resources.z_Tractor,Properties.Resources.z_QuestionMark,
                 Properties.Resources.z_FrontWheels,Properties.Resources.z_4WDFront,Properties.Resources.z_4WDRear,
-                Properties.Resources.z_Harvester
+                Properties.Resources.z_Harvester, Properties.Resources.z_LateralManual
             };
-                    
+
             texture = new uint[oglTextures.Length];
 
             for (int h = 0; h < oglTextures.Length; h++)
@@ -1271,8 +744,8 @@ namespace AgOpenGPS
         {
             int set = 1;
             int reset = 2046;
-            p_254.pgn[p_254.sc1to8] = (byte)0;
-            p_254.pgn[p_254.sc9to16] = (byte)0;
+            p_254.pgn[p_254.sc1to8] = 0;
+            p_254.pgn[p_254.sc9to16] = 0;
 
             int machine = 0;
 
@@ -1306,9 +779,6 @@ namespace AgOpenGPS
             p_254.pgn[p_254.sc9to16] = unchecked((byte)(machine >> 8));
             p_254.pgn[p_254.sc1to8] = unchecked((byte)machine);
 
-            //tram byte
-            //p_254.pgn[p_254.tram] = unchecked((byte)tram.controlByte);
-
             //machine pgn
             p_239.pgn[p_239.sc9to16] = p_254.pgn[p_254.sc9to16];
             p_239.pgn[p_239.sc1to8] = p_254.pgn[p_254.sc1to8];
@@ -1322,9 +792,9 @@ namespace AgOpenGPS
         {
             CloseTopMosts();
 
-            using (var form = new FormSaveOrNot(closing))
+            using (FormSaveOrNot form = new FormSaveOrNot(closing))
             {
-                var result = form.ShowDialog();
+                DialogResult result = form.ShowDialog();
 
                 if (result == DialogResult.OK) return 0;      //Save and Exit
                 if (result == DialogResult.Ignore) return 1;   //Ignore
@@ -1336,19 +806,19 @@ namespace AgOpenGPS
         //make the start picture disappear
         private void timer2_Tick(object sender, EventArgs e)
         {
-                this.Controls.Remove(pictureboxStart);
-                pictureboxStart.Dispose();
-                //panel1.SendToBack();
-                timer2.Enabled = false;
-                timer2.Dispose();
+            this.Controls.Remove(pictureboxStart);
+            pictureboxStart.Dispose();
+            //panel1.SendToBack();
+            timer2.Enabled = false;
+            timer2.Dispose();
         }
 
         public bool KeypadToNUD(NumericUpDown sender, Form owner)
         {
             sender.BackColor = Color.Red;
-            using (var form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
+            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
             {
-                var result = form.ShowDialog(owner);
+                DialogResult result = form.ShowDialog(owner);
                 if (result == DialogResult.OK)
                 {
                     sender.Value = (decimal)form.ReturnValue;
@@ -1366,10 +836,9 @@ namespace AgOpenGPS
         public void KeyboardToText(TextBox sender, Form owner)
         {
             sender.BackColor = Color.Red;
-            using (var form = new FormKeyboard(sender.Text))
+            using (FormKeyboard form = new FormKeyboard(sender.Text))
             {
-                var result = form.ShowDialog(owner);
-                if (result == DialogResult.OK)
+                if (form.ShowDialog(owner) == DialogResult.OK)
                 {
                     sender.Text = form.ReturnString;
                 }
@@ -1440,7 +909,7 @@ namespace AgOpenGPS
             }
 
             //calculate tool width based on extreme right and left values
-            tool.toolWidth = Math.Abs(section[0].positionLeft) + Math.Abs(section[tool.numOfSections - 1].positionRight);
+            tool.toolWidth = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
 
             //left and right tool position
             tool.toolFarLeftPosition = section[0].positionLeft;
@@ -1463,16 +932,11 @@ namespace AgOpenGPS
             {
                 //ajout max
                 oglZoom.BringToFront();
-                /*
-                oglZoom.Width = 160;
-                oglZoom.Height = 160;
-                oglZoom.Left = 0;
-                oglZoom.Top = 68;
-                */
+
                 //----SPailleau - Applique la position enregistrée
                 oglZoom.Location = Properties.Settings.Default.OGLZoom_Location;
                 oglZoom.Size = Properties.Settings.Default.OGLZoom_Size;
-                //----Fin
+                //fin
             }
 
             //SendSteerSettingsOutAutoSteerPort();
@@ -1557,19 +1021,19 @@ namespace AgOpenGPS
             tramLinesMenuField.Enabled = isOn;
             recordedPathStripMenu.Enabled = isOn;
             btnMakeLinesFromBoundary.Enabled = isOn;
-            btnFlag.Visible = isOn;
+            //ajout maxbtnFlag.Visible = isOn;
 
             //panelRight.Visible = isOn;
             //panelAB.Visible = isOn;
 
             lblFieldStatus.Visible = isOn;
-            lblFieldDataTopField.Visible = isOn;
-            lblFieldDataTopDone.Visible = isOn;
-            lblFieldDataTopRemain.Visible = isOn;
+            //lblFieldDataTopField.Visible = isOn;
+            //lblFieldDataTopDone.Visible = isOn;
+            //lblFieldDataTopRemain.Visible = isOn;
 
-            //roundButton1.Visible = true; //Commenté SPailleau (ancien bouton)
-            cboxpRowWidth.Visible = true;
-            btnYouSkipEnable.Visible = true;
+            //btnSnapToPivot.Visible = false;
+            cboxpRowWidth.Visible = false;
+            btnYouSkipEnable.Visible = false;
         }
 
         //close the current job
@@ -1582,13 +1046,13 @@ namespace AgOpenGPS
             //turn off headland
             hd.isOn = false;
             btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-            btnHeadlandOnOff.Visible = true;
+            //ajout max btnHeadlandOnOff.Visible = false;
 
             //make sure hydraulic lift is off
             p_239.pgn[p_239.hydLift] = 0;
             vehicle.isHydLiftOn = false;
             btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-            btnHydLift.Visible = true;
+            //ajout max btnHydLift.Visible = false;
 
             //zoom gone
             oglZoom.SendToBack();
@@ -1697,7 +1161,9 @@ namespace AgOpenGPS
             //clear out contour and Lists
             btnContour.Enabled = false;
             //btnContourPriority.Enabled = false;
+            //ajout max
             roundButton1.Image = Properties.Resources.SnapToPivot;
+            //
             ct.ResetContour();
             ct.isContourBtnOn = false;
             btnContour.Image = Properties.Resources.ContourOff;
@@ -1708,7 +1174,7 @@ namespace AgOpenGPS
             btnCycleLines.Enabled = false;
 
             //AutoSteer
-            //btnAutoSteer.Enabled = false;
+            btnAutoSteer.Enabled = false;
             isAutoSteerBtnOn = false;
             btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
 
@@ -1717,7 +1183,7 @@ namespace AgOpenGPS
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
             btnAutoYouTurn.Enabled = false;
 
-            btnMakeLinesFromBoundary.Visible = true;
+            //ajout max btnMakeLinesFromBoundary.Visible = false;
 
             yt.ResetYouTurn();
             DisableYouTurnButtons();
@@ -1752,7 +1218,7 @@ namespace AgOpenGPS
         private void ProcessSectionOnOffRequests()
         {
             {
-                double mapFactor = 1 + ((double)(100 - tool.minCoverage) * 0.01);
+                double mapFactor = 1 + ((100 - tool.minCoverage) * 0.01);
                 for (int j = 0; j < tool.numOfSections + 1; j++)
                 {
                     //SECTIONS - 
@@ -1761,7 +1227,7 @@ namespace AgOpenGPS
                     if (section[j].sectionOnRequest)
                         section[j].isSectionOn = true;
 
-                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)((double)fixUpdateHz * tool.turnOffDelay);
+                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(fixUpdateHz * tool.turnOffDelay);
 
                     if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
@@ -1779,12 +1245,12 @@ namespace AgOpenGPS
                     }
 
                     //turn off
-                    double sped = 1 / ((pn.speed+3) * 0.5);
+                    double sped = 1 / ((pn.speed + 3) * 0.5);
                     if (sped < 0.3) sped = 0.3;
 
                     //keep setting the timer so full when ready to turn off
                     if (!section[j].mappingOffRequest)
-                        section[j].mappingOffTimer = (int)(fixUpdateHz * mapFactor * sped + ((double)fixUpdateHz * tool.turnOffDelay));
+                        section[j].mappingOffTimer = (int)(fixUpdateHz * mapFactor * sped + (fixUpdateHz * tool.turnOffDelay));
 
                     //decrement the off timer
                     if (section[j].mappingOffTimer > 0) section[j].mappingOffTimer--;
@@ -1856,15 +1322,15 @@ namespace AgOpenGPS
         {
             //match grid to cam distance and redo perspective
             if (camera.camSetDistance <= -20000) camera.gridZoom = 2000;
-            else if (camera.camSetDistance >= -20000 && camera.camSetDistance < -10000) camera.gridZoom = 2012*2;
-            else if (camera.camSetDistance >= -10000 && camera.camSetDistance < -5000) camera.gridZoom = 1006 *2;
-            else if (camera.camSetDistance >= -5000 && camera.camSetDistance < -2000) camera.gridZoom = 503 *2;
-            else if (camera.camSetDistance >= -2000 && camera.camSetDistance < -1000) camera.gridZoom = 201.2 *2;
-            else if (camera.camSetDistance >= -1000 && camera.camSetDistance < -500) camera.gridZoom = 100.6 *2;
-            else if (camera.camSetDistance >= -500 && camera.camSetDistance < -250) camera.gridZoom = 50.3 *2;
-            else if (camera.camSetDistance >= -250 && camera.camSetDistance < -150) camera.gridZoom = 25.15 *2;
-            else if (camera.camSetDistance >= -150 && camera.camSetDistance < -50) camera.gridZoom = 10.06 *2;
-            else if (camera.camSetDistance >= -50 && camera.camSetDistance < -1) camera.gridZoom = 5.03 *2;
+            else if (camera.camSetDistance >= -20000 && camera.camSetDistance < -10000) camera.gridZoom = 2012 * 2;
+            else if (camera.camSetDistance >= -10000 && camera.camSetDistance < -5000) camera.gridZoom = 1006 * 2;
+            else if (camera.camSetDistance >= -5000 && camera.camSetDistance < -2000) camera.gridZoom = 503 * 2;
+            else if (camera.camSetDistance >= -2000 && camera.camSetDistance < -1000) camera.gridZoom = 201.2 * 2;
+            else if (camera.camSetDistance >= -1000 && camera.camSetDistance < -500) camera.gridZoom = 100.6 * 2;
+            else if (camera.camSetDistance >= -500 && camera.camSetDistance < -250) camera.gridZoom = 50.3 * 2;
+            else if (camera.camSetDistance >= -250 && camera.camSetDistance < -150) camera.gridZoom = 25.15 * 2;
+            else if (camera.camSetDistance >= -150 && camera.camSetDistance < -50) camera.gridZoom = 10.06 * 2;
+            else if (camera.camSetDistance >= -50 && camera.camSetDistance < -1) camera.gridZoom = 5.03 * 2;
             //1.216 2.532
             oglMain.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
@@ -1920,7 +1386,7 @@ namespace AgOpenGPS
         //message box pops up with info then goes away
         public void TimedMessageBox(int timeout, string s1, string s2)
         {
-            var form = new FormTimedMessage(timeout, s1, s2);
+            FormTimedMessage form = new FormTimedMessage(timeout, s1, s2);
             form.Show(this);
         }
     }//class FormGPS

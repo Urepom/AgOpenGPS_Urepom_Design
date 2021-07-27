@@ -174,7 +174,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setIMU_fusionWeight" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.25</Value>
+      <Value Profile="(Default)">0.06</Value>
     </Setting>
     <Setting Name="setIMU_rollFilter" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.5</Value>
@@ -227,29 +227,11 @@
     <Setting Name="setIMU_isHeadingCorrectionFromAutoSteer" Type="System.String" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setFeatures" Type="AgOpenGPS.CFeatureSettings" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="setDisplay_issections_buttonOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="setF_local" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default</Value>
-    </Setting>
-    <Setting Name="setF_synchro" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default</Value>
-    </Setting>
     <Setting Name="setDisplay_isTextureOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="setVehicle_goalPointLookAheadMult" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">1600</Value>
-    </Setting>
     <Setting Name="setAB_lineLength" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1600</Value>
-    </Setting>
-    <Setting Name="setDisplay_islong_touchOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UpdateSettings" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -263,6 +245,42 @@
     <Setting Name="setAS_isAngVelGuidance" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="setAS_guidanceLookAheadTime" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="setFeatures" Type="AgOpenGPS.CFeatureSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="setIMU_isDualAsIMU" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setAS_sideHillComp" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="setIMU_isReverseOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setGPS_forwardComp" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.15</Value>
+    </Setting>
+    <Setting Name="setGPS_reverseComp" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3</Value>
+    </Setting>
+    <Setting Name="setGPS_ageAlarm" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="setGPS_isRTK_KillAutoSteer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="OGLZoom_Location" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 68</Value>
+    </Setting>
+    <Setting Name="OGLZoom_Size" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">160, 160</Value>
+    </Setting>
+    <Setting Name="setDisplay_islong_touchOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="FormSteer_Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 65</Value>
     </Setting>
@@ -275,11 +293,14 @@
     <Setting Name="FormEditAB_Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 65</Value>
     </Setting>
-    <Setting Name="OGLZoom_Location" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 68</Value>
+    <Setting Name="setDisplay_issections_buttonOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="OGLZoom_Size" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">160, 160</Value>
+    <Setting Name="setF_local" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="setF_synchro" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default</Value>
     </Setting>
   </Settings>
 </SettingsFile>

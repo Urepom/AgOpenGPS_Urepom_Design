@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -69,6 +68,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
+            //ajout max
             //----SPailleau - Applique la position enregistrée
             this.Location = Properties.Settings.Default.FormSteerGraph_Location;
             this.Size = Properties.Settings.Default.FormSteerGraph_Size;
@@ -84,6 +84,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //ajout max
             //----SPailleau - Enregistre la position de la fenêtre
             Properties.Settings.Default.FormSteerGraph_Location = this.Location;
             Properties.Settings.Default.FormSteerGraph_Size = this.Size;

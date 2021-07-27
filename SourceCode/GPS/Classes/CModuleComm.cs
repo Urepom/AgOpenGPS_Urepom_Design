@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AgOpenGPS
+﻿namespace AgOpenGPS
 {
     public class CModuleComm
     {
@@ -27,7 +25,7 @@ namespace AgOpenGPS
             swOnGr0 = 5,
             swOffGr0 = 6,
             swOnGr1 = 7,
-            swOffGr1 = 8;  
+            swOffGr1 = 8;
 
 
         //LIDAR
@@ -44,7 +42,7 @@ namespace AgOpenGPS
         //for the workswitch
         public bool isWorkSwitchActiveLow, isWorkSwitchEnabled, isWorkSwitchManual, isSteerControlsManual;
 
-        public int workSwitchValue, steerSwitchValue = 1;
+        public int workSwitchValue, steerSwitchValue = 0;
 
         //constructor
         public CModuleComm()
@@ -54,7 +52,6 @@ namespace AgOpenGPS
 
             //does a low, grounded out, mean on
             isWorkSwitchActiveLow = true;
-
         }
 
         //Reset all the byte arrays from modules

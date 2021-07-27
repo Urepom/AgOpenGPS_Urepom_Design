@@ -151,7 +151,7 @@ namespace AgOpenGPS
         {
             //count the points from the boundary
 
-            var foos = new List<vec3>(hdArr);
+            List<vec3> foos = new List<vec3>(hdArr);
 
             int lineCount = foos.Count;
             double distance;
@@ -263,7 +263,7 @@ namespace AgOpenGPS
             end = 99999;
             RebuildHeadLineTemplate();
         }
-        
+
         private void btnMakeFixedHeadland_Click(object sender, EventArgs e)
         {
             double width = (double)nudDistance.Value * mf.ftOrMtoM;
@@ -381,8 +381,8 @@ namespace AgOpenGPS
             vec3 plotPt = new vec3
             {
                 //convert screen coordinates to field coordinates
-                easting = ((double)fixPt.X) * (double)maxFieldDistance / 632.0,
-                northing = ((double)fixPt.Y) * (double)maxFieldDistance / 632.0,
+                easting = fixPt.X * maxFieldDistance / 632.0,
+                northing = fixPt.Y * maxFieldDistance / 632.0,
                 heading = 0
             };
 
@@ -571,10 +571,10 @@ namespace AgOpenGPS
             //middle points
             for (int i = 1; i < hdArr.Length; i++)
             {
-                hdArr[i-1].heading = Math.Atan2(hdArr[i-1].easting - hdArr[i].easting, hdArr[i - 1].northing - hdArr[i].northing);
+                hdArr[i - 1].heading = Math.Atan2(hdArr[i - 1].easting - hdArr[i].easting, hdArr[i - 1].northing - hdArr[i].northing);
                 if (hdArr[i].heading < 0) hdArr[i].heading += glm.twoPI;
                 if (hdArr[i].heading > glm.twoPI) hdArr[i].heading -= glm.twoPI;
-            }            
+            }
 
             double delta = 0;
             for (int i = 0; i < hdArr.Length; i++)
@@ -615,6 +615,7 @@ namespace AgOpenGPS
 
         private void btnTurnOffHeadland_Click(object sender, EventArgs e)
         {
+            //ajout max
             //----SPailleau - Ajout de confirmation de suppression
             if (MessageBox.Show("Supprimer les limites de toutes les fourrières ?", "Confirm deleting headland", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
@@ -653,7 +654,7 @@ namespace AgOpenGPS
             {
                 int j = i + 1;
                 if (j == bndCount) j = 0;
-                double distanceSq = glm.DistanceSquared(headLineTemplate[i].easting, headLineTemplate[i].northing, 
+                double distanceSq = glm.DistanceSquared(headLineTemplate[i].easting, headLineTemplate[i].northing,
                                                 headLineTemplate[j].easting, headLineTemplate[j].northing);
                 if (distanceSq > 2.3)
                 {
@@ -710,7 +711,7 @@ namespace AgOpenGPS
                 if (patchCount > 0)
                 {
                     //for every new chunk of patch
-                    foreach (var triList in mf.section[j].patchList)
+                    foreach (List<vec3> triList in mf.section[j].patchList)
                     {
                         int count2 = triList.Count;
                         for (int i = 0; i < count2; i += 3)

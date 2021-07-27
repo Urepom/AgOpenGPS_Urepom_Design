@@ -12,7 +12,7 @@ namespace AgOpenGPS
 
         private int order;
 
-        private List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new List<string>();
 
         public FormFilePicker(Form callingForm)
         {
@@ -22,10 +22,6 @@ namespace AgOpenGPS
             InitializeComponent();
             btnByDistance.Text = gStr.gsSort;
             btnOpenExistingLv.Text = gStr.gsUseSelected;
-            label1.Text = gStr.gsDeleteField;
-            label2.Text = gStr.gsCancel;
-
-
         }
         private void FormFilePicker_Load(object sender, EventArgs e)
         {
@@ -74,7 +70,7 @@ namespace AgOpenGPS
                                 distance *= 100;
 
                                 fileList.Add(fieldDirectory);
-                                fileList.Add(Math.Round(distance,3).ToString().PadLeft(10));
+                                fileList.Add(Math.Round(distance, 3).ToString().PadLeft(10));
                             }
                             else
                             {
@@ -172,7 +168,7 @@ namespace AgOpenGPS
                             area = 0;
                         }
                     }
-                    if (area ==0) fileList.Add("No Bndry");
+                    if (area == 0) fileList.Add("No Bndry");
                     else fileList.Add(Math.Round(area, 1).ToString().PadLeft(10));
                 }
 
@@ -189,7 +185,7 @@ namespace AgOpenGPS
 
             for (int i = 0; i < fileList.Count; i += 3)
             {
-                string[] fieldNames = { fileList[i], fileList[i + 1], fileList[i+2] };
+                string[] fieldNames = { fileList[i], fileList[i + 1], fileList[i + 2] };
                 itm = new ListViewItem(fieldNames);
                 lvLines.Items.Add(itm);
             }
@@ -198,13 +194,13 @@ namespace AgOpenGPS
 
             if (lvLines.Items.Count > 0)
             {
-                this.chName.Text = gStr.gsFieldName;
+                this.chName.Text = "Field Name";
                 this.chName.Width = 680;
 
-                this.chDistance.Text = gStr.gsDistance;
+                this.chDistance.Text = "Distance";
                 this.chDistance.Width = 140;
 
-                this.chArea.Text = gStr.gsArea;
+                this.chArea.Text = "Area";
                 this.chArea.Width = 140;
             }
             else
@@ -477,7 +473,7 @@ namespace AgOpenGPS
                         }
                     }
                     if (area == 0) fileList.Add("No Bndry");
-                    else fileList.Add(Math.Round(area,1).ToString().PadLeft(10));
+                    else fileList.Add(Math.Round(area, 1).ToString().PadLeft(10));
                 }
 
                 else

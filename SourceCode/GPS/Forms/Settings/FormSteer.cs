@@ -37,10 +37,6 @@ namespace AgOpenGPS
 
         private void FormSteer_Load(object sender, EventArgs e)
         {
-            //----SPailleau - Applique la position enregistrée
-            this.Location = Properties.Settings.Default.FormSteer_Location;
-            //----Fin
-
             //WAS Zero, CPD
             hsbarWasOffset.ValueChanged -= hsbarSteerAngleSensorZero_ValueChanged;
             hsbarCountsPerDegree.ValueChanged -= hsbarCountsPerDegree_ValueChanged;
@@ -49,7 +45,7 @@ namespace AgOpenGPS
             hsbarCountsPerDegree.Value = Properties.Settings.Default.setAS_countsPerDegree;
 
             lblCountsPerDegree.Text = hsbarCountsPerDegree.Value.ToString();
-            lblSteerAngleSensorZero.Text = ((double)(hsbarWasOffset.Value) / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
 
             hsbarWasOffset.ValueChanged += hsbarSteerAngleSensorZero_ValueChanged;
             hsbarCountsPerDegree.ValueChanged += hsbarCountsPerDegree_ValueChanged;
@@ -106,6 +102,9 @@ namespace AgOpenGPS
             hsbarIntegralPurePursuit.Value = (int)(Properties.Vehicle.Default.purePursuitIntegralGainAB * 100);
             lblPureIntegral.Text = ((int)(mf.vehicle.purePursuitIntegralGain * 100)).ToString();
 
+            hsbarSideHillComp.Value = (int)(Properties.Settings.Default.setAS_sideHillComp * 100);
+
+
             //nudIntDistance.Value = (int)(Properties.Vehicle.Default.stanleyIntegralDistanceAwayTriggerAB * 100);
 
             mf.vehicle.goalPointLookAhead = Properties.Vehicle.Default.setVehicle_goalPointLookAhead;
@@ -157,7 +156,7 @@ namespace AgOpenGPS
                 }
             }
 
-            double actAng = mf.mc.actualSteerAngleDegrees*5;
+            double actAng = mf.mc.actualSteerAngleDegrees * 5;
             if (actAng > 0)
             {
                 if (actAng > 99) actAng = 99;
@@ -170,8 +169,8 @@ namespace AgOpenGPS
                 pbarRight.Value = 0;
                 pbarLeft.Value = (int)-actAng;
             }
-        
-                       
+
+
 
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
@@ -180,7 +179,7 @@ namespace AgOpenGPS
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.OrangeRed;
             else lblError.ForeColor = Color.LightGreen;
-            
+
             lblPWMDisplay.Text = mf.mc.pwmDisplay.ToString();
             counter++;
             if (toSend && counter > 4)
@@ -211,10 +210,6 @@ namespace AgOpenGPS
 
         private void FormSteer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //----SPailleau - Enregistre la position de la fenêtre
-            Properties.Settings.Default.FormSteer_Location = this.Location;
-            //----Fin
-
             mf.vehicle.ast.isInFreeDriveMode = false;
 
             Properties.Vehicle.Default.setVehicle_goalPointLookAhead = mf.vehicle.goalPointLookAhead;
@@ -294,14 +289,14 @@ namespace AgOpenGPS
         private void hsbarCountsPerDegree_ValueChanged(object sender, EventArgs e)
         {
             lblCountsPerDegree.Text = unchecked((byte)hsbarCountsPerDegree.Value).ToString();
-            lblSteerAngleSensorZero.Text = ((double)(hsbarWasOffset.Value) / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
             toSend = true;
             counter = 0;
         }
 
         private void hsbarSteerAngleSensorZero_ValueChanged(object sender, EventArgs e)
         {
-            lblSteerAngleSensorZero.Text = ((double)(hsbarWasOffset.Value) / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
             toSend = true;
             counter = 0;
         }
@@ -363,7 +358,7 @@ namespace AgOpenGPS
 
         private void hsbarIntegral_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.stanleyIntegralGainAB = (double)hsbarIntegral.Value * 0.01;
+            mf.vehicle.stanleyIntegralGainAB = hsbarIntegral.Value * 0.01;
             lblIntegralPercent.Text = hsbarIntegral.Value.ToString();
         }
         private void nudIntDistance_Enter(object sender, EventArgs e)
@@ -380,9 +375,19 @@ namespace AgOpenGPS
         #region Pure
         private void hsbarIntegralPurePursuit_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.purePursuitIntegralGain = (double)hsbarIntegralPurePursuit.Value * 0.01;
+            mf.vehicle.purePursuitIntegralGain = hsbarIntegralPurePursuit.Value * 0.01;
             lblPureIntegral.Text = hsbarIntegralPurePursuit.Value.ToString();
         }
+
+        private void hsbarSideHillComp_ValueChanged(object sender, EventArgs e)
+        {
+            double deg = (double)hsbarSideHillComp.Value;
+            deg *= 0.01;
+            lblSideHillComp.Text = (deg.ToString("N2") + "\u00B0");
+            Properties.Settings.Default.setAS_sideHillComp = deg;
+            mf.gyd.sideHillCompFactor = deg;
+        }
+
 
         private void hsbarLookAhead_ValueChanged(object sender, EventArgs e)
         {
@@ -395,6 +400,15 @@ namespace AgOpenGPS
         {
             mf.vehicle.goalPointLookAheadMult = hsbarLookAheadMult.Value * 0.1;
             lblLookAheadMult.Text = mf.vehicle.goalPointLookAheadMult.ToString();
+        }
+
+        private void expandWindow_Click(object sender, EventArgs e)
+        {
+            if (this.Height > 462)
+                this.Size = new System.Drawing.Size(378, 462);
+            else
+                this.Size = new System.Drawing.Size(378, 639);
+
         }
 
         #endregion
