@@ -81,20 +81,14 @@ namespace AgOpenGPS
                                 }
 
                                 //roll in degrees
-                                //ajout max
-                                if (Properties.Vehicle.Default.SetRollOFF == false)
+                                temp = BitConverter.ToSingle(data, 33);
+                                if (temp != float.MaxValue)
                                 {
-                                    temp = BitConverter.ToSingle(data, 33);
-                                    if (temp != float.MaxValue)
-                                    {
-                                        if (ahrs.isRollInvert) temp *= -1;
-                                        ahrs.imuRoll = temp - ahrs.rollZero;
-                                    }
-                                    if (temp == float.MinValue)
-                                        ahrs.imuRoll = 0;
+                                    if (ahrs.isRollInvert) temp *= -1;
+                                    ahrs.imuRoll = temp - ahrs.rollZero;
                                 }
-                                else ahrs.imuRoll = 88888;
-                                //fin
+                                if (temp == float.MinValue)
+                                    ahrs.imuRoll = 0;
 
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
@@ -121,8 +115,8 @@ namespace AgOpenGPS
 
                                 if (isLogNMEA)
                                     pn.logNMEASentence.Append(
-                                        DateTime.UtcNow.ToString("mm:ss.ff",CultureInfo.InvariantCulture)+ " " +
-                                        Lat.ToString("N7") + " " + Lon.ToString("N7") + " " + 
+                                        DateTime.UtcNow.ToString("mm:ss.ff", CultureInfo.InvariantCulture) + " " +
+                                        Lat.ToString("N7") + " " + Lon.ToString("N7") + " " +
                                         pn.speed.ToString("N1") + " " +
                                         pn.headingTrueDual.ToString("N1") + "\r\n"
                                         );
@@ -140,19 +134,14 @@ namespace AgOpenGPS
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
-                            //ajout max
-                            if (Properties.Vehicle.Default.SetRollOFF == false)
-                            {
-                                //Roll
-                                rollK = (Int16)((data[8] << 8) + data[7]);
 
-                                if (ahrs.isRollInvert) rollK *= -0.1;
-                                else rollK *= 0.1;
-                                rollK -= ahrs.rollZero;
-                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
-                            }
-                            else ahrs.imuRoll = 88888;
-                            //fin
+                            //Roll
+                            rollK = (Int16)((data[8] << 8) + data[7]);
+
+                            if (ahrs.isRollInvert) rollK *= -0.1;
+                            else rollK *= 0.1;
+                            rollK -= ahrs.rollZero;
+                            ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
 
                             //Angular velocity
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
@@ -196,20 +185,14 @@ namespace AgOpenGPS
                             }
 
                             //Roll
-                            //ajout max
-                            if (Properties.Vehicle.Default.SetRollOFF == false)
+                            rollK = (Int16)((data[10] << 8) + data[9]);
+                            if (rollK != 8888)
                             {
-                                rollK = (Int16)((data[10] << 8) + data[9]);
-                                if (rollK != 8888)
-                                {
-                                    if (ahrs.isRollInvert) rollK *= -0.1;
-                                    else rollK *= 0.1;
-                                    rollK -= ahrs.rollZero;
-                                    ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
-                                }
+                                if (ahrs.isRollInvert) rollK *= -0.1;
+                                else rollK *= 0.1;
+                                rollK -= ahrs.rollZero;
+                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
                             }
-                            else ahrs.imuRoll = 88888;
-                            //fin
 
                             //switch status
                             mc.steerSwitchValue = data[11];
@@ -246,7 +229,7 @@ namespace AgOpenGPS
 
                             break;
                         }
-                     #endregion
+                        #endregion
                 }
             }
         }
@@ -568,9 +551,7 @@ namespace AgOpenGPS
 
             if (keyData == (Keys.P)) // Snap/Prioritu click
             {
-                //modif max
-                roundButton1.PerformClick();
-                //
+                SnapCenterMain.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
