@@ -1,0 +1,10 @@
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\AgDiag.exe.config
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\AgDiag.exe
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\AgDiag.pdb
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.csprojAssemblyReference.cache
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.FormLoop.resources
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.Properties.Resources.resources
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.gStr.resources
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.csproj.GenerateResource.cache
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.exe
+C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\AgDiag\Source\obj\Debug\AgDiag.pdb
