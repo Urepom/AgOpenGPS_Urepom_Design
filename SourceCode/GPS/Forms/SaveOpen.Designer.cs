@@ -844,8 +844,8 @@ namespace AgOpenGPS
             {
                 hd.isOn = false;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-                //ajout max btnHeadlandOnOff.Visible = false;
-                //ajout max btnHydLift.Visible = false;
+                //Ajout-modification MEmprou et SPailleau btnHeadlandOnOff.Visible = false;
+                //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
             }
 
             //trams ---------------------------------------------------------------------------------
@@ -855,7 +855,7 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramList?.Clear();
             tram.displayMode = 0;
-            //ajout max btnTramDisplayMode.Visible = false;
+            //Ajout-modification MEmprou et SPailleau btnTramDisplayMode.Visible = false;
 
             if (File.Exists(fileAndDirectory))
             {

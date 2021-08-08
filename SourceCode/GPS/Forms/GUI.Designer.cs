@@ -50,7 +50,7 @@ namespace AgOpenGPS
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
         public bool isDay = true, isDayTime = true;
         public bool isKeyboardOn = true;
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         public bool issections_buttonOn = false;
         public bool islong_touchOn = Properties.Settings.Default.setDisplay_islong_touchOn;
 
@@ -119,7 +119,7 @@ namespace AgOpenGPS
 
                 //check to make sure the grid is big enough
                 worldGrid.checkZoomWorldGrid(pn.fix.northing, pn.fix.easting);
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 lblHz.Text = fixUpdateHz + "Hz " + (int)(frameTime) + "\r\n" +
                     FixQuality + Math.Round(HzTime, MidpointRounding.AwayFromZero) + " Hz";
 
@@ -202,7 +202,7 @@ namespace AgOpenGPS
                 {
                     lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
                 }
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 if (yt.isYouTurnBtnOn)
                 {
                     round_table9.Width = 280;
@@ -221,7 +221,7 @@ namespace AgOpenGPS
                 {
                     if (ABLine.isBtnABLineOn || curve.isBtnCurveOn)
                     {
-                        //ajout max
+                        //Ajout-modification MEmprou et SPailleau
                         if (!btnEditAB.Visible)
                         {
                             //btnMakeLinesFromBoundary.Visible = true;
@@ -311,7 +311,7 @@ namespace AgOpenGPS
                 if (mc.isOutOfBounds && panelSim.BackColor == Color.Transparent
                     || !mc.isOutOfBounds && panelSim.BackColor == Color.Tomato)
                 {
-                    //ajout max
+                    //Ajout-modification MEmprou et SPailleau
                     if (!mc.isOutOfBounds)
                     {
                         panel_top.BackColor = Color.Transparent;
@@ -379,7 +379,7 @@ namespace AgOpenGPS
                 btnAutoSteerConfig.Text = SetSteerAngle + "\r\n" + ActualSteerAngle;
 
                 secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 SteerSettings.Text = SetSteerAngle + "\r\n" + ActualSteerAngle; //Ajout SPailleau
                 //fin
                 //integralStatusLeftSide.Text = "I: " + gyd.inty.ToString("N3");
@@ -387,7 +387,7 @@ namespace AgOpenGPS
                 //lblAV.Text = ABLine.angVel.ToString("N3");
             }
         }//wait till timer fires again.  
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         public void long_touch()
         {
             if (!Properties.Settings.Default.setDisplay_islong_touchOn)
@@ -421,15 +421,15 @@ namespace AgOpenGPS
 
             isMetric = Settings.Default.setMenu_isMetric;
 
-            //ajout max tramLinesMenuField.Visible = Properties.Settings.Default.setFeatures.isTramOn;
-            //ajout max headlandToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHeadlandOn;
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau tramLinesMenuField.Visible = Properties.Settings.Default.setFeatures.isTramOn;
+            //Ajout-modification MEmprou et SPailleau headlandToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHeadlandOn;
+            //Ajout-modification MEmprou et SPailleau
             btnAdjLeftMain.Visible = Properties.Vehicle.Default.SetArrowsRL;
             btnAdjRightMain.Visible = Properties.Vehicle.Default.SetArrowsRL;
             //fin
 
             boundariesToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isBoundaryOn;
-            //ajout max toolStripBtnMakeBndContour.Visible = Properties.Settings.Default.setFeatures.isBndContourOn;
+            //Ajout-modification MEmprou et SPailleau toolStripBtnMakeBndContour.Visible = Properties.Settings.Default.setFeatures.isBndContourOn;
             recordedPathStripMenu.Visible = Properties.Settings.Default.setFeatures.isRecPathOn;
             SmoothABtoolStripMenu.Visible = Properties.Settings.Default.setFeatures.isABSmoothOn;
             deleteContourPathsToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHideContourOn;
@@ -498,7 +498,7 @@ namespace AgOpenGPS
             isGridOn = Settings.Default.setMenu_isGridOn;
             isCompassOn = Settings.Default.setMenu_isCompassOn;
             isSpeedoOn = Settings.Default.setMenu_isSpeedoOn;
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             issections_buttonOn = Settings.Default.setDisplay_issections_buttonOn;
             //fin
             isAutoDayNight = Settings.Default.setDisplay_isAutoDayNight;
@@ -761,7 +761,7 @@ namespace AgOpenGPS
 
         private void FixPanelsAndMenus(bool isButtonsVisible)
         {
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //panelAB.Size = new System.Drawing.Size(780 + ((Width - 900) / 2), 64);
             //panelAB.Location = new Point((Width - 900) / 3 + 64, this.Height - 66);
 
@@ -812,8 +812,8 @@ namespace AgOpenGPS
         //line up section On Off Auto buttons based on how many there are
         public void LineUpManualBtns()
         {
-            panelSim.Top = SnapCenterMain.Top - 100; //ajout max
-            if (issections_buttonOn) //ajout max
+            panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
+            if (issections_buttonOn) //Ajout-modification MEmprou et SPailleau
             {
                 int oglCenter = 0;
                 // ajout max
@@ -827,21 +827,21 @@ namespace AgOpenGPS
 
                 if ((Height - oglMain.Height) < 80) //max size - buttons hid
                 {
-                    top = Height - 180; //ajout max
+                    top = Height - 180; //Ajout-modification MEmprou et SPailleau
                     if (panelSim.Visible == true)
                     {
-                        top = Height - 180; //ajout max
-                        panelSim.Top = SnapCenterMain.Top - 100; //ajout max
+                        top = Height - 180; //Ajout-modification MEmprou et SPailleau
+                        panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
                     }
 
                 }
                 else //buttons exposed
                 {
-                    top = Height - 180; //ajout max
+                    top = Height - 180; //Ajout-modification MEmprou et SPailleau
                     if (panelSim.Visible == true)
                     {
-                        top = Height - 180; //ajout max
-                        panelSim.Top = SnapCenterMain.Top - 100; //ajout max
+                        top = Height - 180; //Ajout-modification MEmprou et SPailleau
+                        panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
                     }
                 }
 
@@ -1156,7 +1156,7 @@ namespace AgOpenGPS
 
                 if (point.X > oglMain.Width - 80)
                 {
-                    //ajout max
+                    //Ajout-modification MEmprou et SPailleau
                     //---
                     if (point.Y < 270 && point.Y > 140)
                     {
@@ -1215,7 +1215,7 @@ namespace AgOpenGPS
                 leftMouseDownOnOpenGL = true;
             }
         }
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         private void oglZoom_MouseClick(object sender, MouseEventArgs e)
         {
             if ((sender as Control).IsDragging()) return;
@@ -1232,7 +1232,7 @@ namespace AgOpenGPS
                 oglZoom.Height = 160;
             }
         }
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
 
         //Function to delete flag
         public void DeleteSelectedFlag()

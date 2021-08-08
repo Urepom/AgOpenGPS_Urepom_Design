@@ -68,7 +68,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //----SPailleau - Applique la position enregistrée
             this.Location = Properties.Settings.Default.FormSteerGraph_Location;
             this.Size = Properties.Settings.Default.FormSteerGraph_Size;
@@ -84,7 +84,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //----SPailleau - Enregistre la position de la fenêtre
             Properties.Settings.Default.FormSteerGraph_Location = this.Location;
             Properties.Settings.Default.FormSteerGraph_Size = this.Size;

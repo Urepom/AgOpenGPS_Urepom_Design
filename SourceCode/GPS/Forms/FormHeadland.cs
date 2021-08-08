@@ -615,7 +615,7 @@ namespace AgOpenGPS
 
         private void btnTurnOffHeadland_Click(object sender, EventArgs e)
         {
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //----SPailleau - Ajout de confirmation de suppression
             if (MessageBox.Show("Supprimer les limites de toutes les fourrières ?", "Confirm deleting headland", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {

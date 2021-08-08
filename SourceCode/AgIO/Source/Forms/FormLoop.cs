@@ -382,7 +382,17 @@ namespace AgIO
         }
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        { 
+
+        //Ajout-Modification MEmprou et SPailleau
+            if (MessageBox.Show(gStr.gsCloseallconnexions, gStr.gsConfirmClosing, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                e.Cancel = false;
+
             if (recvFromAOGLoopBackSocket != null)
             {
                 try
@@ -419,6 +429,7 @@ namespace AgIO
                 finally { recvFromUDPSocket.Close(); }
             }
         }
+    }
 
         private void DoTraffic()
         {

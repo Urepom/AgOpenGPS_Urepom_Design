@@ -378,7 +378,7 @@ namespace AgOpenGPS
                 yt.ResetYouTurn();
                 p_239.pgn[p_239.uturn] = 0;
                 btnAutoYouTurn.Image = Properties.Resources.Youturn80;
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 round_table9.Width = 280;
                 cboxpRowWidth.Visible = true;
                 btnYouSkipEnable.Visible = true;
@@ -398,7 +398,7 @@ namespace AgOpenGPS
 
                 //mc.autoSteerData[mc.sdX] = 0;
                 p_239.pgn[p_239.uturn] = 0;
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 round_table9.Width = 176;
                 cboxpRowWidth.Visible = false;
                 btnYouSkipEnable.Visible = false;
@@ -857,7 +857,7 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
             {
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 //----SPailleau - Enregistre la position de la fenêtre
                 Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
                 Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
@@ -872,7 +872,7 @@ namespace AgOpenGPS
             }
             else
             {
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 //----SPailleau - Applique la position enregistrée
                 oglZoom.Location = Properties.Settings.Default.OGLZoom_Location;
                 oglZoom.Size = Properties.Settings.Default.OGLZoom_Size;
@@ -1540,7 +1540,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    //ajout max btnHydLift.Visible = false;
+                    //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
                     btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
                 }
             }
@@ -1550,7 +1550,7 @@ namespace AgOpenGPS
                 p_239.pgn[p_239.hydLift] = 0;
                 vehicle.isHydLiftOn = false;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                //ajout max btnHydLift.Visible = false;
+                //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
             }
 
         }
@@ -1574,7 +1574,7 @@ namespace AgOpenGPS
                 p_239.pgn[p_239.hydLift] = 0;
                 vehicle.isHydLiftOn = false;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                //ajout max btnHydLift.Visible = false;
+                //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
             }
         }
 
@@ -1825,7 +1825,7 @@ namespace AgOpenGPS
                         { form2.ShowDialog(); }
                     }
                 }
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 if (isJobStarted)
                 {
                     //panelRight.Enabled = true;
@@ -2023,9 +2023,9 @@ namespace AgOpenGPS
             {
                 hd.isOn = false;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-                //ajout max btnHeadlandOnOff.Visible = false;
+                //Ajout-modification MEmprou et SPailleau btnHeadlandOnOff.Visible = false;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                //ajout max btnHydLift.Visible = false;
+                //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
             }
             FixPanelsAndMenus(true);
             SetZoom();
@@ -2222,7 +2222,7 @@ namespace AgOpenGPS
         {
             if (tram.tramList.Count > 0 || tram.tramBndOuterArr.Count > 0)
                 btnTramDisplayMode.Visible = true;
-            //ajout max else btnTramDisplayMode.Visible = false;
+            //Ajout-modification MEmprou et SPailleau else btnTramDisplayMode.Visible = false;
 
             switch (tram.displayMode)
             {
@@ -2271,7 +2271,7 @@ namespace AgOpenGPS
 
         private Button btnEditAB;
 
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         private void btnAdjLeftMain_Click(object sender, EventArgs e)
         {
             if (!ct.isContourBtnOn)

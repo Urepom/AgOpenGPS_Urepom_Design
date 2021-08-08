@@ -57,6 +57,8 @@
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabSummary = new System.Windows.Forms.TabPage();
+            this.lvVehicles = new System.Windows.Forms.ListView();
+            this.chVehicle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ArrowsRL = new System.Windows.Forms.CheckBox();
             this.cbox_long_touch = new System.Windows.Forms.CheckBox();
             this.label103 = new System.Windows.Forms.Label();
@@ -96,8 +98,6 @@
             this.btnVehicleSaveAs = new System.Windows.Forms.Button();
             this.btnVehicleLoad = new System.Windows.Forms.Button();
             this.btnVehicleDelete = new System.Windows.Forms.Button();
-            this.lvVehicles = new System.Windows.Forms.ListView();
-            this.chVehicle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.tboxVehicleNameSave = new System.Windows.Forms.TextBox();
             this.tabVConfig = new System.Windows.Forms.TabPage();
@@ -1030,6 +1030,7 @@
             // tabSummary
             // 
             this.tabSummary.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabSummary.Controls.Add(this.lvVehicles);
             this.tabSummary.Controls.Add(this.ArrowsRL);
             this.tabSummary.Controls.Add(this.cbox_long_touch);
             this.tabSummary.Controls.Add(this.label103);
@@ -1067,7 +1068,6 @@
             this.tabSummary.Controls.Add(this.btnVehicleSaveAs);
             this.tabSummary.Controls.Add(this.btnVehicleLoad);
             this.tabSummary.Controls.Add(this.btnVehicleDelete);
-            this.tabSummary.Controls.Add(this.lvVehicles);
             this.tabSummary.Controls.Add(this.label3);
             this.tabSummary.Controls.Add(this.tboxVehicleNameSave);
             this.tabSummary.ForeColor = System.Drawing.SystemColors.ControlLight;
@@ -1079,6 +1079,32 @@
             this.tabSummary.Text = "tSum";
             this.tabSummary.Enter += new System.EventHandler(this.tabSummary_Enter);
             this.tabSummary.Leave += new System.EventHandler(this.tabSummary_Leave);
+            // 
+            // lvVehicles
+            // 
+            this.lvVehicles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvVehicles.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lvVehicles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chVehicle});
+            this.lvVehicles.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvVehicles.FullRowSelect = true;
+            this.lvVehicles.HideSelection = false;
+            this.lvVehicles.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.lvVehicles.LabelWrap = false;
+            this.lvVehicles.Location = new System.Drawing.Point(8, 349);
+            this.lvVehicles.Margin = new System.Windows.Forms.Padding(0);
+            this.lvVehicles.MultiSelect = false;
+            this.lvVehicles.Name = "lvVehicles";
+            this.lvVehicles.Size = new System.Drawing.Size(440, 144);
+            this.lvVehicles.TabIndex = 454;
+            this.lvVehicles.TileSize = new System.Drawing.Size(300, 35);
+            this.lvVehicles.UseCompatibleStateImageBehavior = false;
+            this.lvVehicles.View = System.Windows.Forms.View.Tile;
+            // 
+            // chVehicle
+            // 
+            this.chVehicle.Text = "Vehicles";
+            this.chVehicle.Width = 330;
             // 
             // ArrowsRL
             // 
@@ -1697,32 +1723,6 @@
             this.btnVehicleDelete.TabIndex = 455;
             this.btnVehicleDelete.UseVisualStyleBackColor = false;
             this.btnVehicleDelete.Click += new System.EventHandler(this.btnVehicleDelete_Click);
-            // 
-            // lvVehicles
-            // 
-            this.lvVehicles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvVehicles.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lvVehicles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chVehicle});
-            this.lvVehicles.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvVehicles.FullRowSelect = true;
-            this.lvVehicles.HideSelection = false;
-            this.lvVehicles.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.lvVehicles.LabelWrap = false;
-            this.lvVehicles.Location = new System.Drawing.Point(8, 353);
-            this.lvVehicles.Margin = new System.Windows.Forms.Padding(0);
-            this.lvVehicles.MultiSelect = false;
-            this.lvVehicles.Name = "lvVehicles";
-            this.lvVehicles.Size = new System.Drawing.Size(440, 140);
-            this.lvVehicles.TabIndex = 454;
-            this.lvVehicles.TileSize = new System.Drawing.Size(300, 35);
-            this.lvVehicles.UseCompatibleStateImageBehavior = false;
-            this.lvVehicles.View = System.Windows.Forms.View.Tile;
-            // 
-            // chVehicle
-            // 
-            this.chVehicle.Text = "Vehicles";
-            this.chVehicle.Width = 330;
             // 
             // label3
             // 

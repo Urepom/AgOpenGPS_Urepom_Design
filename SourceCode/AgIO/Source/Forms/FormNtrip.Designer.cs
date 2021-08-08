@@ -95,7 +95,7 @@
             this.tboxCasterIP.ReadOnly = true;
             this.tboxCasterIP.Size = new System.Drawing.Size(157, 33);
             this.tboxCasterIP.TabIndex = 79;
-            this.tboxCasterIP.Text = "192.168.188.255";
+            this.tboxCasterIP.Text = "147.100.179.214";
             this.tboxCasterIP.Validating += new System.ComponentModel.CancelEventHandler(this.tboxCasterIP_Validating);
             // 
             // nudCasterPort
@@ -326,7 +326,7 @@
             this.tboxEnterURL.Name = "tboxEnterURL";
             this.tboxEnterURL.Size = new System.Drawing.Size(341, 33);
             this.tboxEnterURL.TabIndex = 108;
-            this.tboxEnterURL.Text = "RTK2Go.com";
+            this.tboxEnterURL.Text = "caster.centipede.fr";
             this.tboxEnterURL.Click += new System.EventHandler(this.tboxEnterURL_Click);
             // 
             // btnGetIP

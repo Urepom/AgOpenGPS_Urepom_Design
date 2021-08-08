@@ -9,7 +9,7 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         //very first fix to setup grid etc
-        public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false, isFirstHeadingSet = false,
+        public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false, isFirstHeadingSet = false, 
             isReverse = false, isSuperSlow = false;
         public double startGPSHeading = 0;
 
@@ -288,11 +288,11 @@ namespace AgOpenGPS
                                     isReverse = false;
                             }
 
-                            if (isReverse)
-                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                    * mc.actualSteerAngleDegrees * ahrs.reverseComp);
+                            if (isReverse)                            
+                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1 
+                                    * mc.actualSteerAngleDegrees * ahrs.reverseComp);                            
                             else
-                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1
+                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1 
                                     * mc.actualSteerAngleDegrees * ahrs.forwardComp);
 
                             if (newHeading < 0) newHeading += glm.twoPI;
@@ -365,7 +365,7 @@ namespace AgOpenGPS
                         }
 
                         // IMU Fusion with heading correction, add the correction
-                        if (ahrs.imuHeading != 99999)
+                        if (ahrs.imuHeading != 99999 )
                         {
                             //current gyro angle in radians
                             double imuHeading = (glm.toRadians(ahrs.imuHeading));
@@ -373,7 +373,7 @@ namespace AgOpenGPS
                             //Difference between the IMU heading and the GPS heading
                             double gyroDelta = (imuHeading + imuGPS_Offset) - gpsHeading;
                             //double gyroDelta = Math.Abs(Math.PI - Math.Abs(Math.Abs(imuHeading + gyroCorrection) - gpsHeading) - Math.PI);
-
+                            
                             if (gyroDelta < 0) gyroDelta += glm.twoPI;
                             else if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
 
@@ -408,8 +408,8 @@ namespace AgOpenGPS
                             camHeading = glm.toDegrees(camHeading);
                         }
 
-                    //Calculate a million other things
-                    byPass:
+                        //Calculate a million other things
+                        byPass:
                         TheRest();
                         break;
                     }
@@ -552,7 +552,7 @@ namespace AgOpenGPS
                 default:
                     break;
             }
-
+        
 
             #region AutoSteer
 
@@ -844,7 +844,7 @@ namespace AgOpenGPS
             steerAxlePos.heading = fixHeading;
 
             //guidance look ahead distance based on time or tool width at least 
-
+            
             if (!ABLine.isLateralTriggered && !curve.isLateralTriggered)
             {
                 double guidanceLookDist = (Math.Max(tool.toolWidth * 0.5, avgSpeed * 0.277777 * guidanceLookAheadTime));
@@ -956,7 +956,7 @@ namespace AgOpenGPS
 
             //finally fixed distance for making a curve line
             if (!curve.isOkToAddDesPoints) sectionTriggerStepDistance = sectionTriggerStepDistance + 0.2;
-            if (ct.isContourBtnOn) sectionTriggerStepDistance *= 0.5;
+            if (ct.isContourBtnOn) sectionTriggerStepDistance *=0.5;
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPos.heading);
@@ -979,7 +979,7 @@ namespace AgOpenGPS
                     //Right side
                     vec3 point = new vec3(
                         pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset),
-                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset),
+                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset), 
                         pivotAxlePos.heading);
                     bnd.bndBeingMadePts.Add(point);
                 }
@@ -990,7 +990,7 @@ namespace AgOpenGPS
                     //Right side
                     vec3 point = new vec3(
                         pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset),
-                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset),
+                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset), 
                         pivotAxlePos.heading);
                     bnd.bndBeingMadePts.Add(point);
                 }
@@ -1055,7 +1055,7 @@ namespace AgOpenGPS
                 else { if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); } }
 
                 //Build contour line if close enough to a patch
-                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos, steerAxlePos);
+                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos,steerAxlePos);
             }
 
 
@@ -1107,8 +1107,8 @@ namespace AgOpenGPS
             //    //Build contour line if close enough to a patch
             //    vec3 look = new vec3(guidanceLookPos.easting, guidanceLookPos.northing, 0);
             //    if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(look);
-            //}
-        }
+        //}
+    }
 
         //calculate the extreme tool left, right velocities, each section lookahead, and whether or not its going backwards
         public void CalculateSectionLookAhead(double northing, double easting, double cosHeading, double sinHeading)
@@ -1128,7 +1128,7 @@ namespace AgOpenGPS
                 {
                     //only one first left point, the rest are all rights moved over to left
                     section[j].leftPoint = new vec3(cosHeading * (section[j].positionLeft) + easting,
-                                       sinHeading * (section[j].positionLeft) + northing, 0);
+                                       sinHeading * (section[j].positionLeft) + northing,0);
 
                     left = section[j].leftPoint - section[j].lastLeftPoint;
 
@@ -1136,7 +1136,7 @@ namespace AgOpenGPS
                     section[j].lastLeftPoint = section[j].leftPoint;
 
                     //get the speed for left side only once
-
+                    
                     leftSpeed = left.GetLength() / fixUpdateTime * 10;
                     if (leftSpeed > meterPerSecPerPixel) leftSpeed = meterPerSecPerPixel;
                 }
@@ -1148,13 +1148,13 @@ namespace AgOpenGPS
 
                     //save a copy for next time
                     section[j].lastLeftPoint = section[j].leftPoint;
-
+                    
                     //Save the slower of the 2
-                    if (leftSpeed > rightSpeed) leftSpeed = rightSpeed;
+                    if (leftSpeed > rightSpeed) leftSpeed = rightSpeed;                    
                 }
 
                 section[j].rightPoint = new vec3(cosHeading * (section[j].positionRight) + easting,
-                                    sinHeading * (section[j].positionRight) + northing, 0);
+                                    sinHeading * (section[j].positionRight) + northing,0);
 
                 //now we have left and right for this section
                 right = section[j].rightPoint - section[j].lastRightPoint;
@@ -1181,7 +1181,7 @@ namespace AgOpenGPS
 
                 double sped = 0;
                 //save the far left and right speed in m/sec averaged over 20%
-                if (j == 0)
+                if (j==0)
                 {
                     sped = (leftSpeed * 0.1);
                     if (sped < 0.1) sped = 0.1;
@@ -1206,7 +1206,7 @@ namespace AgOpenGPS
 
             //fill in tool positions
             section[tool.numOfSections].leftPoint = section[0].leftPoint;
-            section[tool.numOfSections].rightPoint = section[tool.numOfSections - 1].rightPoint;
+            section[tool.numOfSections].rightPoint = section[tool.numOfSections-1].rightPoint;
 
             //set the look ahead for hyd Lift in pixels per second
             vehicle.hydLiftLookAheadDistanceLeft = tool.toolFarLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
@@ -1683,7 +1683,7 @@ namespace AgOpenGPS
             }
             //we are safely inside outer, outside inner boundaries
             return true;
-        }
+        }       
 
     }//end class
 }//end namespace

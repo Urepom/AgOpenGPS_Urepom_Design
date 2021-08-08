@@ -17,7 +17,7 @@ namespace AgOpenGPS
             //get copy of the calling main form
             mf = callingForm as FormGPS;
             InitializeComponent();
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //tSum
             chkSky.Text = gStr.gsSky;
             label27.Text = gStr.gsAutoDayNight;
@@ -175,6 +175,7 @@ namespace AgOpenGPS
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
+            //Ajout-modification MEmprou et SPailleau
             if (mf.config_tool == true)
             {
                 btnFeatureHides.Visible = false;
@@ -189,6 +190,18 @@ namespace AgOpenGPS
                 btnSubDimensions.Visible = false;
                 btnSubVehicleConfig.Visible = false;
                 btnVehicle.Visible = false;
+                ShowSubMenu(panelToolSubMenu, btnTool);
+                lvVehicles.Location = new Point(8, 11);
+                lvVehicles.Height = 522;
+                unitsGroupBox.Visible = false;
+                label43.Visible = false;
+                label36.Visible = false;
+                label103.Visible = false;
+                cbox_long_touch.Visible = false;
+                cBox_sections_button.Visible = false;
+                ArrowsRL.Visible = false;
+                chkDisplayPolygons.Visible = false;
+                chkDisplayLogNMEA.Visible = false;
 
             }
             else
@@ -206,6 +219,7 @@ namespace AgOpenGPS
                 btnSubVehicleConfig.Visible = true;
                 btnVehicle.Visible = true;
             }
+            //fin
             //seince we rest, save current state
             mf.SaveFormGPSWindowSettings();
 
@@ -260,7 +274,7 @@ namespace AgOpenGPS
             chkDisplayLightbar.Checked = mf.isLightbarOn;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
 
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             cBox_sections_button.Checked = mf.issections_buttonOn;
             cbox_long_touch.Checked = mf.islong_touchOn;
             cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
@@ -414,7 +428,7 @@ namespace AgOpenGPS
             chkDisplayLightbar.Checked = mf.isLightbarOn;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             //nudMenusOnTime.Value = mf.timeToShowMenus;
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             cBox_sections_button.Checked = mf.issections_buttonOn;
             cbox_long_touch.Checked = Properties.Settings.Default.setDisplay_islong_touchOn;
             cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
@@ -434,7 +448,7 @@ namespace AgOpenGPS
         {
 
         }
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         private void cbox_long_touch_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.setDisplay_islong_touchOn = cbox_long_touch.Checked;

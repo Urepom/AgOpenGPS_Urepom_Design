@@ -262,7 +262,7 @@ namespace AgOpenGPS
             mf.isLightbarOn = chkDisplayLightbar.Checked;
             mf.isKeyboardOn = chkDisplayKeyboard.Checked;
             //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             mf.issections_buttonOn = cBox_sections_button.Checked;
             //fin
 
@@ -280,7 +280,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_isKeyboardOn = mf.isKeyboardOn;
             //Properties.Settings.Default.setDisplay_showMenusTime = mf.timeToShowMenus;
 
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             Properties.Settings.Default.setDisplay_issections_buttonOn = mf.issections_buttonOn;
             Properties.Vehicle.Default.SetRollOFF = cboxroll.Checked;
             Properties.Vehicle.Default.SetArrowsRL = ArrowsRL.Checked;

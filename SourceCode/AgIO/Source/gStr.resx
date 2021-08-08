@@ -120,6 +120,12 @@
   <data name="gsAuthourizing" xml:space="preserve">
     <value>Authourizing</value>
   </data>
+  <data name="gsCloseallconnexions" xml:space="preserve">
+    <value>Close all connexions ?</value>
+  </data>
+  <data name="gsConfirmClosing" xml:space="preserve">
+    <value>Confirm Closing</value>
+  </data>
   <data name="gsListening" xml:space="preserve">
     <value>Listening</value>
   </data>

@@ -27,7 +27,7 @@ namespace AgOpenGPS
 
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool ShowWindow(IntPtr hWind, int nCmdShow);
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         //----SPailleau
         //Création de variables pour location et size avec les valeurs respectives de oglzoom de la session précédente 
         //car la winform initialization InitializeComponent() réinitialise sa position
@@ -339,7 +339,7 @@ namespace AgOpenGPS
             steerChartStripMenu.Text = gStr.gsSteerChart;
 
             //Tools Menu
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             toolStripMenuItem9.Text = gStr.gsField;
             //fin
             SmoothABtoolStripMenu.Text = gStr.gsSmoothABCurve;
@@ -436,7 +436,14 @@ namespace AgOpenGPS
         //Initialize items before the form Loads or is visible
         private void FormGPS_Load(object sender, EventArgs e)
         {
-            //ajout max
+            this.MouseWheel += ZoomByMouseWheel;
+
+            //start udp server is required
+            StartLoopbackServer();
+
+            //boundaryToolStripBtn.Enabled = false;
+            FieldMenuButtonEnableDisable(false);
+            //Ajout-modification MEmprou et SPailleau
             round_table5.Left = this.Width / 2 - round_table5.Width / 2;
             //roundButton1.Left = this.Width / 2 - roundButton1.Width / 2;
             panel_top.Left = this.Width / 2 - panel_top.Width / 2 + 3;
@@ -533,7 +540,7 @@ namespace AgOpenGPS
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
                 topFieldViewToolStripMenuItem.Checked = true;
             else topFieldViewToolStripMenuItem.Checked = false;
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //----SPailleau - On applique la position de la session précédente
             oglZoom.Width = oglZoom_SizeWidth;
             oglZoom.Height = oglZoom_SizeHeight;
@@ -583,7 +590,7 @@ namespace AgOpenGPS
             {
                 if (autoBtnState == btnStates.Auto)
                 {
-                    //ajout max
+                    //Ajout-modification MEmprou et SPailleau
                     TimedMessageBox(2000, "Safe Shutdown", gStr.gsTurnoffAutoSectionControl);
                     e.Cancel = true;
                     return;
@@ -591,7 +598,7 @@ namespace AgOpenGPS
 
                 if (manualBtnState == btnStates.On)
                 {
-                    //ajout max
+                    //Ajout-modification MEmprou et SPailleau
                     TimedMessageBox(2000, "Safe Shutdown", gStr.gsTurnoffAutoSectionControl);
                     e.Cancel = true;
                     return;
@@ -930,7 +937,7 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setMenu_isOGLZoomOn == 1)
             {
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 oglZoom.BringToFront();
 
                 //----SPailleau - Applique la position enregistrée
@@ -1021,7 +1028,7 @@ namespace AgOpenGPS
             tramLinesMenuField.Enabled = isOn;
             recordedPathStripMenu.Enabled = isOn;
             btnMakeLinesFromBoundary.Enabled = isOn;
-            //ajout maxbtnFlag.Visible = isOn;
+            //Ajout-modification MEmprou et SPailleaubtnFlag.Visible = isOn;
 
             //panelRight.Visible = isOn;
             //panelAB.Visible = isOn;
@@ -1046,13 +1053,13 @@ namespace AgOpenGPS
             //turn off headland
             hd.isOn = false;
             btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-            //ajout max btnHeadlandOnOff.Visible = false;
+            //Ajout-modification MEmprou et SPailleau btnHeadlandOnOff.Visible = false;
 
             //make sure hydraulic lift is off
             p_239.pgn[p_239.hydLift] = 0;
             vehicle.isHydLiftOn = false;
             btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-            //ajout max btnHydLift.Visible = false;
+            //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
 
             //zoom gone
             oglZoom.SendToBack();
@@ -1161,7 +1168,7 @@ namespace AgOpenGPS
             //clear out contour and Lists
             btnContour.Enabled = false;
             //btnContourPriority.Enabled = false;
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             roundButton1.Image = Properties.Resources.SnapToPivot;
             //
             ct.ResetContour();
@@ -1183,7 +1190,7 @@ namespace AgOpenGPS
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
             btnAutoYouTurn.Enabled = false;
 
-            //ajout max btnMakeLinesFromBoundary.Visible = false;
+            //Ajout-modification MEmprou et SPailleau btnMakeLinesFromBoundary.Visible = false;
 
             yt.ResetYouTurn();
             DisableYouTurnButtons();

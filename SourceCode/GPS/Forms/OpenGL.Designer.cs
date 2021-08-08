@@ -118,7 +118,7 @@ namespace AgOpenGPS
 
                 GL.Color3(0.98f, 0.98f, 0.70f);
 
-                //ajout max
+                //Ajout-modification MEmprou et SPailleau
                 //----SPailleau - Nouvelle position
                 int edge = -oglMain.Width / 2 + 144;
                 font.DrawText(edge, oglMain.Height - 145, "AgIO Started ?");
@@ -420,7 +420,7 @@ namespace AgOpenGPS
                     //if (isCompassOn) DrawCompass();
                     DrawCompassText();
 
-                    ABLineName(); //ajout max
+                    ABLineName(); //Ajout-modification MEmprou et SPailleau
 
                     if (isSpeedoOn) DrawSpeedo();
 
@@ -1280,7 +1280,7 @@ namespace AgOpenGPS
             GL.LoadMatrix(ref mat);
 
             GL.MatrixMode(MatrixMode.Modelview);
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             //----SPailleau - Enregistre la position de la fenêtre
             Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
             Properties.Settings.Default.OGLZoom_Size = oglZoom.Size;
@@ -1614,7 +1614,7 @@ namespace AgOpenGPS
 
         private void DrawSteerCircle()
         {
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau
             int sizer = oglMain.Height / 18;
             int center = oglMain.Width / 2 - 55 - sizer;
             int bottomSide = 140;
@@ -1685,7 +1685,7 @@ namespace AgOpenGPS
 
             //font.DrawText(center, 65, pwm, 0.8);
         }
-        //ajout max
+        //Ajout-modification MEmprou et SPailleau
         //----SPailleau - Ouvrir parcelle avec clic sur le fond quand aucune n'est ouverte
         private void OpenField()
         {
@@ -1892,7 +1892,7 @@ namespace AgOpenGPS
             }
             else
             {
-                ShowHideTools(); //ajout max
+                ShowHideTools(); //Ajout-modification MEmprou et SPailleau
             }
         }
 
@@ -1939,7 +1939,7 @@ namespace AgOpenGPS
 
         private void DrawLightBar(double Width, double Height, double offlineDistance)
         {
-            double down = 56; //ajout max
+            double down = 56; //Ajout-modification MEmprou et SPailleau
             GL.LineWidth(1);
             //GL.Translate(0, 0, 0.01);
             //offlineDistance *= -1;
@@ -1979,14 +1979,14 @@ namespace AgOpenGPS
                 {
                     int dots = (dotDistance * -1 / lightbarCmPerPixel);
 
-                    GL.PointSize(20.0f); //ajout max original 24
+                    GL.PointSize(20.0f); //Ajout-modification MEmprou et SPailleau original 24
                 GL.Color3(0.0f, 0.0f, 0.0f);
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 1; i < dots + 1; i++) GL.Vertex2((i * 32), down);
                     GL.End();
 
                     GL.PointSize(16.0f);
-                GL.Color3(0.980f, 0.98f, 0.0f); //Yellow //ajout max
+                GL.Color3(0.980f, 0.98f, 0.0f); //Yellow //Ajout-modification MEmprou et SPailleau
                 GL.Begin(PrimitiveType.Points);
                     for (int i = 0; i < dots; i++) GL.Vertex2((i * 32 + 32), down);
                     GL.End();
@@ -1997,7 +1997,7 @@ namespace AgOpenGPS
                 {
                     int dots = (int)(dotDistance / lightbarCmPerPixel);
 
-                    GL.PointSize(20.0f); //ajout max original 24
+                    GL.PointSize(20.0f); //Ajout-modification MEmprou et SPailleau original 24
                     GL.Color3(0.0f, 0.0f, 0.0f);
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 1; i < dots + 1; i++) GL.Vertex2((i * -32), down);
@@ -2014,7 +2014,7 @@ namespace AgOpenGPS
             //yellow center dot
             if (dotDistance >= -lightbarCmPerPixel && dotDistance <= lightbarCmPerPixel)
             {
-                GL.PointSize(30.0f); //ajout max original 32                  
+                GL.PointSize(30.0f); //Ajout-modification MEmprou et SPailleau original 32                  
                 GL.Color3(0.0f, 0.0f, 0.0f);
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
@@ -2022,7 +2022,7 @@ namespace AgOpenGPS
                 GL.End();
 
                 GL.PointSize(24.0f);
-                GL.Color3(0.0f, 0.980f, 0.0f); //green //ajout max
+                GL.Color3(0.0f, 0.980f, 0.0f); //green //Ajout-modification MEmprou et SPailleau
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
                 //GL.Vertex(0, down + 50);
@@ -2040,7 +2040,7 @@ namespace AgOpenGPS
                 GL.End();
 
                 GL.PointSize(8.0f);
-                GL.Color3(0.0f, 0.980f, 0.0f); //green //ajout max
+                GL.Color3(0.0f, 0.980f, 0.0f); //green //Ajout-modification MEmprou et SPailleau
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
                 //GL.Vertex(0, down + 50);
@@ -2066,7 +2066,7 @@ namespace AgOpenGPS
                     string hede;
 
                     DrawLightBar(oglMain.Width, oglMain.Height, avgPivotDistance);
-                    //ajout max
+                    //Ajout-modification MEmprou et SPailleau
                     //----Modification SPailleau pour ne pas afficher les flèches quand on est à 0
                     // + converver la valeur au centre puis les flèches si besoin d'un côté ou de l'autre
                     int center;
@@ -2254,7 +2254,7 @@ namespace AgOpenGPS
 
         private void DrawCompassText()
         {
-            //ajout max modif coord
+            //Ajout-modification MEmprou et SPailleau modif coord
             int center = oglMain.Width / -2;
 
             GL.LineWidth(6);
@@ -2401,7 +2401,7 @@ namespace AgOpenGPS
 
             GL.BindTexture(TextureTarget.Texture2D, texture[9]);        // Select Our Texture
 
-            GL.Translate(btnHydLift.Right - oglMain.Width / 2, round_table8.Top + 40, 0); //ajout max
+            GL.Translate(btnHydLift.Right - oglMain.Width / 2, round_table8.Top + 40, 0); //Ajout-modification MEmprou et SPailleau
 
             if (p_239.pgn[p_239.hydLift] == 2)
             {
@@ -2434,7 +2434,7 @@ namespace AgOpenGPS
             GL.BindTexture(TextureTarget.Texture2D, texture[7]);        // Select Our Texture
             GL.Color4(0.952f, 0.980f, 0.98f, 0.99);
 
-            GL.Translate(oglMain.Width / 2 - 230, 130, 0); //ajout max
+            GL.Translate(oglMain.Width / 2 - 230, 130, 0); //Ajout-modification MEmprou et SPailleau
 
             GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
             {

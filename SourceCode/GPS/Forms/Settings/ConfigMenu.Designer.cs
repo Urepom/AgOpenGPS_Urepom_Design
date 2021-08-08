@@ -32,7 +32,11 @@ namespace AgOpenGPS
             else
             {
                 tab1.SelectedTab = tabSummary;
-                subMenu.Visible = false;
+                if (mf.config_tool == false) //Ajout-modification MEmprou et SPailleau
+                {
+                    subMenu.Visible = false;
+                } //fin
+                
             }
         }
 
