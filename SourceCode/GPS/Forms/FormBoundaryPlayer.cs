@@ -82,7 +82,7 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
-            //mf.bnd.isOkToAddPoints = false;
+            mf.bnd.isOkToAddPoints = false;
             nudOffset.Value = (decimal)(mf.tool.toolWidth * 0.5);
             btnPausePlay.Image = Properties.Resources.BoundaryRecord;
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;

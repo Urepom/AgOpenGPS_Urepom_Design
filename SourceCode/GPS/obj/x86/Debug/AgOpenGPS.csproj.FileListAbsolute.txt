@@ -102,7 +102,6 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\nl\AgOpenGP
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csprojAssemblyReference.cache
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColorPicker.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveAs.resources
