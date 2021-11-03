@@ -4,7 +4,6 @@ using AgOpenGPS.Properties;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -18,6 +17,10 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
+    public enum TBrand { AGOpenGPS, Case, Claas, Deutz, Fendt, JDeere, Kubota, Massey, NewHolland, Same, Steyr, Ursus, Valtra }
+    public enum HBrand { AGOpenGPS, Case, Claas, JDeere, NewHolland }
+    public enum WDBrand { AGOpenGPS, Case, Challenger, JDeere, NewHolland }
+
     //the main form object
     public partial class FormGPS : Form
     {
@@ -40,9 +43,6 @@ namespace AgOpenGPS
         //fin
 
         #region // Class Props and instances
-
-        //list of vec3 points of Dubins shortest path between 2 points - To be converted to RecPt
-        public List<vec3> flagDubinsList = new List<vec3>();
 
         //maximum sections available
         public const int MAXSECTIONS = 17;
@@ -204,16 +204,6 @@ namespace AgOpenGPS
         public CBoundary bnd;
 
         /// <summary>
-        /// The boundary object
-        /// </summary>
-        public CTurn turn;
-
-        /// <summary>
-        /// The headland created
-        /// </summary>
-        public CHead hd;
-
-        /// <summary>
         /// The internal simulator
         /// </summary>
         public CSim sim;
@@ -243,37 +233,10 @@ namespace AgOpenGPS
         /// </summary>
         public CWorkSwitch workSwitch;
 
-        /// <summary>
-        /// Sound for approaching boundary
-        /// </summary>
-        public SoundPlayer sndBoundaryAlarm;
-
-        private void stripBtnConfig_Click(object sender, EventArgs e)
-        {
-            using (FormConfig form = new FormConfig(this))
-            {
-                config_tool = false;
-                form.ShowDialog(this);
-            }
-        }
-
-        private void btnStanleyPure_Click(object sender, EventArgs e)
-        {
-            isStanleyUsed = !isStanleyUsed;
-
-            if (isStanleyUsed)
-            {
-                btnStanleyPure.Image = Resources.ModeStanley;
-            }
-            else
-            {
-                btnStanleyPure.Image = Resources.ModePurePursuit;
-            }
-
-            Properties.Vehicle.Default.setVehicle_isStanleyUsed = isStanleyUsed;
-            Properties.Vehicle.Default.Save();
-        }
-
+        ///// <summary>
+        ///// Sound
+        ///// </summary>
+        public CSound sounds;
 
         /// <summary>
         /// Sound for approaching boundary
@@ -284,18 +247,6 @@ namespace AgOpenGPS
         /// Sound for approaching boundary
         /// </summary>
         public SoundPlayer sndHydraulicLower;
-
-        public bool isJump = false;
-        private void btnRight_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnLeft_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         /// <summary>
         /// The font class
@@ -396,12 +347,6 @@ namespace AgOpenGPS
             //boundary object
             bnd = new CBoundary(this);
 
-            //Turn object
-            turn = new CTurn(this);
-
-            //headland object
-            hd = new CHead(this);
-
             //nmea simulator built in.
             sim = new CSim(this);
 
@@ -431,6 +376,9 @@ namespace AgOpenGPS
 
             //the new steer algorithms
             gyd = new CGuidance(this);
+
+            //sounds class
+            sounds = new CSound();
         }
 
         //Initialize items before the form Loads or is visible
@@ -488,7 +436,7 @@ namespace AgOpenGPS
             pictureboxStart.Dock = System.Windows.Forms.DockStyle.Fill;
 
             //set the language to last used
-            SetLanguage(Settings.Default.setF_culture);
+            SetLanguage(Settings.Default.setF_culture, false);
 
             currentVersionStr = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
@@ -700,9 +648,9 @@ namespace AgOpenGPS
                 Properties.Resources.z_Turn,Properties.Resources.z_TurnCancel,Properties.Resources.z_TurnManual,
                 Properties.Resources.z_Compass,Properties.Resources.z_Speedo,Properties.Resources.z_SpeedoNeedle,
                 Properties.Resources.z_Lift,Properties.Resources.z_SkyNight,Properties.Resources.z_SteerPointer,
-                Properties.Resources.z_SteerDot,Properties.Resources.z_Tractor,Properties.Resources.z_QuestionMark,
-                Properties.Resources.z_FrontWheels,Properties.Resources.z_4WDFront,Properties.Resources.z_4WDRear,
-                Properties.Resources.z_Harvester, Properties.Resources.z_LateralManual
+                Properties.Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Properties.Resources.z_QuestionMark,
+                Properties.Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand), Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
+                GetHarvesterBrand(Settings.Default.setBrand_HBrand), Properties.Resources.z_LateralManual
             };
 
             texture = new uint[oglTextures.Length];
@@ -722,29 +670,100 @@ namespace AgOpenGPS
             }
         }
 
+        //Load Bitmaps brand
+        public Bitmap GetTractorBrand(TBrand brand)
+        {
+            Bitmap bitmap;
+            if (brand == TBrand.Case)
+                bitmap = Resources.z_TractorCase;
+            else if (brand == TBrand.Claas)
+                bitmap = Resources.z_TractorClaas;
+            else if (brand == TBrand.Deutz)
+                bitmap = Resources.z_TractorDeutz;
+            else if (brand == TBrand.Fendt)
+                bitmap = Resources.z_TractorFendt;
+            else if (brand == TBrand.JDeere)
+                bitmap = Resources.z_TractorJDeere;
+            else if (brand == TBrand.Kubota)
+                bitmap = Resources.z_TractorKubota;
+            else if (brand == TBrand.Massey)
+                bitmap = Resources.z_TractorMassey;
+            else if (brand == TBrand.NewHolland)
+                bitmap = Resources.z_TractorNH;
+            else if (brand == TBrand.Same)
+                bitmap = Resources.z_TractorSame;
+            else if (brand == TBrand.Steyr)
+                bitmap = Resources.z_TractorSteyr;
+            else if (brand == TBrand.Ursus)
+                bitmap = Resources.z_TractorUrsus;
+            else if (brand == TBrand.Valtra)
+                bitmap = Resources.z_TractorValtra;
+            else
+                bitmap = Resources.z_TractorAoG;
+
+            return bitmap;
+        }
+
+        public Bitmap GetHarvesterBrand(HBrand brandH)
+        {
+            Bitmap harvesterbitmap;
+            if (brandH == HBrand.Case)
+                harvesterbitmap = Resources.z_HarvesterCase;
+            else if (brandH == HBrand.Claas)
+                harvesterbitmap = Resources.z_HarvesterClaas;
+            else if (brandH == HBrand.JDeere)
+                harvesterbitmap = Resources.z_HarvesterJD;
+            else if (brandH == HBrand.NewHolland)
+                harvesterbitmap = Resources.z_HarvesterNH;
+            else
+                harvesterbitmap = Resources.z_HarvesterAoG;
+
+            return harvesterbitmap;
+        }
+
+        public Bitmap Get4WDBrandFront(WDBrand brandWDF)
+        {
+            Bitmap bitmap4WDFront;
+            if (brandWDF == WDBrand.Case)
+                bitmap4WDFront = Resources.z_4WDFrontCase;
+            else if (brandWDF == WDBrand.Challenger)
+                bitmap4WDFront = Resources.z_4WDFrontChallenger;
+            else if (brandWDF == WDBrand.JDeere)
+                bitmap4WDFront = Resources.z_4WDFrontJDeere;
+            else if (brandWDF == WDBrand.NewHolland)
+                bitmap4WDFront = Resources.z_4WDFrontNH;
+            else
+                bitmap4WDFront = Resources.z_4WDFrontAoG;
+
+            return bitmap4WDFront;
+        }
+
+        public Bitmap Get4WDBrandRear(WDBrand brandWDR)
+        {
+            Bitmap bitmap4WDRear;
+            if (brandWDR == WDBrand.Case)
+                bitmap4WDRear = Resources.z_4WDRearCase;
+            else if (brandWDR == WDBrand.Challenger)
+                bitmap4WDRear = Resources.z_4WDRearChallenger;
+            else if (brandWDR == WDBrand.JDeere)
+                bitmap4WDRear = Resources.z_4WDRearJDeere;
+            else if (brandWDR == WDBrand.NewHolland)
+                bitmap4WDRear = Resources.z_4WDRearNH;
+            else
+                bitmap4WDRear = Resources.z_4WDRearAoG;
+
+            return bitmap4WDRear;
+        }
+
         public void SwapDirection()
         {
             if (!yt.isYouTurnTriggered)
             {
-                //is it turning right already?
-                if (yt.isYouTurnRight)
-                {
-                    yt.isYouTurnRight = false;
-                    yt.isLastYouTurnRight = !yt.isLastYouTurnRight;
-                    yt.ResetCreatedYouTurn();
-                }
-                else
-                {
-                    //make it turn the other way
-                    yt.isYouTurnRight = true;
-                    yt.isLastYouTurnRight = !yt.isLastYouTurnRight;
-                    yt.ResetCreatedYouTurn();
-                }
+                yt.isYouTurnRight = !yt.isYouTurnRight;
+                yt.ResetCreatedYouTurn();
             }
-            else
-            {
-                if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
-            }
+            else if (yt.isYouTurnBtnOn)
+                btnAutoYouTurn.PerformClick();
         }
 
         private void BuildMachineByte()
@@ -801,7 +820,7 @@ namespace AgOpenGPS
 
             using (FormSaveOrNot form = new FormSaveOrNot(closing))
             {
-                DialogResult result = form.ShowDialog();
+                DialogResult result = form.ShowDialog(this);
 
                 if (result == DialogResult.OK) return 0;      //Save and Exit
                 if (result == DialogResult.Ignore) return 1;   //Ignore
@@ -823,6 +842,8 @@ namespace AgOpenGPS
         public bool KeypadToNUD(NumericUpDown sender, Form owner)
         {
             sender.BackColor = Color.Red;
+            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
+
             using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
             {
                 DialogResult result = form.ShowDialog(owner);
@@ -1051,7 +1072,7 @@ namespace AgOpenGPS
             pn.fixOffset.northing = 0;
 
             //turn off headland
-            hd.isOn = false;
+            bnd.isHeadlandOn = false;
             btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
             //Ajout-modification MEmprou et SPailleau btnHeadlandOnOff.Visible = false;
 
@@ -1065,9 +1086,7 @@ namespace AgOpenGPS
             oglZoom.SendToBack();
 
             //clean all the lines
-            bnd.bndArr?.Clear();
-            turn.turnArr?.Clear();
-            hd.headArr[0].hdLine?.Clear();
+            bnd.bndList.Clear();
 
             //panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
@@ -1148,7 +1167,6 @@ namespace AgOpenGPS
             ABLine.DeleteAB();
             ABLine.lineArr?.Clear();
             ABLine.numABLineSelected = 0;
-            tram.tramArr?.Clear();
             tram.tramList?.Clear();
 
             //curve line
@@ -1198,12 +1216,6 @@ namespace AgOpenGPS
             //reset acre and distance counters
             fd.workedAreaTotal = 0;
 
-            //reset boundaries
-            bnd.ResetBoundaries();
-
-            //reset turn lines
-            turn.ResetTurnLines();
-
             //reset GUI areas
             fd.UpdateFieldBoundaryGUIAreas();
 
@@ -1248,7 +1260,8 @@ namespace AgOpenGPS
                     //easy just turn it on
                     if (section[j].mappingOnRequest)
                     {
-                        if (!section[j].isMappingOn && isMapping) section[j].TurnMappingOn(); //**************************************** un comment to enable mappping again
+                        if (!section[j].isMappingOn && isMapping) section[j].TurnMappingOn(j); //**************************************** un comment to enable mappping again
+
                     }
 
                     //turn off

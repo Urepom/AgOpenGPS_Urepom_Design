@@ -21,7 +21,7 @@ namespace AgOpenGPS
         public double eastingMin;
 
         public double GridSize = 20000;
-        public double Count = 100;
+        public double Count = 40;
 
         public CWorldGrid(FormGPS _f)
         {
@@ -33,9 +33,15 @@ namespace AgOpenGPS
             Color field = mf.fieldColorDay;
             if (!mf.isDay) field = mf.fieldColorNight;
 
-
             if (mf.isTextureOn)
             {
+                //adjust bitmap zoom based on cam zoom
+                if (mf.camera.zoomValue > 100) Count = 10;
+                else if (mf.camera.zoomValue > 80) Count = 20;
+                else if (mf.camera.zoomValue  > 50) Count = 40;
+                else if (mf.camera.zoomValue > 20) Count = 80;
+                else  Count = 240;
+
                 GL.Enable(EnableCap.Texture2D);
                 GL.Color3(field.R, field.G, field.B);
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[1]);
@@ -67,6 +73,8 @@ namespace AgOpenGPS
 
         public void DrawWorldGrid(double _gridZoom)
         {
+            _gridZoom *= 0.65;
+
             if (mf.isDay)
             {
                 GL.Color3(0.5, 0.5, 0.5);

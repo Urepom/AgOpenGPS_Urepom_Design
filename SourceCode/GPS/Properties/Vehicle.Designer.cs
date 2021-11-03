@@ -970,5 +970,17 @@ namespace AgOpenGPS.Properties {
                 this["SetRollOFF"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setVineMode {
+            get {
+                return ((bool)(this["setVineMode"]));
+            }
+            set {
+                this["setVineMode"] = value;
+            }
+        }
     }
 }

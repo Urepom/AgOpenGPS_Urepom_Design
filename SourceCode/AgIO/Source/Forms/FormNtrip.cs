@@ -121,6 +121,11 @@ namespace AgIO
 
         public Boolean CheckIPValid(String strIP)
         {
+            // Return true for COM Port
+            if (strIP.Contains("COM"))
+            {
+                return true;
+            }
             //  Split string by ".", check that array length is 3
             string[] arrOctets = strIP.Split('.');
 
@@ -174,6 +179,12 @@ namespace AgIO
             Properties.Settings.Default.setNTRIP_isGGAManual = cboxGGAManual.Text == "Use Manual Fix";
             Properties.Settings.Default.setNTRIP_isHTTP10 = cboxHTTP.Text == "1.0";
             Properties.Settings.Default.setNTRIP_isTCP = checkBoxusetcp.Checked;
+
+            if (Properties.Settings.Default.setNTRIP_isOn && Properties.Settings.Default.setRadio_isOn)
+            {
+              mf.TimedMessageBox(2000, "Radio also enabled", "Radio is also enabled, diabling it");
+              Properties.Settings.Default.setRadio_isOn = false;
+            }
 
             Properties.Settings.Default.Save();
 

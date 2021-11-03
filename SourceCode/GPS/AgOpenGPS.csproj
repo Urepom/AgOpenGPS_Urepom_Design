@@ -74,38 +74,34 @@
   <PropertyGroup />
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="ColorPicker">
-      <HintPath>References\ColorPicker.dll</HintPath>
+    <Reference Include="ColorPicker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\ColorPicker.dll</HintPath>
     </Reference>
     <Reference Include="Control.Draggable, Version=1.0.7235.37687, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\Control.Draggable.dll</HintPath>
+      <HintPath>..\References\Control.Draggable.dll</HintPath>
     </Reference>
-    <Reference Include="Keypad, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Keypad, Version=5.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\Keypad.dll</HintPath>
+      <HintPath>..\References\Keypad.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="OpenTK">
-      <HintPath>References\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK, Version=1.2.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK.GLControl, Version=1.2.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\OpenTK.GLControl.dll</HintPath>
+      <HintPath>..\References\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="RepeatButtonControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\RepeatButtonControl.dll</HintPath>
+      <HintPath>..\References\RepeatButtonControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -113,28 +109,36 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WebEye.Controls.WinForms.WebCameraControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\WebEye.Controls.WinForms.WebCameraControl.dll</HintPath>
+      <HintPath>..\References\WebEye.Controls.WinForms.WebCameraControl.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CFence.cs">
+      <DependentUpon>CBoundary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\CFenceLine.cs">
+      <DependentUpon>CBoundaryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\CBoundary.cs" />
     <Compile Include="Classes\CGuidance.cs" />
     <Compile Include="Classes\CRecordedPath.cs" />
     <Compile Include="Classes\CSettings.cs" />
+    <Compile Include="Classes\CSound.cs" />
     <Compile Include="Classes\CSunTimes.cs" />
     <Compile Include="Classes\CFieldData.cs" />
-    <Compile Include="Classes\CBoundaryLines.cs" />
+    <Compile Include="Classes\CBoundaryList.cs" />
     <Compile Include="Classes\CDubins.cs" />
     <Compile Include="Classes\CAHRS.cs" />
     <Compile Include="Classes\CAutoSteer.cs" />
     <Compile Include="Classes\CABCurve.cs" />
     <Compile Include="Classes\CFont.cs" />
-    <Compile Include="Classes\CHeadLines.cs" />
-    <Compile Include="Classes\CHead.cs" />
+    <Compile Include="Classes\CHead.cs">
+      <DependentUpon>CBoundary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\CSim.cs" />
     <Compile Include="Classes\CTram.cs" />
     <Compile Include="Classes\CWorkSwitch.cs" />
     <Compile Include="Classes\CYouTurn.cs" />
-    <Compile Include="Classes\CBoundary.cs" />
     <Compile Include="Classes\CFlag.cs" />
     <Compile Include="Classes\CABLine.cs" />
     <Compile Include="Classes\CCamera.cs" />
@@ -144,8 +148,12 @@
     <Compile Include="Classes\CSection.cs" />
     <Compile Include="Classes\CVehicle.cs" />
     <Compile Include="Classes\CWorldGrid.cs" />
-    <Compile Include="Classes\CTurn.cs" />
-    <Compile Include="Classes\CTurnLines.cs" />
+    <Compile Include="Classes\CTurn.cs">
+      <DependentUpon>CBoundary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\CTurnLines.cs">
+      <DependentUpon>CBoundaryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\CTool.cs" />
     <Compile Include="Forms\FormFieldKML.cs">
       <SubType>Form</SubType>
@@ -158,6 +166,12 @@
     </Compile>
     <Compile Include="Forms\FormSynchro.Designer.cs">
       <DependentUpon>FormSynchro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Guidance\FormEnterAB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Guidance\FormEnterAB.Designer.cs">
+      <DependentUpon>FormEnterAB.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Pickers\FormColorPicker.cs">
       <SubType>Form</SubType>
@@ -230,6 +244,12 @@
     </Compile>
     <Compile Include="Forms\Guidance\FormMakeBndCon.Designer.cs">
       <DependentUpon>FormMakeBndCon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings\FormSectionColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\FormSectionColor.Designer.cs">
+      <DependentUpon>FormSectionColor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\FormColor.cs">
       <SubType>Form</SubType>
@@ -520,6 +540,9 @@
     <EmbeddedResource Include="Forms\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Guidance\FormEnterAB.resx">
+      <DependentUpon>FormEnterAB.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormColorPicker.resx">
       <DependentUpon>FormColorPicker.cs</DependentUpon>
     </EmbeddedResource>
@@ -555,6 +578,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormMakeBndCon.resx">
       <DependentUpon>FormMakeBndCon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\FormSectionColor.resx">
+      <DependentUpon>FormSectionColor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormColor.resx">
       <DependentUpon>FormColor.cs</DependentUpon>
@@ -692,7 +719,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -710,6 +736,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Manual.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Manual.sr.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -754,6 +783,9 @@
   <ItemGroup>
     <Content Include="AOG.ico" />
     <Content Include="aChangeLog.txt" />
+    <None Include="Resources\SteerOn.wav" />
+    <None Include="Resources\SteerOff.wav" />
+    <None Include="btnImages\Trash.png" />
     <None Include="btnImages\synchronize.png" />
     <None Include="Resources\BatterieWarning.png" />
     <None Include="Resources\BatterieOnline.png" />
@@ -1059,7 +1091,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.2.1.1\build\Resource.Embedder.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

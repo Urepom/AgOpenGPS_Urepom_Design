@@ -134,7 +134,7 @@ namespace AgOpenGPS
                     //                               fd.WorkedAreaRemainPercentage +"\r\n" +
                     //                               fd.TimeTillFinished + "\r\n" +
                     //                               fd.WorkRateHectares;
-                    if (bnd.bndArr.Count > 0)
+                    if (bnd.bndList.Count > 0)
                         lblFieldStatus.Text = fd.AreaBoundaryLessInnersHectares + "   " +
                                               fd.WorkedAreaRemainHectares  + "    " + fd.TimeTillFinished 
                                               + "  " + fd.WorkedAreaRemainPercentage+"      "
@@ -145,7 +145,7 @@ namespace AgOpenGPS
                 }
                 else //imperial
                 {
-                    if (bnd.bndArr.Count > 0)
+                    if (bnd.bndList.Count > 0)
                         lblFieldStatus.Text = fd.AreaBoundaryLessInnersAcres + "   " + fd.WorkedAreaRemainAcres + "   " + 
                                            fd.TimeTillFinished + "  " + fd.WorkedAreaRemainPercentage + "      " +
                                             fd.WorkedAcres;
@@ -519,7 +519,7 @@ namespace AgOpenGPS
             string directoryName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
             {
-                sndBoundaryAlarm = new SoundPlayer(Properties.Resources.Alarm10);
+                //sndBoundaryAlarm = new SoundPlayer(Properties.Resources.Alarm10);
             }
 
             {
@@ -577,7 +577,7 @@ namespace AgOpenGPS
             if (Properties.Settings.Default.setAS_isAutoSteerAutoOn) btnAutoSteer.Text = "R";
             else btnAutoSteer.Text = "M";
 
-            if (hd.isOn) btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
+            if (bnd.isHeadlandOn) btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
             else btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
 
             btnChangeMappingColor.BackColor = sectionColorDay;
@@ -644,6 +644,8 @@ namespace AgOpenGPS
             fd.workedAreaTotalUser = Settings.Default.setF_UserTotalArea;
 
             yt.uTurnSmoothing = Settings.Default.setAS_uTurnSmoothing;
+
+            tool.halfToolWidth = (tool.toolWidth - tool.toolOverlap) / 2.0;
 
             //load the lightbar resolution
             lightbarCmPerPixel = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;

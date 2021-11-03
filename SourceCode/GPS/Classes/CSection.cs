@@ -67,12 +67,12 @@ namespace AgOpenGPS
         public int rpSectionPosition = 0;
 
         //points in world space that start and end of section are in
-        public vec3 leftPoint;
-        public vec3 rightPoint;
+        public vec2 leftPoint;
+        public vec2 rightPoint;
 
         //used to determine left and right speed of section
-        public vec3 lastLeftPoint;
-        public vec3 lastRightPoint;
+        public vec2 lastLeftPoint;
+        public vec2 lastRightPoint;
 
         //whether or not this section is in boundary, headland
         public bool isInBoundary = true, isHydLiftInWorkArea = true;
@@ -92,7 +92,7 @@ namespace AgOpenGPS
             //triangleList.Capacity = 
         }
 
-        public void TurnMappingOn()
+        public void TurnMappingOn(int j)
         {
             numTriangles = 0;
 
@@ -103,13 +103,21 @@ namespace AgOpenGPS
                 isMappingOn = true;
 
                 //starting a new patch chunk so create a new triangle list
-                triangleList = new List<vec3>();
-                triangleList.Capacity = 16;
+                triangleList = new List<vec3>(32);
 
                 patchList.Add(triangleList);
 
-                vec3 colur = new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B);
-                triangleList.Add(colur);
+                if (!mf.tool.isMultiColoredSections)
+                {
+                    vec3 colur = new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B);
+                    triangleList.Add(colur);
+                }
+
+                else
+                {
+                    vec3 collor = new vec3(mf.tool.secColors[j].R, mf.tool.secColors[j].G, mf.tool.secColors[j].B);
+                    triangleList.Add(collor);
+                }
 
                 //left side of triangle
                 vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
@@ -123,7 +131,7 @@ namespace AgOpenGPS
 
         public void TurnMappingOff()
         {
-            AddMappingPoint();
+            AddMappingPoint(0);
 
             isMappingOn = false;
             numTriangles = 0;
@@ -143,7 +151,7 @@ namespace AgOpenGPS
         //every time a new fix, a new patch point from last point to this point
         //only need prev point on the first points of triangle strip that makes a box (2 triangles)
 
-        public void AddMappingPoint()
+        public void AddMappingPoint(int j)
         {
             //add two triangles for next step.
             //left side
@@ -196,14 +204,15 @@ namespace AgOpenGPS
                 //save the cutoff patch to be saved later
                 mf.patchSaveList.Add(triangleList);
 
-                triangleList = new List<vec3>();
-                triangleList.Capacity = 32;
+                triangleList = new List<vec3>(32);
 
                 patchList.Add(triangleList);
 
                 //Add Patch colour
-                vec3 colur = new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B);
-                triangleList.Add(colur);
+                if (!mf.tool.isMultiColoredSections)
+                    triangleList.Add(new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B));
+                else
+                    triangleList.Add(new vec3(mf.tool.secColors[j].R, mf.tool.secColors[j].G, mf.tool.secColors[j].B));
 
                 //add the points to List, yes its more points, but breaks up patches for culling
                 triangleList.Add(point);

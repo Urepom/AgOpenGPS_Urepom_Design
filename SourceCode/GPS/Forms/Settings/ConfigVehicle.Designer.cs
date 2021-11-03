@@ -284,6 +284,8 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_issections_buttonOn = mf.issections_buttonOn;
             Properties.Vehicle.Default.SetRollOFF = cboxroll.Checked;
             Properties.Vehicle.Default.SetArrowsRL = ArrowsRL.Checked;
+            Properties.Settings.Default.setTimer_KML = Timer_kml.Checked;
+            Properties.Vehicle.Default.setVineMode = VineMode.Checked;
             //fin
 
             if (rbtnDisplayMetric.Checked) { Properties.Settings.Default.setMenu_isMetric = true; mf.isMetric = true; }

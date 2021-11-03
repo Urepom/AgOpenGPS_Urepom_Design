@@ -4,22 +4,39 @@ using System;
 
 namespace AgOpenGPS
 {
+    public struct vecRGB
+    {
+        public byte red;
+        public byte grn;
+        public byte blu;
+        public byte alpha;
+
+        public vecRGB(byte red, byte grn, byte blu, byte alpha)
+        {
+            this.red = red;
+            this.grn = grn;
+            this.blu = blu;
+            this.alpha = alpha;
+        }
+    }
+
     /// <summary>
     /// Represents a three dimensional vector.
     /// </summary>
     ///
-
-    public struct vec3
+        public struct vec3
     {
         public double easting;
         public double northing;
         public double heading;
-
+        public DateTime now;
         public vec3(double easting, double northing, double heading)
         {
             this.easting = easting;
             this.northing = northing;
             this.heading = heading;
+            this.now = DateTime.Now;
+
         }
 
         public vec3(vec3 v)
@@ -27,6 +44,8 @@ namespace AgOpenGPS
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
+            now = v.now;
+            
         }
 
         public double HeadingXZ()

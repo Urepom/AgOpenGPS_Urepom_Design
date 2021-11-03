@@ -58,6 +58,7 @@
             this.btnMakeCurve = new System.Windows.Forms.Button();
             this.btnMakeABLine = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.lblCmInch = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudDistance)).BeginInit();
             this.SuspendLayout();
             // 
@@ -481,6 +482,18 @@
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // lblCmInch
+            // 
+            this.lblCmInch.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCmInch.ForeColor = System.Drawing.Color.White;
+            this.lblCmInch.Location = new System.Drawing.Point(926, 0);
+            this.lblCmInch.Margin = new System.Windows.Forms.Padding(0);
+            this.lblCmInch.Name = "lblCmInch";
+            this.lblCmInch.Size = new System.Drawing.Size(39, 32);
+            this.lblCmInch.TabIndex = 351;
+            this.lblCmInch.Text = "cm";
+            this.lblCmInch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FormABDraw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -488,6 +501,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(1004, 709);
             this.ControlBox = false;
+            this.Controls.Add(this.lblCmInch);
             this.Controls.Add(this.btnFlipOffset);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -559,5 +573,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnFlipOffset;
+        private System.Windows.Forms.Label lblCmInch;
     }
 }

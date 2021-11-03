@@ -265,6 +265,11 @@ namespace AgIO
             SettingsNTRIP();
         }
 
+        private void btnRadio_Click(object sender, EventArgs e)
+        {
+            SettingsRadio();
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
@@ -276,8 +281,14 @@ namespace AgIO
 
             //start NTRIP if required
             isNTRIP_RequiredOn = Settings.Default.setNTRIP_isOn;
+            isRadio_RequiredOn = Settings.Default.setRadio_isOn;
+            if (isRadio_RequiredOn)
+             {
+                 // Immediatly connect radio
+                 ntripCounter = 20;
+             }
 
-            if (isNTRIP_RequiredOn)
+             if (isNTRIP_RequiredOn || isRadio_RequiredOn)
             {
                 btnStartStopNtrip.Visible = true;
                 btnStartStopNtrip.Visible = true;
@@ -293,6 +304,7 @@ namespace AgIO
                 lblNTRIPBytes.Visible = false;
                 lblBytes.Visible = false;
             }
+
             btnStartStopNtrip.Text = "Off";
         }
 
@@ -382,7 +394,7 @@ namespace AgIO
         }
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
-        { 
+        {
 
         //Ajout-Modification MEmprou et SPailleau
             if (MessageBox.Show(gStr.gsCloseallconnexions, gStr.gsConfirmClosing, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -463,4 +475,3 @@ namespace AgIO
         }
     }
 }
-

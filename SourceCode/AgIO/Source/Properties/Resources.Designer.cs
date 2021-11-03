@@ -63,6 +63,16 @@ namespace AgIO.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddNew {
+            get {
+                object obj = ResourceManager.GetObject("AddNew", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AgDiagButton {
             get {
                 object obj = ResourceManager.GetObject("AgDiagButton", resourceCulture);
@@ -233,6 +243,16 @@ namespace AgIO.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edit {
+            get {
+                object obj = ResourceManager.GetObject("Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FirstAgiO {
             get {
                 object obj = ResourceManager.GetObject("FirstAgiO", resourceCulture);
@@ -303,6 +323,16 @@ namespace AgIO.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RadioSettings {
+            get {
+                object obj = ResourceManager.GetObject("RadioSettings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Sablier {
             get {
                 object obj = ResourceManager.GetObject("Sablier", resourceCulture);
@@ -356,6 +386,16 @@ namespace AgIO.Properties {
         internal static System.Drawing.Bitmap SwitchOn {
             get {
                 object obj = ResourceManager.GetObject("SwitchOn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Trash {
+            get {
+                object obj = ResourceManager.GetObject("Trash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

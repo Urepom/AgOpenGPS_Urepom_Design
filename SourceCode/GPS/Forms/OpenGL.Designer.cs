@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
@@ -118,9 +117,13 @@ namespace AgOpenGPS
 
                 GL.Color3(0.98f, 0.98f, 0.70f);
 
+                int edge = -oglMain.Width / 2 + 10;
+
+                font.DrawText(edge, oglMain.Height - 240, "<-- AgIO Started ?");
+
                 //Ajout-modification MEmprou et SPailleau
                 //----SPailleau - Nouvelle position
-                int edge = -oglMain.Width / 2 + 144;
+                 edge = -oglMain.Width / 2 + 144;
                 font.DrawText(edge, oglMain.Height - 145, "AgIO Started ?");
                 font.DrawText(edge + 90, oglMain.Height - 115, "|");
                 font.DrawText(edge + 90, oglMain.Height - 100, "v");
@@ -342,16 +345,42 @@ namespace AgOpenGPS
                     recPath.DrawRecordedLine();
                     recPath.DrawDubins();
 
-                    //draw Boundaries
-                    bnd.DrawBoundaryLines();
-
-                    //draw the turnLines
-                    if (yt.isYouTurnBtnOn && !ct.isContourBtnOn)
+                    if (bnd.bndList.Count > 0)
                     {
-                            turn.DrawTurnLines();
-                    }
+                        //draw Boundaries
+                        bnd.DrawFenceLines();
 
-                    if (hd.isOn) hd.DrawHeadLines();
+                        GL.LineWidth(ABLine.lineWidth);
+
+                        //draw the turnLines
+                        if (yt.isYouTurnBtnOn && !ct.isContourBtnOn)
+                        {
+                            GL.Color3(0.3555f, 0.6232f, 0.20f);
+                            for (int i = 0; i < bnd.bndList.Count; i++)
+                            {
+                                bnd.bndList[i].turnLine.DrawPolygon();
+                            }
+                        }
+
+                        //Draw headland
+                        if (bnd.isHeadlandOn)
+                        {
+                            GL.Color3(0.960f, 0.96232f, 0.30f);
+                                bnd.bndList[0].hdLine.DrawPolygon();
+                        }
+
+                        //There is only 1 headland for now. 
+
+                        //if (bnd.isHeadlandOn)
+                        //{
+                        //    GL.Color3(0.960f, 0.96232f, 0.30f);
+                        //    for (int i = 0; i < bnd.bndList.Count; i++)
+                        //    {
+                        //        bnd.bndList[i].hdLine.DrawPolygon();
+                        //    }
+                        //}
+
+                    }
 
                     if (flagPts.Count > 0) DrawFlags();
 
@@ -413,7 +442,7 @@ namespace AgOpenGPS
                     if ((ahrs.imuRoll != 88888))
                         DrawRollBar();
 
-                    if (bnd.bndArr.Count > 0 && yt.isYouTurnBtnOn) DrawUTurnBtn();
+                    if (bnd.bndList.Count > 0 && yt.isYouTurnBtnOn) DrawUTurnBtn();
 
                     if (isAutoSteerBtnOn && !ct.isContourBtnOn) DrawManUTurnBtn();
 
@@ -613,25 +642,27 @@ namespace AgOpenGPS
                     }
                 }
             }
-            
+
             //draw 240 green for boundary
-            if (bnd.bndArr.Count > 0)
+            if (bnd.bndList.Count > 0)
             {
                 ////draw the bnd line 
-                int ptCount = bnd.bndArr[0].bndLine.Count;
-                if (ptCount > 3)
+                if (bnd.bndList[0].fenceLine.Count > 3)
                 {
                     GL.LineWidth(3);
                     GL.Color3((byte)0, (byte)240, (byte)0);
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < ptCount; h++) GL.Vertex3(bnd.bndArr[0].bndLine[h].easting, bnd.bndArr[0].bndLine[h].northing, 0);
-                    GL.End();
+                    bnd.bndList[0].fenceLine.DrawPolygon();
+                }
+
+
+                //draw 250 green for the headland
+                if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
+                {
+                    GL.LineWidth(3);
+                    GL.Color3((byte)0, (byte)250, (byte)0);
+                        bnd.bndList[0].hdLine.DrawPolygon();
                 }
             }
-
-            //draw 250 green for the headland
-            if (hd.isOn) hd.DrawHeadLinesBack();
-
 
             //finish it up - we need to read the ram of video card
             GL.Flush();
@@ -667,7 +698,7 @@ namespace AgOpenGPS
             if (tool.numOfSections == 1 || pn.speed < vehicle.slowSpeedCutoff)
                 tool.isSuperSectionAllowedOn = false;
 
-            if ((tool.isRightSideInHeadland || tool.isLeftSideInHeadland) && hd.isOn)
+            if ((tool.isRightSideInHeadland || tool.isLeftSideInHeadland) && bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
                 tool.isSuperSectionAllowedOn = false;
 
             //clamp the height after looking way ahead, this is for switching off super section only
@@ -677,7 +708,7 @@ namespace AgOpenGPS
             //10 % min is required for overlap, otherwise it never would be on.
             int pixLimit = (int)((double)(section[0].rpSectionWidth * rpOnHeight) / (double)(5.0));
 
-            if ((rpOnHeight < rpToolHeight && hd.isOn)) rpHeight = rpToolHeight + 2;
+            if ((rpOnHeight < rpToolHeight && bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)) rpHeight = rpToolHeight + 2;
             else rpHeight = rpOnHeight + 2;
 
             if (rpHeight > 290) rpHeight = 290;
@@ -700,97 +731,144 @@ namespace AgOpenGPS
             //slope of the look ahead line
             double mOn = 0, mOff = 0;
 
-            if (bnd.bndArr.Count > 0)
+            if (!tool.isMultiColoredSections)
             {
-                //are there enough pixels in buffer array to warrant turning off supersection
-                for (int a = 0; a < (tool.rpWidth * rpOnHeight); a++)
+                if (bnd.bndList.Count > 0)
                 {
-                    if (grnPixels[a] != 0 && grnPixels[a] != 250)
+                    //are there enough pixels in buffer array to warrant turning off supersection
+                    for (int a = 0; a < (tool.rpWidth * rpOnHeight); a++)
                     {
-                        if (tool.isSuperSectionAllowedOn & totalPixs++ > pixLimit)
+                        if (grnPixels[a] != 0 && grnPixels[a] != 250)
                         {
-                            tool.isSuperSectionAllowedOn = false;
-                            break;
-                        }
-                    }
-                }
-
-                //5 pixels in is there a boundary line?
-                for (int a = 0; a < (tool.rpWidth * 5); a++)
-                {
-                    if (grnPixels[a] == 240)
-                    {
-                        tool.isSuperSectionAllowedOn = false;
-                        isBoundaryClose = true;
-                        break;
-                    }
-                }
-
-                if (tool.toolWidth > vehicle.trackWidth)
-                {
-                    tram.controlByte = 0;
-                    //1 pixels in is there a tram line?
-                    if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 4;
-                    if ((grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) &&
-                       (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245)) tram.controlByte += 2;
-                    if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
-                }
-
-                //determine if in or out of headland, do hydraulics if on
-                if (hd.isOn)
-                {
-                    //calculate the slope
-                    double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
-                    int height = 1;
-
-                    for (int pos = 0; pos < tool.rpWidth; pos++)
-                    {
-                        height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
-                        for (int a = pos; a < height * tool.rpWidth; a += tool.rpWidth)
-                        {
-                            if (grnPixels[a] == 250)
+                            if (tool.isSuperSectionAllowedOn & totalPixs++ > pixLimit)
                             {
-                                isHeadlandClose = true;
-                                goto GetOutTool;
+                                tool.isSuperSectionAllowedOn = false;
+                                break;
                             }
                         }
                     }
-                    GetOutTool:
 
-                    //is the tool completely in the headland or not
-                    hd.isToolInHeadland = hd.isToolOuterPointsInHeadland && !isHeadlandClose;
-
-                    if (isHeadlandClose || hd.isToolInHeadland) tool.isSuperSectionAllowedOn = false;
-
-                    //set hydraulics based on tool in headland or not
-                    hd.SetHydPosition();
-                }
-            }
-            else  //supersection check by applied only
-            {
-                for (int a = 0; a < (tool.rpWidth * rpOnHeight); a++)
-                {
-                    if (grnPixels[a] != 0)
+                    //5 pixels in is there a boundary line?
+                    for (int a = 0; a < (tool.rpWidth * 5); a++)
                     {
-                        if (tool.isSuperSectionAllowedOn & totalPixs++ > pixLimit)
+                        if (grnPixels[a] == 240)
                         {
                             tool.isSuperSectionAllowedOn = false;
+                            isBoundaryClose = true;
                             break;
                         }
                     }
-                }
-            }
 
-            //if all manual and all on go supersection
-            if (manualBtnState == btnStates.On)
-            {
-                tool.isSuperSectionAllowedOn = true;
-                for (int j = 0; j < tool.numOfSections; j++)
+                    if (tool.toolWidth > vehicle.trackWidth)
+                    {
+                        tram.controlByte = 0;
+                        //1 pixels in is there a tram line?
+                        if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 4;
+                        if ((grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) &&
+                           (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245)) tram.controlByte += 2;
+                        if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+                    }
+
+                    //determine if in or out of headland, do hydraulics if on
+                    if (bnd.isHeadlandOn)
+                    {
+                        //calculate the slope
+                        double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
+                        int height = 1;
+
+                        for (int pos = 0; pos < tool.rpWidth; pos++)
+                        {
+                            height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
+                            for (int a = pos; a < height * tool.rpWidth; a += tool.rpWidth)
+                            {
+                                if (grnPixels[a] == 250)
+                                {
+                                    isHeadlandClose = true;
+                                    goto GetOutTool;
+                                }
+                            }
+                        }
+                        GetOutTool:
+
+                        //is the tool completely in the headland or not
+                        bnd.isToolInHeadland = bnd.isToolOuterPointsInHeadland && !isHeadlandClose;
+
+                        if (isHeadlandClose || bnd.isToolInHeadland) tool.isSuperSectionAllowedOn = false;
+
+                        //set hydraulics based on tool in headland or not
+                        bnd.SetHydPosition();
+                    }
+                }
+                else  //supersection check by applied only
                 {
-                    if (section[j].manBtnState == manBtn.Off) tool.isSuperSectionAllowedOn = false;
+                    for (int a = 0; a < (tool.rpWidth * rpOnHeight); a++)
+                    {
+                        if (grnPixels[a] != 0)
+                        {
+                            if (tool.isSuperSectionAllowedOn & totalPixs++ > pixLimit)
+                            {
+                                tool.isSuperSectionAllowedOn = false;
+                                break;
+                            }
+                        }
+                    }
                 }
-            }
+                //if all manual and all on go supersection
+                if (manualBtnState == btnStates.On)
+                {
+                    tool.isSuperSectionAllowedOn = true;
+                    for (int j = 0; j < tool.numOfSections; j++)
+                    {
+                        if (section[j].manBtnState == manBtn.Off) tool.isSuperSectionAllowedOn = false;
+                    }
+                }
 
+            }
+            else
+            {
+                if (bnd.bndList.Count > 0)
+                { 
+                    if (tool.toolWidth > vehicle.trackWidth)
+                    {
+                        tram.controlByte = 0;
+                        //1 pixels in is there a tram line?
+                        if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 4;
+                        if ((grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) &&
+                           (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245)) tram.controlByte += 2;
+                        if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+                    }
+
+                    //determine if in or out of headland, do hydraulics if on
+                    if (bnd.isHeadlandOn)
+                    {
+                        //calculate the slope
+                        double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
+                        int height = 1;
+
+                        for (int pos = 0; pos < tool.rpWidth; pos++)
+                        {
+                            height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
+                            for (int a = pos; a < height * tool.rpWidth; a += tool.rpWidth)
+                            {
+                                if (grnPixels[a] == 250)
+                                {
+                                    isHeadlandClose = true;
+                                    goto GetOutTool;
+                                }
+                            }
+                        }
+                        GetOutTool:
+
+                        //is the tool completely in the headland or not
+                        bnd.isToolInHeadland = bnd.isToolOuterPointsInHeadland && !isHeadlandClose;
+
+                        //set hydraulics based on tool in headland or not
+                        bnd.SetHydPosition();
+                    }
+                }
+
+                tool.isSuperSectionAllowedOn = false;
+            }
 
             // If ALL sections are required on, No buttons are off, within boundary, turn super section on, normal sections off
             if (tool.isSuperSectionAllowedOn)
@@ -910,7 +988,7 @@ namespace AgOpenGPS
                         if (tagged == 0) section[j].isMappingRequiredOn = false;
                     }
 
-                    if (bnd.bndArr.Count > 0)
+                    if (bnd.bndList.Count > 0)
                     {
                         //if out of boundary, turn it off
                         if (!section[j].isInBoundary)
@@ -922,7 +1000,7 @@ namespace AgOpenGPS
                             section[j].mappingOnTimer = 0;
                         }
 
-                        else if (section[j].isInHeadlandArea & hd.isOn)
+                        else if (section[j].isInHeadlandArea & bnd.isHeadlandOn & bnd.isSectionControlledByHeadland)
                         {
                             // if headland is on and out, turn off                             
                             section[j].isMappingRequiredOn = false;
@@ -937,7 +1015,7 @@ namespace AgOpenGPS
                 ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
                 ///
 
-                if (hd.isOn) hd.WhereAreToolLookOnPoints();
+                if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland) bnd.WhereAreToolLookOnPoints();
 
                 for (int j = 0; j < tool.numOfSections; j++)
                 {
@@ -945,7 +1023,7 @@ namespace AgOpenGPS
                     //ensure it starts off
                     section[j].isSectionRequiredOn = false;
 
-                    if (bnd.bndArr.Count > 0)
+                    if (bnd.bndList.Count > 0)
                     {
                         //if out of boundary, turn it off
                         if (!section[j].isInBoundary)
@@ -1000,7 +1078,7 @@ namespace AgOpenGPS
                             }
 
                             //is headland coming up
-                            if (hd.isOn)
+                            if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
                             {
                                 bool isHeadlandInLookOn = false;
 
@@ -1280,6 +1358,7 @@ namespace AgOpenGPS
             GL.LoadMatrix(ref mat);
 
             GL.MatrixMode(MatrixMode.Modelview);
+
             //Ajout-modification MEmprou et SPailleau
             //----SPailleau - Enregistre la position de la fenêtre
             Properties.Settings.Default.OGLZoom_Location = oglZoom.Location;
@@ -1493,8 +1572,8 @@ namespace AgOpenGPS
                         }
                     }
 
-                    //draw all the boundaries
-                    bnd.DrawBoundaryLines();
+                    //draw all the fences
+                    bnd.DrawFenceLines();
 
                     GL.PointSize(8.0f);
                     GL.Begin(PrimitiveType.Points);
@@ -1979,7 +2058,7 @@ namespace AgOpenGPS
                 {
                     int dots = (dotDistance * -1 / lightbarCmPerPixel);
 
-                    GL.PointSize(20.0f); //Ajout-modification MEmprou et SPailleau original 24
+                GL.PointSize(20.0f); //Ajout-modification MEmprou et SPailleau original 24
                 GL.Color3(0.0f, 0.0f, 0.0f);
                     GL.Begin(PrimitiveType.Points);
                     for (int i = 1; i < dots + 1; i++) GL.Vertex2((i * 32), down);
@@ -2014,7 +2093,7 @@ namespace AgOpenGPS
             //yellow center dot
             if (dotDistance >= -lightbarCmPerPixel && dotDistance <= lightbarCmPerPixel)
             {
-                GL.PointSize(30.0f); //Ajout-modification MEmprou et SPailleau original 32                  
+                GL.PointSize(30.0f); //Ajout-modification MEmprou et SPailleau original 32             
                 GL.Color3(0.0f, 0.0f, 0.0f);
                 GL.Begin(PrimitiveType.Points);
                 GL.Vertex2(0, down);
@@ -2096,9 +2175,9 @@ namespace AgOpenGPS
                     center = -(int)(((double)(hede.Length) * 0.5) * 16);
                     font.DrawText(center, 78, hede, 1.1);
                     //fin
-                    }
                 }
             }
+        }
 
         private void DrawRollBar()
         {
@@ -2308,7 +2387,7 @@ namespace AgOpenGPS
                 GL.Color3(0.952f, 0.952f, 0.3f);
                 font.DrawText(center, 160, "Act " + ahrs.angVel.ToString(), 1);
 
-                if (errorAngVel > 0)  GL.Color3(0.2f, 0.952f, 0.53f);
+                if (errorAngVel > 0) GL.Color3(0.2f, 0.952f, 0.53f);
                 else GL.Color3(0.952f, 0.42f, 0.53f);
 
                 font.DrawText(center, 200, "Err " + errorAngVel.ToString(), 1);
@@ -2570,13 +2649,13 @@ namespace AgOpenGPS
 
             //min max of the boundary
             //min max of the boundary
-            if (bnd.bndArr.Count > 0)
+            if (bnd.bndList.Count > 0)
             {
-                int bndCnt = bnd.bndArr[0].bndLine.Count;
+                int bndCnt = bnd.bndList[0].fenceLine.Count;
                 for (int i = 0; i < bndCnt; i++)
                 {
-                    double x = bnd.bndArr[0].bndLine[i].easting;
-                    double y = bnd.bndArr[0].bndLine[i].northing;
+                    double x = bnd.bndList[0].fenceLine[i].easting;
+                    double y = bnd.bndList[0].fenceLine[i].northing;
 
                     //also tally the max/min of field x and z
                     if (minFieldX > x) minFieldX = x;
@@ -2600,7 +2679,7 @@ namespace AgOpenGPS
                         foreach (var triList in section[j].patchList)
                         {
                             int count2 = triList.Count;
-                            for (int i = 0; i < count2; i += 3)
+                            for (int i = 1; i < count2; i += 3)
                             {
                                 double x = triList[i].easting;
                                 double y = triList[i].northing;
@@ -2666,7 +2745,7 @@ namespace AgOpenGPS
         {
             if (isMetric)
             {
-                if (bnd.bndArr.Count > 0)
+                if (bnd.bndList.Count > 0)
                 {
                     sb.Clear();
                     sb.Append(((fd.workedAreaTotal - fd.actualAreaCovered) * glm.m2ha).ToString("N3"));
@@ -2697,7 +2776,7 @@ namespace AgOpenGPS
             }
             else
             {
-                if (bnd.bndArr.Count > 0)
+                if (bnd.bndList.Count > 0)
                 {
                     sb.Clear();
                     sb.Append(((fd.workedAreaTotal - fd.actualAreaCovered) * glm.m2ac).ToString("N3"));

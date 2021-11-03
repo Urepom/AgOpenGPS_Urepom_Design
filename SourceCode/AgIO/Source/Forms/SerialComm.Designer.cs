@@ -68,7 +68,7 @@ namespace AgIO
 
         //serial port Ardiuno is connected to
         public SerialPort spModule3 = new SerialPort(portNameModule3, baudRateModule3, Parity.None, 8, StopBits.One);
-
+        
         //lists for parsing incoming bytes
         private byte[] pgnModule1 = new byte[22];
         private byte[] pgnModule2 = new byte[262];
@@ -345,7 +345,7 @@ namespace AgIO
             {
                 spModule1.Open();
                 //short delay for the use of mega2560, it is working in debugmode with breakpoint
-                //System.Threading.Thread.Sleep(1000); // 500 was not enough
+                System.Threading.Thread.Sleep(1000); // 500 was not enough
 
             }
             catch (Exception e)
