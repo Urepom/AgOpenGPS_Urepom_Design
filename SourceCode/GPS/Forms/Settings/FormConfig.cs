@@ -720,8 +720,7 @@ namespace AgOpenGPS
         //Ajout-modification MEmprou et SPailleau
         private void cbox_long_touch_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_islong_touchOn = cbox_long_touch.Checked;
-            mf.long_touch();
+
         }
         //fin
     }

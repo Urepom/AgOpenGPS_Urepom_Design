@@ -936,7 +936,42 @@ namespace AgOpenGPS.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConF_HydLiftSound
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("ConF_HydLiftSound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConF_SteerSound
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("ConF_SteerSound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConF_TurnSound
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("ConF_TurnSound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>

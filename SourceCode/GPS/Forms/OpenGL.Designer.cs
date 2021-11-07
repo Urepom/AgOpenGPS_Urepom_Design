@@ -1599,7 +1599,7 @@ namespace AgOpenGPS
                 GL.BindTexture(TextureTarget.Texture2D, texture[5]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);
 
-                int two3 = oglMain.Width / 4;
+                int two3 = oglMain.Width / 6;
                 GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
                 {
                     GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, 30); // 
@@ -1616,7 +1616,7 @@ namespace AgOpenGPS
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[19]);        // Select Our Texture
                 GL.Color3(0.190f, 0.90f, 0.93f);
-                int two3 = oglMain.Width / 4;
+                int two3 = oglMain.Width / 6;
                 GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
                 {
                     GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, 90); // 
