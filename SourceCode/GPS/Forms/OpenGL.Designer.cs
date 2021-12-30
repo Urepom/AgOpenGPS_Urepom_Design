@@ -1954,7 +1954,7 @@ namespace AgOpenGPS
                 {
                     LineName = string.Empty;
                 }
-                font.DrawText((-oglMain.Width / 4 * 2) + 5, oglMain.Height - 120, LineName, 0.9);
+                font.DrawText((-oglMain.Width / 4 * 2) + 5, oglMain.Height - 125, LineName, 0.9);
                 GL.End();
             }
         }
@@ -2423,7 +2423,7 @@ namespace AgOpenGPS
             //font.DrawText(center, 150, "BETA 5.0.0.5", 1);
 
             GL.Color3(0.9752f, 0.62f, 0.325f);
-            if (timerSim.Enabled) font.DrawText(-240, oglMain.Height - 130, "Simulator On", 1);
+            if (timerSim.Enabled) font.DrawText(-240, oglMain.Height - 150, "Simulator On", 1);
 
             if (ct.isContourBtnOn)
             {
