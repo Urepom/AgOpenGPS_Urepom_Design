@@ -8,6 +8,9 @@ namespace AgOpenGPS
         //access to the main GPS form and all its variables
         private readonly FormGPS mf = null;
 
+        private bool isClosing;
+
+
         public FormTram(Form callingForm)
         {
             //get copy of the calling main form
@@ -16,6 +19,9 @@ namespace AgOpenGPS
 
             this.Text = gStr.gsTramLines;
             label3.Text = gStr.gsPasses;
+            //ajout max
+            label6.Text = gStr.gsTrack;
+            //fin
             label2.Text = ((int)(0.1 * mf.m2InchOrCm)).ToString() + mf.unitsInCm;
             lblTramWidth.Text = (mf.tram.tramWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
 
@@ -34,7 +40,7 @@ namespace AgOpenGPS
             mf.tool.halfToolWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) / 2.0;
             lblToolWidthHalf.Text = (mf.tool.halfToolWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
 
-            //mf.panelRight.Enabled = false;
+            //Ajout-modification MEmprou et SPailleau Fertilisation  mf.panelRight.Enabled = false;
 
             //if off, turn it on because they obviously want a tram.
             if (mf.tram.displayMode == 0) mf.tram.displayMode = 1;
@@ -61,6 +67,15 @@ namespace AgOpenGPS
 
         }
 
+        private void FormTram_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isClosing)
+            {
+                e.Cancel = true;
+                return;
+            }
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             int idx = mf.ABLine.numABLineSelected - 1;
@@ -76,12 +91,13 @@ namespace AgOpenGPS
             mf.FileSaveABLines();
 
             mf.ABLine.moveDistance = 0;
-            //mf.panelRight.Enabled = true;
+            //Ajout-modification MEmprou et SPailleau Fertilisation mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
             mf.offX = 0;
             mf.offY = 0;
             mf.FileSaveTram();
             mf.FixTramModeButton();
+            isClosing = true;
             Close();
         }
 
@@ -171,7 +187,7 @@ namespace AgOpenGPS
 
             //mf.ABLine.tramPassEvery = 0;
             //mf.ABLine.tramBasedOn = 0;
-            //mf.panelRight.Enabled = true;
+            //Ajout-modification MEmprou et SPailleau Fertilisation mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
             mf.offX = 0;
             mf.offY = 0;
@@ -179,6 +195,7 @@ namespace AgOpenGPS
             mf.tram.displayMode = 0;
             mf.FileSaveTram();
             mf.FixTramModeButton();
+            isClosing = true;
             Close();
         }
 
@@ -206,5 +223,68 @@ namespace AgOpenGPS
                     break;
             }
         }
+
+        #region Help
+        private void btnAdjLeft_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnAdjHalfToolWidth, gStr.gsHelp);
+        }
+
+        private void btnAdjRight_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnAdjHalfToolWidth, gStr.gsHelp);
+        }
+
+        private void btnLeft_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnLeftRightNudge, gStr.gsHelp);
+        }
+
+        private void btnRight_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnLeftRightNudge, gStr.gsHelp);
+        }
+
+        private void btnSwapAB_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnSwapAB, gStr.gsHelp);
+        }
+
+        private void btnMode_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.h_btnTramDisplayMode, gStr.gsHelp);
+        }
+
+        private void nudPasses_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_nudPasses, gStr.gsHelp);
+        }
+
+        private void btnCancel_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnCancel, gStr.gsHelp);
+        }
+
+        private void btnExit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnSave, gStr.gsHelp);
+        }
+
+        #endregion
     }
 }
+
+
+/*
+            
+            MessageBox.Show(gStr, gStr.gsHelp);
+
+            DialogResult result2 = MessageBox.Show(gStr, gStr.gsHelp,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (result2 == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=rsJMRZrcuX4");
+            }
+
+*/

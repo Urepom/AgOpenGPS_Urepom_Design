@@ -258,6 +258,12 @@ namespace AgOpenGPS
         /// </summary>
         public CGuidance gyd;
 
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public bool Ferti_active = false;
+        public bool ferti_auto = false;
+        public bool tempo_ferti = false;
+        public bool ferti_rincage = false;
+
         #endregion // Class Props and instances
 
         // Constructor, Initializes a new instance of the "FormGPS" class.
@@ -529,6 +535,49 @@ namespace AgOpenGPS
 
             //nmea limiter
             udpWatch.Start();
+        }
+
+
+        // Generates a random number within a range.       
+        public double RandomNumber(double min, double max)
+        {
+            return min + _random.NextDouble() * (max - min);
+        }
+
+        private readonly Random _random = new Random();
+
+        private void btnVideoHelpRecPath_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(gStr.v_RecordedPathForm))
+                System.Diagnostics.Process.Start(gStr.v_RecordedPathForm);
+        }
+
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (isTT)
+            {
+                MessageBox.Show(gStr.h_btnFerti, gStr.gsHelp);
+                ResetHelpBtn();
+                return;
+            }
+
+            Form fc = Application.OpenForms["FormFertilisation"];
+
+            if (fc != null)
+            {
+                fc.Focus();
+                fc.Close();
+                return;
+            }
+
+            //
+            Form form = new FormFertilisation(this);
+            form.Show(this);
         }
 
         //form is closing so tidy up and save settings
@@ -808,6 +857,7 @@ namespace AgOpenGPS
             //machine pgn
             p_239.pgn[p_239.sc9to16] = p_254.pgn[p_254.sc9to16];
             p_239.pgn[p_239.sc1to8] = p_254.pgn[p_254.sc1to8];
+            p_239.pgn[p_239.speed] = unchecked((byte)(avgSpeed * 10));
             p_239.pgn[p_239.tram] = unchecked((byte)tram.controlByte);
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
@@ -1017,7 +1067,7 @@ namespace AgOpenGPS
             btnABLine.Enabled = true;
             btnContour.Enabled = true;
             btnCurve.Enabled = true;
-            btnMakeLinesFromBoundary.Enabled = true;
+            btnABDraw.Enabled = true;
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
             btnCycleLines.Enabled = true;
 
@@ -1048,7 +1098,7 @@ namespace AgOpenGPS
             deleteContourPathsToolStripMenuItem.Enabled = isOn;
             tramLinesMenuField.Enabled = isOn;
             recordedPathStripMenu.Enabled = isOn;
-            btnMakeLinesFromBoundary.Enabled = isOn;
+            btnABDraw.Enabled = isOn;
             //Ajout-modification MEmprou et SPailleaubtnFlag.Visible = isOn;
 
             //panelRight.Visible = isOn;
@@ -1194,7 +1244,7 @@ namespace AgOpenGPS
             btnContour.Image = Properties.Resources.ContourOff;
             ct.isContourOn = false;
 
-            btnMakeLinesFromBoundary.Enabled = false;
+            btnABDraw.Enabled = false;
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
             btnCycleLines.Enabled = false;
 
@@ -1208,7 +1258,7 @@ namespace AgOpenGPS
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
             btnAutoYouTurn.Enabled = false;
 
-            //Ajout-modification MEmprou et SPailleau btnMakeLinesFromBoundary.Visible = false;
+            //Ajout-modification MEmprou et SPailleau btnABDraw.Visible = false;;
 
             yt.ResetYouTurn();
             DisableYouTurnButtons();

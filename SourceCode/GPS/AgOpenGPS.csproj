@@ -16,6 +16,8 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,8 +32,6 @@
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -102,6 +102,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -113,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CColorExtensions.cs" />
     <Compile Include="Classes\CFence.cs">
       <DependentUpon>CBoundary.cs</DependentUpon>
     </Compile>
@@ -160,6 +162,12 @@
     </Compile>
     <Compile Include="Forms\FormFieldKML.Designer.cs">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Help.Designer.cs">
+      <DependentUpon>Form_Help.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormSynchro.cs">
       <SubType>Form</SubType>
@@ -245,6 +253,12 @@
     <Compile Include="Forms\Guidance\FormMakeBndCon.Designer.cs">
       <DependentUpon>FormMakeBndCon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\FormFertilisation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\FormFertilisation.Designer.cs">
+      <DependentUpon>FormFertilisation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\FormSectionColor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +275,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Settings\FormConfig.Designer.cs">
+      <DependentUpon>FormConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings\ConfigHelp.Designer.cs">
+      <SubType>Form</SubType>
       <DependentUpon>FormConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\ConfigMenu.Designer.cs">
@@ -507,16 +525,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Forms\UDPComm.Designer.cs">
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\vec3.cs" />
+    <Compile Include="Properties\Resources2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Vehicle.Designer.cs">
       <DependentUpon>Vehicle.settings</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -539,6 +557,12 @@
     </Compile>
     <EmbeddedResource Include="Forms\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_First.fr.resx">
+      <DependentUpon>Form_First.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Help.resx">
+      <DependentUpon>Form_Help.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormEnterAB.resx">
       <DependentUpon>FormEnterAB.cs</DependentUpon>
@@ -578,6 +602,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormMakeBndCon.resx">
       <DependentUpon>FormMakeBndCon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\FormFertilisation.resx">
+      <DependentUpon>FormFertilisation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormSectionColor.resx">
       <DependentUpon>FormSectionColor.cs</DependentUpon>
@@ -719,6 +746,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources2.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -783,6 +811,11 @@
   <ItemGroup>
     <Content Include="AOG.ico" />
     <Content Include="aChangeLog.txt" />
+    <None Include="btnImages\Ferti.png" />
+    <None Include="btnImages\QR\AgOpenYouTubeChannel.jpg" />
+    <None Include="btnImages\OpManual.png" />
+    <None Include="btnImages\VideoLink.png" />
+    <None Include="btnImages\HelpCancel.png" />
     <None Include="btnImages\Config\ConF_HydLiftSound.png" />
     <None Include="btnImages\Config\ConF_TurnSound.png" />
     <None Include="btnImages\Config\ConF_SteerSound.png" />

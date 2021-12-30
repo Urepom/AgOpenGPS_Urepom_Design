@@ -58,10 +58,16 @@
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabSummary = new System.Windows.Forms.TabPage();
+            this.VineMode = new System.Windows.Forms.CheckBox();
             this.label101 = new System.Windows.Forms.Label();
+            this.Timer_kml = new System.Windows.Forms.CheckBox();
             this.chkDisplayFloor = new System.Windows.Forms.CheckBox();
+            this.ArrowsRL = new System.Windows.Forms.CheckBox();
+            this.cbox_long_touch = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.label122 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
+            this.cBox_sections_button = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -279,6 +285,7 @@
             this.rbtnHeadingGPS = new System.Windows.Forms.RadioButton();
             this.rbtnHeadingFix = new System.Windows.Forms.RadioButton();
             this.tabDRoll = new System.Windows.Forms.TabPage();
+            this.cboxroll = new System.Windows.Forms.CheckBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.label78 = new System.Windows.Forms.Label();
             this.label77 = new System.Windows.Forms.Label();
@@ -424,13 +431,6 @@
             this.lblFeetMeters = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
-            this.VineMode = new System.Windows.Forms.CheckBox();
-            this.Timer_kml = new System.Windows.Forms.CheckBox();
-            this.ArrowsRL = new System.Windows.Forms.CheckBox();
-            this.cbox_long_touch = new System.Windows.Forms.CheckBox();
-            this.label122 = new System.Windows.Forms.Label();
-            this.cBox_sections_button = new System.Windows.Forms.CheckBox();
-            this.cboxroll = new System.Windows.Forms.CheckBox();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -1096,6 +1096,7 @@
             // tabSummary
             // 
             this.tabSummary.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabSummary.Controls.Add(this.lvVehicles);
             this.tabSummary.Controls.Add(this.VineMode);
             this.tabSummary.Controls.Add(this.label101);
             this.tabSummary.Controls.Add(this.Timer_kml);
@@ -1135,7 +1136,6 @@
             this.tabSummary.Controls.Add(this.btnVehicleSaveAs);
             this.tabSummary.Controls.Add(this.btnVehicleLoad);
             this.tabSummary.Controls.Add(this.btnVehicleDelete);
-            this.tabSummary.Controls.Add(this.lvVehicles);
             this.tabSummary.Controls.Add(this.label3);
             this.tabSummary.Controls.Add(this.tboxVehicleNameSave);
             this.tabSummary.ForeColor = System.Drawing.SystemColors.ControlLight;
@@ -1148,6 +1148,25 @@
             this.tabSummary.Enter += new System.EventHandler(this.tabSummary_Enter);
             this.tabSummary.Leave += new System.EventHandler(this.tabSummary_Leave);
             // 
+            // VineMode
+            // 
+            this.VineMode.Appearance = System.Windows.Forms.Appearance.Button;
+            this.VineMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.VineMode.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.VineMode.FlatAppearance.BorderSize = 2;
+            this.VineMode.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.VineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VineMode.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VineMode.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.VineMode.Location = new System.Drawing.Point(630, 340);
+            this.VineMode.Name = "VineMode";
+            this.VineMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.VineMode.Size = new System.Drawing.Size(86, 70);
+            this.VineMode.TabIndex = 504;
+            this.VineMode.Text = "Mode vigne";
+            this.VineMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.VineMode.UseVisualStyleBackColor = false;
+            // 
             // label101
             // 
             this.label101.AutoSize = true;
@@ -1158,6 +1177,25 @@
             this.label101.Size = new System.Drawing.Size(83, 16);
             this.label101.TabIndex = 491;
             this.label101.Text = "Field Texture";
+            // 
+            // Timer_kml
+            // 
+            this.Timer_kml.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Timer_kml.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Timer_kml.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Timer_kml.FlatAppearance.BorderSize = 2;
+            this.Timer_kml.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.Timer_kml.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Timer_kml.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Timer_kml.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Timer_kml.Location = new System.Drawing.Point(728, 340);
+            this.Timer_kml.Name = "Timer_kml";
+            this.Timer_kml.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.Timer_kml.Size = new System.Drawing.Size(118, 70);
+            this.Timer_kml.TabIndex = 503;
+            this.Timer_kml.Text = "TimerKML";
+            this.Timer_kml.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Timer_kml.UseVisualStyleBackColor = false;
             // 
             // chkDisplayFloor
             // 
@@ -1177,6 +1215,45 @@
             this.chkDisplayFloor.TabIndex = 490;
             this.chkDisplayFloor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayFloor.UseVisualStyleBackColor = false;
+            this.chkDisplayFloor.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayFloor_HelpRequested);
+            // 
+            // ArrowsRL
+            // 
+            this.ArrowsRL.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ArrowsRL.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ArrowsRL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ArrowsRL.FlatAppearance.BorderSize = 2;
+            this.ArrowsRL.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.ArrowsRL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsRL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ArrowsRL.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ArrowsRL.Location = new System.Drawing.Point(728, 264);
+            this.ArrowsRL.Name = "ArrowsRL";
+            this.ArrowsRL.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ArrowsRL.Size = new System.Drawing.Size(118, 70);
+            this.ArrowsRL.TabIndex = 502;
+            this.ArrowsRL.Text = "Flèches G/D";
+            this.ArrowsRL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ArrowsRL.UseVisualStyleBackColor = false;
+            // 
+            // cbox_long_touch
+            // 
+            this.cbox_long_touch.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbox_long_touch.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbox_long_touch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cbox_long_touch.FlatAppearance.BorderSize = 2;
+            this.cbox_long_touch.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.cbox_long_touch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbox_long_touch.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbox_long_touch.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cbox_long_touch.Location = new System.Drawing.Point(630, 264);
+            this.cbox_long_touch.Name = "cbox_long_touch";
+            this.cbox_long_touch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbox_long_touch.Size = new System.Drawing.Size(86, 70);
+            this.cbox_long_touch.TabIndex = 501;
+            this.cbox_long_touch.Text = "Long touch";
+            this.cbox_long_touch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbox_long_touch.UseVisualStyleBackColor = false;
             // 
             // label11
             // 
@@ -1193,6 +1270,20 @@
             this.label11.Text = "Save";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label122
+            // 
+            this.label122.AutoSize = true;
+            this.label122.BackColor = System.Drawing.Color.Transparent;
+            this.label122.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label122.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label122.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label122.Location = new System.Drawing.Point(481, 243);
+            this.label122.Name = "label122";
+            this.label122.Size = new System.Drawing.Size(115, 18);
+            this.label122.TabIndex = 499;
+            this.label122.Text = "Sections buttons";
+            this.label122.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label57
             // 
             this.label57.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1207,6 +1298,25 @@
             this.label57.TabIndex = 488;
             this.label57.Text = "Delete";
             this.label57.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cBox_sections_button
+            // 
+            this.cBox_sections_button.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cBox_sections_button.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cBox_sections_button.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cBox_sections_button.FlatAppearance.BorderSize = 2;
+            this.cBox_sections_button.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.cBox_sections_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cBox_sections_button.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cBox_sections_button.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cBox_sections_button.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementSection;
+            this.cBox_sections_button.Location = new System.Drawing.Point(484, 264);
+            this.cBox_sections_button.Name = "cBox_sections_button";
+            this.cBox_sections_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cBox_sections_button.Size = new System.Drawing.Size(117, 70);
+            this.cBox_sections_button.TabIndex = 500;
+            this.cBox_sections_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cBox_sections_button.UseVisualStyleBackColor = false;
             // 
             // label42
             // 
@@ -1411,6 +1521,7 @@
             this.rbtnDisplayImperial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnDisplayImperial.UseVisualStyleBackColor = false;
             this.rbtnDisplayImperial.Click += new System.EventHandler(this.rbtnDisplayImperial_Click);
+            this.rbtnDisplayImperial.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnDisplayImperial_HelpRequested);
             // 
             // rbtnDisplayMetric
             // 
@@ -1430,6 +1541,7 @@
             this.rbtnDisplayMetric.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnDisplayMetric.UseVisualStyleBackColor = false;
             this.rbtnDisplayMetric.Click += new System.EventHandler(this.rbtnDisplayMetric_Click);
+            this.rbtnDisplayMetric.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnDisplayMetric_HelpRequested);
             // 
             // chkDisplayLightbar
             // 
@@ -1449,6 +1561,7 @@
             this.chkDisplayLightbar.TabIndex = 471;
             this.chkDisplayLightbar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayLightbar.UseVisualStyleBackColor = false;
+            this.chkDisplayLightbar.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayLightbar_HelpRequested);
             // 
             // chkDisplayKeyboard
             // 
@@ -1468,6 +1581,7 @@
             this.chkDisplayKeyboard.TabIndex = 470;
             this.chkDisplayKeyboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayKeyboard.UseVisualStyleBackColor = false;
+            this.chkDisplayKeyboard.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayKeyboard_HelpRequested);
             // 
             // chkDisplayPolygons
             // 
@@ -1487,6 +1601,7 @@
             this.chkDisplayPolygons.TabIndex = 467;
             this.chkDisplayPolygons.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayPolygons.UseVisualStyleBackColor = false;
+            this.chkDisplayPolygons.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayPolygons_HelpRequested);
             // 
             // chkDisplayStartFullScreen
             // 
@@ -1508,6 +1623,7 @@
             this.chkDisplayStartFullScreen.TabIndex = 466;
             this.chkDisplayStartFullScreen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayStartFullScreen.UseVisualStyleBackColor = false;
+            this.chkDisplayStartFullScreen.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayStartFullScreen_HelpRequested);
             // 
             // chkDisplayLogNMEA
             // 
@@ -1527,6 +1643,7 @@
             this.chkDisplayLogNMEA.TabIndex = 465;
             this.chkDisplayLogNMEA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayLogNMEA.UseVisualStyleBackColor = false;
+            this.chkDisplayLogNMEA.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayLogNMEA_HelpRequested);
             // 
             // chkDisplayDayNight
             // 
@@ -1548,6 +1665,7 @@
             this.chkDisplayDayNight.TabIndex = 463;
             this.chkDisplayDayNight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayDayNight.UseVisualStyleBackColor = false;
+            this.chkDisplayDayNight.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayDayNight_HelpRequested);
             // 
             // chkDisplayGrid
             // 
@@ -1569,6 +1687,7 @@
             this.chkDisplayGrid.TabIndex = 462;
             this.chkDisplayGrid.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayGrid.UseVisualStyleBackColor = false;
+            this.chkDisplayGrid.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayGrid_HelpRequested);
             // 
             // chkDisplaySky
             // 
@@ -1588,6 +1707,7 @@
             this.chkDisplaySky.TabIndex = 461;
             this.chkDisplaySky.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplaySky.UseVisualStyleBackColor = false;
+            this.chkDisplaySky.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplaySky_HelpRequested);
             // 
             // chkDisplaySpeedo
             // 
@@ -1607,6 +1727,7 @@
             this.chkDisplaySpeedo.TabIndex = 460;
             this.chkDisplaySpeedo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplaySpeedo.UseVisualStyleBackColor = false;
+            this.chkDisplaySpeedo.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplaySpeedo_HelpRequested);
             // 
             // chkDisplayExtraGuides
             // 
@@ -1626,6 +1747,7 @@
             this.chkDisplayExtraGuides.TabIndex = 458;
             this.chkDisplayExtraGuides.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDisplayExtraGuides.UseVisualStyleBackColor = false;
+            this.chkDisplayExtraGuides.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkDisplayExtraGuides_HelpRequested);
             // 
             // btnVehicleSave
             // 
@@ -1643,6 +1765,7 @@
             this.btnVehicleSave.TabIndex = 457;
             this.btnVehicleSave.UseVisualStyleBackColor = false;
             this.btnVehicleSave.Click += new System.EventHandler(this.btnVehicleSave_Click);
+            this.btnVehicleSave.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnVehicleSave_HelpRequested);
             // 
             // btnVehicleSaveAs
             // 
@@ -1660,6 +1783,7 @@
             this.btnVehicleSaveAs.TabIndex = 456;
             this.btnVehicleSaveAs.UseVisualStyleBackColor = false;
             this.btnVehicleSaveAs.Click += new System.EventHandler(this.btnVehicleSaveAs_Click);
+            this.btnVehicleSaveAs.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnVehicleSaveAs_HelpRequested);
             // 
             // btnVehicleLoad
             // 
@@ -1677,6 +1801,7 @@
             this.btnVehicleLoad.TabIndex = 456;
             this.btnVehicleLoad.UseVisualStyleBackColor = false;
             this.btnVehicleLoad.Click += new System.EventHandler(this.btnVehicleLoad_Click);
+            this.btnVehicleLoad.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnVehicleLoad_HelpRequested);
             // 
             // btnVehicleDelete
             // 
@@ -1693,6 +1818,7 @@
             this.btnVehicleDelete.TabIndex = 455;
             this.btnVehicleDelete.UseVisualStyleBackColor = false;
             this.btnVehicleDelete.Click += new System.EventHandler(this.btnVehicleDelete_Click);
+            this.btnVehicleDelete.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnVehicleDelete_HelpRequested);
             // 
             // lvVehicles
             // 
@@ -1714,6 +1840,7 @@
             this.lvVehicles.TileSize = new System.Drawing.Size(300, 35);
             this.lvVehicles.UseCompatibleStateImageBehavior = false;
             this.lvVehicles.View = System.Windows.Forms.View.Tile;
+            this.lvVehicles.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.lvVehicles_HelpRequested);
             // 
             // chVehicle
             // 
@@ -1747,6 +1874,7 @@
             this.tboxVehicleNameSave.TabIndex = 451;
             this.tboxVehicleNameSave.Click += new System.EventHandler(this.tboxVehicleNameSave_Click);
             this.tboxVehicleNameSave.TextChanged += new System.EventHandler(this.tboxVehicleNameSave_TextChanged);
+            this.tboxVehicleNameSave.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.tboxVehicleNameSave_HelpRequested);
             // 
             // tabVConfig
             // 
@@ -2233,6 +2361,7 @@
             0,
             0});
             this.nudGuidanceLookAhead.Click += new System.EventHandler(this.nudGuidanceLookAhead_Click);
+            this.nudGuidanceLookAhead.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudGuidanceLookAhead_HelpRequested);
             // 
             // cboxAngVel
             // 
@@ -2294,6 +2423,7 @@
             0,
             0});
             this.nudABLength.Click += new System.EventHandler(this.nudABLength_Click);
+            this.nudABLength.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudABLength_HelpRequested);
             // 
             // label79
             // 
@@ -2369,6 +2499,7 @@
             0,
             0});
             this.nudSnapDistance.Click += new System.EventHandler(this.nudSnapDistance_Click);
+            this.nudSnapDistance.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSnapDistance_HelpRequested);
             // 
             // nudLightbarCmPerPixel
             // 
@@ -2392,6 +2523,7 @@
             0,
             0});
             this.nudLightbarCmPerPixel.Click += new System.EventHandler(this.nudLightbarCmPerPixel_Click);
+            this.nudLightbarCmPerPixel.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudLightbarCmPerPixel_HelpRequested);
             // 
             // nudLineWidth
             // 
@@ -2420,6 +2552,7 @@
             0,
             0});
             this.nudLineWidth.Click += new System.EventHandler(this.nudLineWidth_Click);
+            this.nudLineWidth.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudLineWidth_HelpRequested);
             // 
             // pictureBox14
             // 
@@ -2449,6 +2582,7 @@
             this.cboxAutoSteerAuto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.cboxAutoSteerAuto.UseVisualStyleBackColor = false;
             this.cboxAutoSteerAuto.Click += new System.EventHandler(this.cboxAutoSteerAuto_Click);
+            this.cboxAutoSteerAuto.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxAutoSteerAuto_HelpRequested);
             // 
             // pictureBox5
             // 
@@ -2493,6 +2627,7 @@
             this.tabVBrand.TabIndex = 23;
             this.tabVBrand.Text = "vBrand";
             this.tabVBrand.UseVisualStyleBackColor = true;
+            this.tabVBrand.Enter += new System.EventHandler(this.tabVBrand_Enter);
             this.tabVBrand.Leave += new System.EventHandler(this.tabVBrand_Leave);
             // 
             // label4WDBrand
@@ -3286,6 +3421,7 @@
             0,
             65536});
             this.nudCutoffSpeed.Click += new System.EventHandler(this.nudCutoffSpeed_Click);
+            this.nudCutoffSpeed.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudCutoffSpeed_HelpRequested);
             // 
             // lblTurnOffBelowUnits
             // 
@@ -3340,6 +3476,7 @@
             0,
             0});
             this.nudDefaultSectionWidth.Click += new System.EventHandler(this.nudDefaultSectionWidth_Click);
+            this.nudDefaultSectionWidth.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudDefaultSectionWidth_HelpRequested);
             // 
             // cboxNumSections
             // 
@@ -3371,6 +3508,7 @@
             this.cboxNumSections.Size = new System.Drawing.Size(74, 50);
             this.cboxNumSections.TabIndex = 295;
             this.cboxNumSections.SelectedIndexChanged += new System.EventHandler(this.cboxNumSections_SelectedIndexChanged);
+            this.cboxNumSections.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxNumSections_HelpRequested);
             // 
             // lblVehicleToolWidth
             // 
@@ -3414,6 +3552,7 @@
             0,
             0});
             this.nudMinCoverage.Click += new System.EventHandler(this.nudMinCoverage_Click);
+            this.nudMinCoverage.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudMinCoverage_HelpRequested);
             // 
             // label51
             // 
@@ -3462,6 +3601,7 @@
             0,
             0});
             this.nudSection16.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection16.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // label4
             // 
@@ -3521,6 +3661,7 @@
             0,
             0});
             this.nudSection15.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection15.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection14
             // 
@@ -3544,6 +3685,7 @@
             0,
             0});
             this.nudSection14.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection14.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection13
             // 
@@ -3567,6 +3709,7 @@
             0,
             0});
             this.nudSection13.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection13.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // label32
             // 
@@ -3734,6 +3877,7 @@
             0,
             0});
             this.nudSection12.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection12.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection11
             // 
@@ -3757,6 +3901,7 @@
             0,
             0});
             this.nudSection11.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection11.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection10
             // 
@@ -3780,6 +3925,7 @@
             0,
             0});
             this.nudSection10.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection10.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection9
             // 
@@ -3803,6 +3949,7 @@
             0,
             0});
             this.nudSection9.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection9.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection8
             // 
@@ -3826,6 +3973,7 @@
             0,
             0});
             this.nudSection8.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection8.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection7
             // 
@@ -3849,6 +3997,7 @@
             0,
             0});
             this.nudSection7.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection7.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection6
             // 
@@ -3872,6 +4021,7 @@
             0,
             0});
             this.nudSection6.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection6.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection5
             // 
@@ -3895,6 +4045,7 @@
             0,
             0});
             this.nudSection5.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection5.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection4
             // 
@@ -3918,6 +4069,7 @@
             0,
             0});
             this.nudSection4.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection4.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection3
             // 
@@ -3941,6 +4093,7 @@
             0,
             0});
             this.nudSection3.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection3.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection2
             // 
@@ -3964,6 +4117,7 @@
             0,
             0});
             this.nudSection2.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection2.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudSectionWidth_HelpRequested);
             // 
             // nudSection1
             // 
@@ -4005,6 +4159,7 @@
             this.cboxSectionResponse.TabIndex = 452;
             this.cboxSectionResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxSectionResponse.UseVisualStyleBackColor = false;
+            this.cboxSectionResponse.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxSectionResponse_HelpRequested);
             // 
             // pictureBox11
             // 
@@ -4249,6 +4404,7 @@
             0,
             65536});
             this.nudLookAheadOff.Click += new System.EventHandler(this.nudLookAheadOff_Click);
+            this.nudLookAheadOff.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudLookAheadOff_HelpRequested);
             // 
             // nudOffset
             // 
@@ -4277,6 +4433,7 @@
             0,
             -2147483648});
             this.nudOffset.Click += new System.EventHandler(this.nudOffset_Click);
+            this.nudOffset.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudOffset_HelpRequested);
             // 
             // nudTurnOffDelay
             // 
@@ -4301,6 +4458,7 @@
             this.nudTurnOffDelay.TabIndex = 119;
             this.nudTurnOffDelay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudTurnOffDelay.Click += new System.EventHandler(this.nudTurnOffDelay_Click);
+            this.nudTurnOffDelay.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudTurnOffDelay_HelpRequested);
             // 
             // nudLookAhead
             // 
@@ -4335,6 +4493,7 @@
             0,
             65536});
             this.nudLookAhead.Click += new System.EventHandler(this.nudLookAhead_Click);
+            this.nudLookAhead.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudLookAhead_HelpRequested);
             // 
             // nudOverlap
             // 
@@ -4363,6 +4522,7 @@
             0,
             0});
             this.nudOverlap.Click += new System.EventHandler(this.nudOverlap_Click);
+            this.nudOverlap.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudOverlap_HelpRequested);
             // 
             // pictureBox3
             // 
@@ -4424,6 +4584,7 @@
             this.cboxIsRTK_KillAutoSteer.Text = "Kill Auto Steer";
             this.cboxIsRTK_KillAutoSteer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsRTK_KillAutoSteer.UseVisualStyleBackColor = false;
+            this.cboxIsRTK_KillAutoSteer.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxIsRTK_KillAutoSteer_HelpRequested);
             // 
             // label2
             // 
@@ -4467,6 +4628,7 @@
             0,
             0});
             this.nudAgeAlarm.Click += new System.EventHandler(this.nudAgeAlarm_Click);
+            this.nudAgeAlarm.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudAgeAlarm_HelpRequested);
             // 
             // label104
             // 
@@ -4510,6 +4672,7 @@
             0,
             0});
             this.nudMinimumFrameTime.Click += new System.EventHandler(this.nudMinimumFrameTime_Click);
+            this.nudMinimumFrameTime.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudMinimumFrameTime_HelpRequested);
             // 
             // cboxIsRTK
             // 
@@ -4527,6 +4690,7 @@
             this.cboxIsRTK.Text = "RTK Alarm";
             this.cboxIsRTK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsRTK.UseVisualStyleBackColor = false;
+            this.cboxIsRTK.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxIsRTK_HelpRequested);
             // 
             // gboxSingle
             // 
@@ -4599,6 +4763,7 @@
             this.hsbarFusion.TabIndex = 471;
             this.hsbarFusion.Value = 25;
             this.hsbarFusion.ValueChanged += new System.EventHandler(this.hsbarFusion_ValueChanged);
+            this.hsbarFusion.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.hsbarFusion_HelpRequested);
             // 
             // lblFusion
             // 
@@ -4687,6 +4852,7 @@
             0,
             65536});
             this.nudForwardComp.Click += new System.EventHandler(this.nudForwardComp_Click);
+            this.nudForwardComp.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudForwardComp_HelpRequested);
             // 
             // cboxIsDualAsIMU
             // 
@@ -4703,6 +4869,7 @@
             this.cboxIsDualAsIMU.Text = "Dual As IMU";
             this.cboxIsDualAsIMU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsDualAsIMU.UseVisualStyleBackColor = false;
+            this.cboxIsDualAsIMU.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxIsDualAsIMU_HelpRequested);
             // 
             // nudReverseComp
             // 
@@ -4733,6 +4900,7 @@
             0,
             65536});
             this.nudReverseComp.Click += new System.EventHandler(this.nudReverseComp_Click);
+            this.nudReverseComp.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudReverseComp_HelpRequested);
             // 
             // cboxIsReverseOn
             // 
@@ -4749,6 +4917,7 @@
             this.cboxIsReverseOn.Text = "Reverse Detection";
             this.cboxIsReverseOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsReverseOn.UseVisualStyleBackColor = false;
+            this.cboxIsReverseOn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxIsReverseOn_HelpRequested);
             // 
             // nudStartSpeed
             // 
@@ -4784,6 +4953,7 @@
             0,
             65536});
             this.nudStartSpeed.Click += new System.EventHandler(this.nudStartSpeed_Click);
+            this.nudStartSpeed.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudStartSpeed_HelpRequested);
             // 
             // label15
             // 
@@ -4855,6 +5025,7 @@
             0,
             65536});
             this.nudMinFixStepDistance.Click += new System.EventHandler(this.nudMinFixStepDistance_Click);
+            this.nudMinFixStepDistance.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudMinFixStepDistance_HelpRequested);
             // 
             // headingGroupBox
             // 
@@ -4874,7 +5045,7 @@
             // pictureBox13
             // 
             this.pictureBox13.Image = global::AgOpenGPS.Properties.Resources.Con_SourcesGPS;
-            this.pictureBox13.Location = new System.Drawing.Point(191, 39);
+            this.pictureBox13.Location = new System.Drawing.Point(191, 48);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(110, 204);
             this.pictureBox13.TabIndex = 3;
@@ -4888,7 +5059,7 @@
             this.rbtnHeadingHDT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnHeadingHDT.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnHeadingHDT.ForeColor = System.Drawing.Color.Black;
-            this.rbtnHeadingHDT.Location = new System.Drawing.Point(24, 201);
+            this.rbtnHeadingHDT.Location = new System.Drawing.Point(24, 206);
             this.rbtnHeadingHDT.Name = "rbtnHeadingHDT";
             this.rbtnHeadingHDT.Size = new System.Drawing.Size(117, 43);
             this.rbtnHeadingHDT.TabIndex = 2;
@@ -4896,6 +5067,7 @@
             this.rbtnHeadingHDT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnHeadingHDT.UseVisualStyleBackColor = false;
             this.rbtnHeadingHDT.CheckedChanged += new System.EventHandler(this.rbtnHeadingFix_CheckedChanged);
+            this.rbtnHeadingHDT.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnHeadingHDT_HelpRequested);
             // 
             // rbtnHeadingGPS
             // 
@@ -4906,7 +5078,7 @@
             this.rbtnHeadingGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnHeadingGPS.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnHeadingGPS.ForeColor = System.Drawing.Color.Black;
-            this.rbtnHeadingGPS.Location = new System.Drawing.Point(24, 113);
+            this.rbtnHeadingGPS.Location = new System.Drawing.Point(24, 106);
             this.rbtnHeadingGPS.Name = "rbtnHeadingGPS";
             this.rbtnHeadingGPS.Size = new System.Drawing.Size(117, 43);
             this.rbtnHeadingGPS.TabIndex = 1;
@@ -4915,6 +5087,7 @@
             this.rbtnHeadingGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnHeadingGPS.UseVisualStyleBackColor = false;
             this.rbtnHeadingGPS.CheckedChanged += new System.EventHandler(this.rbtnHeadingFix_CheckedChanged);
+            this.rbtnHeadingGPS.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnHeadingGPS_HelpRequested);
             // 
             // rbtnHeadingFix
             // 
@@ -4924,7 +5097,7 @@
             this.rbtnHeadingFix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnHeadingFix.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnHeadingFix.ForeColor = System.Drawing.Color.Black;
-            this.rbtnHeadingFix.Location = new System.Drawing.Point(23, 49);
+            this.rbtnHeadingFix.Location = new System.Drawing.Point(23, 42);
             this.rbtnHeadingFix.Name = "rbtnHeadingFix";
             this.rbtnHeadingFix.Size = new System.Drawing.Size(117, 43);
             this.rbtnHeadingFix.TabIndex = 0;
@@ -4932,6 +5105,7 @@
             this.rbtnHeadingFix.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnHeadingFix.UseVisualStyleBackColor = false;
             this.rbtnHeadingFix.CheckedChanged += new System.EventHandler(this.rbtnHeadingFix_CheckedChanged);
+            this.rbtnHeadingFix.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnHeadingFix_HelpRequested);
             // 
             // tabDRoll
             // 
@@ -4959,6 +5133,22 @@
             this.tabDRoll.Text = "dRoll";
             this.tabDRoll.Enter += new System.EventHandler(this.tabDRoll_Enter);
             this.tabDRoll.Leave += new System.EventHandler(this.tabDRoll_Leave);
+            // 
+            // cboxroll
+            // 
+            this.cboxroll.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxroll.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxroll.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
+            this.cboxroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxroll.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxroll.ForeColor = System.Drawing.Color.Red;
+            this.cboxroll.Location = new System.Drawing.Point(508, 445);
+            this.cboxroll.Name = "cboxroll";
+            this.cboxroll.Size = new System.Drawing.Size(318, 43);
+            this.cboxroll.TabIndex = 488;
+            this.cboxroll.Text = "Désactiver le roulis";
+            this.cboxroll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxroll.UseVisualStyleBackColor = false;
             // 
             // pictureBox9
             // 
@@ -5106,6 +5296,7 @@
             this.btnZeroRoll.TabIndex = 76;
             this.btnZeroRoll.UseVisualStyleBackColor = false;
             this.btnZeroRoll.Click += new System.EventHandler(this.btnZeroRoll_Click);
+            this.btnZeroRoll.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnZeroRoll_HelpRequested);
             // 
             // btnRemoveZeroOffset
             // 
@@ -5123,6 +5314,7 @@
             this.btnRemoveZeroOffset.TabIndex = 76;
             this.btnRemoveZeroOffset.UseVisualStyleBackColor = false;
             this.btnRemoveZeroOffset.Click += new System.EventHandler(this.btnRemoveZeroOffset_Click);
+            this.btnRemoveZeroOffset.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnRemoveZeroOffset_HelpRequested);
             // 
             // cboxDataInvertRoll
             // 
@@ -5141,6 +5333,7 @@
             this.cboxDataInvertRoll.TabIndex = 452;
             this.cboxDataInvertRoll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxDataInvertRoll.UseVisualStyleBackColor = false;
+            this.cboxDataInvertRoll.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxDataInvertRoll_HelpRequested);
             // 
             // tabUTurn
             // 
@@ -5201,6 +5394,7 @@
             0,
             65536});
             this.nudTurnDistanceFromBoundary.Click += new System.EventHandler(this.nudTurnDistanceFromBoundary_Click);
+            this.nudTurnDistanceFromBoundary.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudTurnDistanceFromBoundary_HelpRequested);
             this.nudTurnDistanceFromBoundary.Enter += new System.EventHandler(this.nudTurnDistanceFromBoundary_Click);
             // 
             // lblSmoothing
@@ -5215,6 +5409,7 @@
             this.lblSmoothing.Size = new System.Drawing.Size(95, 45);
             this.lblSmoothing.TabIndex = 464;
             this.lblSmoothing.Text = "XXX";
+            this.lblSmoothing.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.lblSmoothing_HelpRequested);
             // 
             // lblDistance
             // 
@@ -5228,6 +5423,7 @@
             this.lblDistance.Size = new System.Drawing.Size(95, 45);
             this.lblDistance.TabIndex = 455;
             this.lblDistance.Text = "XXX";
+            this.lblDistance.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.lblDistance_HelpRequested);
             // 
             // label54
             // 
@@ -5386,11 +5582,11 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(613, 327);
+            this.label12.Location = new System.Drawing.Point(545, 330);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(160, 32);
+            this.label12.Size = new System.Drawing.Size(287, 32);
             this.label12.TabIndex = 487;
-            this.label12.Text = "Switch - Momentary\r\nButton - Push On, Push Off";
+            this.label12.Text = "Switch - Push, Turns On.   Push again, Turns Off\r\nButton - When pushed, is On.";
             // 
             // labelPressureTurnSensor
             // 
@@ -5482,6 +5678,7 @@
             this.cboxMotorDrive.Size = new System.Drawing.Size(226, 37);
             this.cboxMotorDrive.TabIndex = 459;
             this.cboxMotorDrive.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxMotorDrive.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxMotorDrive_HelpRequested);
             // 
             // cboxSteerEnable
             // 
@@ -5492,14 +5689,15 @@
             this.cboxSteerEnable.FormattingEnabled = true;
             this.cboxSteerEnable.Items.AddRange(new object[] {
             "None",
-            "Button",
-            "Switch"});
+            "Switch",
+            "Button"});
             this.cboxSteerEnable.Location = new System.Drawing.Point(579, 287);
             this.cboxSteerEnable.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboxSteerEnable.Name = "cboxSteerEnable";
             this.cboxSteerEnable.Size = new System.Drawing.Size(226, 37);
             this.cboxSteerEnable.TabIndex = 462;
             this.cboxSteerEnable.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxSteerEnable.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxSteerEnable_HelpRequested);
             // 
             // label62
             // 
@@ -5530,6 +5728,7 @@
             this.cboxConv.Size = new System.Drawing.Size(226, 37);
             this.cboxConv.TabIndex = 464;
             this.cboxConv.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxConv.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxConv_HelpRequested);
             // 
             // label63
             // 
@@ -5597,6 +5796,7 @@
             0,
             0});
             this.nudMaxCounts.Click += new System.EventHandler(this.nudMaxCounts_Click);
+            this.nudMaxCounts.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudMaxCounts_HelpRequested);
             // 
             // label55
             // 
@@ -5631,6 +5831,7 @@
             this.cboxCurrentSensor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxCurrentSensor.UseVisualStyleBackColor = false;
             this.cboxCurrentSensor.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxCurrentSensor.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxCurrentSensor_HelpRequested);
             // 
             // cboxPressureSensor
             // 
@@ -5650,9 +5851,11 @@
             this.cboxPressureSensor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxPressureSensor.UseVisualStyleBackColor = false;
             this.cboxPressureSensor.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxPressureSensor.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxPressureSensor_HelpRequested);
             // 
             // pboxSendSteer
             // 
+            this.pboxSendSteer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pboxSendSteer.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConSt_Mandatory1;
             this.pboxSendSteer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pboxSendSteer.Location = new System.Drawing.Point(721, 416);
@@ -5661,6 +5864,7 @@
             this.pboxSendSteer.TabIndex = 482;
             this.pboxSendSteer.TabStop = false;
             this.pboxSendSteer.Visible = false;
+            this.pboxSendSteer.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.pboxSendSteer_HelpRequested);
             // 
             // cboxDanfoss
             // 
@@ -5680,6 +5884,7 @@
             this.cboxDanfoss.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxDanfoss.UseVisualStyleBackColor = false;
             this.cboxDanfoss.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxDanfoss.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxDanfoss_HelpRequested);
             // 
             // chkSteerInvertRelays
             // 
@@ -5699,6 +5904,7 @@
             this.chkSteerInvertRelays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkSteerInvertRelays.UseVisualStyleBackColor = false;
             this.chkSteerInvertRelays.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.chkSteerInvertRelays.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkSteerInvertRelays_HelpRequested);
             // 
             // chkInvertSteer
             // 
@@ -5718,6 +5924,7 @@
             this.chkInvertSteer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkInvertSteer.UseVisualStyleBackColor = false;
             this.chkInvertSteer.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.chkInvertSteer.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkInvertSteer_HelpRequested);
             // 
             // cboxEncoder
             // 
@@ -5737,6 +5944,7 @@
             this.cboxEncoder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxEncoder.UseVisualStyleBackColor = false;
             this.cboxEncoder.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.cboxEncoder.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxEncoder_HelpRequested);
             // 
             // chkInvertWAS
             // 
@@ -5758,6 +5966,7 @@
             this.chkInvertWAS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkInvertWAS.UseVisualStyleBackColor = false;
             this.chkInvertWAS.Click += new System.EventHandler(this.EnableAlert_Click);
+            this.chkInvertWAS.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.chkInvertWAS_HelpRequested);
             // 
             // btnSendSteerConfigPGN
             // 
@@ -5773,6 +5982,7 @@
             this.btnSendSteerConfigPGN.TabIndex = 465;
             this.btnSendSteerConfigPGN.UseVisualStyleBackColor = false;
             this.btnSendSteerConfigPGN.Click += new System.EventHandler(this.btnSendToSteerArduino_Click);
+            this.btnSendSteerConfigPGN.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSendSteerConfigPGN_HelpRequested);
             // 
             // tabAMachine
             // 
@@ -5840,6 +6050,7 @@
             0,
             0});
             this.nudHydLiftLookAhead.Click += new System.EventHandler(this.nudHydLiftSecs_Click);
+            this.nudHydLiftLookAhead.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudHydLiftLookAhead_HelpRequested);
             // 
             // label69
             // 
@@ -5904,6 +6115,7 @@
             this.cboxIsHydOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsHydOn.UseVisualStyleBackColor = false;
             this.cboxIsHydOn.CheckStateChanged += new System.EventHandler(this.cboxIsHydOn_CheckStateChanged);
+            this.cboxIsHydOn.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxIsHydOn_HelpRequested);
             // 
             // pictureBox6
             // 
@@ -5942,6 +6154,7 @@
             0,
             0});
             this.nudLowerTime.Click += new System.EventHandler(this.nudLowerTime_Click);
+            this.nudLowerTime.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudLowerTime_HelpRequested);
             // 
             // pictureBox7
             // 
@@ -5980,6 +6193,7 @@
             0,
             0});
             this.nudRaiseTime.Click += new System.EventHandler(this.nudRaiseTime_Click);
+            this.nudRaiseTime.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudRaiseTime_HelpRequested);
             // 
             // label72
             // 
@@ -6022,6 +6236,7 @@
             // 
             // pboxSendMachine
             // 
+            this.pboxSendMachine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pboxSendMachine.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConSt_Mandatory1;
             this.pboxSendMachine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pboxSendMachine.Location = new System.Drawing.Point(712, 398);
@@ -6030,6 +6245,7 @@
             this.pboxSendMachine.TabIndex = 483;
             this.pboxSendMachine.TabStop = false;
             this.pboxSendMachine.Visible = false;
+            this.pboxSendMachine.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.pboxSendMachine_HelpRequested);
             // 
             // cboxMachInvertRelays
             // 
@@ -6051,6 +6267,7 @@
             this.cboxMachInvertRelays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxMachInvertRelays.UseVisualStyleBackColor = false;
             this.cboxMachInvertRelays.Click += new System.EventHandler(this.Enable_AlertM_Click);
+            this.cboxMachInvertRelays.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxMachInvertRelays_HelpRequested);
             // 
             // btnSendMachinePGN
             // 
@@ -6066,6 +6283,7 @@
             this.btnSendMachinePGN.TabIndex = 1;
             this.btnSendMachinePGN.UseVisualStyleBackColor = false;
             this.btnSendMachinePGN.Click += new System.EventHandler(this.btnSendMachinePGN_Click);
+            this.btnSendMachinePGN.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSendMachinePGN_HelpRequested);
             // 
             // tabTram
             // 
@@ -6103,6 +6321,7 @@
             this.cboxTramOnBackBuffer.TabIndex = 482;
             this.cboxTramOnBackBuffer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxTramOnBackBuffer.UseVisualStyleBackColor = false;
+            this.cboxTramOnBackBuffer.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboxTramOnBackBuffer_HelpRequested);
             // 
             // label23
             // 
@@ -6170,6 +6389,7 @@
             0,
             0});
             this.nudTramWidth.Click += new System.EventHandler(this.nudTramWidth_Click);
+            this.nudTramWidth.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudTramWidth_HelpRequested);
             // 
             // groupBox2
             // 
@@ -6202,6 +6422,7 @@
             this.rbtnTramInner.TabIndex = 0;
             this.rbtnTramInner.TabStop = true;
             this.rbtnTramInner.UseVisualStyleBackColor = false;
+            this.rbtnTramInner.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnTramInner_HelpRequested);
             // 
             // rbtnTramOuter
             // 
@@ -6218,6 +6439,7 @@
             this.rbtnTramOuter.Size = new System.Drawing.Size(290, 256);
             this.rbtnTramOuter.TabIndex = 1;
             this.rbtnTramOuter.UseVisualStyleBackColor = false;
+            this.rbtnTramOuter.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.rbtnTramOuter_HelpRequested);
             // 
             // pictureBox8
             // 
@@ -7246,131 +7468,6 @@
             this.label22.Text = "Units:";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // VineMode
-            // 
-            this.VineMode.Appearance = System.Windows.Forms.Appearance.Button;
-            this.VineMode.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.VineMode.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.VineMode.FlatAppearance.BorderSize = 2;
-            this.VineMode.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.VineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VineMode.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VineMode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.VineMode.Location = new System.Drawing.Point(630, 340);
-            this.VineMode.Name = "VineMode";
-            this.VineMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.VineMode.Size = new System.Drawing.Size(86, 70);
-            this.VineMode.TabIndex = 504;
-            this.VineMode.Text = "Mode vigne";
-            this.VineMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.VineMode.UseVisualStyleBackColor = false;
-            // 
-            // Timer_kml
-            // 
-            this.Timer_kml.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Timer_kml.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Timer_kml.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Timer_kml.FlatAppearance.BorderSize = 2;
-            this.Timer_kml.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.Timer_kml.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Timer_kml.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Timer_kml.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Timer_kml.Location = new System.Drawing.Point(728, 340);
-            this.Timer_kml.Name = "Timer_kml";
-            this.Timer_kml.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Timer_kml.Size = new System.Drawing.Size(118, 70);
-            this.Timer_kml.TabIndex = 503;
-            this.Timer_kml.Text = "TimerKML";
-            this.Timer_kml.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Timer_kml.UseVisualStyleBackColor = false;
-            // 
-            // ArrowsRL
-            // 
-            this.ArrowsRL.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ArrowsRL.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ArrowsRL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ArrowsRL.FlatAppearance.BorderSize = 2;
-            this.ArrowsRL.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.ArrowsRL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArrowsRL.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ArrowsRL.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ArrowsRL.Location = new System.Drawing.Point(728, 264);
-            this.ArrowsRL.Name = "ArrowsRL";
-            this.ArrowsRL.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ArrowsRL.Size = new System.Drawing.Size(118, 70);
-            this.ArrowsRL.TabIndex = 502;
-            this.ArrowsRL.Text = "Flèches G/D";
-            this.ArrowsRL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ArrowsRL.UseVisualStyleBackColor = false;
-            // 
-            // cbox_long_touch
-            // 
-            this.cbox_long_touch.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbox_long_touch.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cbox_long_touch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cbox_long_touch.FlatAppearance.BorderSize = 2;
-            this.cbox_long_touch.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.cbox_long_touch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbox_long_touch.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbox_long_touch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbox_long_touch.Location = new System.Drawing.Point(630, 264);
-            this.cbox_long_touch.Name = "cbox_long_touch";
-            this.cbox_long_touch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cbox_long_touch.Size = new System.Drawing.Size(86, 70);
-            this.cbox_long_touch.TabIndex = 501;
-            this.cbox_long_touch.Text = "Long touch";
-            this.cbox_long_touch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbox_long_touch.UseVisualStyleBackColor = false;
-            // 
-            // label122
-            // 
-            this.label122.AutoSize = true;
-            this.label122.BackColor = System.Drawing.Color.Transparent;
-            this.label122.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label122.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label122.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label122.Location = new System.Drawing.Point(481, 243);
-            this.label122.Name = "label122";
-            this.label122.Size = new System.Drawing.Size(115, 18);
-            this.label122.TabIndex = 499;
-            this.label122.Text = "Sections buttons";
-            this.label122.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cBox_sections_button
-            // 
-            this.cBox_sections_button.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cBox_sections_button.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cBox_sections_button.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cBox_sections_button.FlatAppearance.BorderSize = 2;
-            this.cBox_sections_button.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.cBox_sections_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cBox_sections_button.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cBox_sections_button.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cBox_sections_button.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementSection;
-            this.cBox_sections_button.Location = new System.Drawing.Point(484, 264);
-            this.cBox_sections_button.Name = "cBox_sections_button";
-            this.cBox_sections_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cBox_sections_button.Size = new System.Drawing.Size(117, 70);
-            this.cBox_sections_button.TabIndex = 500;
-            this.cBox_sections_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cBox_sections_button.UseVisualStyleBackColor = false;
-            // 
-            // cboxroll
-            // 
-            this.cboxroll.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxroll.BackColor = System.Drawing.Color.AliceBlue;
-            this.cboxroll.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
-            this.cboxroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxroll.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxroll.ForeColor = System.Drawing.Color.Red;
-            this.cboxroll.Location = new System.Drawing.Point(508, 445);
-            this.cboxroll.Name = "cboxroll";
-            this.cboxroll.Size = new System.Drawing.Size(318, 43);
-            this.cboxroll.TabIndex = 488;
-            this.cboxroll.Text = "Désactiver le roulis";
-            this.cboxroll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxroll.UseVisualStyleBackColor = false;
-            // 
             // FormConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -7382,6 +7479,7 @@
             this.Controls.Add(this.panelLeftSideMenu);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

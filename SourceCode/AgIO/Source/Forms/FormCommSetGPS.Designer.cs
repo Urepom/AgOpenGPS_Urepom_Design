@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCommSetGPS));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboxLastSentence = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.cboxPort = new System.Windows.Forms.ComboBox();
             this.cboxBaud = new System.Windows.Forms.ComboBox();
             this.lblCurrentPort = new System.Windows.Forms.Label();
@@ -68,7 +70,6 @@
             this.btnCloseIMU = new System.Windows.Forms.Button();
             this.btnOpenIMU = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -80,26 +81,37 @@
             this.lblFromMU = new System.Windows.Forms.Label();
             this.lblFromModule1 = new System.Windows.Forms.Label();
             this.lblFromModule2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ListComPort = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cboxferti = new System.Windows.Forms.ComboBox();
+            this.lblCurrentModuleFertiPort = new System.Windows.Forms.Label();
+            this.btnOpenSerialModuleFerti = new System.Windows.Forms.Button();
+            this.btnCloseSerialModuleFerti = new System.Windows.Forms.Button();
+            this.lblfromferti = new System.Windows.Forms.Label();
+            this.lblferti = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.Waiting = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnRescan = new System.Windows.Forms.Button();
             this.btnSerialOK = new System.Windows.Forms.Button();
-            this.Waiting = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.ListComPort = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -111,6 +123,8 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.cboxLastSentence);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.cboxPort);
             this.groupBox1.Controls.Add(this.cboxBaud);
             this.groupBox1.Controls.Add(this.lblCurrentPort);
@@ -125,6 +139,38 @@
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "GPS";
+            // 
+            // cboxLastSentence
+            // 
+            this.cboxLastSentence.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.cboxLastSentence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxLastSentence.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            this.cboxLastSentence.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.cboxLastSentence.FormattingEnabled = true;
+            this.cboxLastSentence.Items.AddRange(new object[] {
+            "GGA",
+            "VTG",
+            "TRA",
+            "AVR",
+            "HPD",
+            "OGI",
+            "HDT",
+            "STI"});
+            this.cboxLastSentence.Location = new System.Drawing.Point(333, 37);
+            this.cboxLastSentence.Name = "cboxLastSentence";
+            this.cboxLastSentence.Size = new System.Drawing.Size(101, 37);
+            this.cboxLastSentence.TabIndex = 52;
+            this.cboxLastSentence.SelectedIndexChanged += new System.EventHandler(this.cboxLastSentence_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(328, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(113, 18);
+            this.label12.TabIndex = 51;
+            this.label12.Text = "Last Sentence";
             // 
             // cboxPort
             // 
@@ -152,9 +198,7 @@
             "19200",
             "38400",
             "57600",
-            "115200",
-            "128000",
-            "256000"});
+            "115200"});
             this.cboxBaud.Location = new System.Drawing.Point(161, 37);
             this.cboxBaud.Name = "cboxBaud";
             this.cboxBaud.Size = new System.Drawing.Size(127, 37);
@@ -165,7 +209,7 @@
             // 
             this.lblCurrentPort.AutoSize = true;
             this.lblCurrentPort.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentPort.Location = new System.Drawing.Point(101, 16);
+            this.lblCurrentPort.Location = new System.Drawing.Point(78, 16);
             this.lblCurrentPort.Name = "lblCurrentPort";
             this.lblCurrentPort.Size = new System.Drawing.Size(40, 18);
             this.lblCurrentPort.TabIndex = 47;
@@ -175,7 +219,7 @@
             // 
             this.lblCurrentBaud.AutoSize = true;
             this.lblCurrentBaud.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentBaud.Location = new System.Drawing.Point(243, 16);
+            this.lblCurrentBaud.Location = new System.Drawing.Point(225, 16);
             this.lblCurrentBaud.Name = "lblCurrentBaud";
             this.lblCurrentBaud.Size = new System.Drawing.Size(45, 18);
             this.lblCurrentBaud.TabIndex = 46;
@@ -188,7 +232,7 @@
             this.btnCloseSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseSerial.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerial.Image")));
-            this.btnCloseSerial.Location = new System.Drawing.Point(459, 16);
+            this.btnCloseSerial.Location = new System.Drawing.Point(567, 16);
             this.btnCloseSerial.Name = "btnCloseSerial";
             this.btnCloseSerial.Size = new System.Drawing.Size(101, 58);
             this.btnCloseSerial.TabIndex = 44;
@@ -214,7 +258,7 @@
             this.btnOpenSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenSerial.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerial.Image")));
-            this.btnOpenSerial.Location = new System.Drawing.Point(329, 16);
+            this.btnOpenSerial.Location = new System.Drawing.Point(460, 16);
             this.btnOpenSerial.Name = "btnOpenSerial";
             this.btnOpenSerial.Size = new System.Drawing.Size(101, 58);
             this.btnOpenSerial.TabIndex = 45;
@@ -341,7 +385,7 @@
             this.groupBox3.Controls.Add(this.btnOpenSerialModule1);
             this.groupBox3.Controls.Add(this.btnCloseSerialModule1);
             this.groupBox3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(173, 355);
+            this.groupBox3.Location = new System.Drawing.Point(173, 303);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(369, 117);
             this.groupBox3.TabIndex = 66;
@@ -405,7 +449,7 @@
             this.groupBox4.Controls.Add(this.btnOpenSerialModule2);
             this.groupBox4.Controls.Add(this.btnCloseSerialModule2);
             this.groupBox4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox4.Location = new System.Drawing.Point(173, 518);
+            this.groupBox4.Location = new System.Drawing.Point(173, 441);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(369, 117);
             this.groupBox4.TabIndex = 67;
@@ -534,7 +578,7 @@
             this.groupBox6.Controls.Add(this.btnCloseIMU);
             this.groupBox6.Controls.Add(this.btnOpenIMU);
             this.groupBox6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox6.Location = new System.Drawing.Point(173, 192);
+            this.groupBox6.Location = new System.Drawing.Point(173, 164);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(369, 117);
             this.groupBox6.TabIndex = 68;
@@ -602,16 +646,6 @@
             this.label1.Size = new System.Drawing.Size(55, 23);
             this.label1.TabIndex = 73;
             this.label1.Text = "GPS:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(413, 322);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 18);
-            this.label2.TabIndex = 74;
-            this.label2.Text = "GPS";
             // 
             // label4
             // 
@@ -738,6 +772,154 @@
             this.lblFromModule2.Text = "---";
             this.lblFromModule2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(564, 330);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 18);
+            this.label3.TabIndex = 183;
+            this.label3.Text = "COM infos";
+            // 
+            // ListComPort
+            // 
+            this.ListComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListComPort.BackColor = System.Drawing.SystemColors.Window;
+            this.ListComPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ListComPort.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListComPort.Location = new System.Drawing.Point(567, 351);
+            this.ListComPort.Multiline = true;
+            this.ListComPort.Name = "ListComPort";
+            this.ListComPort.ReadOnly = true;
+            this.ListComPort.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ListComPort.Size = new System.Drawing.Size(302, 265);
+            this.ListComPort.TabIndex = 182;
+            this.ListComPort.TabStop = false;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox7.Controls.Add(this.cboxferti);
+            this.groupBox7.Controls.Add(this.lblCurrentModuleFertiPort);
+            this.groupBox7.Controls.Add(this.btnOpenSerialModuleFerti);
+            this.groupBox7.Controls.Add(this.btnCloseSerialModuleFerti);
+            this.groupBox7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox7.Location = new System.Drawing.Point(173, 580);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(369, 117);
+            this.groupBox7.TabIndex = 185;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Cuve fertilisation localisée";
+            // 
+            // cboxferti
+            // 
+            this.cboxferti.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxferti.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            this.cboxferti.FormattingEnabled = true;
+            this.cboxferti.Location = new System.Drawing.Point(10, 62);
+            this.cboxferti.Name = "cboxferti";
+            this.cboxferti.Size = new System.Drawing.Size(124, 37);
+            this.cboxferti.TabIndex = 64;
+            this.cboxferti.SelectedIndexChanged += new System.EventHandler(this.cboxferti_SelectedIndexChanged);
+            // 
+            // lblCurrentModuleFertiPort
+            // 
+            this.lblCurrentModuleFertiPort.AutoSize = true;
+            this.lblCurrentModuleFertiPort.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentModuleFertiPort.Location = new System.Drawing.Point(22, 41);
+            this.lblCurrentModuleFertiPort.Name = "lblCurrentModuleFertiPort";
+            this.lblCurrentModuleFertiPort.Size = new System.Drawing.Size(40, 18);
+            this.lblCurrentModuleFertiPort.TabIndex = 70;
+            this.lblCurrentModuleFertiPort.Text = "Port";
+            // 
+            // btnOpenSerialModuleFerti
+            // 
+            this.btnOpenSerialModuleFerti.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSerialModuleFerti.FlatAppearance.BorderSize = 0;
+            this.btnOpenSerialModuleFerti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenSerialModuleFerti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenSerialModuleFerti.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenSerialModuleFerti.Image")));
+            this.btnOpenSerialModuleFerti.Location = new System.Drawing.Point(161, 31);
+            this.btnOpenSerialModuleFerti.Name = "btnOpenSerialModuleFerti";
+            this.btnOpenSerialModuleFerti.Size = new System.Drawing.Size(101, 58);
+            this.btnOpenSerialModuleFerti.TabIndex = 53;
+            this.btnOpenSerialModuleFerti.UseVisualStyleBackColor = false;
+            this.btnOpenSerialModuleFerti.Click += new System.EventHandler(this.btnOpenSerialFerti_Click);
+            // 
+            // btnCloseSerialModuleFerti
+            // 
+            this.btnCloseSerialModuleFerti.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseSerialModuleFerti.FlatAppearance.BorderSize = 0;
+            this.btnCloseSerialModuleFerti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSerialModuleFerti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseSerialModuleFerti.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModuleFerti.Image")));
+            this.btnCloseSerialModuleFerti.Location = new System.Drawing.Point(268, 31);
+            this.btnCloseSerialModuleFerti.Name = "btnCloseSerialModuleFerti";
+            this.btnCloseSerialModuleFerti.Size = new System.Drawing.Size(101, 58);
+            this.btnCloseSerialModuleFerti.TabIndex = 52;
+            this.btnCloseSerialModuleFerti.UseVisualStyleBackColor = false;
+            this.btnCloseSerialModuleFerti.Click += new System.EventHandler(this.btnCloseSerialFerti_Click);
+            // 
+            // lblfromferti
+            // 
+            this.lblfromferti.BackColor = System.Drawing.Color.Transparent;
+            this.lblfromferti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblfromferti.ForeColor = System.Drawing.Color.Black;
+            this.lblfromferti.Location = new System.Drawing.Point(764, 301);
+            this.lblfromferti.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblfromferti.Name = "lblfromferti";
+            this.lblfromferti.Size = new System.Drawing.Size(64, 27);
+            this.lblfromferti.TabIndex = 189;
+            this.lblfromferti.Text = "---";
+            this.lblfromferti.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblferti
+            // 
+            this.lblferti.AutoSize = true;
+            this.lblferti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblferti.Location = new System.Drawing.Point(685, 303);
+            this.lblferti.Name = "lblferti";
+            this.lblferti.Size = new System.Drawing.Size(54, 23);
+            this.lblferti.TabIndex = 188;
+            this.lblferti.Text = "Ferti";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label9.Location = new System.Drawing.Point(561, 303);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(125, 23);
+            this.label9.TabIndex = 187;
+            this.label9.Text = "Fertilisation";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackgroundImage = global::AgIO.Properties.Resources.B_Ferti;
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox5.Location = new System.Drawing.Point(36, 580);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(120, 120);
+            this.pictureBox5.TabIndex = 186;
+            this.pictureBox5.TabStop = false;
+            // 
+            // Waiting
+            // 
+            this.Waiting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Waiting.BackColor = System.Drawing.Color.Transparent;
+            this.Waiting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Waiting.Image = global::AgIO.Properties.Resources.Sablier;
+            this.Waiting.Location = new System.Drawing.Point(697, 453);
+            this.Waiting.Name = "Waiting";
+            this.Waiting.Size = new System.Drawing.Size(32, 32);
+            this.Waiting.TabIndex = 184;
+            this.Waiting.TabStop = false;
+            this.Waiting.Visible = false;
+            // 
             // pictureBox4
             // 
             this.pictureBox4.BackgroundImage = global::AgIO.Properties.Resources.satellite;
@@ -752,7 +934,7 @@
             // 
             this.pictureBox3.BackgroundImage = global::AgIO.Properties.Resources.Com_Module2;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Location = new System.Drawing.Point(27, 515);
+            this.pictureBox3.Location = new System.Drawing.Point(36, 441);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(120, 120);
             this.pictureBox3.TabIndex = 71;
@@ -762,7 +944,7 @@
             // 
             this.pictureBox2.BackgroundImage = global::AgIO.Properties.Resources.Com_AutosteerModule;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(27, 352);
+            this.pictureBox2.Location = new System.Drawing.Point(36, 300);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(120, 120);
             this.pictureBox2.TabIndex = 70;
@@ -772,7 +954,7 @@
             // 
             this.pictureBox1.BackgroundImage = global::AgIO.Properties.Resources.Com_IMUModule;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(27, 189);
+            this.pictureBox1.Location = new System.Drawing.Point(36, 164);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(120, 120);
             this.pictureBox1.TabIndex = 69;
@@ -813,52 +995,17 @@
             this.btnSerialOK.UseVisualStyleBackColor = false;
             this.btnSerialOK.Click += new System.EventHandler(this.btnSerialOK_Click);
             // 
-            // Waiting
-            // 
-            this.Waiting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Waiting.BackColor = System.Drawing.Color.Transparent;
-            this.Waiting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Waiting.Image = global::AgIO.Properties.Resources.Sablier;
-            this.Waiting.Location = new System.Drawing.Point(697, 453);
-            this.Waiting.Name = "Waiting";
-            this.Waiting.Size = new System.Drawing.Size(32, 32);
-            this.Waiting.TabIndex = 184;
-            this.Waiting.TabStop = false;
-            this.Waiting.Visible = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(566, 303);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 18);
-            this.label3.TabIndex = 183;
-            this.label3.Text = "COM infos";
-            // 
-            // ListComPort
-            // 
-            this.ListComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListComPort.BackColor = System.Drawing.SystemColors.Window;
-            this.ListComPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListComPort.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ListComPort.Location = new System.Drawing.Point(567, 322);
-            this.ListComPort.Multiline = true;
-            this.ListComPort.Name = "ListComPort";
-            this.ListComPort.ReadOnly = true;
-            this.ListComPort.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ListComPort.Size = new System.Drawing.Size(302, 294);
-            this.ListComPort.TabIndex = 182;
-            this.ListComPort.TabStop = false;
-            // 
             // FormCommSetGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(865, 696);
             this.ControlBox = false;
+            this.Controls.Add(this.lblfromferti);
+            this.Controls.Add(this.lblferti);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.pictureBox5);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.Waiting);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ListComPort);
@@ -873,7 +1020,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
@@ -905,11 +1051,14 @@
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -961,7 +1110,6 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -976,5 +1124,16 @@
         private System.Windows.Forms.PictureBox Waiting;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox ListComPort;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.ComboBox cboxferti;
+        private System.Windows.Forms.Label lblCurrentModuleFertiPort;
+        private System.Windows.Forms.Button btnOpenSerialModuleFerti;
+        private System.Windows.Forms.Button btnCloseSerialModuleFerti;
+        private System.Windows.Forms.Label lblfromferti;
+        private System.Windows.Forms.Label lblferti;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cboxLastSentence;
+        private System.Windows.Forms.Label label12;
     }
 }

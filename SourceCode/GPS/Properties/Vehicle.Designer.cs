@@ -982,5 +982,29 @@ namespace AgOpenGPS.Properties {
                 this["setVineMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public decimal SetDoseFerti {
+            get {
+                return ((decimal)(this["SetDoseFerti"]));
+            }
+            set {
+                this["SetDoseFerti"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int SetTimerRincFerti {
+            get {
+                return ((int)(this["SetTimerRincFerti"]));
+            }
+            set {
+                this["SetTimerRincFerti"] = value;
+            }
+        }
     }
 }

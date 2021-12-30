@@ -25,9 +25,11 @@ namespace AgIO
 
         public bool isKeyboardOn = true;
 
-        public bool isGPSSentencesOn = false;
+        public bool isGPSSentencesOn = false, isSendNMEAToUDP;
 
         public double secondsSinceStart, lastSecond;
+
+        public string lastSentence;
 
         //The base directory where Drive will be stored and fields and vehicles branch from
         public string baseDirectory;
@@ -49,11 +51,15 @@ namespace AgIO
             if (Settings.Default.setUDP_isOn) LoadUDPNetwork();
             LoadLoopback();
 
+            isSendNMEAToUDP = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
+
             lblGPS1Comm.Text = "---";
             lblIMUComm.Text = "---";
             lblMod1Comm.Text = "---";
             lblMod2Comm.Text = "---";
-            //lblMod3Comm.Text = "---";
+            
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            lblModFertiComm.Text = "---";
 
             //set baud and port from last time run
             baudRateGPS = Settings.Default.setPort_baudRateGPS;
@@ -102,6 +108,16 @@ namespace AgIO
                 //if (spModule3.IsOpen) lblMod3Comm.Text = portNameModule3;
             }
 
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            //same for ModuleFerti port
+            portNameModuleFerti = Settings.Default.setPort_portNameModuleFerti;
+            wasModuleFertiConnectedLastRun = Settings.Default.setPort_wasModuleFertiConnected;
+            if (wasModuleFertiConnectedLastRun)
+            {
+                OpenModuleFertiPort();
+                if (spModuleFerti.IsOpen) lblModFertiComm.Text = portNameModuleFerti;
+            }
+
             ConfigureNTRIP();
 
             string[] ports = System.IO.Ports.SerialPort.GetPortNames();
@@ -118,6 +134,8 @@ namespace AgIO
                     listBox1.Items.Add(ports[i]);
                 }
             }
+
+            lastSentence = Properties.Settings.Default.setGPS_lastSentence;
 
             timer1.Enabled = true;
             panel1.Visible = false;
@@ -235,6 +253,15 @@ namespace AgIO
                     if (!spModule3.IsOpen)
                     {
                         wasModule3ConnectedLastRun = false;
+                    }
+                }
+                //Ajout-modification MEmprou et SPailleau Fertilisation 
+                if (wasModuleFertiConnectedLastRun)
+                {
+                    if (!spModuleFerti.IsOpen)
+                    {
+                        wasModuleFertiConnectedLastRun = false;
+                        lblModFertiComm.Text = "---";
                     }
                 }
             }
@@ -392,6 +419,11 @@ namespace AgIO
         {
             isLogNMEA = cboxLogNMEA.Checked;
         }
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SettingsCommunicationGPS();
+        }
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -460,6 +492,11 @@ namespace AgIO
             lblFromModule2.Text = traffic.cntrModule2In == 0 ? "--" : (traffic.cntrModule2In).ToString();
             lblToModule2.Text = traffic.cntrModule2Out == 0 ? "--" : (traffic.cntrModule2Out).ToString();
 
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            lblFromModuleFerti.Text = traffic.cntrModuleFertiIn == 0 ? "--" : (traffic.cntrModuleFertiIn).ToString();
+            lblToModuleFerti.Text = traffic.cntrModuleFertiOut == 0 ? "--" : (traffic.cntrModuleFertiOut).ToString();
+            //fin
+
             lblFromMU.Text = traffic.cntrIMUIn == 0 ? "--" : (traffic.cntrIMUIn).ToString();
             lblToIMU.Text = traffic.cntrIMUOut == 0 ? "--" : (traffic.cntrIMUOut).ToString();
 
@@ -468,7 +505,8 @@ namespace AgIO
                 traffic.cntrIMUIn = traffic.cntrIMUOut =
                 traffic.cntrModule3In = traffic.cntrModule3Out =
                 traffic.cntrModule1In = traffic.cntrModule1Out =
-                traffic.cntrModule2Out = traffic.cntrModule2In = 0;
+                traffic.cntrModule2Out = traffic.cntrModule2In =
+                traffic.cntrModuleFertiOut = traffic.cntrModuleFertiIn = 0; //Ajout-modification MEmprou et SPailleau Fertilisation 
 
             lblCurentLon.Text = longitude.ToString("N7");
             lblCurrentLat.Text = latitude.ToString("N7");

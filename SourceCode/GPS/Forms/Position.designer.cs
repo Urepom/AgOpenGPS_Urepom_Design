@@ -94,7 +94,7 @@ namespace AgOpenGPS
         public double headlandDistanceDelta = 0, boundaryDistanceDelta = 0;
 
         public vec2 lastGPS = new vec2(0, 0);
-
+        
 
         public void UpdateFixPosition()
         {
@@ -232,8 +232,12 @@ namespace AgOpenGPS
                         if (Math.Abs(avgSpeed) > startSpeed)
                         {
                             isSuperSlow = false;
+
                             //how far since last fix
                             distanceCurrentStepFix = glm.Distance(stepFixPts[0], pn.fix);
+
+                            if (stepFixPts[0].isSet == 0)
+                                distanceCurrentStepFix = 0;
 
                             //save current fix and distance and set as valid
                             for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
@@ -242,8 +246,11 @@ namespace AgOpenGPS
                             stepFixPts[0].isSet = 1;
                             stepFixPts[0].distance = distanceCurrentStepFix;
 
-                            if (stepFixPts[1].isSet == 0)
-                                return;
+                            //if (stepFixPts[1].isSet == 0)
+                            //    return;
+
+                            if (stepFixPts[3].isSet == 0)
+                                goto byPass;
 
                             //find back the fix to fix distance, then heading
                             double dist = 0;
@@ -260,7 +267,6 @@ namespace AgOpenGPS
                                     break;
                             }
 
-                            if (dist < 0.25) goto byPass;
 
                             //most recent heading
                             double newHeading = Math.Atan2(pn.fix.easting - stepFixPts[currentStepFix].easting,
@@ -321,7 +327,7 @@ namespace AgOpenGPS
                                 return;
                             }
 
-                            if (!ahrs.isReverseOn) goto byPass;
+                            //if (!ahrs.isReverseOn) goto byPass;
 
                             //how far since last fix
                             distanceCurrentStepFix = glm.Distance(lastGPS, pn.fix);
@@ -349,6 +355,7 @@ namespace AgOpenGPS
                                             isReverse = true;
                                             newHeading += Math.PI;
                                             if (newHeading < 0) newHeading += glm.twoPI;
+                                            if (newHeading >= glm.twoPI) newHeading -= glm.twoPI;
                                         }
                                         else
                                             isReverse = false;
@@ -387,10 +394,17 @@ namespace AgOpenGPS
                             if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
                             else if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
 
-                            if (!isReverse)
-                                imuGPS_Offset += (gyroDelta * (ahrs.fusionWeight));
+                            if (Math.Abs(avgSpeed) > startSpeed)
+                            {
+                                if (isReverse)
+                                    imuGPS_Offset += (gyroDelta * (0.01));
+                                else
+                                    imuGPS_Offset += (gyroDelta * (ahrs.fusionWeight));
+                            }
                             else
-                                imuGPS_Offset += (gyroDelta * (0.005));
+                            {
+                                imuGPS_Offset += (gyroDelta * (0.2));
+                            }
 
                             if (imuGPS_Offset > glm.twoPI) imuGPS_Offset -= glm.twoPI;
                             else if (imuGPS_Offset < 0) imuGPS_Offset += glm.twoPI;
@@ -533,9 +547,6 @@ namespace AgOpenGPS
                             lastReverseFix = pn.fix;
                         }
 
-                        //grab the most current fix and save the distance from the last fix
-                        distanceCurrentStepFix = glm.Distance(pn.fix, prevFix);
-
                         if (vehicle.antennaOffset != 0)
                         {
                             pn.fix.easting = (Math.Cos(-fixHeading) * vehicle.antennaOffset) + pn.fix.easting;
@@ -551,6 +562,8 @@ namespace AgOpenGPS
                             pn.fix.northing = (Math.Sin(-gpsHeading) * rollCorrectionDistance) + pn.fix.northing;
                         }
 
+                        //grab the most current fix and save the distance from the last fix
+                        distanceCurrentStepFix = glm.Distance(pn.fix, prevFix);
 
                         TheRest();
 
@@ -598,6 +611,11 @@ namespace AgOpenGPS
                 //fill up0 the appropriate arrays with new values
                 p_254.pgn[p_254.speedHi] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0) >> 8));
                 p_254.pgn[p_254.speedLo] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0)));
+
+                //Ajout-modification MEmprou et SPailleau Fertilisation
+                p_235.pgn[p_235.speedHi] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0) >> 8));
+                p_235.pgn[p_235.speedLo] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0)));
+
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
 
                 //save distance for display
@@ -610,6 +628,9 @@ namespace AgOpenGPS
                 }
 
                 else p_254.pgn[p_254.status] = 1;
+
+                //Ajout-modification MEmprou et SPailleau Fertilisation
+                //if (sect)
 
                 if (recPath.isDrivingRecordedPath || recPath.isFollowingDubinsToPath) p_254.pgn[p_254.status] = 1;
 
@@ -682,6 +703,7 @@ namespace AgOpenGPS
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
             SendPgnToLoop(p_254.pgn);
+            SendPgnToLoop(p_235.pgn);
 
             //for average cross track error
             if (guidanceLineDistanceOff < 29000)
@@ -1254,7 +1276,11 @@ namespace AgOpenGPS
                     isRightIn = bnd.IsPointInsideFenceArea(section[j].rightPoint);
 
                     //merge the two sides into in or out
-                    if (isLeftIn && isRightIn) section[j].isInBoundary = true;
+
+                    //Ajout-modification MEmprou et SPailleau Fertilisation if (isLeftIn && isRightIn) section[j].isInBoundary = true;
+                    if (isLeftIn) section[j].isInBoundary = true;
+                    else if (isRightIn) section[j].isInBoundary = true;
+                    //fin
                     else section[j].isInBoundary = false;
 
                     section[tool.numOfSections].isInBoundary &= section[j].isInBoundary;

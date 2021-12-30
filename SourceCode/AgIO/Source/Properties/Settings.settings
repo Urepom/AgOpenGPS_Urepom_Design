@@ -32,9 +32,6 @@
     <Setting Name="setIP_autoSteerPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8888</Value>
     </Setting>
-    <Setting Name="setNTRIP_casterIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">147.100.179.214</Value>
-    </Setting>
     <Setting Name="setNTRIP_casterPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2101</Value>
     </Setting>
@@ -61,9 +58,6 @@
     </Setting>
     <Setting Name="setNTRIP_manualLon" Type="System.Double" Scope="User">
       <Value Profile="(Default)">-111</Value>
-    </Setting>
-    <Setting Name="setNTRIP_casterURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">caster.centipede.fr</Value>
     </Setting>
     <Setting Name="setNTRIP_isGGAManual" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -120,19 +114,37 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setPort_portNameRadio" Type="System.String" Scope="User">
-     <Value Profile="(Default)">***</Value>
-   </Setting>
-   <Setting Name="setPort_baudRateRadio" Type="System.String" Scope="User">
-     <Value Profile="(Default)">9600</Value>
-   </Setting>
-   <Setting Name="setPort_radioChannel" Type="System.String" Scope="User">
-     <Value Profile="(Default)">439.000</Value>
-   </Setting>
-   <Setting Name="setRadio_isOn" Type="System.Boolean" Scope="User">
-     <Value Profile="(Default)">False</Value>
-   </Setting>
-   <Setting Name="setRadio_Channels" Type="System.String" Scope="User">
-     <Value Profile="(Default)" />
-   </Setting>
+      <Value Profile="(Default)">***</Value>
+    </Setting>
+    <Setting Name="setPort_baudRateRadio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">9600</Value>
+    </Setting>
+    <Setting Name="setPort_radioChannel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">439.000</Value>
+    </Setting>
+    <Setting Name="setRadio_isOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setRadio_Channels" Type="System.Collections.Generic.List&lt;AgIO.CRadioChannel&gt;" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="setUDP_isSendNMEAToUDP" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setNTRIP_casterIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">69.75.31.235</Value>
+    </Setting>
+    <Setting Name="setNTRIP_casterURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">www.rtk2go.com</Value>
+    </Setting>
+    <Setting Name="setPort_portNameModuleFerti" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ferti</Value>
+    </Setting>
+    <Setting Name="setPort_wasModuleFertiConnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setGPS_lastSentence" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GGA</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -73,6 +73,7 @@
             this.oglSelf.TabIndex = 183;
             this.oglSelf.VSync = false;
             this.oglSelf.Load += new System.EventHandler(this.oglSelf_Load);
+            this.oglSelf.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.oglSelf_HelpRequested);
             this.oglSelf.Paint += new System.Windows.Forms.PaintEventHandler(this.oglSelf_Paint);
             this.oglSelf.MouseDown += new System.Windows.Forms.MouseEventHandler(this.oglSelf_MouseDown);
             this.oglSelf.Resize += new System.EventHandler(this.oglSelf_Resize);
@@ -178,30 +179,31 @@
             this.nudDistance.TabIndex = 16;
             this.nudDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudDistance.Click += new System.EventHandler(this.nudDistance_Click);
+            this.nudDistance.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.nudDistance_HelpRequested);
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(734, 0);
+            this.label5.Location = new System.Drawing.Point(712, 0);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(146, 32);
+            this.label5.Size = new System.Drawing.Size(172, 32);
             this.label5.TabIndex = 15;
-            this.label5.Text = "Tool Width (cm)";
+            this.label5.Text = "Tool Width";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(885, 5);
+            this.label6.Location = new System.Drawing.Point(901, 5);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 25);
+            this.label6.Size = new System.Drawing.Size(58, 25);
             this.label6.TabIndex = 341;
             this.label6.Text = "2";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tboxNameCurve
             // 
@@ -215,6 +217,7 @@
             this.tboxNameCurve.Size = new System.Drawing.Size(283, 27);
             this.tboxNameCurve.TabIndex = 10;
             this.tboxNameCurve.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tboxNameCurve.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.tboxNameCurve_HelpRequested);
             this.tboxNameCurve.Enter += new System.EventHandler(this.tboxNameCurve_Enter);
             this.tboxNameCurve.Leave += new System.EventHandler(this.tboxNameCurve_Leave);
             // 
@@ -230,6 +233,7 @@
             this.tboxNameLine.Size = new System.Drawing.Size(283, 27);
             this.tboxNameLine.TabIndex = 9;
             this.tboxNameLine.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tboxNameLine.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.tboxNameLine_HelpRequested);
             this.tboxNameLine.Enter += new System.EventHandler(this.tboxNameLine_Enter);
             this.tboxNameLine.Leave += new System.EventHandler(this.tboxNameLine_Leave);
             // 
@@ -298,6 +302,7 @@
             this.btnFlipOffset.TabIndex = 14;
             this.btnFlipOffset.UseVisualStyleBackColor = false;
             this.btnFlipOffset.Click += new System.EventHandler(this.btnFlipOffset_Click);
+            this.btnFlipOffset.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnFlipOffset_HelpRequested);
             // 
             // btnMakeBoundaryCurve
             // 
@@ -316,6 +321,7 @@
             this.btnMakeBoundaryCurve.TabIndex = 4;
             this.btnMakeBoundaryCurve.UseVisualStyleBackColor = false;
             this.btnMakeBoundaryCurve.Click += new System.EventHandler(this.btnMakeBoundaryCurve_Click);
+            this.btnMakeBoundaryCurve.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnMakeBoundaryCurve_HelpRequested);
             // 
             // btnDrawSections
             // 
@@ -334,6 +340,7 @@
             this.btnDrawSections.TabIndex = 11;
             this.btnDrawSections.UseVisualStyleBackColor = false;
             this.btnDrawSections.Click += new System.EventHandler(this.btnDrawSections_Click);
+            this.btnDrawSections.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnDrawSections_HelpRequested);
             // 
             // btnCancelTouch
             // 
@@ -353,6 +360,7 @@
             this.btnCancelTouch.TabIndex = 1;
             this.btnCancelTouch.UseVisualStyleBackColor = false;
             this.btnCancelTouch.Click += new System.EventHandler(this.btnCancelTouch_Click);
+            this.btnCancelTouch.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnCancelTouch_HelpRequested);
             // 
             // btnDeleteABLine
             // 
@@ -371,6 +379,7 @@
             this.btnDeleteABLine.TabIndex = 7;
             this.btnDeleteABLine.UseVisualStyleBackColor = false;
             this.btnDeleteABLine.Click += new System.EventHandler(this.btnDeleteABLine_Click);
+            this.btnDeleteABLine.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnDeleteABLine_HelpRequested);
             // 
             // btnDeleteCurve
             // 
@@ -389,6 +398,7 @@
             this.btnDeleteCurve.TabIndex = 6;
             this.btnDeleteCurve.UseVisualStyleBackColor = false;
             this.btnDeleteCurve.Click += new System.EventHandler(this.btnDeleteCurve_Click);
+            this.btnDeleteCurve.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnDeleteCurve_HelpRequested);
             // 
             // btnSelectABLine
             // 
@@ -407,6 +417,7 @@
             this.btnSelectABLine.TabIndex = 8;
             this.btnSelectABLine.UseVisualStyleBackColor = false;
             this.btnSelectABLine.Click += new System.EventHandler(this.btnSelectABLine_Click);
+            this.btnSelectABLine.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSelectABLine_HelpRequested);
             // 
             // btnSelectCurve
             // 
@@ -425,6 +436,7 @@
             this.btnSelectCurve.TabIndex = 5;
             this.btnSelectCurve.UseVisualStyleBackColor = false;
             this.btnSelectCurve.Click += new System.EventHandler(this.btnSelectCurve_Click);
+            this.btnSelectCurve.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSelectCurve_HelpRequested);
             // 
             // btnMakeCurve
             // 
@@ -444,6 +456,7 @@
             this.btnMakeCurve.TabIndex = 2;
             this.btnMakeCurve.UseVisualStyleBackColor = false;
             this.btnMakeCurve.Click += new System.EventHandler(this.BtnMakeCurve_Click);
+            this.btnMakeCurve.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnMakeCurve_HelpRequested);
             // 
             // btnMakeABLine
             // 
@@ -463,6 +476,7 @@
             this.btnMakeABLine.TabIndex = 3;
             this.btnMakeABLine.UseVisualStyleBackColor = false;
             this.btnMakeABLine.Click += new System.EventHandler(this.BtnMakeABLine_Click);
+            this.btnMakeABLine.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnMakeABLine_HelpRequested);
             // 
             // btnExit
             // 
@@ -481,16 +495,17 @@
             this.btnExit.TabIndex = 0;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnExit_HelpRequested);
             // 
             // lblCmInch
             // 
             this.lblCmInch.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCmInch.ForeColor = System.Drawing.Color.White;
-            this.lblCmInch.Location = new System.Drawing.Point(926, 0);
+            this.lblCmInch.Location = new System.Drawing.Point(963, 0);
             this.lblCmInch.Margin = new System.Windows.Forms.Padding(0);
             this.lblCmInch.Name = "lblCmInch";
             this.lblCmInch.Size = new System.Drawing.Size(39, 32);
-            this.lblCmInch.TabIndex = 351;
+            this.lblCmInch.TabIndex = 350;
             this.lblCmInch.Text = "cm";
             this.lblCmInch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -500,8 +515,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(1004, 709);
-            this.ControlBox = false;
-            this.Controls.Add(this.lblCmInch);
             this.Controls.Add(this.btnFlipOffset);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -529,13 +542,16 @@
             this.Controls.Add(this.oglSelf);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblCmInch);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormABDraw";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Click 2 points on the Boundary to Begin";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormABDraw_FormClosing);
             this.Load += new System.EventHandler(this.FormABDraw_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudDistance)).EndInit();
             this.ResumeLayout(false);

@@ -159,7 +159,7 @@ namespace AgOpenGPS
                     if (navPanelCounter-- < 1) panelNavigation.Visible = false;
                 }
 
-                // modif max
+                //Ajout-modification MEmprou et SPailleau Fertilisation
                 lblDateTime.Text = DateTime.Now.ToString("HH:mm:ss") + "\n\r" + DateTime.Now.ToString("ddd dd MMMM yyyy");
                 //lblTopData.Text = (tool.toolWidth * m2FtOrM).ToString("N2") + unitsFtM + " - " + vehicleFileName;
                 //lblFix.Text = FixQuality;
@@ -180,6 +180,8 @@ namespace AgOpenGPS
                 BatImage.Text = NiveauBatterie;
                 //----
                 label1.Text = vehicleFileName + " - " + (Math.Round(tool.toolWidth, 2)).ToString() + " m";
+                p_235.pgn[p_235.LargeurHi] = unchecked((byte)(((short)tool.toolWidth) >> 8));
+                p_235.pgn[p_235.LargeurLo] = unchecked((byte)(((short)tool.toolWidth)));
                 //fin
                 lblAge.Text = pn.age.ToString("N1");
 
@@ -486,11 +488,18 @@ namespace AgOpenGPS
 
             startSpeed = Vehicle.Default.setVehicle_startSpeed;
 
-            frameDayColor = Properties.Settings.Default.setDisplay_colorDayFrame;
-            frameNightColor = Properties.Settings.Default.setDisplay_colorNightFrame;
-            sectionColorDay = Properties.Settings.Default.setDisplay_colorSectionsDay;
-            fieldColorDay = Properties.Settings.Default.setDisplay_colorFieldDay;
-            fieldColorNight = Properties.Settings.Default.setDisplay_colorFieldNight;
+            frameDayColor = Properties.Settings.Default.setDisplay_colorDayFrame.CheckColorFor255();
+            frameNightColor = Properties.Settings.Default.setDisplay_colorNightFrame.CheckColorFor255();
+            sectionColorDay = Properties.Settings.Default.setDisplay_colorSectionsDay.CheckColorFor255();
+            fieldColorDay = Properties.Settings.Default.setDisplay_colorFieldDay.CheckColorFor255();
+            fieldColorNight = Properties.Settings.Default.setDisplay_colorFieldNight.CheckColorFor255();
+
+            Properties.Settings.Default.setDisplay_colorDayFrame = frameDayColor;
+            Properties.Settings.Default.setDisplay_colorNightFrame = frameNightColor;
+            Properties.Settings.Default.setDisplay_colorSectionsDay = sectionColorDay;
+            Properties.Settings.Default.setDisplay_colorFieldDay = fieldColorDay;
+            Properties.Settings.Default.setDisplay_colorFieldNight = fieldColorNight;
+            Properties.Settings.Default.Save();
 
             isSkyOn = Settings.Default.setMenu_isSkyOn;
             isTextureOn = Settings.Default.setDisplay_isTextureOn;
@@ -513,8 +522,6 @@ namespace AgOpenGPS
             vehicleOpacityByte = (byte)(255 * ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01));
             isVehicleImage = Properties.Settings.Default.setDisplay_isVehicleImage;
 
-
-            //displayFieldName = gStr.gsNone;
 
             string directoryName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
@@ -555,18 +562,29 @@ namespace AgOpenGPS
             string[] words = Properties.Settings.Default.setDisplay_customColors.Split(',');
             for (int i = 0; i < 16; i++)
             {
+                Color test;
                 customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);
+                test = Color.FromArgb(customColorsList[i]).CheckColorFor255();
+                int iCol = (test.A << 24) | (test.R << 16) | (test.G << 8) | test.B;
+                customColorsList[i] = iCol;
             }
 
+            Properties.Settings.Default.setDisplay_customColors = "";
+            for (int i = 0; i < 15; i++)
+                Properties.Settings.Default.setDisplay_customColors += customColorsList[i].ToString() + ",";
+            Properties.Settings.Default.setDisplay_customColors += customColorsList[15].ToString();
+
+            Properties.Settings.Default.Save();
+
             //load up colors
-            fieldColorDay = (Settings.Default.setDisplay_colorFieldDay);
-            sectionColorDay = (Settings.Default.setDisplay_colorSectionsDay);
-            fieldColorNight = (Settings.Default.setDisplay_colorFieldNight);
+            fieldColorDay = (Settings.Default.setDisplay_colorFieldDay.CheckColorFor255());
+            sectionColorDay = (Settings.Default.setDisplay_colorSectionsDay.CheckColorFor255());
+            fieldColorNight = (Settings.Default.setDisplay_colorFieldNight.CheckColorFor255());
 
-            textColorDay = Settings.Default.setDisplay_colorTextDay;
-            textColorNight = Settings.Default.setDisplay_colorTextNight;
+            textColorDay = Settings.Default.setDisplay_colorTextDay.CheckColorFor255();
+            textColorNight = Settings.Default.setDisplay_colorTextNight.CheckColorFor255();
 
-            vehicleColor = Settings.Default.setDisplay_colorVehicle;
+            vehicleColor = Settings.Default.setDisplay_colorVehicle.CheckColorFor255();
 
             isLightbarOn = Settings.Default.setMenu_isLightbarOn;
 
@@ -1080,18 +1098,31 @@ namespace AgOpenGPS
                 //0 at bottom for opengl, 0 at top for windows, so invert Y value
                 Point point = oglMain.PointToClient(Cursor.Position);
 
-                if (point.Y < 90 && point.Y > 30)
+                if (point.Y < 90 && point.Y > 30 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn))
                 {
                     int middle = oglMain.Width / 2 + oglMain.Width / 5;
                     if (point.X > middle - 80 && point.X < middle + 80)
                     {
+                        if (isTT)
+                        {
+                            MessageBox.Show(gStr.h_lblSwapDirectionCancel, gStr.gsHelp);
+                            ResetHelpBtn();
+                            return;
+                        }
                         SwapDirection();
                         return;
                     }
 
+                    //manual uturn triggering
                     middle = oglMain.Width / 2 - oglMain.Width / 4;
                     if (point.X > middle - 140 && point.X < middle && isUTurnOn)
                     {
+                        if (isTT)
+                        {
+                            MessageBox.Show(gStr.h_lblManualTurnCancelTouch, gStr.gsHelp);
+                            ResetHelpBtn();
+                            return;
+                        }
                         if (yt.isYouTurnTriggered)
                         {
                             yt.ResetYouTurn();
@@ -1106,6 +1137,12 @@ namespace AgOpenGPS
 
                     if (point.X > middle && point.X < middle + 140 && isUTurnOn)
                     {
+                        if (isTT)
+                        {
+                            MessageBox.Show(gStr.h_lblManualTurnCancelTouch, gStr.gsHelp);
+                            ResetHelpBtn();
+                            return;
+                        }
                         if (yt.isYouTurnTriggered)
                         {
                             yt.ResetYouTurn();
@@ -1124,12 +1161,24 @@ namespace AgOpenGPS
                     int middle = oglMain.Width / 2 - oglMain.Width / 4;
                     if (point.X > middle - 140 && point.X < middle && isLateralOn)
                     {
+                        if (isTT)
+                        {
+                            MessageBox.Show(gStr.h_lblLateralTurnTouch, gStr.gsHelp);
+                            ResetHelpBtn();
+                            return;
+                        }
                         yt.BuildManualYouLateral(false);
                         return;
                     }
 
                     if (point.X > middle && point.X < middle + 140 && isLateralOn)
                     {
+                        if (isTT)
+                        {
+                            MessageBox.Show(gStr.h_lblLateralTurnTouch, gStr.gsHelp);
+                            ResetHelpBtn();
+                            return;
+                        }
                         yt.BuildManualYouLateral(true);
                         return;
                     }
@@ -1141,6 +1190,13 @@ namespace AgOpenGPS
 
                 if (point.X > centerLeft - 40 && point.X < centerLeft + 40 && point.Y > centerUp - 60 && point.Y < centerUp + 60)
                 {
+                    if (isTT)
+                    {
+                        MessageBox.Show(gStr.h_lblVehicleDirectionResetTouch, gStr.gsHelp);
+                        ResetHelpBtn();
+                        return;
+                    }
+
                     Array.Clear(stepFixPts, 0, stepFixPts.Length);
                     isFirstHeadingSet = false;
                     isReverse = false;
@@ -1212,10 +1268,23 @@ namespace AgOpenGPS
                 //----
 
                 //fin
+                //check for help touch on steer circle
+                if (isTT)
+                {
+                    int sizer = oglMain.Height / 9;
+                    if (point.Y > oglMain.Height - sizer && point.X > oglMain.Width - sizer)
+                    {
+                        MessageBox.Show(gStr.h_lblSteerCircleTouch, gStr.gsHelp);
+                        ResetHelpBtn();
+                        return;
+                    }
+                }
                 mouseX = point.X;
                 mouseY = oglMain.Height - point.Y;
                 leftMouseDownOnOpenGL = true;
             }
+
+            ResetHelpBtn();
         }
         //Ajout-modification MEmprou et SPailleau
         private void oglZoom_MouseClick(object sender, MouseEventArgs e)

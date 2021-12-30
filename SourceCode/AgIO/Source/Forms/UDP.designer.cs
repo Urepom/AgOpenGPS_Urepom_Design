@@ -32,6 +32,10 @@ namespace AgIO
         public int cntrModule3In = 0;
         public int cntrModule3Out = 0;
 
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public int cntrModuleFertiIn = 0;
+        public int cntrModuleFertiOut = 0;
+
         public bool isTrafficOn = true;
     }
 
@@ -214,7 +218,10 @@ namespace AgIO
                 traffic.cntrPGNFromAOG += data.Length;
 
                 //Send out to udp network
-                if (isUDPNetworkConnected) SendUDPMessage(data);
+                if (isUDPNetworkConnected)
+                {
+                    SendUDPMessage(data);
+                }
 
                 //send out to VR Loopback
                 SendToLoopBackMessageVR(data);
@@ -251,6 +258,12 @@ namespace AgIO
                             {
                                 SendModule2Port(data, data.Length);
                                 SendModule1Port(data, data.Length);
+                                break;
+                            }
+                        case 0xEB: //235 machine config
+                            {
+                                SendModuleFertiPort(data, data.Length);
+                                SendModuleFertiPort(data, data.Length);
                                 break;
                             }
                     }

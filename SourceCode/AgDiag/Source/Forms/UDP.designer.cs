@@ -235,6 +235,17 @@ namespace AgDiag
 
                             break;
                         }
+                    //Ajout-modification MEmprou et SPailleau Fertilisation
+                    case 235:
+                        {
+
+                            for (int i = 5; i < data.Length; i++)
+                            {
+                                asFerti.pgn[i] = data[i];
+                            }
+
+                            break;
+                        }
 
                     default:
                         {

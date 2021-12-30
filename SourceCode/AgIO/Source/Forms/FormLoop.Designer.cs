@@ -65,6 +65,10 @@ namespace AgIO
             this.uDPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lblModFertiComm = new System.Windows.Forms.Label();
+            this.lblFromModuleFerti = new System.Windows.Forms.Label();
+            this.lblToModuleFerti = new System.Windows.Forms.Label();
             this.btnRadio = new System.Windows.Forms.Button();
             this.cboxLogNMEA = new System.Windows.Forms.CheckBox();
             this.btnStartStopNtrip = new System.Windows.Forms.Button();
@@ -400,7 +404,7 @@ namespace AgIO
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(64, 64);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsMenuStrip});
-            this.statusStrip1.Location = new System.Drawing.Point(87, 414);
+            this.statusStrip1.Location = new System.Drawing.Point(83, 449);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 11, 0);
             this.statusStrip1.Size = new System.Drawing.Size(95, 76);
@@ -496,6 +500,10 @@ namespace AgIO
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.lblModFertiComm);
+            this.panel1.Controls.Add(this.lblFromModuleFerti);
+            this.panel1.Controls.Add(this.lblToModuleFerti);
             this.panel1.Controls.Add(this.btnRadio);
             this.panel1.Controls.Add(this.cboxLogNMEA);
             this.panel1.Controls.Add(this.btnStartStopNtrip);
@@ -538,8 +546,66 @@ namespace AgIO
             this.panel1.Location = new System.Drawing.Point(4, 4);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(4);
-            this.panel1.Size = new System.Drawing.Size(411, 491);
+            this.panel1.Size = new System.Drawing.Size(411, 525);
             this.panel1.TabIndex = 194;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::AgIO.Properties.Resources.B_Ferti;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.button1.Location = new System.Drawing.Point(268, 404);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 48);
+            this.button1.TabIndex = 466;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lblModFertiComm
+            // 
+            this.lblModFertiComm.BackColor = System.Drawing.Color.Transparent;
+            this.lblModFertiComm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModFertiComm.ForeColor = System.Drawing.Color.Black;
+            this.lblModFertiComm.Location = new System.Drawing.Point(115, 414);
+            this.lblModFertiComm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblModFertiComm.Name = "lblModFertiComm";
+            this.lblModFertiComm.Size = new System.Drawing.Size(80, 27);
+            this.lblModFertiComm.TabIndex = 465;
+            this.lblModFertiComm.Text = "--";
+            this.lblModFertiComm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFromModuleFerti
+            // 
+            this.lblFromModuleFerti.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromModuleFerti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromModuleFerti.ForeColor = System.Drawing.Color.Black;
+            this.lblFromModuleFerti.Location = new System.Drawing.Point(344, 412);
+            this.lblFromModuleFerti.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFromModuleFerti.Name = "lblFromModuleFerti";
+            this.lblFromModuleFerti.Size = new System.Drawing.Size(64, 27);
+            this.lblFromModuleFerti.TabIndex = 464;
+            this.lblFromModuleFerti.Text = "---";
+            this.lblFromModuleFerti.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblToModuleFerti
+            // 
+            this.lblToModuleFerti.BackColor = System.Drawing.Color.Transparent;
+            this.lblToModuleFerti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblToModuleFerti.ForeColor = System.Drawing.Color.Black;
+            this.lblToModuleFerti.Location = new System.Drawing.Point(202, 412);
+            this.lblToModuleFerti.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblToModuleFerti.Name = "lblToModuleFerti";
+            this.lblToModuleFerti.Size = new System.Drawing.Size(64, 27);
+            this.lblToModuleFerti.TabIndex = 463;
+            this.lblToModuleFerti.Text = "---";
+            this.lblToModuleFerti.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnRadio
             // 
@@ -551,7 +617,7 @@ namespace AgIO
             this.btnRadio.ForeColor = System.Drawing.Color.White;
             this.btnRadio.Image = global::AgIO.Properties.Resources.RadioSettings;
             this.btnRadio.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnRadio.Location = new System.Drawing.Point(254, 423);
+            this.btnRadio.Location = new System.Drawing.Point(248, 459);
             this.btnRadio.Margin = new System.Windows.Forms.Padding(4);
             this.btnRadio.Name = "btnRadio";
             this.btnRadio.Size = new System.Drawing.Size(63, 58);
@@ -607,7 +673,7 @@ namespace AgIO
             this.btnExit.ForeColor = System.Drawing.Color.White;
             this.btnExit.Image = global::AgIO.Properties.Resources.SwitchOff;
             this.btnExit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnExit.Location = new System.Drawing.Point(10, 423);
+            this.btnExit.Location = new System.Drawing.Point(4, 459);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(63, 58);
@@ -625,7 +691,7 @@ namespace AgIO
             this.btnNTRIP.ForeColor = System.Drawing.Color.White;
             this.btnNTRIP.Image = global::AgIO.Properties.Resources.NtripSettings;
             this.btnNTRIP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnNTRIP.Location = new System.Drawing.Point(177, 423);
+            this.btnNTRIP.Location = new System.Drawing.Point(171, 459);
             this.btnNTRIP.Margin = new System.Windows.Forms.Padding(4);
             this.btnNTRIP.Name = "btnNTRIP";
             this.btnNTRIP.Size = new System.Drawing.Size(63, 58);
@@ -643,7 +709,7 @@ namespace AgIO
             this.btnRunAOG.ForeColor = System.Drawing.Color.White;
             this.btnRunAOG.Image = global::AgIO.Properties.Resources.AgIOBtn;
             this.btnRunAOG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnRunAOG.Location = new System.Drawing.Point(331, 423);
+            this.btnRunAOG.Location = new System.Drawing.Point(325, 459);
             this.btnRunAOG.Margin = new System.Windows.Forms.Padding(4);
             this.btnRunAOG.Name = "btnRunAOG";
             this.btnRunAOG.Size = new System.Drawing.Size(63, 58);
@@ -808,7 +874,7 @@ namespace AgIO
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(419, 497);
+            this.ClientSize = new System.Drawing.Size(419, 536);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -883,6 +949,10 @@ namespace AgIO
         private System.Windows.Forms.ToolStripMenuItem toolStripAgDiag;
         private System.Windows.Forms.CheckBox cboxLogNMEA;
         private System.Windows.Forms.Button btnRadio;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblModFertiComm;
+        private System.Windows.Forms.Label lblFromModuleFerti;
+        private System.Windows.Forms.Label lblToModuleFerti;
     }
 }
 

@@ -241,4 +241,7 @@
   <data name="Sablier" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\Sablier.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="B_Ferti" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\B_Ferti.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

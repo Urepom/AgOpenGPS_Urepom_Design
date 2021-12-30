@@ -153,21 +153,43 @@ namespace AgIO
                 btnCloseSerialModule3.Enabled = false;
                 btnOpenSerialModule3.Enabled = true;
             }
+            //Ajout-modification MEmprou et SPailleau Fertilisation 
+            if (mf.spModuleFerti.IsOpen)
+            {
+                cboxferti.Enabled = false;
+                btnCloseSerialModuleFerti.Enabled = true;
+                btnOpenSerialModuleFerti.Enabled = false;
+            }
+            else
+            {
+                cboxferti.Enabled = true;
+                btnCloseSerialModuleFerti.Enabled = false;
+                btnOpenSerialModuleFerti.Enabled = true;
+            }
 
             //load the port box with valid port names
             cboxModule1Port.Items.Clear();
             cboxModule2Port.Items.Clear();
             cboxModule3Port.Items.Clear();
+            //Ajout-modification MEmprou et SPailleau Fertilisation 
+            cboxferti.Items.Clear();
+
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
             {
                 cboxModule1Port.Items.Add(s);
                 cboxModule2Port.Items.Add(s);
                 cboxModule3Port.Items.Add(s);
+                //Ajout-modification MEmprou et SPailleau Fertilisation 
+                cboxferti.Items.Add(s);
             }
 
             lblCurrentModule1Port.Text = mf.spModule1.PortName;
             lblCurrentModule2Port.Text = mf.spModule2.PortName;
             lblCurrentModule3Port.Text = mf.spModule3.PortName;
+
+            cboxLastSentence.Text = mf.lastSentence;
+            //Ajout-modification MEmprou et SPailleau Fertilisation 
+            lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
 
             ListComPort.Text = "Click on scan to search";
 
@@ -294,12 +316,17 @@ namespace AgIO
             lblGPS.Text = mf.spGPS.PortName;
             lblIMU.Text = mf.spIMU.PortName;
             lblMachine.Text = mf.spModule2.PortName;
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            lblferti.Text = mf.spModule2.PortName;
 
             lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
 
             lblFromModule1.Text = mf.traffic.cntrModule1In == 0 ? "--" : (mf.traffic.cntrModule1In).ToString();
 
             lblFromModule2.Text = mf.traffic.cntrModule2In == 0 ? "--" : (mf.traffic.cntrModule2In).ToString();
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            lblfromferti.Text = mf.traffic.cntrModuleFertiIn == 0 ? "--" : (mf.traffic.cntrModuleFertiIn).ToString();
+
 
             lblFromMU.Text = mf.traffic.cntrIMUIn == 0 ? "--" : (mf.traffic.cntrIMUIn).ToString();
 
@@ -403,6 +430,15 @@ namespace AgIO
                                     cboxBaud.SelectedItem = "115200";
                                 }
                                 Probably = "---> GPS probable";
+                            }
+                            else if (s_Caption.Contains("CP210x"))
+                            {
+                                if (!mf.spGPS.IsOpen)
+                                {
+                                    cboxferti.SelectedIndex = i;
+                                    //cboxBaud.SelectedItem = "115200";
+                                }
+                                Probably = "---> Fertilisation localisée probable";
                             }
                             else if (s_Manufact.Contains("standar"))
                             {
@@ -598,5 +634,54 @@ namespace AgIO
                 btnOpenSerialModule3.Enabled = true;
             }
         }
+        private void cboxLastSentence_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.setGPS_lastSentence = cboxLastSentence.Text;
+            mf.lastSentence = cboxLastSentence.Text;
+            Properties.Settings.Default.Save();
+        }
+        //Ajout-modification MEmprou et SPailleau Fertilisation 
+        private void btnOpenSerialFerti_Click(object sender, EventArgs e)
+        {
+            mf.OpenModuleFertiPort();
+            if (mf.spModuleFerti.IsOpen)
+            {
+                cboxferti.Enabled = false;
+                btnCloseSerialModuleFerti.Enabled = true;
+                btnOpenSerialModuleFerti.Enabled = false;
+                lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
+            }
+            else
+            {
+                cboxferti.Enabled = true;
+                btnCloseSerialModuleFerti.Enabled = false;
+                btnOpenSerialModuleFerti.Enabled = true;
+            }
+        }
+        //Ajout-modification MEmprou et SPailleau Fertilisation 
+        private void btnCloseSerialFerti_Click(object sender, EventArgs e)
+        {
+            mf.CloseModuleFertiPort();
+            if (mf.spModuleFerti.IsOpen)
+            {
+                cboxferti.Enabled = false;
+                btnCloseSerialModuleFerti.Enabled = true;
+                btnOpenSerialModuleFerti.Enabled = false;
+            }
+            else
+            {
+                cboxferti.Enabled = true;
+                btnCloseSerialModuleFerti.Enabled = false;
+                btnOpenSerialModuleFerti.Enabled = true;
+            }
+        }
+        //Ajout-modification MEmprou et SPailleau Fertilisation 
+        private void cboxferti_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mf.spModuleFerti.PortName = cboxferti.Text;
+            FormLoop.portNameModuleFerti = cboxferti.Text;
+            lblCurrentModuleFertiPort.Text = cboxferti.Text;
+        }
+    
     } //class
 } //namespace

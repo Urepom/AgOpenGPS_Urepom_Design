@@ -9,20 +9,20 @@
 //------------------------------------------------------------------------------
 
 namespace AgIO.Properties {
-
-
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
+        
         public static Settings Default {
             get {
                 return defaultInstance;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("GPS**")]
@@ -34,7 +34,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameGPS"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9600")]
@@ -46,7 +46,7 @@ namespace AgIO.Properties {
                 this["setPort_baudRateGPS"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -58,7 +58,7 @@ namespace AgIO.Properties {
                 this["setUDP_isOn"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -70,7 +70,7 @@ namespace AgIO.Properties {
                 this["setPort_wasModule1Connected"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Mod1**")]
@@ -82,7 +82,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameModule1"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -94,7 +94,7 @@ namespace AgIO.Properties {
                 this["setPort_wasModule3Connected"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Auto**")]
@@ -106,7 +106,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameModule3"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9999")]
@@ -118,7 +118,7 @@ namespace AgIO.Properties {
                 this["setIP_thisPort"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.255")]
@@ -130,7 +130,7 @@ namespace AgIO.Properties {
                 this["setIP_autoSteerIP"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8888")]
@@ -142,19 +142,7 @@ namespace AgIO.Properties {
                 this["setIP_autoSteerPort"] = value;
             }
         }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("147.100.179.214")]
-        public string setNTRIP_casterIP {
-            get {
-                return ((string)(this["setNTRIP_casterIP"]));
-            }
-            set {
-                this["setNTRIP_casterIP"] = value;
-            }
-        }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2101")]
@@ -166,7 +154,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_casterPort"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("IGS01")]
@@ -178,7 +166,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_mount"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -190,7 +178,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_userName"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -202,7 +190,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_userPassword"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -214,7 +202,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_isOn"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
@@ -226,7 +214,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_sendGGAInterval"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -238,7 +226,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_sendToUDPPort"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("53")]
@@ -250,7 +238,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_manualLat"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("-111")]
@@ -262,19 +250,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_manualLon"] = value;
             }
         }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("caster.centipede.fr")]
-        public string setNTRIP_casterURL {
-            get {
-                return ((string)(this["setNTRIP_casterURL"]));
-            }
-            set {
-                this["setNTRIP_casterURL"] = value;
-            }
-        }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -286,7 +262,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_isGGAManual"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -298,7 +274,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_isTCP"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -310,7 +286,7 @@ namespace AgIO.Properties {
                 this["setNTRIP_isHTTP10"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -322,7 +298,7 @@ namespace AgIO.Properties {
                 this["setPgm_isFirstRun"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -334,7 +310,7 @@ namespace AgIO.Properties {
                 this["setPgm_defaultLat"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -346,7 +322,7 @@ namespace AgIO.Properties {
                 this["setPgm_defaultLon"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("en")]
@@ -358,7 +334,7 @@ namespace AgIO.Properties {
                 this["setF_culture"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Default")]
@@ -370,7 +346,7 @@ namespace AgIO.Properties {
                 this["setF_workingDirectory"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -382,7 +358,7 @@ namespace AgIO.Properties {
                 this["setGPS_SimLatitude"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -394,7 +370,7 @@ namespace AgIO.Properties {
                 this["setGPS_SimLongitude"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -406,7 +382,7 @@ namespace AgIO.Properties {
                 this["setComm_commName"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("GPS2")]
@@ -418,7 +394,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameGPS2"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9600")]
@@ -430,7 +406,7 @@ namespace AgIO.Properties {
                 this["setPort_baudRateGPS2"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Mod2")]
@@ -442,7 +418,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameModule2"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -454,7 +430,7 @@ namespace AgIO.Properties {
                 this["setPort_wasModule2Connected"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -466,7 +442,7 @@ namespace AgIO.Properties {
                 this["setPort_wasIMUConnected"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("IMU")]
@@ -478,7 +454,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameIMU"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -490,7 +466,7 @@ namespace AgIO.Properties {
                 this["setPort_wasGPSConnected"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("***")]
@@ -502,7 +478,7 @@ namespace AgIO.Properties {
                 this["setPort_portNameRadio"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("9600")]
@@ -514,7 +490,7 @@ namespace AgIO.Properties {
                 this["setPort_baudRateRadio"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("439.000")]
@@ -526,7 +502,7 @@ namespace AgIO.Properties {
                 this["setPort_radioChannel"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -538,16 +514,87 @@ namespace AgIO.Properties {
                 this["setRadio_isOn"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public System.Collections.Generic.List<AgIO.CRadioChannel> setRadio_Channels {
+        public global::System.Collections.Generic.List<AgIO.CRadioChannel> setRadio_Channels {
             get {
-                return ((System.Collections.Generic.List<AgIO.CRadioChannel>)(this["setRadio_Channels"]));
+                return ((global::System.Collections.Generic.List<AgIO.CRadioChannel>)(this["setRadio_Channels"]));
             }
             set {
                 this["setRadio_Channels"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setUDP_isSendNMEAToUDP {
+            get {
+                return ((bool)(this["setUDP_isSendNMEAToUDP"]));
+            }
+            set {
+                this["setUDP_isSendNMEAToUDP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("69.75.31.235")]
+        public string setNTRIP_casterIP {
+            get {
+                return ((string)(this["setNTRIP_casterIP"]));
+            }
+            set {
+                this["setNTRIP_casterIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("www.rtk2go.com")]
+        public string setNTRIP_casterURL {
+            get {
+                return ((string)(this["setNTRIP_casterURL"]));
+            }
+            set {
+                this["setNTRIP_casterURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ferti")]
+        public string setPort_portNameModuleFerti {
+            get {
+                return ((string)(this["setPort_portNameModuleFerti"]));
+            }
+            set {
+                this["setPort_portNameModuleFerti"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setPort_wasModuleFertiConnected {
+            get {
+                return ((bool)(this["setPort_wasModuleFertiConnected"]));
+            }
+            set {
+                this["setPort_wasModuleFertiConnected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("GGA")]
+        public string setGPS_lastSentence {
+            get {
+                return ((string)(this["setGPS_lastSentence"]));
+            }
+            set {
+                this["setGPS_lastSentence"] = value;
             }
         }
     }

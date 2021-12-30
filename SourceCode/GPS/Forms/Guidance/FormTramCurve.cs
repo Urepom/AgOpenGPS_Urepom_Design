@@ -8,6 +8,9 @@ namespace AgOpenGPS
         //access to the main GPS form and all its variables
         private readonly FormGPS mf = null;
 
+        private bool isClosing;
+
+
         public FormTramCurve(Form callingForm)
         {
             //get copy of the calling main form
@@ -32,7 +35,7 @@ namespace AgOpenGPS
             nudPasses.Value = Properties.Settings.Default.setTram_passes;
             nudPasses.ValueChanged += nudPasses_ValueChanged;
 
-           // mf.panelRight.Enabled = false;
+            //Ajout-modification MEmprou et SPailleau Fertilisation mf.panelRight.Enabled = false;
 
             lblTrack.Text = (mf.vehicle.trackWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
             mf.tool.halfToolWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) / 2.0;
@@ -63,7 +66,7 @@ namespace AgOpenGPS
         private void btnSave_Click(object sender, EventArgs e)
         {
             //mf.ABLine.moveDistance = 0;
-           // mf.panelRight.Enabled = true;
+            //Ajout-modification MEmprou et SPailleau Fertilisation mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
 
             mf.offX = 0;
@@ -92,7 +95,7 @@ namespace AgOpenGPS
 
             mf.FileSaveTram();
             mf.FixTramModeButton();
-
+            isClosing = true;
             Close();
 
         }
@@ -184,7 +187,7 @@ namespace AgOpenGPS
             mf.tram.tramBndOuterArr?.Clear();
             mf.tram.tramBndInnerArr?.Clear();
 
-            //mf.panelRight.Enabled = true;
+            //Ajout-modification MEmprou et SPailleau Fertilisation mf.panelRight.Enabled = true;
             mf.panelDrag.Visible = false;
             mf.offX = 0;
             mf.offY = 0;
@@ -192,6 +195,7 @@ namespace AgOpenGPS
             mf.tram.displayMode = 0;
             mf.FileSaveTram();
             mf.FixTramModeButton();
+            isClosing = true;
             Close();
         }
 
@@ -219,5 +223,62 @@ namespace AgOpenGPS
                     break;
             }
         }
+
+        private void FormTramCurve_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isClosing)
+            {
+                e.Cancel = true;
+                return;
+            }
+        }
+
+        #region Help
+        private void btnAdjLeft_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnAdjHalfToolWidth, gStr.gsHelp);
+        }
+
+        private void btnAdjRight_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnAdjHalfToolWidth, gStr.gsHelp);
+        }
+
+        private void btnLeft_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnLeftRightNudge, gStr.gsHelp);
+        }
+
+        private void btnRight_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnLeftRightNudge, gStr.gsHelp);
+        }
+
+        private void btnSwapAB_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnSwapAB, gStr.gsHelp);
+        }
+
+        private void btnMode_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.h_btnTramDisplayMode, gStr.gsHelp);
+        }
+
+        private void nudPasses_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_nudPasses, gStr.gsHelp);
+        }
+
+        private void btnCancel_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnCancel, gStr.gsHelp);
+        }
+
+        private void btnSave_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.ht_btnSave, gStr.gsHelp);
+        }
+
+        #endregion
     }
 }

@@ -42,3 +42,6 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\o
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.CopyComplete
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.pdb
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.gStr.fr.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\fr\AgIO.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\fr\AgIO.resources.dll

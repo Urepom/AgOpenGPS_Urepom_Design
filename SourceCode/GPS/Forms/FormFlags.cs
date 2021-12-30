@@ -13,7 +13,9 @@ namespace AgOpenGPS
             //get copy of the calling main form
             mf = callingForm as FormGPS;
             InitializeComponent();
-
+            //ajout max
+            label2.Text = gStr.gsDistanceToFlag;
+            //fin
             //this.bntOK.Text = gStr.gsForNow;
             //this.btnSave.Text = gStr.gsToFile;
 

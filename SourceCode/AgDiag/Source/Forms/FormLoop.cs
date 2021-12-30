@@ -109,6 +109,23 @@ namespace AgDiag
             lblSet0.Text = asConfig.pgn[asConfig.set0].ToString();
             lblPulseCount.Text = asConfig.pgn[asConfig.maxPulse].ToString();
             lblMinSpeed.Text = asConfig.pgn[asConfig.minSpeed].ToString();
+
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            fertiSpeed.Text = (asFerti.pgn[asFerti.speedHi] << 8 | asFerti.pgn[asFerti.speedLo]).ToString();
+            fertiDebit.Text = (asFerti.pgn[asFerti.DebitHi] << 8 | asFerti.pgn[asFerti.DebitLo]).ToString();
+            fertiStatut.Text = asFerti.pgn[asFerti.Ferti_On].ToString();
+            fertiLargeur.Text = (asFerti.pgn[asFerti.LargeurHi] << 8 | asFerti.pgn[asFerti.LargeurLo]).ToString();
+            lblRincageFerti.Text = asFerti.pgn[asFerti.Rincage].ToString();
+        }
+
+        private void label38_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label37_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void FormLoop_Load(object sender, EventArgs e)

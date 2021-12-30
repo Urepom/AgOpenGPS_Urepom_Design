@@ -491,8 +491,8 @@ namespace AgOpenGPS
                                 vecFix.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
                                 vecFix.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
                                 vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
-                                if (words.Length == 4) vecFix.now = DateTime.Parse(words[3]); //ajout max timerKML
-                                else vecFix.now = DateTime.Now; //ajout max timerKML
+                                if (words.Length == 4) vecFix.now = DateTime.Parse(words[3]); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                else vecFix.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 section[0].triangleList.Add(vecFix);
                             }
 
@@ -746,7 +746,7 @@ namespace AgOpenGPS
 
                         CalculateMinMax();
                         bnd.BuildTurnLines();
-                        if (bnd.bndList.Count > 0) btnMakeLinesFromBoundary.Visible = true;
+                        if (bnd.bndList.Count > 0) btnABDraw.Visible = true;
                     }
 
                     catch (Exception e)
@@ -1084,7 +1084,7 @@ namespace AgOpenGPS
                             for (int i = 0; i < count2; i++)
                                 writer.WriteLine((Math.Round(triList[i].easting, 3)).ToString(CultureInfo.InvariantCulture) +
                                     "," + (Math.Round(triList[i].northing, 3)).ToString(CultureInfo.InvariantCulture) +
-                                     "," + (Math.Round(triList[i].heading, 3)).ToString(CultureInfo.InvariantCulture) + "," + triList[i].now.ToString("yyyy-MM-ddTHH:mm:ss"));  //ajout max timerKML
+                                     "," + (Math.Round(triList[i].heading, 3)).ToString(CultureInfo.InvariantCulture) + "," + triList[i].now.ToString("yyyy-MM-ddTHH:mm:ss"));  //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                         }
                         else
                         {
@@ -1305,7 +1305,7 @@ namespace AgOpenGPS
             {
                 writer.WriteLine("$Headland");
 
-                if (bnd.bndList[0].hdLine.Count > 0)
+                if (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0)
                 {
                     for (int i = 0; i < bnd.bndList.Count; i++)
                     {
@@ -1314,8 +1314,8 @@ namespace AgOpenGPS
                         {
                             for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
                                 writer.WriteLine(Math.Round(bnd.bndList[i].hdLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                 Math.Round(bnd.bndList[i].hdLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                 Math.Round(bnd.bndList[i].hdLine[j].heading, 3).ToString(CultureInfo.InvariantCulture));
+                                                    Math.Round(bnd.bndList[i].hdLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                    Math.Round(bnd.bndList[i].hdLine[j].heading, 3).ToString(CultureInfo.InvariantCulture));
                         }
                     }
                 }
@@ -1894,10 +1894,10 @@ namespace AgOpenGPS
                             cntr++;
                             if (Properties.Settings.Default.setTimer_KML == true)
                             {
-                                kml.WriteStartElement("TimeSpan"); //ajout max timerKML
-                                kml.WriteElementString("begin", triList[1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //ajout max timerKML
-                                kml.WriteElementString("end", triList[triList.Count - 1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //ajout max timerKML
-                                kml.WriteEndElement();//TimeSpan //ajout max timerKML
+                                kml.WriteStartElement("TimeSpan"); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                kml.WriteElementString("begin", triList[1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                kml.WriteElementString("end", triList[triList.Count - 1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                kml.WriteEndElement();//TimeSpan //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                             }
                             string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
                                 ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");

@@ -164,7 +164,7 @@ namespace AgDiag
             /// PGN - 238 - EE 
             /// raiseTime=5  lowerTime=6   enableHyd= 7 set0 = 8
             /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEF, 3, 0, 0, 0, 0xCC };
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEE, 3, 0, 0, 0, 0xCC };
             public int raiseTime = 5;
             public int lowerTime = 6;
             public int enableHyd = 7;
@@ -186,7 +186,27 @@ namespace AgDiag
             {
             }
         }
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public class CPGN_EB
+        {
+            /// <summary>
+            /// PGN - 235 - EB
+            /// speed=5-6  on/off=7  débit = 8-9 largeur 10-11 rincage 12
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEB, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public int speedLo = 5;
+            public int speedHi = 6;
+            public int Ferti_On = 7;
+            public int DebitLo = 8;
+            public int DebitHi = 9;
+            public int LargeurLo = 10;
+            public int LargeurHi = 11;
+            public int Rincage = 12;
 
+            public void Reset()
+            {
+            }
+        }
 
         //pgn instances
 
@@ -220,6 +240,9 @@ namespace AgDiag
         /// machineConfig PGN - 238 - EE
         /// </summary>
         public CPGN_EE maConfig = new CPGN_EE();
+
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public CPGN_EB asFerti = new CPGN_EB();
 
 
         ///// <summary>

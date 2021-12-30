@@ -41,6 +41,16 @@ namespace AgDiag
             this.lblSection7 = new System.Windows.Forms.Label();
             this.lblSection8 = new System.Windows.Forms.Label();
             this.panelBack = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.fertiLargeur = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.fertiSpeed = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.fertiStatut = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.fertiDebit = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.lblDefaultSends = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -99,7 +109,10 @@ namespace AgDiag
             this.lblPulseCount = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.lblMinSpeed = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.lblRincageFerti = new System.Windows.Forms.Label();
             this.panelBack.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -218,6 +231,7 @@ namespace AgDiag
             // panelBack
             // 
             this.panelBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(50)))));
+            this.panelBack.Controls.Add(this.panel5);
             this.panelBack.Controls.Add(this.label20);
             this.panelBack.Controls.Add(this.lblDefaultSends);
             this.panelBack.Controls.Add(this.panel4);
@@ -227,8 +241,146 @@ namespace AgDiag
             this.panelBack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBack.Location = new System.Drawing.Point(2, 2);
             this.panelBack.Name = "panelBack";
-            this.panelBack.Size = new System.Drawing.Size(472, 421);
+            this.panelBack.Size = new System.Drawing.Size(472, 472);
             this.panelBack.TabIndex = 182;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Controls.Add(this.lblRincageFerti);
+            this.panel5.Controls.Add(this.label32);
+            this.panel5.Controls.Add(this.fertiLargeur);
+            this.panel5.Controls.Add(this.label24);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Controls.Add(this.fertiSpeed);
+            this.panel5.Controls.Add(this.label35);
+            this.panel5.Controls.Add(this.fertiStatut);
+            this.panel5.Controls.Add(this.label37);
+            this.panel5.Controls.Add(this.fertiDebit);
+            this.panel5.Location = new System.Drawing.Point(7, 398);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(458, 52);
+            this.panel5.TabIndex = 253;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label32.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.White;
+            this.label32.Location = new System.Drawing.Point(224, 25);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(63, 19);
+            this.label32.TabIndex = 254;
+            this.label32.Text = "Largeur";
+            // 
+            // fertiLargeur
+            // 
+            this.fertiLargeur.AutoSize = true;
+            this.fertiLargeur.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.fertiLargeur.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fertiLargeur.ForeColor = System.Drawing.Color.White;
+            this.fertiLargeur.Location = new System.Drawing.Point(288, 25);
+            this.fertiLargeur.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fertiLargeur.Name = "fertiLargeur";
+            this.fertiLargeur.Size = new System.Drawing.Size(44, 19);
+            this.fertiLargeur.TabIndex = 255;
+            this.fertiLargeur.Text = "12.3";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label24.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(4, 2);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(40, 19);
+            this.label24.TabIndex = 223;
+            this.label24.Text = "Ferti";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label33.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.ForeColor = System.Drawing.Color.White;
+            this.label33.Location = new System.Drawing.Point(119, 2);
+            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(52, 19);
+            this.label33.TabIndex = 239;
+            this.label33.Text = "Speed";
+            // 
+            // fertiSpeed
+            // 
+            this.fertiSpeed.AutoSize = true;
+            this.fertiSpeed.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.fertiSpeed.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fertiSpeed.ForeColor = System.Drawing.Color.White;
+            this.fertiSpeed.Location = new System.Drawing.Point(172, 2);
+            this.fertiSpeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fertiSpeed.Name = "fertiSpeed";
+            this.fertiSpeed.Size = new System.Drawing.Size(44, 19);
+            this.fertiSpeed.TabIndex = 240;
+            this.fertiSpeed.Text = "12.3";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label35.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.White;
+            this.label35.Location = new System.Drawing.Point(78, 25);
+            this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(93, 19);
+            this.label35.TabIndex = 241;
+            this.label35.Text = "Statut pulvé";
+            // 
+            // fertiStatut
+            // 
+            this.fertiStatut.AutoSize = true;
+            this.fertiStatut.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.fertiStatut.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fertiStatut.ForeColor = System.Drawing.Color.White;
+            this.fertiStatut.Location = new System.Drawing.Point(172, 25);
+            this.fertiStatut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fertiStatut.Name = "fertiStatut";
+            this.fertiStatut.Size = new System.Drawing.Size(44, 19);
+            this.fertiStatut.TabIndex = 242;
+            this.fertiStatut.Text = "12.3";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label37.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.ForeColor = System.Drawing.Color.White;
+            this.label37.Location = new System.Drawing.Point(241, 2);
+            this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(46, 19);
+            this.label37.TabIndex = 243;
+            this.label37.Text = "Débit";
+            this.label37.Click += new System.EventHandler(this.label37_Click);
+            // 
+            // fertiDebit
+            // 
+            this.fertiDebit.AutoSize = true;
+            this.fertiDebit.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.fertiDebit.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fertiDebit.ForeColor = System.Drawing.Color.White;
+            this.fertiDebit.Location = new System.Drawing.Point(288, 2);
+            this.fertiDebit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fertiDebit.Name = "fertiDebit";
+            this.fertiDebit.Size = new System.Drawing.Size(44, 19);
+            this.fertiDebit.TabIndex = 244;
+            this.fertiDebit.Text = "12.3";
+            this.fertiDebit.Click += new System.EventHandler(this.label38_Click);
             // 
             // label20
             // 
@@ -236,7 +388,7 @@ namespace AgDiag
             this.label20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(50)))));
             this.label20.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.White;
-            this.label20.Location = new System.Drawing.Point(17, 398);
+            this.label20.Location = new System.Drawing.Point(17, 453);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(91, 19);
@@ -249,7 +401,7 @@ namespace AgDiag
             this.lblDefaultSends.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(50)))));
             this.lblDefaultSends.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDefaultSends.ForeColor = System.Drawing.Color.White;
-            this.lblDefaultSends.Location = new System.Drawing.Point(116, 398);
+            this.lblDefaultSends.Location = new System.Drawing.Point(116, 453);
             this.lblDefaultSends.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDefaultSends.Name = "lblDefaultSends";
             this.lblDefaultSends.Size = new System.Drawing.Size(44, 19);
@@ -1024,12 +1176,38 @@ namespace AgDiag
             this.lblMinSpeed.TabIndex = 244;
             this.lblMinSpeed.Text = "12.3";
             // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label34.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.White;
+            this.label34.Location = new System.Drawing.Point(340, 2);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(64, 19);
+            this.label34.TabIndex = 256;
+            this.label34.Text = "Rincage";
+            // 
+            // lblRincageFerti
+            // 
+            this.lblRincageFerti.AutoSize = true;
+            this.lblRincageFerti.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblRincageFerti.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRincageFerti.ForeColor = System.Drawing.Color.White;
+            this.lblRincageFerti.Location = new System.Drawing.Point(402, 2);
+            this.lblRincageFerti.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRincageFerti.Name = "lblRincageFerti";
+            this.lblRincageFerti.Size = new System.Drawing.Size(44, 19);
+            this.lblRincageFerti.TabIndex = 257;
+            this.lblRincageFerti.Text = "12.3";
+            // 
             // FormLoop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cyan;
-            this.ClientSize = new System.Drawing.Size(476, 425);
+            this.ClientSize = new System.Drawing.Size(476, 476);
             this.Controls.Add(this.panelBack);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
@@ -1045,6 +1223,8 @@ namespace AgDiag
             this.Load += new System.EventHandler(this.FormLoop_Load);
             this.panelBack.ResumeLayout(false);
             this.panelBack.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -1126,6 +1306,18 @@ namespace AgDiag
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblDefaultSends;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label fertiLargeur;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label fertiSpeed;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label fertiStatut;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label fertiDebit;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label lblRincageFerti;
     }
 }
 

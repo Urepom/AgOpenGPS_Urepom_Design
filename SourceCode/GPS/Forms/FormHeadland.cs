@@ -14,7 +14,7 @@ namespace AgOpenGPS
 
         private Point fixPt;
 
-        private bool isA, isSet;
+        private bool isA, isSet, isClosing;
         public double headWidth = 0;
         private int A, B, C, D, E, start = 99999, end = 99999;
         private double totalHeadlandWidth = 0;
@@ -67,6 +67,15 @@ namespace AgOpenGPS
                 BuildHeadLineTemplateFromBoundary();
             }
             mf.CloseTopMosts();
+        }
+
+        private void FormHeadland_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isClosing)
+            {
+                e.Cancel = true;
+                return;
+            }
         }
 
         public void BuildHeadLineTemplateFromBoundary()
@@ -601,7 +610,7 @@ namespace AgOpenGPS
                 }
             }
             mf.FileSaveHeadland();
-
+            isClosing = true;
             Close();
         }
 
@@ -612,6 +621,8 @@ namespace AgOpenGPS
             if (MessageBox.Show("Supprimer les limites de toutes les fourrières ?", "Confirm deleting headland", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 mf.FileSaveHeadland();
+
+                isClosing = true;
                 Close();
             }
             else
@@ -686,6 +697,57 @@ namespace AgOpenGPS
             GL.MatrixMode(MatrixMode.Modelview);
         }
 
-        //determine mins maxs of patches and whole field.
+        #region Help
+        private void cboxToolWidths_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_cboxToolWidths, gStr.gsHelp);
+        }
+
+        private void nudDistance_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_nudDistance, gStr.gsHelp);
+        }
+
+        private void btnMakeFixedHeadland_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_btnMakeFixedHeadland, gStr.gsHelp);
+        }
+
+        private void nudSetDistance_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_nudSetDistance, gStr.gsHelp);
+        }
+
+        private void btnSetDistance_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_btnSetDistance, gStr.gsHelp);
+        }
+
+        private void btnDeletePoints_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_btnDeletePoints, gStr.gsHelp);
+        }
+
+        private void cboxIsSectionControlled_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_cboxIsSectionControlled, gStr.gsHelp);
+        }
+
+        private void btnReset_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_btnReset, gStr.gsHelp);
+        }
+
+        private void btnTurnOffHeadland_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_btnTurnOffHeadland, gStr.gsHelp);
+        }
+
+        private void btnExit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hh_btnExit, gStr.gsHelp);
+        }
+
+        #endregion
     }
 }

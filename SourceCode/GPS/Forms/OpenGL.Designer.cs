@@ -1014,7 +1014,6 @@ namespace AgOpenGPS
 
                 ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
                 ///
-
                 if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland) bnd.WhereAreToolLookOnPoints();
 
                 for (int j = 0; j < tool.numOfSections; j++)
@@ -1075,6 +1074,7 @@ namespace AgOpenGPS
                             else
                             {
                                 section[j].isSectionRequiredOn = false;
+
                             }
 
                             //is headland coming up
@@ -1178,13 +1178,38 @@ namespace AgOpenGPS
                     if (section[j].speedPixels < 0)
                     {
                         section[j].isSectionRequiredOn = false;
-
                         section[j].isMappingRequiredOn = false;
                         section[j].mappingOffRequest = true;
                         section[j].mappingOnRequest = false;
                     }
                 }  // end of go thru all sections "for"
 
+                //Ajout-modification MEmprou et SPailleau Fertilisation
+                int minsectionactive = 0;
+                for (int j = 0; j < tool.numOfSections; j++)
+                {
+                    if (section[j].isSectionRequiredOn)
+                    {
+                        minsectionactive = minsectionactive + 1;
+                    }
+                }
+                if (minsectionactive > 0)
+                {
+                    if (ferti_auto == true && tempo_ferti == false)
+                    {
+                        p_235.pgn[p_235.Ferti_On] = 1;
+                        tempo_ferti = true;
+                    }
+                }
+                else
+                {
+                    if (ferti_auto == true && tempo_ferti == true)
+                    {
+                    p_235.pgn[p_235.Ferti_On] = 0;
+                    tempo_ferti = false;
+                    }
+                }
+                //fin
                 //if Master Auto is on
                 for (int j = 0; j < tool.numOfSections; j++)
                 {
@@ -1875,13 +1900,13 @@ namespace AgOpenGPS
                     round_table11.Visible = false; //Haut droite
                     round_table10.Visible = false;
                     round_table7.Visible = false;
-                    round_table8.Visible = false;
                     round_table9.Visible = false;
                     round_table1.Visible = false;
                     round_table4.Visible = false;
                     round_table3.Visible = false;
                     round_table2.Visible = false;
                     round_table6.Visible = false;
+                    round_table8.Visible = false;
                     panelNavigation.Visible = false; //Panneau zoom, jour/nuit...
                     //round_table12.Visible = false; //Bas droite
                     //statusStripLeft.Visible = false; //Bas gauche
@@ -1901,6 +1926,7 @@ namespace AgOpenGPS
                     round_table3.Visible = true;
                     round_table2.Visible = true;
                     round_table6.Visible = true;
+                    round_table8.Visible = true;
                     //round_table12.Visible = true; //Bas droite
                     //statusStripLeft.Visible = true; //Bas gauche
                 }
@@ -2480,7 +2506,7 @@ namespace AgOpenGPS
 
             GL.BindTexture(TextureTarget.Texture2D, texture[9]);        // Select Our Texture
 
-            GL.Translate(btnHydLift.Right - oglMain.Width / 2, round_table8.Top + 40, 0); //Ajout-modification MEmprou et SPailleau
+            GL.Translate(btnHydLift.Right - oglMain.Width / 2 + 40, round_table8.Top + 40, 0); //Ajout-modification MEmprou et SPailleau
 
             if (p_239.pgn[p_239.hydLift] == 2)
             {

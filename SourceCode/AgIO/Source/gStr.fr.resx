@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="gsAuthourizing" xml:space="preserve">
+    <value>Autoriser</value>
+  </data>
   <data name="gsCloseallconnexions" xml:space="preserve">
-    <value>Voulez-vous vraiment arrêter toutes les connexions ?</value>
+    <value>Fermer les connexion ?</value>
   </data>
   <data name="gsConfirmClosing" xml:space="preserve">
-    <value>Confirmation de fermeture</value>
+    <value>Confirmer la fermeture</value>
+  </data>
+  <data name="gsListening" xml:space="preserve">
+    <value>En écoute</value>
+  </data>
+  <data name="gsSaveAndReturn" xml:space="preserve">
+    <value>Enregistrer et quitter</value>
+  </data>
+  <data name="gsSaveComms" xml:space="preserve">
+    <value>Enregistrer les communications</value>
+  </data>
+  <data name="gsWaiting" xml:space="preserve">
+    <value>Attendre</value>
   </data>
 </root>

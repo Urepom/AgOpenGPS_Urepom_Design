@@ -883,7 +883,7 @@ namespace AgOpenGPS
                     pnt.easting = ptList[0].easting - (Math.Sin(head));
                     pnt.northing = ptList[0].northing - (Math.Cos(head));
                     pnt.heading = ptList[0].heading;
-                    pnt.now = DateTime.Now; //ajout max timerKML
+                    pnt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                     ptList.Insert(0, pnt);
                 }
 
@@ -895,7 +895,7 @@ namespace AgOpenGPS
                     pnt.easting = ptList[ptc].easting + (Math.Sin(head) * i);
                     pnt.northing = ptList[ptc].northing + (Math.Cos(head) * i);
                     pnt.heading = head;
-                    pnt.now = DateTime.Now; //ajout max timerKML
+                    pnt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                     ptList.Add(pnt);
                 }
 

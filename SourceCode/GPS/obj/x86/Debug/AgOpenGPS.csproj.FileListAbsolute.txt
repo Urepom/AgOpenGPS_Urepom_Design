@@ -260,4 +260,7 @@ C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\Ag
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.sr.pdf
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEnterAB.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSectionColor.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_Help.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFertilisation.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.fr.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csprojAssemblyReference.cache

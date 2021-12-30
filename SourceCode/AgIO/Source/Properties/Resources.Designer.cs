@@ -133,6 +133,16 @@ namespace AgIO.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap B_Ferti {
+            get {
+                object obj = ResourceManager.GetObject("B_Ferti", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap B_GPS {
             get {
                 object obj = ResourceManager.GetObject("B_GPS", resourceCulture);

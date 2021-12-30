@@ -149,7 +149,7 @@ namespace AgOpenGPS
             /// </summary>
             public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEF, 8, 0, 0, 0, 0, 0, 0, 0, 0,  0xCC };
             public int uturn = 5;
-            public int tree = 6;
+            public int speed = 6;
             public int hydLift = 7;
             public int tram = 8;
             //public int  = 9;
@@ -209,6 +209,30 @@ namespace AgOpenGPS
             }
         }
 
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+
+        //PGN fertilisation
+        public class CPGN_EB
+        {
+            /// <summary>
+            /// PGN - 235 - EB
+            /// speed=5-6  on/off=7  débit = 8-9 largeur 10-11
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEB, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public int speedLo = 5;
+            public int speedHi = 6;
+            public int Ferti_On = 7;
+            public int DebitLo = 8;
+            public int DebitHi = 9;
+            public int LargeurLo = 10;
+            public int LargeurHi = 11;
+            public int Rincage = 12;
+
+            public void Reset()
+            {
+            }
+        }
+        //fin
 
         //pgn instances
 
@@ -238,6 +262,11 @@ namespace AgOpenGPS
         /// </summary>
         public CPGN_EE p_238 = new CPGN_EE();
 
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        /// <summary>
+        /// Fertilisation PGN - 235 - EB
+        /// </summary>
+        public CPGN_EB p_235 = new CPGN_EB();
 
         /// <summary>
         /// LatitudeLongitude - D0 - 
