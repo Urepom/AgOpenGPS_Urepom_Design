@@ -3158,11 +3158,13 @@ namespace AgOpenGPS {
         ///
         ///2 types of Switch. 
         ///
-        ///Switch - Connect and release turns Auto Steer On. Connect and release again turns Auto Steer off.
+        ///Button- Push and release turns Auto Steer On. Push and release again turns Auto Steer off.
         ///
-        ///Button - like a momentary style. Connect and Auto Steer is on, Disconnect and Auto Steer turns off. 
+        ///Switch - like a light switch style. Connect and Auto Steer is on, Disconnect and Auto Steer turns off. 
         ///
-        ///Note... A microswitch or momentary type pushbutton can be configured to do either method. The button is most common for steer motors that just push on a momentary switch when engaged and then when released simply open the switch again..
+        ///Note... Any type switch or button can be configured to do either method. The Switch setting is most common for steer motors that just push on a switch when engaged and then when released simply opens the switch again.
+        ///
+        ///The button setting is more common for hydraul [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         public static string hc_cboxSteerEnable {
             get {

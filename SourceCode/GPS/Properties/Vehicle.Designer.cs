@@ -1006,5 +1006,53 @@ namespace AgOpenGPS.Properties {
                 this["SetTimerRincFerti"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public byte setArdMac_user1 {
+            get {
+                return ((byte)(this["setArdMac_user1"]));
+            }
+            set {
+                this["setArdMac_user1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public byte setArdMac_user2 {
+            get {
+                return ((byte)(this["setArdMac_user2"]));
+            }
+            set {
+                this["setArdMac_user2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public byte setArdMac_user3 {
+            get {
+                return ((byte)(this["setArdMac_user3"]));
+            }
+            set {
+                this["setArdMac_user3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public byte setArdMac_user4 {
+            get {
+                return ((byte)(this["setArdMac_user4"]));
+            }
+            set {
+                this["setArdMac_user4"] = value;
+            }
+        }
     }
 }

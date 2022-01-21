@@ -1237,7 +1237,7 @@ namespace AgOpenGPS
             btnContour.Enabled = false;
             //btnContourPriority.Enabled = false;
             //Ajout-modification MEmprou et SPailleau
-            roundButton1.Image = Properties.Resources.SnapToPivot;
+            //roundButton1.Image = Properties.Resources.SnapToPivot;
             //
             ct.ResetContour();
             ct.isContourBtnOn = false;

@@ -162,6 +162,8 @@ namespace AgOpenGPS
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
                 Properties.Vehicle.Default.SetDoseFerti = nudDoseFerti.Value;
+                mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti) >> 8));
+                mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti)));
             }
         }
 

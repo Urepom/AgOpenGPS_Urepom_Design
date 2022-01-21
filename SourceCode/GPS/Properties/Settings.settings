@@ -374,5 +374,8 @@
     <Setting Name="setTimer_KML" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="setRelay_pinConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

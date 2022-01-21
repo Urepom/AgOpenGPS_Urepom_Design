@@ -1624,13 +1624,13 @@ namespace AgOpenGPS
                 GL.BindTexture(TextureTarget.Texture2D, texture[5]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);
 
-                int two3 = oglMain.Width / 6;
+                int two3 = oglMain.Width / 6; //Ajout-modification MEmprou et SPailleau
                 GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, 30); // 
-                    GL.TexCoord2(1, 0); GL.Vertex2(82 - two3, 30); // 
-                    GL.TexCoord2(1, 1); GL.Vertex2(82 - two3, 90); // 
-                    GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, 90); //
+                    GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, 60); //Ajout-modification MEmprou et SPailleau
+                    GL.TexCoord2(1, 0); GL.Vertex2(82 - two3, 60); //Ajout-modification MEmprou et SPailleau
+                    GL.TexCoord2(1, 1); GL.Vertex2(82 - two3, 120); //Ajout-modification MEmprou et SPailleau
+                    GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, 120); //Ajout-modification MEmprou et SPailleau
                 }
                 GL.End();
             }
@@ -1644,10 +1644,10 @@ namespace AgOpenGPS
                 int two3 = oglMain.Width / 6;
                 GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, 90); // 
-                    GL.TexCoord2(1, 0); GL.Vertex2(82 - two3, 90); // 
-                    GL.TexCoord2(1, 1); GL.Vertex2(82 - two3, 150); // 
-                    GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, 150); //
+                    GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, 120); //Ajout-modification MEmprou et SPailleau
+                    GL.TexCoord2(1, 0); GL.Vertex2(82 - two3, 120); //Ajout-modification MEmprou et SPailleau
+                    GL.TexCoord2(1, 1); GL.Vertex2(82 - two3, 180); //Ajout-modification MEmprou et SPailleau
+                    GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, 180); //Ajout-modification MEmprou et SPailleau
                 }
                 GL.End();
             }
@@ -1671,21 +1671,21 @@ namespace AgOpenGPS
                 GL.Color3(0.90f, 0.90f, 0.293f);
             }
 
-            int two3 = oglMain.Width / 5;
+            int two3 = oglMain.Width / 5; //Ajout-modification MEmprou et SPailleau
             GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
             if (!yt.isYouTurnRight)
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-62 + two3, 40); // 
-                GL.TexCoord2(1, 0); GL.Vertex2(62 + two3, 40); // 
-                GL.TexCoord2(1, 1); GL.Vertex2(62 + two3, 110); // 
-                GL.TexCoord2(0, 1); GL.Vertex2(-62 + two3, 110); //
+                GL.TexCoord2(0, 0); GL.Vertex2(-62 + two3, 70); //Ajout-modification MEmprou et SPailleau
+                GL.TexCoord2(1, 0); GL.Vertex2(62 + two3, 70); //Ajout-modification MEmprou et SPailleau
+                GL.TexCoord2(1, 1); GL.Vertex2(62 + two3, 140); //Ajout-modification MEmprou et SPailleau
+                GL.TexCoord2(0, 1); GL.Vertex2(-62 + two3, 140); //Ajout-modification MEmprou et SPailleau
             }
             else
             {
-                GL.TexCoord2(1, 0); GL.Vertex2(-62 + two3, 40); // 
-                GL.TexCoord2(0, 0); GL.Vertex2(62 + two3, 40); // 
-                GL.TexCoord2(0, 1); GL.Vertex2(62 + two3, 110); // 
-                GL.TexCoord2(1, 1); GL.Vertex2(-62 + two3, 110); //
+                GL.TexCoord2(1, 0); GL.Vertex2(-62 + two3, 70); //Ajout-modification MEmprou et SPailleau
+                GL.TexCoord2(0, 0); GL.Vertex2(62 + two3, 70); //Ajout-modification MEmprou et SPailleau
+                GL.TexCoord2(0, 1); GL.Vertex2(62 + two3, 140); //Ajout-modification MEmprou et SPailleau 
+                GL.TexCoord2(1, 1); GL.Vertex2(-62 + two3, 140); //Ajout-modification MEmprou et SPailleau
             }
             //
             GL.End();
@@ -2402,7 +2402,10 @@ namespace AgOpenGPS
                 if (!isSuperSlow) GL.Color3(0.9752f, 0.952f, 0.03f);
                 else GL.Color3(0.298f, 0.972f, 0.99903f);
 
-                font.DrawText(center, 124, "I:" + Math.Round(ahrs.imuHeading, 1).ToString(), 1);
+                GL.Color3(0.98f, 0.972f, 0.59903f);
+                font.DrawText(center, 124, "H:" + Math.Round(ahrs.imuHeading, 1).ToString(), 0.8); //modif max
+                font.DrawText(center, 149, "R:" + Math.Round(ahrs.imuRoll, 1).ToString(), 0.8);
+                font.DrawText(center, 174, "Y:" + Math.Round(ahrs.imuYawRate, 1).ToString(), 0.8);
             }
 
             if (isAngVelGuidance)
