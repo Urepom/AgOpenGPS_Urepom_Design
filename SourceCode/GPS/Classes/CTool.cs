@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
 
@@ -85,16 +86,16 @@ namespace AgOpenGPS
             minCoverage = Properties.Vehicle.Default.setVehicle_minCoverage;
             isMultiColoredSections = Properties.Settings.Default.setColor_isMultiColorSections;
 
-            secColors[0] = Properties.Settings.Default.setColor_sec01.CheckColorFor255();
-            secColors[1] = Properties.Settings.Default.setColor_sec02.CheckColorFor255();
-            secColors[2] = Properties.Settings.Default.setColor_sec03.CheckColorFor255();
-            secColors[3] = Properties.Settings.Default.setColor_sec04.CheckColorFor255();
-            secColors[4] = Properties.Settings.Default.setColor_sec05.CheckColorFor255();
-            secColors[5] = Properties.Settings.Default.setColor_sec06.CheckColorFor255();
-            secColors[6] = Properties.Settings.Default.setColor_sec07.CheckColorFor255();
-            secColors[7] = Properties.Settings.Default.setColor_sec08.CheckColorFor255();
-            secColors[8] = Properties.Settings.Default.setColor_sec09.CheckColorFor255();
-            secColors[9] = Properties.Settings.Default.setColor_sec10.CheckColorFor255();
+            secColors[0] =  Properties.Settings.Default.setColor_sec01.CheckColorFor255();
+            secColors[1] =  Properties.Settings.Default.setColor_sec02.CheckColorFor255();
+            secColors[2] =  Properties.Settings.Default.setColor_sec03.CheckColorFor255();
+            secColors[3] =  Properties.Settings.Default.setColor_sec04.CheckColorFor255();
+            secColors[4] =  Properties.Settings.Default.setColor_sec05.CheckColorFor255();
+            secColors[5] =  Properties.Settings.Default.setColor_sec06.CheckColorFor255();
+            secColors[6] =  Properties.Settings.Default.setColor_sec07.CheckColorFor255();
+            secColors[7] =  Properties.Settings.Default.setColor_sec08.CheckColorFor255();
+            secColors[8] =  Properties.Settings.Default.setColor_sec09.CheckColorFor255();
+            secColors[9] =  Properties.Settings.Default.setColor_sec10.CheckColorFor255();
             secColors[10] = Properties.Settings.Default.setColor_sec11.CheckColorFor255();
             secColors[11] = Properties.Settings.Default.setColor_sec12.CheckColorFor255();
             secColors[12] = Properties.Settings.Default.setColor_sec13.CheckColorFor255();
@@ -306,25 +307,25 @@ namespace AgOpenGPS
                             GL.Vertex3(toolFarRightPosition - mf.tram.halfWheelTrack, trailingTool + 0.21, 0);
 
                             //left side
-                            if (((mf.tram.controlByte >> 2) & 1) == 1) GL.Color3(0.0f, 0.900f, 0.3930f);
+                            if ((mf.tram.controlByte & 2) == 2) GL.Color3(0.0f, 0.900f, 0.3930f);
                             else GL.Color3(0.90f, 0.00f, 0.0f);
                             GL.Vertex3(toolFarLeftPosition + mf.tram.halfWheelTrack, trailingTool + 0.21, 0);
                             GL.End();
-
                         }
                         else
                         {
                             GL.Begin(PrimitiveType.Points);
 
                             //right side
-                            if (((mf.tram.controlByte >> 1) & 1) == 1) GL.Color3(0.0f, 0.900f, 0.3930f);
+                            if (((mf.tram.controlByte) & 1) == 1) GL.Color3(0.0f, 0.900f, 0.39630f);
                             else GL.Color3(0.90f, 0.00f, 0.0f);
-                            GL.Vertex3(-mf.tram.halfWheelTrack, trailingTool + 0.21, 0);
+                            GL.Vertex3(mf.tram.halfWheelTrack, trailingTool + 0.21, 0);
 
                             //left side
-                            GL.Vertex3(mf.tram.halfWheelTrack, trailingTool + 0.21, 0);
+                            if ((mf.tram.controlByte & 2) == 2) GL.Color3(0.0f, 0.900f, 0.3930f);
+                            else GL.Color3(0.90f, 0.00f, 0.0f);
+                            GL.Vertex3(-mf.tram.halfWheelTrack, trailingTool + 0.21, 0);
                             GL.End();
-
                         }
                     }
                 }

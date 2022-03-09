@@ -100,6 +100,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\RepeatButtonControl.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.MapControl">
+      <HintPath>..\References\System.Windows.Forms.MapControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -114,7 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CColorExtensions.cs" />
+    <Compile Include="Classes\CExtensionMethods.cs" />
     <Compile Include="Classes\CFence.cs">
       <DependentUpon>CBoundary.cs</DependentUpon>
     </Compile>
@@ -139,7 +142,6 @@
     </Compile>
     <Compile Include="Classes\CSim.cs" />
     <Compile Include="Classes\CTram.cs" />
-    <Compile Include="Classes\CWorkSwitch.cs" />
     <Compile Include="Classes\CYouTurn.cs" />
     <Compile Include="Classes\CFlag.cs" />
     <Compile Include="Classes\CABLine.cs" />
@@ -162,6 +164,24 @@
     </Compile>
     <Compile Include="Forms\FormFieldKML.Designer.cs">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormMap.Designer.cs">
+      <DependentUpon>FormMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormUpdate.Designer.cs">
+      <DependentUpon>FormUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormRecordName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormRecordName.Designer.cs">
+      <DependentUpon>FormRecordName.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Form_Help.cs">
       <SubType>Form</SubType>
@@ -210,6 +230,12 @@
     </Compile>
     <Compile Include="Forms\Pickers\FormDrivePicker.Designer.cs">
       <DependentUpon>FormDrivePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Pickers\FormRecordPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Pickers\FormRecordPicker.Designer.cs">
+      <DependentUpon>FormRecordPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Pickers\FormTouchPick.cs">
       <SubType>Form</SubType>
@@ -397,12 +423,6 @@
     <Compile Include="Forms\FormTimedMessage.Designer.cs">
       <DependentUpon>FormTimedMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Guidance\FormTramCurve.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Guidance\FormTramCurve.Designer.cs">
-      <DependentUpon>FormTramCurve.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormWebCam.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -564,6 +584,18 @@
     <EmbeddedResource Include="Forms\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMap.resx">
+      <DependentUpon>FormMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormUpdate.resx">
+      <DependentUpon>FormUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormRecordName.resx">
+      <DependentUpon>FormRecordName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_About.fr.resx">
+      <DependentUpon>Form_About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_First.fr.resx">
       <DependentUpon>Form_First.cs</DependentUpon>
     </EmbeddedResource>
@@ -683,9 +715,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormtimedMessage.resx">
       <DependentUpon>FormTimedMessage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Guidance\FormTramCurve.resx">
-      <DependentUpon>FormTramCurve.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormWebCam.resx">
       <DependentUpon>FormWebCam.cs</DependentUpon>
@@ -820,6 +849,21 @@
   <ItemGroup>
     <Content Include="AOG.ico" />
     <Content Include="aChangeLog.txt" />
+    <None Include="btnImages\BlankButton.png" />
+    <None Include="btnImages\bing.png" />
+    <None Include="btnImages\Marker.png" />
+    <None Include="btnImages\MapGray.png" />
+    <None Include="btnImages\MapColor.png" />
+    <None Include="btnImages\NEWS.png" />
+    <None Include="btnImages\Images\z_bingMap.png" />
+    <None Include="Resources\bing.png" />
+    <None Include="btnImages\Config\ConSt_SteerForm.png" />
+    <None Include="btnImages\SwitchActiveOpen.png" />
+    <None Include="btnImages\SwitchActiveClosed.png" />
+    <None Include="btnImages\pathResumeStart.png" />
+    <None Include="btnImages\pathResumeLast.png" />
+    <None Include="btnImages\pathResumeClose.png" />
+    <None Include="btnImages\drag.png" />
     <None Include="btnImages\Ferti.png" />
     <None Include="btnImages\QR\AgOpenYouTubeChannel.jpg" />
     <None Include="btnImages\OpManual.png" />

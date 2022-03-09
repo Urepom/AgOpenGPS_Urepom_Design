@@ -12,7 +12,7 @@ namespace AgIO
         private bool isNMEAToSend = false;
 
         public string ggaSentence, vtgSentence, hdtSentence, avrSentence, paogiSentence,
-            hpdSentence, rmcSentence, pandaSentence;
+            hpdSentence, rmcSentence, pandaSentence, ksxtSentence;
 
         public float hdopData, altitude = float.MaxValue, headingTrue = float.MaxValue,
             headingTrueDual = float.MaxValue, speed = float.MaxValue, roll = float.MaxValue;
@@ -111,11 +111,11 @@ namespace AgIO
             dollar = rawBuffer.IndexOf("$", StringComparison.Ordinal);
             if (cr == -1 || dollar == -1) return;
 
-            if (rawBuffer.Length > 250)
+            if (rawBuffer.Length > 301)
             {
                 if (isLogNMEA)
                 {
-                    logNMEASentence.Append("\r\n" + 
+                    logNMEASentence.Append("\r\n" +
                         DateTime.UtcNow.ToString(" ->>  mm:ss.fff ", CultureInfo.InvariantCulture) + "\r\n" + rawBuffer + "\r\n");
                 }
 
@@ -142,6 +142,7 @@ namespace AgIO
 
                     //logNMEASentence.Append((timD-timS).ToString("N3", CultureInfo.InvariantCulture) + " ")
                     //    .Append(timNow + " " + nextNMEASentence + "\r\n");
+
                 }
 
                 //parse them accordingly
@@ -164,6 +165,12 @@ namespace AgIO
                 //    ParseRMC();
                 //    if (isGPSSentencesOn) rmcSentence = nextNMEASentence;
                 //}
+
+                else if (words[0] == "$KSXT")
+                {
+                    ParseKSXT();
+                    if (isGPSSentencesOn) ksxtSentence = nextNMEASentence;
+                }
 
                 else if (words[0] == "$GPHPD")
                 {
@@ -276,6 +283,7 @@ namespace AgIO
                 {
                     CK_A += nmeaPGN[j];
                 }
+
                 //checksum
                 nmeaPGN[56] = (byte)CK_A;
 
@@ -284,6 +292,62 @@ namespace AgIO
 
                 //Send nmea to autosteer module 8888
                 if (isSendNMEAToUDP) SendUDPMessage(nmeaPGN);
+            }
+        }
+
+        private void ParseKSXT()
+        {
+            if (!string.IsNullOrEmpty(words[1]) && !string.IsNullOrEmpty(words[2]) && !string.IsNullOrEmpty(words[3])
+                && !string.IsNullOrEmpty(words[4]) && !string.IsNullOrEmpty(words[5]))
+            {
+                double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                longitudeSend = longitude;
+
+                double.TryParse(words[3], NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                latitudeSend = latitude;
+
+                float.TryParse(words[4], NumberStyles.Float, CultureInfo.InvariantCulture, out altitude);
+                altitudeData = altitude;
+
+                float.TryParse(words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrueDual);
+                headingTrueDualData = headingTrueDual;
+
+                float.TryParse(words[6], NumberStyles.Float, CultureInfo.InvariantCulture, out rollK);
+
+                float.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
+                speedData = speed;
+
+                byte.TryParse(words[10], NumberStyles.Float, CultureInfo.InvariantCulture, out fixQuality);
+                if (fixQuality == 0) fixQualityData = 0;
+                else if (fixQuality == 1) fixQualityData = 1;
+                else if (fixQuality == 2) fixQualityData = 5;
+                else if (fixQuality == 3) fixQualityData = 4;
+
+                fixQuality = fixQualityData;
+
+                int headingQuality;
+
+                int.TryParse(words[11], NumberStyles.Float, CultureInfo.InvariantCulture, out headingQuality);
+
+                if (headingQuality == 3)   // roll only when rtk 
+                {
+                    roll = (float)(rollK);
+                    rollData = rollK;
+                }
+                else
+                {
+                    roll = float.MinValue;
+                    rollData = 0;
+                }
+
+                ushort.TryParse(words[13], NumberStyles.Float, CultureInfo.InvariantCulture, out satellitesTracked);
+                satellitesData = satellitesTracked;
+
+
+                float.TryParse(words[20], NumberStyles.Float, CultureInfo.InvariantCulture, out ageData);
+                ageX100 = (ushort)(ageData * 100.0);
+
+                isNMEAToSend = true;
             }
         }
 
@@ -339,7 +403,7 @@ namespace AgIO
 
                 //age
                 float.TryParse(words[13], NumberStyles.Float, CultureInfo.InvariantCulture, out ageData);
-                ageX100 = (ushort)(ageData*100.0);
+                ageX100 = (ushort)(ageData * 100.0);
 
                 //LastUpdateUTC = UTC;
 
@@ -407,7 +471,7 @@ namespace AgIO
             }
 
             if (!string.IsNullOrEmpty(words[1]))
-            { 
+            {
                 //True heading
                 float.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
                 headingTrueData = headingTrue;
@@ -483,10 +547,9 @@ namespace AgIO
                 {
                     roll = float.MinValue;
                     rollData = 0;
-
-
-                    if (lastSentence == "HPD") isNMEAToSend = true;
                 }
+
+                if (lastSentence == "HPD") isNMEAToSend = true;
             }
         }
 
@@ -614,9 +677,11 @@ namespace AgIO
             /*
             $PANDA
             (1) Time of fix
+
             position
             (2,3) 4807.038,N Latitude 48 deg 07.038' N
             (4,5) 01131.000,E Longitude 11 deg 31.000' E
+
             (6) 1 Fix quality: 
                 0 = invalid
                 1 = GPS fix(SPS)
@@ -632,13 +697,14 @@ namespace AgIO
             (9) 545.4 Altitude (ALWAYS in Meters, above mean sea level)
             (10) 1.2 time in seconds since last DGPS update
             (11) Speed in knots
+
             FROM IMU:
             (12) Heading in degrees
             (13) Roll angle in degrees(positive roll = right leaning - right down, left up)
             
-            //not implemented
             (14) Pitch angle in degrees(Positive pitch = nose up)
             (15) Yaw Rate in Degrees / second
+
             * CHKSUM
             */
             #endregion PANDA Message
@@ -723,7 +789,6 @@ namespace AgIO
                 imuYawRateData = imuYawRate;
 
                 //always send because its probably the only one.
-
                 isNMEAToSend = true;
                 //}
             }
@@ -902,21 +967,34 @@ namespace AgIO
                 char[] sentenceChars = Sentence.ToCharArray();
                 // All character xor:ed results in the trailing hex checksum
                 // The checksum calc starts after '$' and ends before '*'
-                int inx;
-                for (inx = 1; ; inx++)
-                {
-                    if (inx >= sentenceChars.Length) // No checksum found
-                        return false;
-                    var tmp = sentenceChars[inx];
-                    // Indicates end of data and start of checksum
-                    if (tmp == '*') break;
-                    sum ^= tmp;    // Build checksum
-                }
-                // Calculated checksum converted to a 2 digit hex string
-                string sumStr = string.Format("{0:X2}", sum);
 
-                // Compare to checksum in sentence
-                return sumStr.Equals(Sentence.Substring(inx + 1, 2));
+                int inx = Sentence.IndexOf("*", StringComparison.Ordinal);
+
+                if (sentenceChars.Length - inx == 4)
+                {
+
+                    for (inx = 1; ; inx++)
+                    {
+                        if (inx >= sentenceChars.Length) // No checksum found
+                            return false;
+                        var tmp = sentenceChars[inx];
+                        // Indicates end of data and start of checksum
+                        if (tmp == '*') break;
+                        sum ^= tmp;    // Build checksum
+                    }
+
+                    // Calculated checksum converted to a 2 digit hex string
+                    string sumStr = string.Format("{0:X2}", sum);
+
+                    // Compare to checksum in sentence
+                    return sumStr.Equals(Sentence.Substring(inx + 1, 2));
+                }
+                else
+                {
+                    //CRC code goes here - return true for now if $KS
+                    if (sentenceChars[0] == 36 && sentenceChars[1] == 75 && sentenceChars[2] == 83) return true;
+                    else return false;
+                }
             }
             catch (Exception)
             {

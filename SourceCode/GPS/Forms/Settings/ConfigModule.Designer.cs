@@ -10,247 +10,11 @@ namespace AgOpenGPS
         #region Module Steer
         private void tabASteer_Enter(object sender, EventArgs e)
         {
-            nudMaxCounts.Controls[0].Enabled = false;
-
-            int sett = Properties.Vehicle.Default.setArdSteer_setting0;
-
-            if ((sett & 1) == 0) chkInvertWAS.Checked = false;
-            else chkInvertWAS.Checked = true;
-
-            if ((sett & 2) == 0) chkSteerInvertRelays.Checked = false;
-            else chkSteerInvertRelays.Checked = true;
-
-            if ((sett & 4) == 0) chkInvertSteer.Checked = false;
-            else chkInvertSteer.Checked = true;
-
-            if ((sett & 8) == 0) cboxConv.Text = "Differential";
-            else cboxConv.Text = "Single";
-
-            if ((sett & 16) == 0) cboxMotorDrive.Text = "IBT2";
-            else cboxMotorDrive.Text = "Cytron";
-
-            if ((sett & 32) == 32) cboxSteerEnable.Text = "Switch";
-            else if ((sett & 64) == 64) cboxSteerEnable.Text = "Button";
-            else cboxSteerEnable.Text = "None";
-
-            if ((sett & 128) == 0) cboxEncoder.Checked = false;
-            else cboxEncoder.Checked = true;
-
-            nudMaxCounts.Value = (decimal)Properties.Vehicle.Default.setArdSteer_maxPulseCounts;
-
-            sett = Properties.Vehicle.Default.setArdSteer_setting1;
-
-            if ((sett & 1) == 0) cboxDanfoss.Checked = false;
-            else cboxDanfoss.Checked = true;
-
-            if ((sett & 2) == 0) cboxPressureSensor.Checked = false;
-            else cboxPressureSensor.Checked = true;
-
-            if ((sett & 4) == 0) cboxCurrentSensor.Checked = false;
-            else cboxCurrentSensor.Checked = true;
-
-            if (cboxEncoder.Checked)
-            {
-                cboxPressureSensor.Checked = false;
-                cboxCurrentSensor.Checked = false;
-                label61.Visible = true;
-                nudMaxCounts.Visible = true;
-
-                label61.Text = gStr.gsEncoderCounts;
-            }
-            else if (cboxPressureSensor.Checked)
-            {
-                cboxEncoder.Checked = false;
-                cboxCurrentSensor.Checked = false;
-                label61.Visible = true;
-                nudMaxCounts.Visible = true;
-
-                label61.Text = gStr.gsPressureSensorValueLabel;
-            }
-            else if (cboxCurrentSensor.Checked)
-            {
-                cboxPressureSensor.Checked = false;
-                cboxEncoder.Checked = false;
-                label61.Visible = true;
-                nudMaxCounts.Visible = true;
-
-                label61.Text = gStr.gsCurrentSensorValueLabel;
-            }
-            else
-            {
-                cboxPressureSensor.Checked = false;
-                cboxCurrentSensor.Checked = false;
-                cboxEncoder.Checked = false;
-                label61.Visible = false;
-                nudMaxCounts.Visible = false;
-            }
         }
 
         private void tabASteer_Leave(object sender, EventArgs e)
         {
-            pboxSendSteer.Visible = false;
-        }
 
-        private void btnSendToSteerArduino_Click(object sender, EventArgs e)
-        {
-            SaveSettings();
-            mf.SendPgnToLoop(mf.p_251.pgn);
-            pboxSendSteer.Visible = false;
-
-            mf.TimedMessageBox(1000, gStr.gsAutoSteerPort, "Settings Sent To Steer Module");
-        }
-
-        private void nudMaxCounts_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NumericUpDown)sender, this))
-            {
-                pboxSendSteer.Visible = true;
-            }
-        }
-
-        private void EnableAlert_Click(object sender, EventArgs e)
-        {
-            pboxSendSteer.Visible = true;
-
-            if (sender is CheckBox)
-            {
-                var checkbox = (CheckBox)sender;
-
-                if (!checkbox.Checked)
-                {
-                    cboxPressureSensor.Checked = false;
-                    cboxCurrentSensor.Checked = false;
-                    cboxEncoder.Checked = false;
-                    label61.Visible = false;
-                    nudMaxCounts.Visible = false;
-                    return;
-                }
-
-                if (checkbox == cboxPressureSensor)
-                {
-                    cboxEncoder.Checked = false;
-                    cboxCurrentSensor.Checked = false;
-                    label61.Visible = true;
-                    nudMaxCounts.Visible = true;
-                    label61.Text = gStr.gsPressureSensorValueLabel;
-                }
-
-                else if (checkbox == cboxCurrentSensor)
-                {
-                    cboxPressureSensor.Checked = false;
-                    cboxEncoder.Checked = false;
-                    label61.Visible = true;
-                    nudMaxCounts.Visible = true;
-                    label61.Text = gStr.gsCurrentSensorValueLabel;
-                }
-                else if (checkbox == cboxEncoder)
-                {
-                    cboxPressureSensor.Checked = false;
-                    cboxCurrentSensor.Checked = false;
-                    label61.Visible = true;
-                    nudMaxCounts.Visible = true;
-
-                    label61.Text = gStr.gsEncoderCounts;
-                }
-            }
-        }
-
-        private void SaveSettings()
-        {
-
-            int set = 1;
-            int reset = 2046;
-            int sett = 0;
-
-            if (chkInvertWAS.Checked) sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (chkSteerInvertRelays.Checked) sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (chkInvertSteer.Checked) sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxConv.Text == "Single") sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxMotorDrive.Text == "Cytron") sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxSteerEnable.Text == "Switch") sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxSteerEnable.Text == "Button") sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxEncoder.Checked) sett |= set;
-            else sett &= reset;
-
-            //set = (set << 1);
-            //reset = (reset << 1);
-            //reset = (reset + 1);
-            //if ( ) sett |= set;
-            //else sett &= reset;
-
-            Properties.Vehicle.Default.setArdSteer_setting0 = (byte)sett;
-            Properties.Vehicle.Default.setArdSteer_maxPulseCounts = (byte)nudMaxCounts.Value;
-            Properties.Vehicle.Default.setArdMac_isDanfoss = cboxDanfoss.Checked;
-
-            // Settings1
-            set = 1;
-            reset = 2046;
-            sett = 0;
-
-            if (cboxDanfoss.Checked) sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxPressureSensor.Checked) sett |= set;
-            else sett &= reset;
-
-            set <<= 1;
-            reset <<= 1;
-            reset += 1;
-            if (cboxCurrentSensor.Checked) sett |= set;
-            else sett &= reset;
-
-            Properties.Vehicle.Default.setArdSteer_setting1 = (byte)sett;
-
-            Properties.Vehicle.Default.Save();
-
-            mf.p_251.pgn[mf.p_251.set0] = Properties.Vehicle.Default.setArdSteer_setting0;
-            mf.p_251.pgn[mf.p_251.set1] = Properties.Vehicle.Default.setArdSteer_setting1;
-            mf.p_251.pgn[mf.p_251.maxPulse] = Properties.Vehicle.Default.setArdSteer_maxPulseCounts;
-            mf.p_251.pgn[mf.p_251.minSpeed] = 5; //0.5 kmh
-
-            if (Properties.Settings.Default.setAS_isAngVelGuidance)
-                mf.p_251.pgn[mf.p_251.angVel] = 1;
-            else mf.p_251.pgn[mf.p_251.angVel] = 0;
-
-            pboxSendSteer.Visible = false;
         }
 
         #endregion
@@ -441,7 +205,9 @@ namespace AgOpenGPS
 
             string[] wordsList = { "-","Section 1","Section 2","Section 3","Section 4","Section 5","Section 6","Section 7",
                     "Section 8","Section 9","Section 10","Section 11","Section 12","Section 13","Section 14","Section 15",
-                    "Section 16","Hyd Up","Hyd Down","Tramline","Geo Stop"};
+                    "Section 16","Hyd Up","Hyd Down","Tram Right","Tram Left", "Geo Stop"};
+
+            //19 tram right and 20 tram left
 
             cboxPin0.Items.Clear(); cboxPin0.Items.AddRange(wordsList);
             cboxPin1.Items.Clear(); cboxPin1.Items.AddRange(wordsList);
@@ -747,16 +513,6 @@ namespace AgOpenGPS
         #region Tram
         private void tabTram_Enter(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.setTool_isTramOuter)
-            {
-                rbtnTramOuter.Checked = true;
-                rbtnTramInner.Checked = false;
-            }
-            else
-            {
-                rbtnTramOuter.Checked = false;
-                rbtnTramInner.Checked = true;
-            }
             lblTramWidthUnits.Text = mf.unitsInCm;
 
             nudTramWidth.Value = (int)(Math.Abs(Properties.Settings.Default.setTram_tramWidth) * mf.m2InchOrCm);
@@ -766,14 +522,12 @@ namespace AgOpenGPS
 
         private void tabTram_Leave(object sender, EventArgs e)
         {
-            if (rbtnTramOuter.Checked) Properties.Settings.Default.setTool_isTramOuter = true;
-            else Properties.Settings.Default.setTool_isTramOuter = false;
 
             if (cboxTramOnBackBuffer.Checked) Properties.Settings.Default.setTram_isTramOnBackBuffer = true;
             else Properties.Settings.Default.setTram_isTramOnBackBuffer = false;
             mf.isTramOnBackBuffer = Properties.Settings.Default.setTram_isTramOnBackBuffer;
 
-            mf.tram.isOuter = Properties.Settings.Default.setTool_isTramOuter;
+            mf.tram.isOuter = ((int)(mf.tram.tramWidth / mf.tool.toolWidth + 0.5)) % 2 == 0 ? true : false;
 
             Properties.Settings.Default.Save();
 

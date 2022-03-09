@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Forms\FormCommPicker.resx">
       <DependentUpon>FormCommPicker.cs</DependentUpon>
     </EmbeddedResource>

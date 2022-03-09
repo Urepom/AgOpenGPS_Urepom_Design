@@ -16,7 +16,6 @@ namespace AgOpenGPS
         private double camDistanceFactor = -4;
 
         int mouseX = 0, mouseY = 0;
-        public double offX, offY;
         private int zoomUpdateCounter = 0;
         private int steerModuleConnectedCounter = 0;
 
@@ -169,7 +168,7 @@ namespace AgOpenGPS
                     GL.LoadIdentity();
 
                     //position the camera
-                    camera.SetWorldCam(pivotAxlePos.easting + offX, pivotAxlePos.northing + offY, camHeading);
+                    camera.SetWorldCam(pivotAxlePos.easting, pivotAxlePos.northing, camHeading);
 
                     //the bounding box of the camera for cullling.
                     CalcFrustum();
@@ -763,10 +762,17 @@ namespace AgOpenGPS
                     {
                         tram.controlByte = 0;
                         //1 pixels in is there a tram line?
-                        if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 4;
-                        if ((grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) &&
-                           (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245)) tram.controlByte += 2;
-                        if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+                        if (tram.isOuter)
+                        {
+                            if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 2;
+                            if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+                        }
+                        else
+                        {
+                            if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 2;
+                            if (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+
+                        }
                     }
 
                     //determine if in or out of headland, do hydraulics if on
@@ -831,11 +837,18 @@ namespace AgOpenGPS
                     if (tool.toolWidth > vehicle.trackWidth)
                     {
                         tram.controlByte = 0;
-                        //1 pixels in is there a tram line?
-                        if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 4;
-                        if ((grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) &&
-                           (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245)) tram.controlByte += 2;
-                        if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+
+                        if (tram.isOuter)
+                        {
+                            if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 2;
+                            if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+                        }
+                        else
+                        {
+                            if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 2;
+                            if (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245) tram.controlByte += 1;
+
+                        }
                     }
 
                     //determine if in or out of headland, do hydraulics if on
@@ -1291,10 +1304,7 @@ namespace AgOpenGPS
             } // end of supersection is off
 
             //Checks the workswitch if required
-            if (isJobStarted && (mc.isWorkSwitchEnabled || mc.isSteerControlsManual))
-            {                
-                workSwitch.CheckWorkSwitch();
-            }
+            mc.CheckWorkAndSteerSwitch();
 
             //Determine if sections want to be on or off
             ProcessSectionOnOffRequests();
@@ -1729,10 +1739,11 @@ namespace AgOpenGPS
 
             GL.BindTexture(TextureTarget.Texture2D, texture[11]);        // Select Our Texture
 
-            if (mc.steerSwitchValue == 2) GL.Color4(0.9752f, 0.0f, 0.03f, 0.98);
-            else if (mc.steerSwitchValue == 0 && isAutoSteerBtnOn)
+            if (mc.steerSwitchHigh)
+                GL.Color4(0.9752f, 0.0f, 0.03f, 0.98);
+            else if (isAutoSteerBtnOn)
                 GL.Color4(0.052f, 0.970f, 0.03f, 0.97);
-            else if ((mc.steerSwitchValue == 0 && !isAutoSteerBtnOn))
+            else
                 GL.Color4(0.952f, 0.750f, 0.03f, 0.97);
 
             //we have lost connection to steer module
@@ -2159,7 +2170,7 @@ namespace AgOpenGPS
 
             GL.Disable(EnableCap.DepthTest);
 
-            if (ct.isContourBtnOn || ABLine.isBtnABLineOn || curve.isBtnCurveOn)
+            if (ct.isContourBtnOn || ABLine.isBtnABLineOn || curve.isBtnCurveOn || recPath.isDrivingRecordedPath)
             {
 
                 //if (guidanceLineDistanceOff != 32000 && guidanceLineDistanceOff != 32020)
@@ -2396,16 +2407,13 @@ namespace AgOpenGPS
 
             if (ahrs.imuHeading != 99999)
             {
-                GL.Color3(0.98f, 0.72f, 0.3f);
-                font.DrawText(center, 94, "G:" + (gpsHeading * 57.2957795).ToString("N1"), 1);
-
-                if (!isSuperSlow) GL.Color3(0.9752f, 0.952f, 0.03f);
+                if (!isSuperSlow) GL.Color3(0.98f, 0.972f, 0.59903f);
                 else GL.Color3(0.298f, 0.972f, 0.99903f);
 
-                GL.Color3(0.98f, 0.972f, 0.59903f);
-                font.DrawText(center, 124, "H:" + Math.Round(ahrs.imuHeading, 1).ToString(), 0.8); //modif max
-                font.DrawText(center, 149, "R:" + Math.Round(ahrs.imuRoll, 1).ToString(), 0.8);
-                font.DrawText(center, 174, "Y:" + Math.Round(ahrs.imuYawRate, 1).ToString(), 0.8);
+                font.DrawText(center, 124, "Fix:" + (gpsHeading * 57.2957795).ToString("N1"), 0.8);
+                font.DrawText(center, 149, "IMU:" + Math.Round(ahrs.imuHeading, 1).ToString(), 0.8); //modif max
+                //font.DrawText(center, 174, "R:" + Math.Round(ahrs.imuRoll, 1).ToString(), 0.8);
+                //font.DrawText(center, 174, "Y:" + Math.Round(ahrs.imuYawRate, 1).ToString(), 0.8);
             }
 
             if (isAngVelGuidance)

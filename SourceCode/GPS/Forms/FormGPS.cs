@@ -14,6 +14,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
+using System.Net;
 
 namespace AgOpenGPS
 {
@@ -39,7 +40,14 @@ namespace AgOpenGPS
         public int oglZoom_LocationY = Properties.Settings.Default.OGLZoom_Location.Y;
         public int oglZoom_SizeWidth = Properties.Settings.Default.OGLZoom_Size.Width;
         public int oglZoom_SizeHeight = Properties.Settings.Default.OGLZoom_Size.Height;
-        public bool config_tool = false; 
+        public bool config_tool = false;
+
+        string strWebVersion;
+        double clientVersion = 1.0;
+        string updatePath;
+        string packageFile;
+        WebClient webClient;
+
         //fin
 
         #region // Class Props and instances
@@ -135,7 +143,7 @@ namespace AgOpenGPS
         public bool isInAutoDrive = true;
 
         //isGPSData form up
-        public bool isGPSSentencesOn = false;
+        public bool isGPSSentencesOn = false, isKeepOffsetsOn = false;
 
         /// <summary>
         /// create the scene camera
@@ -228,11 +236,6 @@ namespace AgOpenGPS
         /// </summary>
         public CFieldData fd;
 
-        /// <summary>
-        /// Class containing workswitch functionality
-        /// </summary>
-        public CWorkSwitch workSwitch;
-
         ///// <summary>
         ///// Sound
         ///// </summary>
@@ -277,7 +280,7 @@ namespace AgOpenGPS
 
             //ControlExtension.Draggable(panelSnap, true);
             ControlExtension.Draggable(oglZoom, true);
-            //ControlExtension.Draggable(panelSim, true);
+            ControlExtension.Draggable(panelDrag, true);
 
             setWorkingDirectoryToolStripMenuItem.Text = gStr.gsDirectories;
             enterSimCoordsToolStripMenuItem.Text = gStr.gsEnterSimCoords;
@@ -348,7 +351,7 @@ namespace AgOpenGPS
             yt = new CYouTurn(this);
 
             //module communication
-            mc = new CModuleComm();
+            mc = new CModuleComm(this);
 
             //boundary object
             bnd = new CBoundary(this);
@@ -373,9 +376,6 @@ namespace AgOpenGPS
 
             //resource for gloabal language strings
             _rm = new ResourceManager("AgOpenGPS.gStr", Assembly.GetExecutingAssembly());
-
-            // Access to workswitch functionality
-            workSwitch = new CWorkSwitch(this);
 
             //access to font class
             font = new CFont(this);
@@ -535,16 +535,17 @@ namespace AgOpenGPS
 
             //nmea limiter
             udpWatch.Start();
-        }
 
+
+        }
 
         // Generates a random number within a range.       
-        public double RandomNumber(double min, double max)
-        {
-            return min + _random.NextDouble() * (max - min);
-        }
+        //public double RandomNumber(double min, double max)
+        //{
+        //    return min + _random.NextDouble() * (max - min);
+        //}
 
-        private readonly Random _random = new Random();
+        //private readonly Random _random = new Random();
 
         private void btnVideoHelpRecPath_Click(object sender, EventArgs e)
         {
@@ -578,6 +579,21 @@ namespace AgOpenGPS
             //
             Form form = new FormFertilisation(this);
             form.Show(this);
+        }
+
+        private void miseÀJourToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isJobStarted)
+            {
+                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                form.Show(this);
+                return;
+            }
+            using (FormUpdate form = new FormUpdate(this))
+            {
+
+                form.ShowDialog(this);
+            }
         }
 
         //form is closing so tidy up and save settings
@@ -627,8 +643,6 @@ namespace AgOpenGPS
                         FileSaveEverythingBeforeClosingField();
 
                         displayFieldName = gStr.gsNone;
-                        //shutdown and reset all module data
-                        mc.ResetAllModuleCommValues();
                     }
                 }
             }
@@ -676,11 +690,18 @@ namespace AgOpenGPS
             Lift, SkyNight, SteerPointer,
             SteerDot, Tractor, QuestionMark,
             FrontWheels, FourWDFront, FourWDRear,
-            Harvester, Lateral
+            Harvester, Lateral, bingGrid
         }
 
         public void CheckSettingsNotNull()
         {
+            //ajout max memprou
+            if (Properties.Settings.Default.setUpdate_MAJ == true)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.setUpdate_MAJ = false;
+            }
+            //fin
             if (Settings.Default.setFeatures == null)
             {
                 Settings.Default.setFeatures = new CFeatureSettings();
@@ -699,7 +720,7 @@ namespace AgOpenGPS
                 Properties.Resources.z_Lift,Properties.Resources.z_SkyNight,Properties.Resources.z_SteerPointer,
                 Properties.Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Properties.Resources.z_QuestionMark,
                 Properties.Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand), Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
-                GetHarvesterBrand(Settings.Default.setBrand_HBrand), Properties.Resources.z_LateralManual
+                GetHarvesterBrand(Settings.Default.setBrand_HBrand), Properties.Resources.z_LateralManual, Resources.z_bingMap
             };
 
             texture = new uint[oglTextures.Length];
@@ -1117,14 +1138,25 @@ namespace AgOpenGPS
         //close the current job
         public void JobClose()
         {
+            recPath.resumeState = 0;
+            btnResumePath.Image = Properties.Resources.pathResumeStart;
+            recPath.currentPositonIndex = 0;
+
             //reset field offsets
-            pn.fixOffset.easting = 0;
-            pn.fixOffset.northing = 0;
+            if (!isKeepOffsetsOn)
+            {
+                pn.fixOffset.easting = 0;
+                pn.fixOffset.northing = 0;
+            }
 
             //turn off headland
             bnd.isHeadlandOn = false;
             btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
             //Ajout-modification MEmprou et SPailleau btnHeadlandOnOff.Visible = false;
+
+            recPath.recList.Clear();
+            recPath.StopDrivingRecordedPath();
+            panelDrag.Visible = false;
 
             //make sure hydraulic lift is off
             p_239.pgn[p_239.hydLift] = 0;
@@ -1269,9 +1301,6 @@ namespace AgOpenGPS
             //reset GUI areas
             fd.UpdateFieldBoundaryGUIAreas();
 
-            //reset all Port Module values
-            mc.ResetAllModuleCommValues();
-
             displayFieldName = gStr.gsNone;
             FixTramModeButton();
 
@@ -1281,6 +1310,7 @@ namespace AgOpenGPS
 
             FixPanelsAndMenus(false);
             SetZoom();
+            worldGrid.isGeoMap = false;
         }
 
         //Does the logic to process section on off requests
@@ -1300,7 +1330,7 @@ namespace AgOpenGPS
 
                     if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
-                    if (section[j].sectionOffRequest & section[j].sectionOffTimer == 0)
+                    if (section[j].sectionOffRequest && section[j].sectionOffTimer == 0)
                     {
                         if (section[j].isSectionOn) section[j].isSectionOn = false;
                     }

@@ -122,7 +122,7 @@ namespace AgOpenGPS
                     mf.bnd.bndList[i].isDriveThru = false;
                     a.Text = string.Format(gStr.gsOuter);
                     //a.Font = backupfont;
-                    d.Text = mf.bnd.bndList[i].isDriveThru ? "--" : "--";
+                    d.Text = "--";
                     d.Enabled = false;
                     d.Anchor = System.Windows.Forms.AnchorStyles.None;
                     a.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -296,6 +296,11 @@ namespace AgOpenGPS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (mf.tool.toolWidth < 0.2)
+            {
+                mf.TimedMessageBox(2000, "Tool Error", "Your tool is too small");
+                return;
+            }
             panelMain.Visible = false;
             panelKML.Visible = false;
             panelChoose.Visible = true;
@@ -483,6 +488,14 @@ namespace AgOpenGPS
         private void btnGetKML_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             MessageBox.Show(gStr.hb_btnGetKML, gStr.gsHelp);
+        }
+
+        private void btnBingMaps_Click(object sender, EventArgs e)
+        {
+            panelMain.Visible = false;
+            panelChoose.Visible = false;
+            panelKML.Visible = false;
+            isClosing = true;
         }
 
         private void btnDriveOrExt_HelpRequested(object sender, HelpEventArgs hlpevent)

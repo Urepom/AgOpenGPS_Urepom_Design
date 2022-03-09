@@ -59,10 +59,10 @@ namespace AgOpenGPS
             label50.Text = gStr.gsCoverage; //%
 
             //tSwit
-            groupBox3.Text = gStr.gsWorkSwitch;
-            chkEnableWorkSwitch.Text = gStr.gsEnableWorkSwitch;
+            chkSelectWorkSwitch.Text = gStr.gsWorkSwitch;
+            //chkEnableWorkSwitch.Text = gStr.gsEnableWorkSwitch;
             chkWorkSwActiveLow.Text = gStr.gsWorkSwActiveLow;
-            checkWorkSwitchManual.Text = gStr.gsWorkSwitchControlsManual;
+            //checkWorkSwitchManual.Text = gStr.gsWorkSwitchControlsManual;
 
             //TSettings
             label16.Text = gStr.gsOnSecs; // On (secs)
@@ -85,15 +85,6 @@ namespace AgOpenGPS
             label78.Text = gStr.gsInvertRoll;
             label18.Text = gStr.gsRollFilter;
 
-            //aSteer
-            label5.Text = gStr.gsInvertWAS;
-            label70.Text = gStr.gsInvertMotorDir;
-            label7.Text = gStr.gsInvertRelays;
-            labelEncoder.Text = gStr.gsTurnSensor;
-            labelPressureTurnSensor.Text = gStr.gsPressureTurnSensor;
-            labelCurrentTurnSensor.Text = gStr.gsCurrentTurnSensor;
-            label61.Text = gStr.gsTurnSensor;
-            label68.Text = gStr.gsSendSave; //+
 
             //aMach
             label56.Text = gStr.gsMachineModule;
@@ -106,7 +97,6 @@ namespace AgOpenGPS
             label67.Text = gStr.gsSendSave; //+
 
             //tTram
-            groupBox2.Text = gStr.gsTramType; //+
             label75.Text = gStr.gsTramWidth; //+
 
             //fin
@@ -169,7 +159,6 @@ namespace AgOpenGPS
 
             nudAgeAlarm.Controls[0].Enabled = false;
 
-            nudMaxCounts.Controls[0].Enabled = false;
             nudRaiseTime.Controls[0].Enabled = false;
             nudLowerTime.Controls[0].Enabled = false;
 
@@ -182,6 +171,8 @@ namespace AgOpenGPS
             nudMenusOnTime.Controls[0].Enabled = false;
 
             nudGuidanceLookAhead.Controls[0].Enabled = false;
+
+            nudDualHeadingOffset.Controls[0].Enabled = false;
         }
 
         private void FormConfig_Load(object sender, EventArgs e)
@@ -216,6 +207,7 @@ namespace AgOpenGPS
                 chkDisplayPolygons.Visible = false;
                 chkDisplayLogNMEA.Visible = false;
                 label122.Visible = false;
+                label55.Visible = false;
 
             }
             else
@@ -232,6 +224,7 @@ namespace AgOpenGPS
                 btnSubDimensions.Visible = true;
                 btnSubVehicleConfig.Visible = true;
                 btnVehicle.Visible = true;
+                label55.Visible = true;
             }
             //fin
 
@@ -306,7 +299,7 @@ namespace AgOpenGPS
             tab1.SelectedTab = tabSummary;
             tboxVehicleNameSave.Focus();
 
-            mf.CloseTopMosts();
+            //mf.CloseTopMosts();
 
         }
 

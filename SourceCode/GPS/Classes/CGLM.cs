@@ -1,6 +1,8 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace AgOpenGPS
 {
@@ -173,48 +175,48 @@ namespace AgOpenGPS
         }
 
         //Regex file expression
-        public static string fileRegex = "(^(PRN|AUX|NUL|CON|COM[1-9]|LPT[1-9]|(\\.+)$)(\\..*)?$)|(([\\x00-\\x1f\\\\?*:\";‌​|/<>])+)|([\\.]+)";
+        public const string fileRegex = "(^(PRN|AUX|NUL|CON|COM[1-9]|LPT[1-9]|(\\.+)$)(\\..*)?$)|(([\\x00-\\x1f\\\\?*:\";‌​|/<>])+)|([\\.]+)";
 
         //inches to meters
-        public static double in2m = 0.0254;
+        public const double in2m = 0.0254;
 
         //meters to inches
-        public static double m2in = 39.3701;
+        public const double m2in = 39.3701;
 
         //meters to feet
-        public static double m2ft = 3.28084;
+        public const double m2ft = 3.28084;
 
         //feet to meters
-        public static double ft2m = 0.3048;
+        public const double ft2m = 0.3048;
 
         //Hectare to Acres
-        public static double ha2ac = 2.47105;
+        public const double ha2ac = 2.47105;
 
         //Acres to Hectare
-        public static double ac2ha = 0.404686;
+        public const double ac2ha = 0.404686;
 
         //Meters to Acres
-        public static double m2ac = 0.000247105;
+        public const double m2ac = 0.000247105;
 
         //Meters to Hectare
-        public static double m2ha = 0.0001;
+        public const double m2ha = 0.0001;
 
         // liters per hectare to us gal per acre
-        public static double galAc2Lha = 9.35396;
+        public const double galAc2Lha = 9.35396;
 
         //us gal per acre to liters per hectare
-        public static double LHa2galAc = 0.106907;
+        public const double LHa2galAc = 0.106907;
 
         //Liters to Gallons
-        public static double L2Gal = 0.264172;
+        public const double L2Gal = 0.264172;
 
         //Gallons to Liters
-        public static double Gal2L = 3.785412534258;
+        public const double Gal2L = 3.785412534258;
 
         //the pi's
-        public static double twoPI = 6.28318530717958647692;
+        public const double twoPI = 6.28318530717958647692;
 
-        public static double PIBy2 = 1.57079632679489661923;
+        public const double PIBy2 = 1.57079632679489661923;
 
         //Degrees Radians Conversions
         public static double toDegrees(double radians)
@@ -325,5 +327,35 @@ namespace AgOpenGPS
             Math.Pow(first.easting - second.easting, 2)
             + Math.Pow(first.northing - second.northing, 2));
         }
+
+        public static Bitmap MakeGrayscale3(Bitmap original)
+        {
+            //create a blank bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            //get a graphics object from the new image
+            Graphics g = Graphics.FromImage(newBitmap);
+            //create the grayscale ColorMatrix
+            ColorMatrix colorMatrix = new ColorMatrix(
+               new float[][]
+              {
+                 new float[] {.3f, .3f, .3f, 0, 0},
+                 new float[] {.59f, .59f, .59f, 0, 0},
+                 new float[] {.11f, .11f, .11f, 0, 0},
+                 new float[] {0, 0, 0, 1, 0},
+                 new float[] {0, 0, 0, 0, 1}
+              });
+            //create some image attributes
+            ImageAttributes attributes = new ImageAttributes();
+            //set the color matrix attribute
+            attributes.SetColorMatrix(colorMatrix);
+            //draw the original image on the new image
+            //using the grayscale color matrix
+            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+               0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+            //dispose the Graphics object
+            g.Dispose();
+            return newBitmap;
+        }
+
     }
 }

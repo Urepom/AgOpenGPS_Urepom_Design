@@ -326,7 +326,7 @@ namespace AgOpenGPS
 
             //build new current ref line if required
             if (!isCurveValid || ((mf.secondsSinceStart - lastSecond) > 0.66 
-                && (!mf.isAutoSteerBtnOn || mf.mc.steerSwitchValue != 0)))
+                && (!mf.isAutoSteerBtnOn || mf.mc.steerSwitchHigh)))
                 BuildCurveCurrentList(pivot);
 
             double dist, dx, dz;
@@ -488,22 +488,22 @@ namespace AgOpenGPS
                     if (steerAngleCu < -mf.vehicle.maxSteerAngle) steerAngleCu = -mf.vehicle.maxSteerAngle;
                     if (steerAngleCu > mf.vehicle.maxSteerAngle) steerAngleCu = mf.vehicle.maxSteerAngle;
 
-                    if (ppRadiusCu < -500) ppRadiusCu = -500;
-                    if (ppRadiusCu > 500) ppRadiusCu = 500;
+                    //if (ppRadiusCu < -500) ppRadiusCu = -500;
+                    //if (ppRadiusCu > 500) ppRadiusCu = 500;
 
-                    radiusPointCu.easting = pivot.easting + (ppRadiusCu * Math.Cos(localHeading));
-                    radiusPointCu.northing = pivot.northing + (ppRadiusCu * Math.Sin(localHeading));
+                    //radiusPointCu.easting = pivot.easting + (ppRadiusCu * Math.Cos(localHeading));
+                    //radiusPointCu.northing = pivot.northing + (ppRadiusCu * Math.Sin(localHeading));
 
-                    //angular velocity in rads/sec  = 2PI * m/sec * radians/meters
-                    double angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngleCu))) / mf.vehicle.wheelbase;
+                    ////angular velocity in rads/sec  = 2PI * m/sec * radians/meters
+                    //double angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngleCu))) / mf.vehicle.wheelbase;
 
-                    //clamp the steering angle to not exceed safe angular velocity
-                    if (Math.Abs(angVel) > mf.vehicle.maxAngularVelocity)
-                    {
-                        steerAngleCu = glm.toDegrees(steerAngleCu > 0 ?
-                                (Math.Atan((mf.vehicle.wheelbase * mf.vehicle.maxAngularVelocity) / (glm.twoPI * mf.avgSpeed * 0.277777)))
-                            : (Math.Atan((mf.vehicle.wheelbase * -mf.vehicle.maxAngularVelocity) / (glm.twoPI * mf.avgSpeed * 0.277777))));
-                    }
+                    ////clamp the steering angle to not exceed safe angular velocity
+                    //if (Math.Abs(angVel) > mf.vehicle.maxAngularVelocity)
+                    //{
+                    //    steerAngleCu = glm.toDegrees(steerAngleCu > 0 ?
+                    //            (Math.Atan((mf.vehicle.wheelbase * mf.vehicle.maxAngularVelocity) / (glm.twoPI * mf.avgSpeed * 0.277777)))
+                    //        : (Math.Atan((mf.vehicle.wheelbase * -mf.vehicle.maxAngularVelocity) / (glm.twoPI * mf.avgSpeed * 0.277777))));
+                    //}
 
                     if (!isHeadingSameWay)
                         distanceFromCurrentLinePivot *= -1.0;
@@ -531,9 +531,8 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-
             int ptCount = refList.Count;
-            if (refList.Count == 0) return;
+            if (refList == null|| refList.Count == 0)  return;
 
             GL.LineWidth(mf.ABLine.lineWidth);
             GL.Color3(0.96, 0.2f, 0.2f);
@@ -548,19 +547,6 @@ namespace AgOpenGPS
             }
             GL.End();
 
-            //GL.PointSize(8.0f);
-            //GL.Begin(PrimitiveType.Points);
-            //GL.Color3(1.0f, 1.0f, 0.0f);
-            ////GL.Vertex3(goalPointAB.easting, goalPointAB.northing, 0.0);
-            //GL.Vertex3(mf.gyd.rEastSteer, mf.gyd.rNorthSteer, 0.0);
-            //GL.Color3(1.0f, 0.0f, 1.0f);
-            //GL.Vertex3(mf.gyd.rEastPivot, mf.gyd.rNorthPivot, 0.0);
-            //GL.End();
-            //GL.PointSize(1.0f);
-
-
-
-
             if (mf.font.isFontOn && refList.Count > 410)
             {
                 GL.Color3(0.40f, 0.90f, 0.95f);
@@ -571,52 +557,26 @@ namespace AgOpenGPS
             //just draw ref and smoothed line if smoothing window is open
             if (isSmoothWindowOpen)
             {
-                ptCount = smooList.Count;
-                if (smooList.Count == 0) return;
+                if (smooList == null || smooList.Count == 0) return;
 
                 GL.LineWidth(mf.ABLine.lineWidth);
                 GL.Color3(0.930f, 0.92f, 0.260f);
                 GL.Begin(PrimitiveType.Lines);
-                for (int h = 0; h < ptCount; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
+                for (int h = 0; h < smooList.Count; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
                 GL.End();
             }
             else //normal. Smoothing window is not open.
             {
-                ptCount = curList.Count;
-                if (ptCount > 0 && isCurveSet)
+                if (curList.Count > 0 && isCurveSet)
                 {
                     GL.PointSize(2);
-
                     GL.Color3(0.95f, 0.2f, 0.95f);
                     GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < ptCount; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
+                    for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
                     GL.End();
 
-                    if (mf.isPureDisplayOn && !mf.isStanleyUsed)
+                    if (!mf.isStanleyUsed && mf.camera.camSetDistance > -200)
                     {
-                        if (ppRadiusCu < 200 && ppRadiusCu > -200)
-                        {
-                            const int numSegments = 100;
-                            double theta = glm.twoPI / numSegments;
-                            double c = Math.Cos(theta);//precalculate the sine and cosine
-                            double s = Math.Sin(theta);
-                            double x = ppRadiusCu;//we start at angle = 0
-                            double y = 0;
-
-                            GL.LineWidth(1);
-                            GL.Color3(0.53f, 0.530f, 0.950f);
-                            GL.Begin(PrimitiveType.LineLoop);
-                            for (int ii = 0; ii < numSegments; ii++)
-                            {
-                                //glVertex2f(x + cx, y + cy);//output vertex
-                                GL.Vertex3(x + radiusPointCu.easting, y + radiusPointCu.northing, 0);//output vertex
-                                double t = x;//apply the rotation matrix
-                                x = (c * x) - (s * y);
-                                y = (s * t) + (c * y);
-                            }
-                            GL.End();
-                        }
-
                         //Draw lookahead Point
                         GL.PointSize(8.0f);
                         GL.Begin(PrimitiveType.Points);
@@ -629,52 +589,6 @@ namespace AgOpenGPS
                 }
             }
             GL.PointSize(1.0f);
-
-
-            //if (isEditing)
-            //{
-            //    int ptCount = refList.Count;
-            //    if (refList.Count == 0) return;
-
-            //    GL.LineWidth(mf.ABLine.lineWidth);
-            //    GL.Color3(0.930f, 0.2f, 0.260f);
-            //    GL.Begin(PrimitiveType.Lines);
-            //    for (int h = 0; h < ptCount; h++) GL.Vertex3(refList[h].easting, refList[h].northing, 0);
-            //    GL.End();
-
-            //    //current line
-            //    if (curList.Count > 0 && isCurveSet)
-            //    {
-            //        ptCount = curList.Count;
-            //        GL.Color3(0.95f, 0.2f, 0.950f);
-            //        GL.Begin(PrimitiveType.LineStrip);
-            //        for (int h = 0; h < ptCount; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
-            //        GL.End();
-            //    }
-
-
-            //if (mf.camera.camSetDistance > -200)
-            //{
-            //    double toolWidth2 = mf.tool.toolWidth - mf.tool.toolOverlap;
-            //    double cosHeading2 = Math.Cos(-mf.curve.aveLineHeading);
-            //    double sinHeading2 = Math.Sin(-mf.curve.aveLineHeading);
-
-            //    GL.Color3(0.8f, 0.3f, 0.2f);
-            //    GL.PointSize(2);
-            //    GL.Begin(PrimitiveType.Points);
-
-            //    ptCount = refList.Count;
-            //    for (int i = 1; i <= 6; i++)
-            //    {
-            //        for (int h = 0; h < ptCount; h++)
-            //            GL.Vertex3((cosHeading2 * toolWidth2) + mf.curve.refList[h].easting,
-            //                          (sinHeading2 * toolWidth2) + mf.curve.refList[h].northing, 0);
-            //        toolWidth2 = toolWidth2 + mf.tool.toolWidth - mf.tool.toolOverlap;
-            //    }
-
-            //    GL.End();
-            //}
-            //}
         }
 
         public void BuildTram()
@@ -796,7 +710,7 @@ namespace AgOpenGPS
             int cnt = refList.Count;
 
             //just go back if not very long
-            if (!isCurveSet || cnt < 400) return;
+            if (!isCurveSet || cnt < 200) return;
 
             //the temp array
             vec3[] arr = new vec3[cnt];
@@ -831,6 +745,10 @@ namespace AgOpenGPS
 
             //make a list to draw
             smooList?.Clear();
+
+            if (arr == null || cnt < 1) return;
+            if (smooList == null) return;   
+
             for (int i = 0; i < cnt; i++)
             {
                 smooList.Add(arr[i]);
@@ -863,6 +781,7 @@ namespace AgOpenGPS
         public void SaveSmoothAsRefList()
         {
             //oops no smooth list generated
+            if (smooList == null) return;
             int cnt = smooList.Count;
             if (cnt == 0) return;
 
