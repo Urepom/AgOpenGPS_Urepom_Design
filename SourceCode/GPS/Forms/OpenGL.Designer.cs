@@ -2223,7 +2223,7 @@ namespace AgOpenGPS
             //double hiit = 0;
 
             GL.PushMatrix();
-            GL.Translate(0, 100, 0);
+            GL.Translate(0, 120, 0); //Ajout-modification MEmprou et SPailleau
 
             GL.LineWidth(1);
             GL.Color3(0.24f, 0.64f, 0.74f);
