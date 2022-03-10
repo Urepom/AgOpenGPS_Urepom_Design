@@ -1127,7 +1127,7 @@ namespace AgOpenGPS
                     }
 
                     //manual uturn triggering
-                    middle = oglMain.Width / 2 - oglMain.Width / 4;
+                    middle = oglMain.Width / 2 - oglMain.Width / 6; // Ajout - modification MEmprou et SPailleau
                     if (point.X > middle - 140 && point.X < middle && isUTurnOn)
                     {
                         if (isTT)
@@ -1171,7 +1171,7 @@ namespace AgOpenGPS
 
                 if (point.Y < 150 && point.Y > 90)
                 {
-                    int middle = oglMain.Width / 2 - oglMain.Width / 4;
+                    int middle = oglMain.Width / 2 - oglMain.Width / 6; // Ajout - modification MEmprou et SPailleau
                     if (point.X > middle - 140 && point.X < middle && isLateralOn)
                     {
                         if (isTT)
