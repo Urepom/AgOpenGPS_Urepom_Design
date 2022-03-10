@@ -1111,7 +1111,7 @@ namespace AgOpenGPS
                 //0 at bottom for opengl, 0 at top for windows, so invert Y value
                 Point point = oglMain.PointToClient(Cursor.Position);
 
-                if (point.Y < 90 && point.Y > 30 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn))
+                if (point.Y < 120 && point.Y > 60 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn))
                 {
                     int middle = oglMain.Width / 2 + oglMain.Width / 5;
                     if (point.X > middle - 80 && point.X < middle + 80)
@@ -1169,7 +1169,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                if (point.Y < 150 && point.Y > 90)
+                if (point.Y < 180 && point.Y > 120)
                 {
                     int middle = oglMain.Width / 2 - oglMain.Width / 6; // Ajout - modification MEmprou et SPailleau
                     if (point.X > middle - 140 && point.X < middle && isLateralOn)
