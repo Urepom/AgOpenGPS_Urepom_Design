@@ -908,6 +908,7 @@
             this.btnCloseRTCM.Size = new System.Drawing.Size(56, 58);
             this.btnCloseRTCM.TabIndex = 95;
             this.btnCloseRTCM.UseVisualStyleBackColor = false;
+            this.btnCloseRTCM.Click += new System.EventHandler(this.btnCloseRTCM_Click);
             // 
             // btnOpenRTCM
             // 
@@ -921,6 +922,7 @@
             this.btnOpenRTCM.Size = new System.Drawing.Size(58, 58);
             this.btnOpenRTCM.TabIndex = 96;
             this.btnOpenRTCM.UseVisualStyleBackColor = false;
+            this.btnOpenRTCM.Click += new System.EventHandler(this.btnOpenRTCM_Click);
             // 
             // labelDifferentRtcmPort
             // 
@@ -1058,6 +1060,7 @@
             this.btnCloseSerial.Size = new System.Drawing.Size(56, 58);
             this.btnCloseSerial.TabIndex = 44;
             this.btnCloseSerial.UseVisualStyleBackColor = false;
+            this.btnCloseSerial.Click += new System.EventHandler(this.btnCloseSerial_Click);
             // 
             // textBoxRcv
             // 
@@ -1085,6 +1088,7 @@
             this.btnOpenSerial.Size = new System.Drawing.Size(58, 58);
             this.btnOpenSerial.TabIndex = 45;
             this.btnOpenSerial.UseVisualStyleBackColor = false;
+            this.btnOpenSerial.Click += new System.EventHandler(this.btnOpenSerial_Click);
             // 
             // FormCommSetGPS
             // 
