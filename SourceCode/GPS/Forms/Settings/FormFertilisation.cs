@@ -106,6 +106,7 @@ namespace AgOpenGPS
 
         private void FormFertilisation_Load(object sender, EventArgs e)
         {
+            timer2.Start();
             nudDoseFerti.Value = Properties.Vehicle.Default.SetDoseFerti;
             numTimerRincage.Value = Properties.Vehicle.Default.SetTimerRincFerti;
             cboxFertiActive.Checked = mf.Ferti_active;
@@ -173,6 +174,19 @@ namespace AgOpenGPS
             {
                 Properties.Vehicle.Default.SetTimerRincFerti = Convert.ToInt32(numTimerRincage.Value);
             }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            label3.Text = (Math.Round((mf.Débit_Pompe_Ferti / ((mf.pn.speed * mf.tool.toolWidth)/10)),2)).ToString();
+            label4.Text = mf.PWD_Pompe_Ferti.ToString();
+            label5.Text = mf.Vol_Pompe_Ferti.ToString() + " l";
+            timer2.Start();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

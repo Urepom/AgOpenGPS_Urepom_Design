@@ -719,7 +719,7 @@ namespace AgIO
             //Ajout-modification MEmprou et SPailleau Fertilisation 
             private void btnOpenSerialFerti_Click(object sender, EventArgs e)
         {
-            mf.OpenModuleFertiPort();
+            mf.OpenFertiPort();
             if (mf.spModuleFerti.IsOpen)
             {
                 cboxferti.Enabled = false;
@@ -737,7 +737,7 @@ namespace AgIO
         //Ajout-modification MEmprou et SPailleau Fertilisation 
         private void btnCloseSerialFerti_Click(object sender, EventArgs e)
         {
-            mf.CloseModuleFertiPort();
+            mf.CloseFertiPort();
             if (mf.spModuleFerti.IsOpen)
             {
                 cboxferti.Enabled = false;

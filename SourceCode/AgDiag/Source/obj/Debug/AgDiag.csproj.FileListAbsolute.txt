@@ -36,3 +36,4 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgDiag\Source
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgDiag\Source\obj\Debug\fr\AgDiag.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgDiag\Source\obj\Debug\AgDiag.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgDiag\Source\obj\Debug\AgDiag.pdb
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgDiag\Source\obj\Debug\AgDiag.csproj.AssemblyReference.cache

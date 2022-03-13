@@ -22,6 +22,7 @@ namespace AgOpenGPS
 
         // Status delegate
         private double rollK = 0;
+        public double Débit_Pompe_Ferti, PWD_Pompe_Ferti, Vol_Pompe_Ferti = 0;
         private int udpWatchCounts = 0;
         public int udpWatchLimit = 70;
 
@@ -197,6 +198,14 @@ namespace AgOpenGPS
 
                                 ahrs.angVel = 0;
                             }
+                            break;
+                        }
+                    case 0xEB: //ferti
+                        {
+
+                            Débit_Pompe_Ferti = (Int16)((data[6] << 8) + data[5]);
+                            PWD_Pompe_Ferti = (Int16)((data[8] << 8) + data[7]);
+                            Vol_Pompe_Ferti = (Int16)((data[10] << 8) + data[9]);
                             break;
                         }
                     case 253: //return from autosteer module

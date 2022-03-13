@@ -123,7 +123,7 @@ namespace AgIO
             wasModuleFertiConnectedLastRun = Settings.Default.setPort_wasModuleFertiConnected;
             if (wasModuleFertiConnectedLastRun)
             {
-                OpenModuleFertiPort();
+                OpenFertiPort();
                 if (spModuleFerti.IsOpen) lblModFertiComm.Text = portNameModuleFerti;
             }
 

@@ -958,19 +958,16 @@ namespace AgIO
 
         //Ajout-modification MEmprou et SPailleau Fertilisation
         #region ModuleFertiSerialPort // --------------------------------------------------------------------
-        private void ReceiveModuleFertiPort(byte[] Data)
+        private void ReceiveFertiPort(byte[] Data)
         {
-            try
-            {
-                SendToLoopBackMessageAOG(Data);
-                SendToLoopBackMessageVR(Data);
-                traffic.cntrModuleFertiIn += Data.Length;
-            }
-            catch { }
+            traffic.cntrModuleFertiIn += Data.Length;
+            SendToLoopBackMessageAOG(Data);
         }
 
-        public void SendModuleFertiPort(byte[] items, int numItems)
+        //Send machine info out to machine board
+        public void SendFertiPort(byte[] items, int numItems)
         {
+            //Tell Arduino to turn section on or off accordingly
             if (spModuleFerti.IsOpen)
             {
                 try
@@ -980,65 +977,70 @@ namespace AgIO
                 }
                 catch (Exception)
                 {
-                    CloseModuleFertiPort();
+                    CloseFertiPort();
                 }
             }
         }
 
         //open the Arduino serial port
-        public void OpenModuleFertiPort()
+        public void OpenFertiPort()
         {
             if (!spModuleFerti.IsOpen)
             {
                 spModuleFerti.PortName = portNameModuleFerti;
                 spModuleFerti.BaudRate = baudRateModuleFerti;
-                spModuleFerti.DataReceived += sp_DataReceiveModuleFerti;
+                spModuleFerti.DataReceived += sp_DataReceivedFerti;
                 spModuleFerti.DtrEnable = true;
                 spModuleFerti.RtsEnable = true;
             }
 
-            try
-            {
-                spModuleFerti.Open();
-                //short delay for the use of mega2560, it is working in debugmode with breakpoint
-                System.Threading.Thread.Sleep(1000); // 500 was not enough
-
-            }
+            try { spModuleFerti.Open(); }
             catch (Exception e)
             {
-                //WriteErrorLog("Opening Steer Port" + e.ToString());
+                //WriteErrorLog("Opening Machine Port" + e.ToString());
 
-                MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No AutoSteer Port Active");
+                MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
 
-                Properties.Settings.Default.setPort_wasModuleFertiConnected = false;
+
+                Properties.Settings.Default.setPort_wasModuleFertiConnected= false;
                 Properties.Settings.Default.Save();
+                wasModuleFertiConnectedLastRun = false;
             }
 
             if (spModuleFerti.IsOpen)
             {
+                //short delay for the use of mega2560, it is working in debugmode with breakpoint
+                System.Threading.Thread.Sleep(500); // 500 was not enough
+
                 spModuleFerti.DiscardOutBuffer();
                 spModuleFerti.DiscardInBuffer();
 
-                //update port status label
-
-                Properties.Settings.Default.setPort_portNameModuleFerti = portNameModuleFerti;
+                Properties.Settings.Default.setPort_portNameModuleFerti= portNameModuleFerti;
                 Properties.Settings.Default.setPort_wasModuleFertiConnected = true;
                 Properties.Settings.Default.Save();
-
-                wasModule2ConnectedLastRun = true;
+                wasModuleFertiConnectedLastRun = true;
                 lblModFertiComm.Text = portNameModuleFerti;
             }
         }
 
-        public void CloseModuleFertiPort()
+        //close the machine port
+        public void CloseFertiPort()
         {
             if (spModuleFerti.IsOpen)
             {
-                spModuleFerti.DataReceived -= sp_DataReceiveModuleFerti;
-                try { spModuleFerti.Close(); }
+                spModuleFerti.DataReceived -= sp_DataReceivedFerti;
+                try
+                {
+                    spModuleFerti.Close();
+                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xEB, 2, 1, 0, 0xCC };
+
+                    //tell AOG ModuleFerti is disconnected
+                    SendToLoopBackMessageAOG(FertiClose);
+                }
+
                 catch (Exception e)
                 {
-                    //WriteErrorLog("Closing steer Port" + e.ToString());
+                    //WriteErrorLog("Closing Machine Serial Port" + e.ToString());
                     MessageBox.Show(e.Message, "Connection already terminated??");
                 }
 
@@ -1046,14 +1048,23 @@ namespace AgIO
                 Properties.Settings.Default.Save();
 
                 spModuleFerti.Dispose();
+                wasModuleFertiConnectedLastRun = false;
+            }
+
+            else
+            {
+                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xEB, 2, 1, 0, 0xCC };
+
+                //tell AOG Moldule Ferti is disconnected
+                SendToLoopBackMessageAOG(FertiClose);
+                wasModuleFertiConnectedLastRun = false;
             }
 
             wasModuleFertiConnectedLastRun = false;
-
+            lblModFertiComm.Text = "---";
         }
 
-        //called by the module delegate every time a chunk is rec'd
-        private void sp_DataReceiveModuleFerti(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        private void sp_DataReceivedFerti(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             if (spModuleFerti.IsOpen)
             {
@@ -1074,8 +1085,6 @@ namespace AgIO
 
                     for (int i = 0; i < aas; i++)
                     {
-                        //traffic.cntrIMUIn++;
-
                         a = (byte)spModuleFerti.ReadByte();
 
                         switch (ByteList[261])
@@ -1144,8 +1153,9 @@ namespace AgIO
                                             //if checksum matches finish and update main thread
                                             if (a == (byte)(CK_A))
                                             {
+                                                length++;
                                                 ByteList[ByteList[261]++] = (byte)CK_A;
-                                                BeginInvoke((MethodInvoker)(() => ReceiveModuleFertiPort(ByteList.Take(length).ToArray())));
+                                                BeginInvoke((MethodInvoker)(() => ReceiveFertiPort(ByteList.Take(length).ToArray())));
                                             }
 
                                             //clear out the current pgn

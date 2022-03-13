@@ -262,8 +262,8 @@ namespace AgIO
                             }
                         case 0xEB: //235 ferti config
                             {
-                                SendModuleFertiPort(data, data.Length);
-                                SendModuleFertiPort(data, data.Length);
+                                SendFertiPort(data, data.Length);
+                                SendFertiPort(data, data.Length);
                                 break;
                             }
 
