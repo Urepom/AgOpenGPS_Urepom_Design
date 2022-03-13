@@ -154,6 +154,11 @@
     <Compile Include="Forms\FormUDP.designer.cs">
       <DependentUpon>FormUDP.cs</DependentUpon>
     </Compile>
+    <Compile Include="gStr.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>gStr.fr.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
@@ -194,7 +199,10 @@
     <EmbeddedResource Include="Forms\FormUDP.resx">
       <DependentUpon>FormUDP.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="gStr.fr.resx" />
+    <EmbeddedResource Include="gStr.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>gStr.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

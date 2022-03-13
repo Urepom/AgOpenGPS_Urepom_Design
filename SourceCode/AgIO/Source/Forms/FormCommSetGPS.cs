@@ -385,7 +385,7 @@ namespace AgIO
             lblIMU.Text = mf.spIMU.PortName;
             lblMachine.Text = mf.spModule2.PortName;
             //Ajout-modification MEmprou et SPailleau Fertilisation
-            lblferti.Text = mf.spModule2.PortName;
+            lblferti.Text = mf.spModuleFerti.PortName;
 
             lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
 
