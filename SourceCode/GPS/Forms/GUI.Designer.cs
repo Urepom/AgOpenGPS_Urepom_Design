@@ -887,7 +887,7 @@ namespace AgOpenGPS
                 btnSection13Man.Top = btnSection14Man.Top = btnSection15Man.Top =
                 btnSection16Man.Top = top;
 
-                int oglButtonWidth = oglMain.Width * 3 / 4;
+                int oglButtonWidth = oglMain.Width * 3 / 5; //Ajout-modification MEmprou et SPailleau
 
                 int buttonWidth = oglButtonWidth / tool.numOfSections;
                 if (buttonWidth > buttonMaxWidth) buttonWidth = buttonMaxWidth;
