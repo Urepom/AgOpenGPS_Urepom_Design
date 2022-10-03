@@ -1175,6 +1175,10 @@ namespace AgOpenGPS
         {
             SetLanguage("af", true);
         }
+        private void menuLanguageTurkish_Click(object sender, EventArgs e)
+        {
+            SetLanguage("tr", true);
+        }
 
         private void SetLanguage(string lang, bool Restart)
         {
@@ -1196,6 +1200,7 @@ namespace AgOpenGPS
             menuLanguageSlovak.Checked = false;
             menuLanguagePolish.Checked = false;
             menuLanguageDanish.Checked = false;
+            menuLanguageTurkish.Checked = false;
 
             menuLanguageTest.Checked = false;
 
@@ -1247,6 +1252,9 @@ namespace AgOpenGPS
 
                 case "af":
                     menuLanguageTest.Checked = true;
+                    break;
+                case "tr":
+                    menuLanguageTurkish.Checked = true;
                     break;
 
                 default:
@@ -1915,12 +1923,17 @@ namespace AgOpenGPS
             //bring up dialog if no job active, close job if one is
             if (!isJobStarted)
             {
+                if (!isFirstFixPositionSet || sentenceCounter > 299)
+                {
+                    TimedMessageBox(2500, "No GPS", "You are lost with no GPS, Fix that First");
+                    return;
+                }
                 using (var form = new FormJob(this))
                 {
                     var result = form.ShowDialog(this);
                     if (result == DialogResult.Yes)
                     {
-                        //ask for a directory name
+                        //new field - ask for a directory name
                         using (var form2 = new FormFieldDir(this))
                         { form2.ShowDialog(this); }
                     }
@@ -1960,10 +1973,12 @@ namespace AgOpenGPS
                     round_table2.Visible = true;
                     round_table6.Visible = true;
                     round_table8.Visible = true;
+                    btnResetToolHeading.Visible = true;
                     label1.Visible = true;
                     toolStripStatusLabel2.Visible = true;
                     round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
                     round_table10.Width = 290;
+                    round_table7.Width = 242;
                 }
                 else
                 {
@@ -1978,9 +1993,11 @@ namespace AgOpenGPS
                     round_table2.Visible = false;
                     round_table6.Visible = false;
                     round_table8.Visible = false;
+                    btnResetToolHeading.Visible = false;
                     round_StatusStrip1.Width = 176;
                     toolStripStatusLabel2.Visible = false;
                     round_table10.Width = 176;
+                    round_table7.Width = 176;
                 }
                 //fin
             }
@@ -2032,9 +2049,11 @@ namespace AgOpenGPS
                         round_table2.Visible = false;
                         round_table6.Visible = false;
                         round_table8.Visible = false;
+                        btnResetToolHeading.Visible = false;
                         round_StatusStrip1.Width = 176;
                         toolStripStatusLabel2.Visible = false;
                         round_table10.Width = 176;
+                        round_table7.Width = 176;
                         break;
 
                     //Ignore and return
@@ -2337,7 +2356,7 @@ namespace AgOpenGPS
         }
         private void hsbarStepDistance_Scroll(object sender, ScrollEventArgs e)
         {
-            sim.stepDistance = ((double)(hsbarStepDistance.Value)) / 5.0 / (double)fixUpdateHz;
+            sim.stepDistance = ((double)(hsbarStepDistance.Value)) / 5.0 / gpsHz;
         }
         private void btnResetSteerAngle_Click(object sender, EventArgs e)
         {
@@ -2810,5 +2829,6 @@ namespace AgOpenGPS
         public Button btnPickPath;
         public Button btnPathRecordStop;
         public Button btnResumePath;
+        private ToolStripMenuItem menuLanguageTurkish;
     }//end class
 }//end namespace

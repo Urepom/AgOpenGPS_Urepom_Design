@@ -1692,9 +1692,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap first {
+        internal static System.Drawing.Bitmap First {
             get {
-                object obj = ResourceManager.GetObject("first", resourceCulture);
+                object obj = ResourceManager.GetObject("First", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2350,6 +2350,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ResetTool {
+            get {
+                object obj = ResourceManager.GetObject("ResetTool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Same {
             get {
                 object obj = ResourceManager.GetObject("Same", resourceCulture);
@@ -2583,6 +2593,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap SpecialFunctions {
             get {
                 object obj = ResourceManager.GetObject("SpecialFunctions", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Splash {
+            get {
+                object obj = ResourceManager.GetObject("Splash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3421,6 +3441,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap z_Lift {
             get {
                 object obj = ResourceManager.GetObject("z_Lift", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z_NoGPS {
+            get {
+                object obj = ResourceManager.GetObject("z_NoGPS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

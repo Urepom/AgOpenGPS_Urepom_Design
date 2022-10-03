@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -32,13 +33,13 @@ namespace AgOpenGPS
         private void DrawChart()
         {
             {
-                dataSteerAngle = (glm.toDegrees(mf.gpsHeading)).ToString("N1");
-                dataPWM = (glm.toDegrees(mf.imuCorrected)).ToString("N1");
+                dataSteerAngle = (glm.toDegrees(mf.gpsHeading)).ToString("N1", CultureInfo.InvariantCulture);
+                dataPWM = (glm.toDegrees(mf.imuCorrected)).ToString("N1", CultureInfo.InvariantCulture);
 
                 lblSteerAng.Text = dataSteerAngle;
                 lblPWM.Text = dataPWM;
 
-                lblDiff.Text = (glm.toDegrees(mf.gpsHeading - mf.imuCorrected)).ToString("N2");
+                lblDiff.Text = (glm.toDegrees(mf.gpsHeading - mf.imuCorrected)).ToString("N2", CultureInfo.InvariantCulture);
 
                 roll = lblDiff.Text;
                 zero = "0";
@@ -88,13 +89,11 @@ namespace AgOpenGPS
                 unoChart.ChartAreas[0].RecalculateAxesScale();
                 rollChart.ChartAreas[0].RecalculateAxesScale();
             }
-
-            lblGain.Text = ((int)(Math.Abs(unoChart.ChartAreas[0].AxisY.Maximum*0.01) + Math.Abs(unoChart.ChartAreas[0].AxisY.Minimum*0.01))).ToString();
         }
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            timer1.Interval = (int)((1 / (double)mf.fixUpdateHz) * 1000);
+            timer1.Interval = (int)((1 / (double)mf.gpsHz) * 1000);
         }
 
         private void button1_Click(object sender, EventArgs e)

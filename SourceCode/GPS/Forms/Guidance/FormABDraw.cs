@@ -31,7 +31,7 @@ namespace AgOpenGPS
             //label5.Text = gStr.gsToolWidth;
             //this.Text = gStr.gsClick2Pointsontheboundary;
 
-            //ajout max
+            //Ajout-modification MEmprou et SPailleau Fertilisation
             label5.Text = gStr.gsToolWidth;
             label4.Text = gStr.gsBoundaryCurve;
             label3.Text = gStr.gsCurve;

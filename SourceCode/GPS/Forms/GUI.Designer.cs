@@ -121,8 +121,8 @@ namespace AgOpenGPS
                 //worldGrid.checkZoomWorldGrid(pn.fix.northing, pn.fix.easting);
 
                 //Ajout-modification MEmprou et SPailleau
-                lblHz.Text = fixUpdateHz + "Hz " + (int)(frameTime) + "\r\n" +
-                    FixQuality + Math.Round(HzTime, MidpointRounding.AwayFromZero) + " Hz";
+                lblHz.Text = gpsHz.ToString("N1") + "Hz " + (int)(frameTime) + "\r\n" +
+                    FixQuality + Math.Round(gpsHz, MidpointRounding.AwayFromZero) + " Hz";
 
                 lblTotalAppliedArea.Text = fd.WorkedHectares;
                 lblWorkRemaining.Text = fd.WorkedAreaRemainHectares;
@@ -182,8 +182,11 @@ namespace AgOpenGPS
                 BatLevel.Text = NiveauBatterie;
                 //----
                 label1.Text = vehicleFileName + " - " + (Math.Round(tool.toolWidth, 2)).ToString() + " m";
-                p_235.pgn[p_235.LargeurHi] = unchecked((byte)(((short)tool.toolWidth) >> 8));
-                p_235.pgn[p_235.LargeurLo] = unchecked((byte)(((short)tool.toolWidth)));
+                if (ferti_vidange == false)
+                {
+                    p_235.pgn[p_235.LargeurHi] = unchecked((byte)(((short)tool.toolWidth) >> 8));
+                    p_235.pgn[p_235.LargeurLo] = unchecked((byte)(((short)tool.toolWidth)));
+                }
                 //fin
                 lblAge.Text = pn.age.ToString("N1");
 
@@ -565,8 +568,7 @@ namespace AgOpenGPS
                 timerSim.Enabled = false;
             }
 
-            if (timerSim.Enabled) fixUpdateHz = 10;
-            fixUpdateTime = 1 / (double)fixUpdateHz;
+            if (timerSim.Enabled) gpsHz = 10;
 
             //set the flag mark button to red dot
             btnFlag.Image = Properties.Resources.FlagRed;
@@ -599,7 +601,7 @@ namespace AgOpenGPS
 
             vehicleColor = Settings.Default.setDisplay_colorVehicle.CheckColorFor255();
 
-            isLightbarOn = Settings.Default.setMenu_isLightbarOn;
+            isLightbarOn = Settings.Default.setMenu_IsLightbarOn;
 
             //set up grid and lightbar
 
@@ -629,8 +631,6 @@ namespace AgOpenGPS
             isRTK_KillAutosteer = Properties.Settings.Default.setGPS_isRTK_KillAutoSteer;
 
             pn.ageAlarm = Properties.Settings.Default.setGPS_ageAlarm;
-
-            isAngVelGuidance = Properties.Settings.Default.setAS_isAngVelGuidance;
 
             guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
 
@@ -665,10 +665,14 @@ namespace AgOpenGPS
             headingFromSource = Settings.Default.setGPS_headingFromWhichSource;
 
             //workswitch stuff
-            mc.isWorkSwitchEnabled = Settings.Default.setF_IsWorkSwitchEnabled;
-            mc.isWorkSwitchActiveLow = Settings.Default.setF_IsWorkSwitchActiveLow;
-            mc.isWorkSwitchManual = Settings.Default.setF_IsWorkSwitchManual;
-            mc.isSteerControlsManual = Settings.Default.setF_steerControlsManual;
+            mc.isRemoteWorkSystemOn = Settings.Default.setF_isRemoteWorkSystemOn;
+
+            mc.isWorkSwitchActiveLow = Settings.Default.setF_isWorkSwitchActiveLow;
+            mc.isWorkSwitchManualSections = Settings.Default.setF_isWorkSwitchManualSections;
+            mc.isWorkSwitchEnabled = Settings.Default.setF_isWorkSwitchEnabled;
+
+            mc.isSteerWorkSwitchEnabled = Settings.Default.setF_isSteerWorkSwitchEnabled;
+            mc.isSteerWorkSwitchManualSections = Settings.Default.setF_isWorkSwitchManualSections;
 
             minFixStepDist = Settings.Default.setF_minFixStep;
 

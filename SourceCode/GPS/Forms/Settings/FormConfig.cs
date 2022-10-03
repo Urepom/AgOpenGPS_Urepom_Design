@@ -207,7 +207,7 @@ namespace AgOpenGPS
                 chkDisplayPolygons.Visible = false;
                 chkDisplayLogNMEA.Visible = false;
                 label122.Visible = false;
-                label55.Visible = false;
+                label61.Visible = false;
 
             }
             else
@@ -287,7 +287,7 @@ namespace AgOpenGPS
             cbox_long_touch.Checked = mf.islong_touchOn;
             Timer_kml.Checked = Properties.Settings.Default.setTimer_KML;
             VineMode.Checked = Properties.Vehicle.Default.setVineMode;
-            cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
+            //cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
             ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
             //fin
 
@@ -450,7 +450,7 @@ namespace AgOpenGPS
             cbox_long_touch.Checked = Properties.Settings.Default.setDisplay_islong_touchOn;
             Timer_kml.Checked = Properties.Settings.Default.setTimer_KML;
             VineMode.Checked = Properties.Vehicle.Default.setVineMode;
-            cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
+            //cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
             ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
             //fin
 

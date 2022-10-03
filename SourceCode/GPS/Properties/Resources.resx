@@ -472,9 +472,6 @@
   <data name="SwitchOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\SwitchOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="first" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\btnImages\first.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="displayMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\displayMenu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1209,5 +1206,17 @@
   </data>
   <data name="z_bingMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\Images\z_bingMap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="First" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\First.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ResetTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\ResetTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z_NoGPS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\Images\z_NoGPS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\btnImages\Splash.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

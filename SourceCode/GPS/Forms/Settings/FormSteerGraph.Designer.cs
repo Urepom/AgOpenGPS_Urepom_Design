@@ -50,8 +50,8 @@
             // 
             // unoChart
             // 
-            this.unoChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.unoChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.unoChart.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.None;
             this.unoChart.BackColor = System.Drawing.Color.Black;
@@ -181,7 +181,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AutoSteer Graph";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSteerGraph_FormClosed);
             this.Load += new System.EventHandler(this.FormSteerGraph_Load);
             ((System.ComponentModel.ISupportInitialize)(this.unoChart)).EndInit();
             this.ResumeLayout(false);

@@ -11,26 +11,26 @@
     <Setting Name="setUDP_isOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setPort_wasModule1Connected" Type="System.Boolean" Scope="User">
+    <Setting Name="setPort_wasSteerModuleConnected" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setPort_portNameModule1" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Mod1**</Value>
+    <Setting Name="setPort_portNameSteer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Steer*</Value>
     </Setting>
     <Setting Name="setPort_wasModule3Connected" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setPort_portNameModule3" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Auto**</Value>
+    <Setting Name="setPort_portNameTool" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tool**</Value>
     </Setting>
     <Setting Name="setIP_thisPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9999</Value>
     </Setting>
-    <Setting Name="setIP_autoSteerIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.255</Value>
-    </Setting>
     <Setting Name="setIP_autoSteerPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8888</Value>
+    </Setting>
+    <Setting Name="setNTRIP_casterIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">69.75.31.235</Value>
     </Setting>
     <Setting Name="setNTRIP_casterPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2101</Value>
@@ -51,13 +51,16 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="setNTRIP_sendToUDPPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2233</Value>
     </Setting>
     <Setting Name="setNTRIP_manualLat" Type="System.Double" Scope="User">
       <Value Profile="(Default)">53</Value>
     </Setting>
     <Setting Name="setNTRIP_manualLon" Type="System.Double" Scope="User">
       <Value Profile="(Default)">-111</Value>
+    </Setting>
+    <Setting Name="setNTRIP_casterURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">caster.centipede.fr</Value>
     </Setting>
     <Setting Name="setNTRIP_isGGAManual" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -98,10 +101,10 @@
     <Setting Name="setPort_baudRateGPS2" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9600</Value>
     </Setting>
-    <Setting Name="setPort_portNameModule2" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Mod2</Value>
+    <Setting Name="setPort_portNameMachine" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Mach**</Value>
     </Setting>
-    <Setting Name="setPort_wasModule2Connected" Type="System.Boolean" Scope="User">
+    <Setting Name="setPort_wasMachineModuleConnected" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setPort_wasIMUConnected" Type="System.Boolean" Scope="User">
@@ -131,21 +134,6 @@
     <Setting Name="setUDP_isSendNMEAToUDP" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setNTRIP_casterIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">69.75.31.235</Value>
-    </Setting>
-    <Setting Name="setNTRIP_casterURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">www.rtk2go.com</Value>
-    </Setting>
-    <Setting Name="setPort_portNameModuleFerti" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ferti</Value>
-    </Setting>
-    <Setting Name="setPort_wasModuleFertiConnected" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="setGPS_lastSentence" Type="System.String" Scope="User">
-      <Value Profile="(Default)">GGA</Value>
-    </Setting>
     <Setting Name="setPort_portNameRtcm" Type="System.String" Scope="User">
       <Value Profile="(Default)">RTCM</Value>
     </Setting>
@@ -154,6 +142,48 @@
     </Setting>
     <Setting Name="setPort_wasRtcmConnected" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setNTRIP_sendToSerial" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="setNTRIP_sendToUDP" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setUDP_isUsePluginApp" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setNTRIP_packetSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">256</Value>
+    </Setting>
+    <Setting Name="setMod_isIMUConnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="setMod_isMachineConnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="setMod_isSteerConnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="setPass_isOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="etIP_SubnetOne" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">192</Value>
+    </Setting>
+    <Setting Name="etIP_SubnetTwo" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">168</Value>
+    </Setting>
+    <Setting Name="etIP_SubnetThree" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="setPort_wasModuleFertiConnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setPort_portNameModuleFerti" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ferti</Value>
+    </Setting>
+    <Setting Name="setMod_isFertiConnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

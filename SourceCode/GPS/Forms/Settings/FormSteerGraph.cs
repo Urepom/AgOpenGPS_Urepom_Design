@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -33,8 +34,8 @@ namespace AgOpenGPS
         {
             {
                 //word 0 - steerangle, 1 - pwmDisplay
-                dataSteerAngle = mf.mc.actualSteerAngleChart.ToString();
-                dataPWM = mf.guidanceLineSteerAngle.ToString();
+                dataSteerAngle = mf.mc.actualSteerAngleChart.ToString(CultureInfo.InvariantCulture);
+                dataPWM = mf.guidanceLineSteerAngle.ToString(CultureInfo.InvariantCulture);
 
                 lblSteerAng.Text = mf.ActualSteerAngle;
                 lblPWM.Text = mf.SetSteerAngle;
@@ -68,27 +69,12 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            //Ajout-modification MEmprou et SPailleau
-            //----SPailleau - Applique la position enregistrée
-            this.Location = Properties.Settings.Default.FormSteerGraph_Location;
-            this.Size = Properties.Settings.Default.FormSteerGraph_Size;
-            //----Fin
-
-            timer1.Interval = (int)((1 / (double)mf.fixUpdateHz) * 1000);
+            timer1.Interval = (int)((1 / mf.gpsHz) * 1000);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void FormSteerGraph_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //Ajout-modification MEmprou et SPailleau
-            //----SPailleau - Enregistre la position de la fenêtre
-            Properties.Settings.Default.FormSteerGraph_Location = this.Location;
-            Properties.Settings.Default.FormSteerGraph_Size = this.Size;
-            //----Fin
         }
     }
 }

@@ -11,7 +11,7 @@ namespace AgIO
 
         private bool isNMEAToSend = false;
 
-        public string ggaSentence, vtgSentence, hdtSentence, avrSentence, paogiSentence,
+        public string ggaSentence, vtgSentence, hdtSentence, avrSentence, paogiSentence, 
             hpdSentence, rmcSentence, pandaSentence, ksxtSentence;
 
         public float hdopData, altitude = float.MaxValue, headingTrue = float.MaxValue,
@@ -20,12 +20,12 @@ namespace AgIO
 
         public double latitudeSend = double.MaxValue, longitudeSend = double.MaxValue, latitude, longitude;
 
-        public ushort satellitesData, satellitesTracked = ushort.MaxValue, hdopX100 = ushort.MaxValue,
+        public ushort satellitesData, satellitesTracked = ushort.MaxValue, hdopX100 = ushort.MaxValue, 
             ageX100 = ushort.MaxValue;
 
         //imu data
         public ushort imuHeadingData, imuHeading = ushort.MaxValue;
-        public short imuRollData, imuRoll = short.MaxValue, imuPitchData, imuPitch = short.MaxValue,
+        public short imuRollData, imuRoll = short.MaxValue, imuPitchData, imuPitch = short.MaxValue, 
             imuYawRateData, imuYawRate = short.MaxValue;
 
         public byte fixQualityData, fixQuality = byte.MaxValue;
@@ -115,7 +115,7 @@ namespace AgIO
             {
                 if (isLogNMEA)
                 {
-                    logNMEASentence.Append("\r\n" +
+                    logNMEASentence.Append("\r\n" + 
                         DateTime.UtcNow.ToString(" ->>  mm:ss.fff ", CultureInfo.InvariantCulture) + "\r\n" + rawBuffer + "\r\n");
                 }
 
@@ -291,7 +291,7 @@ namespace AgIO
                 SendToLoopBackMessageAOG(nmeaPGN);
 
                 //Send nmea to autosteer module 8888
-                if (isSendNMEAToUDP) SendUDPMessage(nmeaPGN);
+                if (isSendNMEAToUDP) SendUDPMessage(nmeaPGN, epModule);
             }
         }
 
@@ -403,7 +403,7 @@ namespace AgIO
 
                 //age
                 float.TryParse(words[13], NumberStyles.Float, CultureInfo.InvariantCulture, out ageData);
-                ageX100 = (ushort)(ageData * 100.0);
+                ageX100 = (ushort)(ageData*100.0);
 
                 //LastUpdateUTC = UTC;
 
@@ -440,8 +440,7 @@ namespace AgIO
                 { if (words[5] == "W") longitude *= -1; }
                 longitudeSend = longitude;
 
-                if (lastSentence == "GGA") isNMEAToSend = true;
-                //}
+                isNMEAToSend = true;                
             }
         }
 
@@ -471,13 +470,11 @@ namespace AgIO
             }
 
             if (!string.IsNullOrEmpty(words[1]))
-            {
+            { 
                 //True heading
                 float.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
                 headingTrueData = headingTrue;
             }
-
-            if (lastSentence == "VTG") isNMEAToSend = true;
         }
 
         private void ParseAVR()
@@ -519,8 +516,6 @@ namespace AgIO
                 rollData = XeRoll;
 
                 roll = (float)(XeRoll);
-
-                if (lastSentence == "AVR") isNMEAToSend = true;
             }
         }
 
@@ -548,8 +543,6 @@ namespace AgIO
                     roll = float.MinValue;
                     rollData = 0;
                 }
-
-                if (lastSentence == "HPD") isNMEAToSend = true;
             }
         }
 
@@ -667,7 +660,6 @@ namespace AgIO
 
                 //always send because its probably the only one.
                 isNMEAToSend = true;
-                //}
             }
         }
 
@@ -810,8 +802,6 @@ namespace AgIO
                 //True heading
                 float.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrueDual);
                 headingTrueDualData = headingTrueDual;
-
-                if (lastSentence == "HDT") isNMEAToSend = true;
             }
         }
 
@@ -861,8 +851,6 @@ namespace AgIO
                 rollData = XeRoll;
 
                 roll = (float)(XeRoll);
-
-                if (lastSentence == "STI") isNMEAToSend = true;
             }
         }
 
@@ -881,9 +869,6 @@ namespace AgIO
                 if (trasolution != 4) rollK = 0;
                 rollData = rollK;
                 roll = (float)(rollK);
-
-                if (lastSentence == "TRA") isNMEAToSend = true;
-
             }
         }
 
@@ -992,8 +977,8 @@ namespace AgIO
                 else
                 {
                     //CRC code goes here - return true for now if $KS
-                    if (sentenceChars[0] == 36 && sentenceChars[1] == 75 && sentenceChars[2] == 83) return true;
-                    else return false;
+                    if(sentenceChars[0] == 36 && sentenceChars[1] == 75 && sentenceChars[2] == 83) return true;
+                    else return false;  
                 }
             }
             catch (Exception)

@@ -15,7 +15,6 @@ namespace AgOpenGPS
 {
     public partial class FormConfig
     {
-
         #region Vehicle Save---------------------------------------------
         private void btnVehicleSave_Click(object sender, EventArgs e)
         {
@@ -131,6 +130,7 @@ namespace AgOpenGPS
                         chkDisplayKeyboard.Checked = mf.isKeyboardOn;
                         chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
 
+
                         if (mf.isMetric) rbtnDisplayMetric.Checked = true;
                         else rbtnDisplayImperial.Checked = true;
 
@@ -195,7 +195,7 @@ namespace AgOpenGPS
                         mf.p_251.pgn[mf.p_251.maxPulse] = Properties.Vehicle.Default.setArdSteer_maxPulseCounts;
                         mf.p_251.pgn[mf.p_251.minSpeed] = 5; //0.5 kmh
 
-                        if (Properties.Settings.Default.setAS_isAngVelGuidance)
+                        if (Properties.Settings.Default.setAS_isConstantContourOn)
                             mf.p_251.pgn[mf.p_251.angVel] = 1;
                         else mf.p_251.pgn[mf.p_251.angVel] = 0;
 
@@ -236,7 +236,7 @@ namespace AgOpenGPS
                 }
                 UpdateVehicleListView();
             }
-        }        
+        }
 
         private void rbtnDisplayImperial_Click(object sender, EventArgs e)
         {
@@ -284,13 +284,11 @@ namespace AgOpenGPS
             Properties.Settings.Default.setMenu_isSideGuideLines = mf.isSideGuideLines;
             //Properties.Settings.Default.setMenu_isLogNMEA = mf.isLogNMEA;
             Properties.Settings.Default.setMenu_isPureOn = mf.isPureDisplayOn;
-            Properties.Settings.Default.setMenu_isLightbarOn = mf.isLightbarOn;
+            Properties.Settings.Default.setMenu_IsLightbarOn = mf.isLightbarOn;
             Properties.Settings.Default.setDisplay_isKeyboardOn = mf.isKeyboardOn;
             //Properties.Settings.Default.setDisplay_showMenusTime = mf.timeToShowMenus;
-
             //Ajout-modification MEmprou et SPailleau
             Properties.Settings.Default.setDisplay_issections_buttonOn = mf.issections_buttonOn;
-            Properties.Vehicle.Default.SetRollOFF = cboxroll.Checked;
             Properties.Vehicle.Default.SetArrowsRL = ArrowsRL.Checked;
             Properties.Settings.Default.setTimer_KML = Timer_kml.Checked;
             Properties.Vehicle.Default.setVineMode = VineMode.Checked;
@@ -339,7 +337,7 @@ namespace AgOpenGPS
             if (mf.vehicle.vehicleType == 1) //harvestor
             {
                 Properties.Vehicle.Default.setVehicle_isPivotBehindAntenna = true;
-                Properties.Vehicle.Default.setVehicle_isSteerAxleAhead = false ;
+                Properties.Vehicle.Default.setVehicle_isSteerAxleAhead = false;
             }
             if (mf.vehicle.vehicleType == 2) //4WD
             {
@@ -358,11 +356,11 @@ namespace AgOpenGPS
         #region Antenna Enter/Leave
         private void tabVAntenna_Enter(object sender, EventArgs e)
         {
-            nudAntennaHeight.Value = (int)(Properties.Vehicle.Default.setVehicle_antennaHeight* mf.m2InchOrCm);
+            nudAntennaHeight.Value = (int)(Properties.Vehicle.Default.setVehicle_antennaHeight * mf.m2InchOrCm);
 
-            nudAntennaPivot.Value = (int)((Properties.Vehicle.Default.setVehicle_antennaPivot)* mf.m2InchOrCm);
+            nudAntennaPivot.Value = (int)((Properties.Vehicle.Default.setVehicle_antennaPivot) * mf.m2InchOrCm);
 
-            nudAntennaOffset.Value = (int)(Properties.Vehicle.Default.setVehicle_antennaOffset* mf.m2InchOrCm);
+            nudAntennaOffset.Value = (int)(Properties.Vehicle.Default.setVehicle_antennaOffset * mf.m2InchOrCm);
 
 
             if (Properties.Vehicle.Default.setVehicle_vehicleType == 0)
@@ -415,7 +413,7 @@ namespace AgOpenGPS
             nudMinTurnRadius.Value = (int)(Properties.Vehicle.Default.setVehicle_minTurningRadius * mf.m2InchOrCm);
 
             nudWheelbase.Value = (int)(Math.Abs(Properties.Vehicle.Default.setVehicle_wheelbase) * mf.m2InchOrCm);
-            
+
             nudVehicleTrack.Value = (int)(Math.Abs(Properties.Vehicle.Default.setVehicle_trackWidth) * mf.m2InchOrCm);
 
             if (mf.vehicle.vehicleType == 0) pictureBox1.Image = Properties.Resources.RadiusWheelBase;
@@ -473,9 +471,9 @@ namespace AgOpenGPS
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1,MidpointRounding.AwayFromZero);
+                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1, MidpointRounding.AwayFromZero);
             }
-            
+
             nudABLength.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAB_lineLength * mf.m2FtOrM));
 
             nudGuidanceLookAhead.Value = (decimal)Properties.Settings.Default.setAS_guidanceLookAheadTime;
@@ -483,7 +481,7 @@ namespace AgOpenGPS
             double bob = ((double)Properties.Settings.Default.setDisplay_lightbarCmPerPixel * mf.cm2CmOrIn);
             if (bob < 1) bob = 1;
             nudLightbarCmPerPixel.Value = (decimal)bob;
-            
+
             nudLineWidth.Value = Properties.Settings.Default.setDisplay_lineWidth;
 
             cboxAutoSteerAuto.Checked = Properties.Settings.Default.setAS_isAutoSteerAutoOn;
@@ -498,7 +496,7 @@ namespace AgOpenGPS
                 cboxAutoSteerAuto.Text = gStr.gsManual;
             }
 
-            cboxAngVel.Checked = Properties.Settings.Default.setAS_isAngVelGuidance;
+            cboxConstantContour.Checked = Properties.Settings.Default.setAS_isConstantContourOn;
 
             label20.Text = mf.unitsInCm;
             label79.Text = mf.unitsFtM;
@@ -527,10 +525,10 @@ namespace AgOpenGPS
             }
         }
 
-        private void cboxAngVel_Click(object sender, EventArgs e)
+        private void cboxConstantContour_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_isAngVelGuidance = cboxAngVel.Checked;
-            mf.isAngVelGuidance = cboxAngVel.Checked;
+            Properties.Settings.Default.setAS_isConstantContourOn = cboxConstantContour.Checked;
+            mf.isConstantContourOn = cboxConstantContour.Checked;
 
         }
 
@@ -561,7 +559,6 @@ namespace AgOpenGPS
             }
         }
 
-
         private void nudABLength_Click(object sender, EventArgs e)
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
@@ -581,6 +578,7 @@ namespace AgOpenGPS
             }
         }
         #endregion
+
         #region Brand
         //brand variables
         TBrand brand;

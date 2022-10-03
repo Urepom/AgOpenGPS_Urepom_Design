@@ -11,18 +11,17 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         // - App Sockets  -----------------------------------------------------
-        private Socket sendToAppSocket;
-        private Socket recvFromAppSocket;
+        private Socket loopBackSocket;
 
         //endpoints of modules
-        private EndPoint epAgIO, epSender = new IPEndPoint(IPAddress.Any, 0);
+        private EndPoint epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
+        private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
         // Data stream
         private byte[] loopBuffer = new byte[1024];
 
         // Status delegate
-        private double rollK = 0;
-        public double Débit_Pompe_Ferti, PWD_Pompe_Ferti, Vol_Pompe_Ferti = 0;
+        public double Débit_Pompe_Ferti, PWD_Pompe_Ferti, Vol_Pompe_Ferti = 0; //Ajout-modification MEmprou et SPailleau Fertilisation
         private int udpWatchCounts = 0;
         public int udpWatchLimit = 70;
 
@@ -30,8 +29,27 @@ namespace AgOpenGPS
 
         private void ReceiveFromAgIO(byte[] data)
         {
-            if (data[0] == 0x80 && data[1] == 0x81)
+            if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
             {
+                int Length = Math.Max((data[4]) + 5, 5);
+                if (data.Length > Length)
+                {
+                    byte CK_A = 0;
+                    for (int j = 2; j < Length; j++)
+                    {
+                        CK_A += data[j];
+                    }
+
+                    if (data[Length] != (byte)CK_A)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
                 switch (data[3])
                 {
                     case 0xD6:
@@ -77,9 +95,9 @@ namespace AgOpenGPS
                                 temp = BitConverter.ToSingle(data, 29);
                                 if (temp != float.MaxValue)
                                 {
-                                    pn.speed = temp;
-                                    if (temp < 0) pn.speed *= -1;
-                                    pn.AverageTheSpeed();
+                                    //pn.speed = temp;
+                                    //if (temp < 0) pn.speed *= -1;
+                                    //pn.AverageTheSpeed();
                                 }
 
                                 //roll in degrees
@@ -123,7 +141,7 @@ namespace AgOpenGPS
                                 short imuRol = BitConverter.ToInt16(data, 50);
                                 if (imuRol != short.MaxValue)
                                 {
-                                    rollK = imuRol;
+                                    double rollK = imuRol;
                                     if (ahrs.isRollInvert) rollK *= -0.1;
                                     else rollK *= 0.1;
                                     rollK -= ahrs.rollZero;
@@ -167,7 +185,7 @@ namespace AgOpenGPS
                             ahrs.imuHeading *= 0.1;
 
                             //Roll
-                            rollK = (Int16)((data[8] << 8) + data[7]);
+                            double rollK = (Int16)((data[8] << 8) + data[7]);
 
                             if (ahrs.isRollInvert) rollK *= -0.1;
                             else rollK *= 0.1;
@@ -178,14 +196,6 @@ namespace AgOpenGPS
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
                             ahrs.angVel /= -2;
 
-                            //Log activity
-                            //if (isLogNMEA)
-                            //    pn.logNMEASentence.Append(
-                            //        DateTime.UtcNow.ToString("HH:mm:ss.ff", CultureInfo.InvariantCulture) + " IMU " +
-                            //        Math.Round(ahrs.imuRoll, 1).ToString("N1") + " " +
-                            //        Math.Round(ahrs.imuHeading, 1).ToString("N1") + 
-                            //        "\r\n"
-                            //        );
                             break;
                         }
                     case 0xD4: //imu disconnect pgn
@@ -200,6 +210,7 @@ namespace AgOpenGPS
                             }
                             break;
                         }
+                    //Ajout-modification MEmprou et SPailleau Fertilisation
                     case 0xEB: //ferti
                         {
 
@@ -208,6 +219,7 @@ namespace AgOpenGPS
                             Vol_Pompe_Ferti = (Int16)((data[10] << 8) + data[9]);
                             break;
                         }
+                        //fin
                     case 253: //return from autosteer module
                         {
                             //Steer angle actual
@@ -224,7 +236,7 @@ namespace AgOpenGPS
                             }
 
                             //Roll
-                            rollK = (Int16)((data[10] << 8) + data[9]);
+                            double rollK = (Int16)((data[10] << 8) + data[9]);
                             if (rollK != 8888)
                             {
                                 if (ahrs.isRollInvert) rollK *= -0.1;
@@ -247,8 +259,6 @@ namespace AgOpenGPS
                             if (isLogNMEA)
                                 pn.logNMEASentence.Append(
                                     DateTime.UtcNow.ToString("mm:ss.ff", CultureInfo.InvariantCulture) + " AS " +
-                                    //Lat.ToString("N7") + " " + Lon.ToString("N7") + " " +
-                                    //pn.speed.ToString("N1") + " " + Math.Round(ahrs.imuRoll, 1).ToString("N1") + " " +
                                     mc.actualSteerAngleDegrees.ToString("N1") + "\r\n"
                                     );
 
@@ -262,6 +272,7 @@ namespace AgOpenGPS
                             mc.sensorData = data[5];
                             break;
                         }
+
                     #region Remote Switches
                     case 234://MTZ8302 Feb 2020
                         {
@@ -286,26 +297,11 @@ namespace AgOpenGPS
             try
             {
                 // Initialise the socket
-                sendToAppSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-
-                //sendToAppSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                sendToAppSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                sendToAppSocket.Bind(new IPEndPoint(IPAddress.Loopback, 15550));
-
-                // AOG sends to AgIO using this endpoint
-                epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
-
-                // Initialise the client socket
-                recvFromAppSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-
-                // IPEndPoint for AOG  to listen on 
-                recvFromAppSocket.Bind(new IPEndPoint(IPAddress.Loopback, 15555));
-
-                // Initialise the IPEndPoint for the client
-                EndPoint clientEp = new IPEndPoint(IPAddress.Any, 0);
-
-                // Start listening for incoming data
-                recvFromAppSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None, ref clientEp, new AsyncCallback(ReceiveAppData), recvFromAppSocket);
+                loopBackSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                loopBackSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
+                loopBackSocket.Bind(new IPEndPoint(IPAddress.Loopback, 15555));
+                loopBackSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None,
+                    ref endPointLoopBack, new AsyncCallback(ReceiveAppData), null);
             }
             catch (Exception ex)
             {
@@ -332,29 +328,17 @@ namespace AgOpenGPS
         {
             try
             {
-                // Initialise the IPEndPoint for the clients
-
                 // Receive all data
-                int msgLen = recvFromAppSocket.EndReceiveFrom(asyncResult, ref epSender);
+                int msgLen = loopBackSocket.EndReceiveFrom(asyncResult, ref endPointLoopBack);
 
                 byte[] localMsg = new byte[msgLen];
                 Array.Copy(loopBuffer, localMsg, msgLen);
 
                 // Listen for more connections again...
-                recvFromAppSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None, ref epSender, new AsyncCallback(ReceiveAppData), recvFromAppSocket);
+                loopBackSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None,
+                    ref endPointLoopBack, new AsyncCallback(ReceiveAppData), null);
 
-                int Length = Math.Max((localMsg[4]) + 5, 5);
-                if (localMsg.Length > Length)
-                {
-                    byte CK_A = 0;
-                    for (int j = 2; j < Length; j++)
-                    {
-                        CK_A += localMsg[j];
-                    }
-
-                    if (localMsg[Length] == (byte)CK_A)
-                        BeginInvoke((MethodInvoker)(() => ReceiveFromAgIO(localMsg)));
-                }
+                BeginInvoke((MethodInvoker)(() => ReceiveFromAgIO(localMsg)));
             }
             catch (Exception)
             {
@@ -362,21 +346,9 @@ namespace AgOpenGPS
             }
         }
 
-        public void SendAsyncLoopData(IAsyncResult asyncResult)
-        {
-            try
-            {
-                sendToAppSocket.EndSend(asyncResult);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("SendData Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         public void SendPgnToLoop(byte[] byteData)
         {
-            if (sendToAppSocket != null)
+            if (loopBackSocket != null && byteData.Length > 2)
             {
                 try
                 {
@@ -387,15 +359,26 @@ namespace AgOpenGPS
                     }
                     byteData[byteData.Length - 1] = (byte)crc;
 
-                    if (byteData.Length != 0)
-                        sendToAppSocket.BeginSendTo(byteData, 0, byteData.Length,
-                            SocketFlags.None, epAgIO, new AsyncCallback(SendAsyncLoopData), null);
+                    loopBackSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
+                        epAgIO, new AsyncCallback(SendAsyncLoopData), null);
                 }
                 catch (Exception)
                 {
                     //WriteErrorLog("Sending UDP Message" + e.ToString());
                     //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        public void SendAsyncLoopData(IAsyncResult asyncResult)
+        {
+            try
+            {
+                loopBackSocket.EndSend(asyncResult);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SendData Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -473,7 +456,7 @@ namespace AgOpenGPS
                 if (sim.stepDistance < 0.04 && sim.stepDistance > -0.04) sim.stepDistance += 0.002;
                 else sim.stepDistance += 0.02;
                 if (sim.stepDistance > 1.9) sim.stepDistance = 1.9;
-                hsbarStepDistance.Value = (int)(sim.stepDistance * 5 * fixUpdateHz);
+                hsbarStepDistance.Value = (int)(sim.stepDistance * 5 * gpsHz);
                 return true;
             }
 
@@ -483,7 +466,7 @@ namespace AgOpenGPS
                 if (sim.stepDistance < 0.04 && sim.stepDistance > -0.04) sim.stepDistance -= 0.002;
                 else sim.stepDistance -= 0.02;
                 if (sim.stepDistance < -0.35) sim.stepDistance = -0.35;
-                hsbarStepDistance.Value = (int)(sim.stepDistance * 5 * fixUpdateHz);
+                hsbarStepDistance.Value = (int)(sim.stepDistance * 5 * gpsHz);
                 return true;
             }
 
@@ -597,7 +580,6 @@ namespace AgOpenGPS
 
             if (keyData == (Keys.P)) // Snap/Prioritu click
             {
-                SnapCenterMain.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 

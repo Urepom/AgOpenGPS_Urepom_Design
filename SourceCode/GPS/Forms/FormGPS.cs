@@ -93,6 +93,9 @@ namespace AgOpenGPS
         public int inoVersionInt;
 
         //create instance of a stopwatch for timing of frames and NMEA hz determination
+        // private readonly Stopwatch swFrame = new Stopwatch();
+
+        //create instance of a stopwatch for timing of frames and NMEA hz determination
         private readonly Stopwatch swFrame = new Stopwatch();
 
         public double secondsSinceStart;
@@ -110,7 +113,7 @@ namespace AgOpenGPS
         private readonly Stopwatch swHz = new Stopwatch();
 
         //Time to do fix position update and draw routine
-        private double HzTime = 5;
+        public double gpsHz = 10;
 
         //For field saving in background
         private int minuteCounter = 1;
@@ -266,6 +269,8 @@ namespace AgOpenGPS
         public bool ferti_auto = false;
         public bool tempo_ferti = false;
         public bool ferti_rincage = false;
+        public bool ferti_vidange = false;
+        public decimal dosevidange;
 
         #endregion // Class Props and instances
 
@@ -273,6 +278,7 @@ namespace AgOpenGPS
         public FormGPS()
         {
             //winform initialization
+            CheckSettingsUpdate();
             InitializeComponent();
 
             CheckSettingsNotNull();
@@ -420,9 +426,11 @@ namespace AgOpenGPS
             round_table2.Visible = false;
             round_table6.Visible = false;
             round_table8.Visible = false;
+            btnResetToolHeading.Visible = false;
             round_StatusStrip1.Width = 176;
             toolStripStatusLabel2.Visible = false;
             round_table10.Width = 176;
+            round_table7.Width = 176;
             round_table9.Width = 176;
             cboxpRowWidth.Visible = false;
             btnYouSkipEnable.Visible = false;
@@ -437,7 +445,6 @@ namespace AgOpenGPS
             //fin
 
             timer2.Enabled = true;
-            //panel1.BringToFront();
             pictureboxStart.BringToFront();
             pictureboxStart.Dock = System.Windows.Forms.DockStyle.Fill;
 
@@ -540,12 +547,16 @@ namespace AgOpenGPS
         }
 
         // Generates a random number within a range.       
-        //public double RandomNumber(double min, double max)
-        //{
-        //    return min + _random.NextDouble() * (max - min);
-        //}
+        private void btnResetToolHeading_Click(object sender, EventArgs e)
+        {
+            tankPos.heading = fixHeading;
+            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.toolTankTrailingHitchLength));
+            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.toolTankTrailingHitchLength));
 
-        //private readonly Random _random = new Random();
+            toolPos.heading = tankPos.heading;
+            toolPos.easting = tankPos.easting + (Math.Sin(toolPos.heading) * (tool.toolTrailingHitchLength));
+            toolPos.northing = tankPos.northing + (Math.Cos(toolPos.heading) * (tool.toolTrailingHitchLength));
+        }
 
         private void btnVideoHelpRecPath_Click(object sender, EventArgs e)
         {
@@ -579,6 +590,7 @@ namespace AgOpenGPS
             //
             Form form = new FormFertilisation(this);
             form.Show(this);
+            form.Location = new Point(round_table7.Location.X + round_table7.Width - (btnAutoSteer.Width * 2), round_table7.Location.Y + 10);
         }
 
         private void miseÀJourToolStripMenuItem_Click(object sender, EventArgs e)
@@ -649,24 +661,14 @@ namespace AgOpenGPS
 
             SaveFormGPSWindowSettings();
 
-            if (sendToAppSocket != null)
+            if (loopBackSocket != null)
             {
                 try
                 {
-                    sendToAppSocket.Shutdown(SocketShutdown.Both);
+                    loopBackSocket.Shutdown(SocketShutdown.Both);
                 }
                 catch { }
-                finally { sendToAppSocket.Close(); }
-            }
-
-            if (recvFromAppSocket != null)
-            {
-                try
-                {
-                    recvFromAppSocket.Shutdown(SocketShutdown.Both);
-                }
-                catch { }
-                finally { recvFromAppSocket.Close(); }
+                finally { loopBackSocket.Close(); }
             }
 
             //save current vehicle
@@ -693,15 +695,19 @@ namespace AgOpenGPS
             Harvester, Lateral, bingGrid
         }
 
-        public void CheckSettingsNotNull()
+        //Ajout-modification MEmprou et SPailleau Fertilisation memprou
+        public void CheckSettingsUpdate()
         {
-            //ajout max memprou
             if (Properties.Settings.Default.setUpdate_MAJ == true)
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.setUpdate_MAJ = false;
             }
             //fin
+        }
+
+        public void CheckSettingsNotNull()
+        {
             if (Settings.Default.setFeatures == null)
             {
                 Settings.Default.setFeatures = new CFeatureSettings();
@@ -720,7 +726,7 @@ namespace AgOpenGPS
                 Properties.Resources.z_Lift,Properties.Resources.z_SkyNight,Properties.Resources.z_SteerPointer,
                 Properties.Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Properties.Resources.z_QuestionMark,
                 Properties.Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand), Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
-                GetHarvesterBrand(Settings.Default.setBrand_HBrand), Properties.Resources.z_LateralManual, Resources.z_bingMap
+                GetHarvesterBrand(Settings.Default.setBrand_HBrand), Properties.Resources.z_LateralManual, Resources.z_bingMap, Resources.z_NoGPS
             };
 
             texture = new uint[oglTextures.Length];
@@ -1326,7 +1332,7 @@ namespace AgOpenGPS
                     if (section[j].sectionOnRequest)
                         section[j].isSectionOn = true;
 
-                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(fixUpdateHz * tool.turnOffDelay);
+                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * tool.turnOffDelay);
 
                     if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
@@ -1345,12 +1351,12 @@ namespace AgOpenGPS
                     }
 
                     //turn off
-                    double sped = 1 / ((pn.speed + 3) * 0.5);
+                    double sped = 1 / ((avgSpeed + 3) * 0.5);
                     if (sped < 0.3) sped = 0.3;
 
                     //keep setting the timer so full when ready to turn off
                     if (!section[j].mappingOffRequest)
-                        section[j].mappingOffTimer = (int)(fixUpdateHz * mapFactor * sped + (fixUpdateHz * tool.turnOffDelay));
+                        section[j].mappingOffTimer = (int)(gpsHz * mapFactor * sped + (gpsHz * tool.turnOffDelay));
 
                     //decrement the off timer
                     if (section[j].mappingOffTimer > 0) section[j].mappingOffTimer--;

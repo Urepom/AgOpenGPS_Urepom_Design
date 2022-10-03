@@ -1054,5 +1054,29 @@ namespace AgOpenGPS.Properties {
                 this["setArdMac_user4"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public decimal SetDoseFVidange {
+            get {
+                return ((decimal)(this["SetDoseFVidange"]));
+            }
+            set {
+                this["SetDoseFVidange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double setVehicle_panicStopSpeed {
+            get {
+                return ((double)(this["setVehicle_panicStopSpeed"]));
+            }
+            set {
+                this["setVehicle_panicStopSpeed"] = value;
+            }
+        }
     }
 }

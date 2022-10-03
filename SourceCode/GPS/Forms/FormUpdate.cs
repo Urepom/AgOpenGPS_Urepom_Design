@@ -57,8 +57,7 @@ namespace AgOpenGPS
 
             string[] fullVers = strWebVersion.Split(',');
             double webV = double.Parse(fullVers[0], CultureInfo.InvariantCulture);
-            webV += double.Parse(fullVers[1], CultureInfo.InvariantCulture);
-
+            webV += double.Parse(fullVers[1], CultureInfo.InvariantCulture) * 0.1;
             if (clientVersion < webV)
             {
                 SaveConfig.Checked = true;
@@ -138,9 +137,9 @@ namespace AgOpenGPS
             currentVersionStr = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
             LblVersion.Text = currentVersionStr;
             string[] fullVers = currentVersionStr.Split('.');
-            int aogV = int.Parse(fullVers[0], CultureInfo.InvariantCulture);
-            aogV += int.Parse(fullVers[1], CultureInfo.InvariantCulture);
-            aogV += int.Parse(fullVers[2], CultureInfo.InvariantCulture);
+            double aogV = int.Parse(fullVers[0], CultureInfo.InvariantCulture);
+            aogV += int.Parse(fullVers[1], CultureInfo.InvariantCulture) * 0.1;
+            aogV += int.Parse(fullVers[2], CultureInfo.InvariantCulture) * 0.01;
             aogVStr = aogV.ToString();
             clientVersion = double.Parse(aogVStr);
         }
