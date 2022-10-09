@@ -8,7 +8,7 @@
 
 [Setup]
 AppName=AgOpenGPS
-AppVersion=5.6.0
+AppVersion=5.6.14
 AppPublisher=Urepom - Maxime EMPROU
 ;SignTool=Urepom - Maxime EMPROU 
 AppPublisherURL=ttt
@@ -19,7 +19,7 @@ UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design
-OutputBaseFilename=AgOpenGPS 5.6.0 Urepom_Setup
+OutputBaseFilename=AgOpenGPS 5.6.14 Urepom_Setup
 DisableDirPage=no
 DisableProgramGroupPage=no
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
