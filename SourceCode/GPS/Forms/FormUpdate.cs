@@ -35,10 +35,10 @@ namespace AgOpenGPS
 
         public FormUpdate(Form callingForm)
         {
-                //get copy of the calling main form
-                mf = callingForm as FormGPS;
+            //get copy of the calling main form
+            mf = callingForm as FormGPS;
 
-                CheckForUpdates();
+            CheckForUpdates();
             InitializeComponent();
         }
         private void CheckForUpdates()
@@ -79,7 +79,7 @@ namespace AgOpenGPS
         void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             download_ok = true;
-            Properties.Settings.Default.setUpdate_MAJ = SaveConfig.Checked;
+            Properties.Settings.Default.UP_setUpdate_MAJ = SaveConfig.Checked;
             this.BeginInvoke((MethodInvoker)delegate {
                 Process.Start(packageFile);
                 Application.Exit();
@@ -89,7 +89,7 @@ namespace AgOpenGPS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
 
             updatePath = mf.baseDirectory + "\\update\\" + strWebVersion.Replace(",", ".");
             // URL de la dernière version de l'application
@@ -110,7 +110,7 @@ namespace AgOpenGPS
 
         private void SaveConfig_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void FormUpdate_FormClosing(object sender, FormClosingEventArgs e)

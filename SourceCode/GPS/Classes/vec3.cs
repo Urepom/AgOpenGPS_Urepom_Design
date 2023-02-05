@@ -25,19 +25,19 @@ namespace AgOpenGPS
     /// </summary>
     ///
 
-    public struct vec3
+        public struct vec3
     {
         public double easting;
         public double northing;
         public double heading;
-        public DateTime now;
+        public DateTime now; //ajout max
 
         public vec3(double easting, double northing, double heading)
         {
             this.easting = easting;
             this.northing = northing;
             this.heading = heading;
-            this.now = DateTime.Now;
+            this.now = DateTime.Now; //ajout max
         }
 
         public vec3(vec3 v)
@@ -45,7 +45,7 @@ namespace AgOpenGPS
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
-            now = v.now;
+            now = v.now; //ajout max
         }
 
         public double HeadingXZ()

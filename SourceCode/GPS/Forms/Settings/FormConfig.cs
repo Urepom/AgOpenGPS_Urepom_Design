@@ -111,14 +111,12 @@ namespace AgOpenGPS
             nudDrawbarLength.Controls[0].Enabled = false;
             nudTankHitch.Controls[0].Enabled = false;
 
-
             nudLookAhead.Controls[0].Enabled = false;
             nudLookAheadOff.Controls[0].Enabled = false;
             nudTurnOffDelay.Controls[0].Enabled = false;
             nudOffset.Controls[0].Enabled = false;
             nudOverlap.Controls[0].Enabled = false;
             nudCutoffSpeed.Controls[0].Enabled = false;
-
 
             nudMinTurnRadius.Controls[0].Enabled = false;
             nudAntennaHeight.Controls[0].Enabled = false;
@@ -150,14 +148,17 @@ namespace AgOpenGPS
             nudSection14.Controls[0].Enabled = false;
             nudSection15.Controls[0].Enabled = false;
             nudSection16.Controls[0].Enabled = false;
+            nudNumberOfSections.Controls[0].Enabled = false;
 
             nudMinFixStepDistance.Controls[0].Enabled = false;
             nudStartSpeed.Controls[0].Enabled = false;
 
-            nudForwardComp.Controls[0].Enabled = false;
-            nudReverseComp.Controls[0].Enabled = false;
-
-            nudAgeAlarm.Controls[0].Enabled = false;
+            nudZone1To.Controls[0].Enabled = false;
+            nudZone2To.Controls[0].Enabled = false;
+            nudZone3To.Controls[0].Enabled = false;
+            nudZone4To.Controls[0].Enabled = false;
+            nudZone5To.Controls[0].Enabled = false;
+            nudZone6To.Controls[0].Enabled = false;
 
             nudRaiseTime.Controls[0].Enabled = false;
             nudLowerTime.Controls[0].Enabled = false;
@@ -168,7 +169,6 @@ namespace AgOpenGPS
             nudUser4.Controls[0].Enabled = false;
 
             nudTramWidth.Controls[0].Enabled = false;
-            nudMenusOnTime.Controls[0].Enabled = false;
 
             nudGuidanceLookAhead.Controls[0].Enabled = false;
 
@@ -183,7 +183,7 @@ namespace AgOpenGPS
                 btnFeatureHides.Visible = false;
                 btnTram.Visible = false;
                 btnMachineModule.Visible = false;
-                btnSteerModule.Visible = false;
+                //btnSteerModule.Visible = false;
                 btnArduino.Visible = false;
                 btnUTurn.Visible = false;
                 btnDataSources.Visible = false;
@@ -193,8 +193,8 @@ namespace AgOpenGPS
                 btnSubVehicleConfig.Visible = false;
                 btnVehicle.Visible = false;
                 ShowSubMenu(panelToolSubMenu, btnTool);
-                lvVehicles.Location = new Point(8, 11);
-                lvVehicles.Height = 522;
+                lvVehicles.Location = new Point(0, 0);
+                lvVehicles.Size = new Size(435, 588);
                 unitsGroupBox.Visible = false;
                 label43.Visible = false;
                 label36.Visible = false;
@@ -208,6 +208,13 @@ namespace AgOpenGPS
                 chkDisplayLogNMEA.Visible = false;
                 label122.Visible = false;
                 label61.Visible = false;
+                label13.Location = new Point(595, 237);
+                btnVehicleLoad.Location = new Point(577, 257);
+                label11.Location = new Point(585, 329);
+                btnVehicleSaveAs.Location = new Point(577, 348);
+                label57.Location = new Point(591, 419);
+                btnVehicleDelete.Location = new Point(577, 439);
+
 
             }
             else
@@ -215,7 +222,7 @@ namespace AgOpenGPS
                 btnFeatureHides.Visible = true;
                 btnTram.Visible = true;
                 btnMachineModule.Visible = true;
-                btnSteerModule.Visible = true;
+                //btnSteerModule.Visible = true;
                 btnArduino.Visible = true;
                 btnUTurn.Visible = true;
                 btnDataSources.Visible = true;
@@ -227,13 +234,13 @@ namespace AgOpenGPS
                 label55.Visible = true;
             }
             //fin
-
             //seince we rest, save current state
             mf.SaveFormGPSWindowSettings();
 
             if (mf.isMetric)
             {
                 lblInchesCm.Text = gStr.gsCentimeters;
+                lblInchCm2.Text = gStr.gsCentimeters;
                 lblFeetMeters.Text = gStr.gsMeters;
                 lblSecTotalWidthFeet.Visible = false;
                 lblSecTotalWidthInches.Visible = false;
@@ -242,17 +249,18 @@ namespace AgOpenGPS
             else
             {
                 lblInchesCm.Text = gStr.gsInches;
+                lblInchCm2.Text = gStr.gsInches;
                 lblFeetMeters.Text = "Feet";
                 lblSecTotalWidthFeet.Visible = true;
                 lblSecTotalWidthInches.Visible = true;
                 lblSecTotalWidthMeters.Visible = false;
+
+                //metric or imp on spinners min/maxes
+                FixMinMaxSpinners();
             }
 
             //update the first child form summary data items
             UpdateSummary();
-
-            //metric or imp on spinners min/maxes
-            FixMinMaxSpinners();
 
             //the pick a saved vehicle box
             UpdateVehicleListView();
@@ -260,17 +268,18 @@ namespace AgOpenGPS
             //the tool size in bottom panel
             if (mf.isMetric)
             {
-                lblSecTotalWidthMeters.Text = (mf.tool.toolWidth * 100) + " cm";
+                lblSecTotalWidthMeters.Text = (mf.tool.width * 100) + " cm";
             }
             else
             {
-                double toFeet = mf.tool.toolWidth * 100 * 0.0328084;
+                double toFeet = mf.tool.width * 100 * 0.0328084;
                 lblSecTotalWidthFeet.Text = Convert.ToString((int)toFeet) + "'";
                 double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
                 lblSecTotalWidthInches.Text = Convert.ToString(temp) + '"';
             }
 
             chkDisplaySky.Checked = mf.isSkyOn;
+            chkDisplayBrightness.Checked = mf.isBrightnessOn;
             chkDisplayFloor.Checked = mf.isTextureOn;
             chkDisplayGrid.Checked = mf.isGridOn;
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
@@ -282,25 +291,21 @@ namespace AgOpenGPS
             chkDisplayLightbar.Checked = mf.isLightbarOn;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
 
+
             //Ajout-modification MEmprou et SPailleau
             cBox_sections_button.Checked = mf.issections_buttonOn;
             cbox_long_touch.Checked = mf.islong_touchOn;
-            Timer_kml.Checked = Properties.Settings.Default.setTimer_KML;
-            VineMode.Checked = Properties.Vehicle.Default.setVineMode;
-            //cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
-            ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
+            Timer_kml.Checked = Properties.Settings.Default.UP_setTimer_KML;
+            VineMode.Checked = Properties.Settings.Default.UP_setVineMode;
+            //cboxroll.Checked = Properties.Settings.Default.SetRollOFF;
+            ArrowsRL.Checked = Properties.Settings.Default.UP_SetArrowsRL;
             //fin
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
 
-            //nudMenusOnTime.Value = mf.timeToShowMenus;
-
             tab1.SelectedTab = tabSummary;
             tboxVehicleNameSave.Focus();
-
-            //mf.CloseTopMosts();
-
         }
 
         private void FormConfig_FormClosing(object sender, FormClosingEventArgs e)
@@ -317,111 +322,91 @@ namespace AgOpenGPS
 
             //save current vehicle
             SettingsIO.ExportAll(mf.vehiclesDirectory + mf.vehicleFileName + ".XML");
-
         }
 
         private void FixMinMaxSpinners()
         {
-            if (!mf.isMetric)
-            {
-                nudTankHitch.Maximum = (Math.Round(nudTankHitch.Maximum / 2.54M));
-                nudTankHitch.Minimum = Math.Round(nudTankHitch.Minimum / 2.54M);
+            nudTankHitch.Maximum = (Math.Round(nudTankHitch.Maximum / 2.54M));
+            nudTankHitch.Minimum = Math.Round(nudTankHitch.Minimum / 2.54M);
 
-                nudDrawbarLength.Maximum = Math.Round(nudDrawbarLength.Maximum / 2.54M);
-                nudDrawbarLength.Minimum = Math.Round(nudDrawbarLength.Minimum / 2.54M);
+            nudDrawbarLength.Maximum = Math.Round(nudDrawbarLength.Maximum / 2.54M);
+            nudDrawbarLength.Minimum = Math.Round(nudDrawbarLength.Minimum / 2.54M);
 
-                nudTrailingHitchLength.Maximum = Math.Round(nudTrailingHitchLength.Maximum / 2.54M);
-                nudTrailingHitchLength.Minimum = Math.Round(nudTrailingHitchLength.Minimum / 2.54M);
+            nudTrailingHitchLength.Maximum = Math.Round(nudTrailingHitchLength.Maximum / 2.54M);
+            nudTrailingHitchLength.Minimum = Math.Round(nudTrailingHitchLength.Minimum / 2.54M);
 
-                nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
-                nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
+            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
+            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
 
-                nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum / 2.54M);
-                nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum / 2.54M);
+            nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum / 2.54M);
+            nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum / 2.54M);
 
-                nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum / 2.54M);
-                nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum / 2.54M);
+            nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum / 2.54M);
+            nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum / 2.54M);
 
-                nudWheelbase.Maximum = Math.Round(nudWheelbase.Maximum / 2.54M);
-                nudWheelbase.Minimum = Math.Round(nudWheelbase.Minimum / 2.54M);
+            nudWheelbase.Maximum = Math.Round(nudWheelbase.Maximum / 2.54M);
+            nudWheelbase.Minimum = Math.Round(nudWheelbase.Minimum / 2.54M);
 
-                nudMinTurnRadius.Maximum = Math.Round(nudMinTurnRadius.Maximum / 2.54M);
-                nudMinTurnRadius.Minimum = Math.Round(nudMinTurnRadius.Minimum / 2.54M);
+            nudMinTurnRadius.Maximum = Math.Round(nudMinTurnRadius.Maximum / 2.54M);
+            nudMinTurnRadius.Minimum = Math.Round(nudMinTurnRadius.Minimum / 2.54M);
 
-                //.Maximum = Math.Round(/2.54M);
-                //.Minimum = Math.Round(/2.54M);
+            nudOverlap.Maximum = Math.Round(nudOverlap.Maximum / 2.54M);
+            nudOverlap.Minimum = Math.Round(nudOverlap.Minimum / 2.54M);
 
-                nudOverlap.Maximum = Math.Round(nudOverlap.Maximum / 2.54M);
-                nudOverlap.Minimum = Math.Round(nudOverlap.Minimum / 2.54M);
+            nudOffset.Maximum = Math.Round(nudOffset.Maximum / 2.54M);
+            nudOffset.Minimum = Math.Round(nudOffset.Minimum / 2.54M);
 
-                nudOffset.Maximum = Math.Round(nudOffset.Maximum / 2.54M);
-                nudOffset.Minimum = Math.Round(nudOffset.Minimum / 2.54M);
+            nudDefaultSectionWidth.Maximum = Math.Round(nudDefaultSectionWidth.Maximum / 2.54M);
+            nudDefaultSectionWidth.Minimum = Math.Round(nudDefaultSectionWidth.Minimum / 3.0M);
 
-                nudCutoffSpeed.Maximum = Math.Round(nudCutoffSpeed.Maximum / 1.60934M);
-                nudCutoffSpeed.Minimum = Math.Round(nudCutoffSpeed.Minimum / 1.60934M);
+            nudSection1.Maximum = Math.Round(nudSection1.Maximum / 2.54M);
+            nudSection1.Minimum = Math.Round(nudSection1.Minimum / 2.54M);
+            nudSection2.Maximum = Math.Round(nudSection2.Maximum / 2.54M);
+            nudSection2.Minimum = Math.Round(nudSection2.Minimum / 2.54M);
+            nudSection3.Maximum = Math.Round(nudSection3.Maximum / 2.54M);
+            nudSection3.Minimum = Math.Round(nudSection3.Minimum / 2.54M);
+            nudSection4.Maximum = Math.Round(nudSection4.Maximum / 2.54M);
+            nudSection4.Minimum = Math.Round(nudSection4.Minimum / 2.54M);
+            nudSection5.Maximum = Math.Round(nudSection5.Maximum / 2.54M);
+            nudSection5.Minimum = Math.Round(nudSection5.Minimum / 2.54M);
+            nudSection6.Maximum = Math.Round(nudSection6.Maximum / 2.54M);
+            nudSection6.Minimum = Math.Round(nudSection6.Minimum / 2.54M);
+            nudSection7.Maximum = Math.Round(nudSection7.Maximum / 2.54M);
+            nudSection7.Minimum = Math.Round(nudSection7.Minimum / 2.54M);
+            nudSection8.Maximum = Math.Round(nudSection8.Maximum / 2.54M);
+            nudSection8.Minimum = Math.Round(nudSection8.Minimum / 2.54M);
+            nudSection9.Maximum = Math.Round(nudSection9.Maximum / 2.54M);
+            nudSection9.Minimum = Math.Round(nudSection9.Minimum / 2.54M);
+            nudSection10.Maximum = Math.Round(nudSection10.Maximum / 2.54M);
+            nudSection10.Minimum = Math.Round(nudSection10.Minimum / 2.54M);
+            nudSection11.Maximum = Math.Round(nudSection11.Maximum / 2.54M);
+            nudSection11.Minimum = Math.Round(nudSection11.Minimum / 2.54M);
+            nudSection12.Maximum = Math.Round(nudSection12.Maximum / 2.54M);
+            nudSection12.Minimum = Math.Round(nudSection12.Minimum / 2.54M);
+            nudSection13.Maximum = Math.Round(nudSection13.Maximum / 2.54M);
+            nudSection13.Minimum = Math.Round(nudSection13.Minimum / 2.54M);
+            nudSection14.Maximum = Math.Round(nudSection14.Maximum / 2.54M);
+            nudSection14.Minimum = Math.Round(nudSection14.Minimum / 2.54M);
+            nudSection15.Maximum = Math.Round(nudSection15.Maximum / 2.54M);
+            nudSection15.Minimum = Math.Round(nudSection15.Minimum / 2.54M);
+            nudSection16.Maximum = Math.Round(nudSection16.Maximum / 2.54M);
+            nudSection16.Minimum = Math.Round(nudSection16.Minimum / 2.54M);
 
-                nudDefaultSectionWidth.Maximum = Math.Round(nudDefaultSectionWidth.Maximum / 2.54M);
-                nudDefaultSectionWidth.Minimum = Math.Round(nudDefaultSectionWidth.Minimum / 2.54M);
+            nudTramWidth.Minimum = Math.Round(nudTramWidth.Minimum / 2.54M);
+            nudTramWidth.Maximum = Math.Round(nudTramWidth.Maximum / 2.54M);
 
-                nudSection1.Maximum = Math.Round(nudSection1.Maximum / 2.54M);
-                nudSection1.Minimum = Math.Round(nudSection1.Minimum / 2.54M);
-                nudSection2.Maximum = Math.Round(nudSection2.Maximum / 2.54M);
-                nudSection2.Minimum = Math.Round(nudSection2.Minimum / 2.54M);
-                nudSection3.Maximum = Math.Round(nudSection3.Maximum / 2.54M);
-                nudSection3.Minimum = Math.Round(nudSection3.Minimum / 2.54M);
-                nudSection4.Maximum = Math.Round(nudSection4.Maximum / 2.54M);
-                nudSection4.Minimum = Math.Round(nudSection4.Minimum / 2.54M);
-                nudSection5.Maximum = Math.Round(nudSection5.Maximum / 2.54M);
-                nudSection5.Minimum = Math.Round(nudSection5.Minimum / 2.54M);
-                nudSection6.Maximum = Math.Round(nudSection6.Maximum / 2.54M);
-                nudSection6.Minimum = Math.Round(nudSection6.Minimum / 2.54M);
-                nudSection7.Maximum = Math.Round(nudSection7.Maximum / 2.54M);
-                nudSection7.Minimum = Math.Round(nudSection7.Minimum / 2.54M);
-                nudSection8.Maximum = Math.Round(nudSection8.Maximum / 2.54M);
-                nudSection8.Minimum = Math.Round(nudSection8.Minimum / 2.54M);
-                nudSection9.Maximum = Math.Round(nudSection9.Maximum / 2.54M);
-                nudSection9.Minimum = Math.Round(nudSection9.Minimum / 2.54M);
-                nudSection10.Maximum = Math.Round(nudSection10.Maximum / 2.54M);
-                nudSection10.Minimum = Math.Round(nudSection10.Minimum / 2.54M);
-                nudSection11.Maximum = Math.Round(nudSection11.Maximum / 2.54M);
-                nudSection11.Minimum = Math.Round(nudSection11.Minimum / 2.54M);
-                nudSection12.Maximum = Math.Round(nudSection12.Maximum / 2.54M);
-                nudSection12.Minimum = Math.Round(nudSection12.Minimum / 2.54M);
-                nudSection13.Maximum = Math.Round(nudSection13.Maximum / 2.54M);
-                nudSection13.Minimum = Math.Round(nudSection13.Minimum / 2.54M);
-                nudSection14.Maximum = Math.Round(nudSection14.Maximum / 2.54M);
-                nudSection14.Minimum = Math.Round(nudSection14.Minimum / 2.54M);
-                nudSection15.Maximum = Math.Round(nudSection15.Maximum / 2.54M);
-                nudSection15.Minimum = Math.Round(nudSection15.Minimum / 2.54M);
-                nudSection16.Maximum = Math.Round(nudSection16.Maximum / 2.54M);
-                nudSection16.Minimum = Math.Round(nudSection16.Minimum / 2.54M);
+            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
+            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
-                nudTramWidth.Minimum = Math.Round(nudTramWidth.Minimum / 2.54M);
-                nudTramWidth.Maximum = Math.Round(nudTramWidth.Maximum / 2.54M);
+            nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum / 2.54M);
+            nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum / 2.54M);
 
-                nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
-                nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
+            //Meters to feet
+            nudTurnDistanceFromBoundary.Minimum = Math.Round(nudTurnDistanceFromBoundary.Minimum * 3.28M);
+            nudTurnDistanceFromBoundary.Maximum = Math.Round(nudTurnDistanceFromBoundary.Maximum * 3.28M);
 
-                nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum / 2.54M);
-                nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum / 2.54M);
-
-                //Meters to feet
-                nudTurnDistanceFromBoundary.Minimum = Math.Round(nudTurnDistanceFromBoundary.Minimum * 3.28M);
-                nudTurnDistanceFromBoundary.Maximum = Math.Round(nudTurnDistanceFromBoundary.Maximum * 3.28M);
-
-                nudABLength.Minimum = Math.Round(nudABLength.Minimum * 3.28M);
-                nudABLength.Maximum = Math.Round(nudABLength.Maximum * 3.28M);
-
-                lblTurnOffBelowUnits.Text = gStr.gsMPH;
-                //cutoffMetricImperial = 1.60934;
-
-            }
-            else
-            {
-                lblTurnOffBelowUnits.Text = gStr.gsKMH;
-                //cutoffMetricImperial = 1;
-            }
-
+            nudABLength.Minimum = Math.Round(nudABLength.Minimum * 3.28M);
+            nudABLength.Maximum = Math.Round(nudABLength.Maximum * 3.28M);
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -433,6 +418,7 @@ namespace AgOpenGPS
         private void tabSummary_Enter(object sender, EventArgs e)
         {
             chkDisplaySky.Checked = mf.isSkyOn;
+            chkDisplayBrightness.Checked = mf.isBrightnessOn;
             chkDisplayFloor.Checked = mf.isTextureOn;
             chkDisplayGrid.Checked = mf.isGridOn;
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
@@ -443,15 +429,14 @@ namespace AgOpenGPS
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayLightbar.Checked = mf.isLightbarOn;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
-            //nudMenusOnTime.Value = mf.timeToShowMenus;
 
             //Ajout-modification MEmprou et SPailleau
             cBox_sections_button.Checked = mf.issections_buttonOn;
-            cbox_long_touch.Checked = Properties.Settings.Default.setDisplay_islong_touchOn;
-            Timer_kml.Checked = Properties.Settings.Default.setTimer_KML;
-            VineMode.Checked = Properties.Vehicle.Default.setVineMode;
-            //cboxroll.Checked = Properties.Vehicle.Default.SetRollOFF;
-            ArrowsRL.Checked = Properties.Vehicle.Default.SetArrowsRL;
+            cbox_long_touch.Checked = Properties.Settings.Default.UP_setDisplay_islong_touchOn;
+            Timer_kml.Checked = Properties.Settings.Default.UP_setTimer_KML;
+            VineMode.Checked = Properties.Settings.Default.UP_setVineMode;
+            //cboxroll.Checked = Properties.Settings.Default.SetRollOFF;
+            ArrowsRL.Checked = Properties.Settings.Default.UP_SetArrowsRL;
             //fin
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
@@ -463,13 +448,20 @@ namespace AgOpenGPS
             SaveDisplaySettings();
         }
 
-        
-        //Ajout-modification MEmprou et SPailleau
-        private void cbox_long_touch_CheckedChanged(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-
+            if (lvVehicles.SelectedItems.Count > 0)
+            {
+                btnVehicleSaveAs.Enabled = true;
+                btnVehicleLoad.Enabled = true;
+                btnVehicleDelete.Enabled = true;
+            }
+            else
+            {
+                btnVehicleSaveAs.Enabled = false;
+                btnVehicleLoad.Enabled = false;
+                btnVehicleDelete.Enabled = false;
+            }
         }
-        //fin
     }
 }
-

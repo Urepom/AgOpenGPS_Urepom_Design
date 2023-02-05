@@ -28,8 +28,8 @@ namespace AgOpenGPS
 
         private void nudDoseFerti_ValueChanged(object sender, EventArgs e)
         {
-            mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti) >> 8));
-            mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti)));
+            mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti) >> 8));
+            mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti)));
         }
 
         private void cboxFertiActive_CheckedChanged(object sender, EventArgs e)
@@ -54,10 +54,10 @@ namespace AgOpenGPS
                 //cbox_auto.Checked = false;
                 //cboxFertiActive.Checked = true;
                 cboxFertiActive.Image = global::AgOpenGPS.Properties.Resources.boundaryStop;
-                mf.p_235.pgn[mf.p_235.Ferti_On] = 1;
-                mf.p_235.pgn[mf.p_235.Rincage] = 0;
-                mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti) >> 8));
-                mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti)));
+                mf.p_240.pgn[mf.p_240.Ferti_On] = 1;
+                mf.p_240.pgn[mf.p_240.Rincage] = 0;
+                mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti) >> 8));
+                mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti)));
 
             }
             else
@@ -65,7 +65,7 @@ namespace AgOpenGPS
                 mf.Ferti_active = false;
                 //cboxFertiActive.Checked = false;
                 cboxFertiActive.Image = global::AgOpenGPS.Properties.Resources.boundaryPlay;
-                mf.p_235.pgn[mf.p_235.Ferti_On] = 0;
+                mf.p_240.pgn[mf.p_240.Ferti_On] = 0;
             }
 
         }
@@ -80,15 +80,15 @@ namespace AgOpenGPS
                 mf.ferti_auto = true;
                 //mf.Ferti_active = true;
                 //cbox_auto.Checked = true;
-                //mf.p_235.pgn[mf.p_235.Ferti_On] = 1;
-                mf.p_235.pgn[mf.p_235.Rincage] = 0;
-                mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti) >> 8));
-                mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti)));
+                //mf.p_240.pgn[mf.p_240.Ferti_On] = 1;
+                mf.p_240.pgn[mf.p_240.Rincage] = 0;
+                mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti) >> 8));
+                mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti)));
 
-                if (mf.autoBtnState == FormGPS.btnStates.Off)
-                {
-                    mf.btnSectionOffAutoOn.PerformClick();
-                }
+                //if (mf.autoBtnState == FormGPS.btnStates.Off)
+                //{
+                //    mf.btnSectionOffAutoOn.PerformClick();
+               // }
 
                 if (cboxFertiActive.Checked == true)
                 {
@@ -110,7 +110,7 @@ namespace AgOpenGPS
                 mf.ferti_auto = false;
                 // mf.Ferti_active = false;
                 //cbox_auto.Checked = false;
-                mf.p_235.pgn[mf.p_235.Ferti_On] = 0;
+                mf.p_240.pgn[mf.p_240.Ferti_On] = 0;
 
             }
         }
@@ -119,12 +119,12 @@ namespace AgOpenGPS
         {
             this.Width = 284;
             timer2.Start();
-            nudDoseFerti.Value = Properties.Vehicle.Default.SetDoseFerti;
-            numTimerRincage.Value = Properties.Vehicle.Default.SetTimerRincFerti;
-            numericUpDown1.Value = (Properties.Vehicle.Default.SetDoseFVidange / 60) * 3;
+            nudDoseFerti.Value = Properties.Settings.Default.UP_SetDoseFerti;
+            numTimerRincage.Value = Properties.Settings.Default.UP_SetTimerRincFerti;
+            numericUpDown1.Value = (Properties.Settings.Default.UP_SetDoseFVidange / 60) * 3;
             cboxFertiActive.Checked = mf.Ferti_active;
             cbox_auto.Checked = mf.ferti_auto;
-            
+
         }
 
         private void cboxRincage_CheckedChanged(object sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace AgOpenGPS
                 timer1.Interval = Convert.ToInt32(numTimerRincage.Value) * 1000;
                 timer1.Start();
                 mf.ferti_auto = false;
-                mf.p_235.pgn[mf.p_235.Rincage] = 1;
+                mf.p_240.pgn[mf.p_240.Rincage] = 1;
                 if (cboxFertiActive.Checked == true)
                 {
                     cboxFertiActive.Checked = false;
@@ -147,11 +147,11 @@ namespace AgOpenGPS
                 {
                     cboxvidange.Checked = false;
                 }
-                
+
             }
             if (cboxRincage.Checked == false)
             {
-                mf.p_235.pgn[mf.p_235.Rincage] = 0;
+                mf.p_240.pgn[mf.p_240.Rincage] = 0;
                 timer1.Stop();
             }
         }
@@ -163,18 +163,18 @@ namespace AgOpenGPS
             // if (cboxFertiActive.Checked ==false && cbox_auto.Checked == false)
             // {
             mf.ferti_rincage = false;
-            mf.p_235.pgn[mf.p_235.Rincage] = 0;
+            mf.p_240.pgn[mf.p_240.Rincage] = 0;
             // }
         }
 
         private void numTimerRincage_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Vehicle.Default.SetTimerRincFerti = Convert.ToInt32(numTimerRincage.Value);
+            Properties.Settings.Default.UP_SetTimerRincFerti = Convert.ToInt32(numTimerRincage.Value);
         }
 
         private void FormFertilisation_FormClosed(object sender, FormClosedEventArgs e)
         {
-            mf.p_235.pgn[mf.p_235.Rincage] = 0;
+            mf.p_240.pgn[mf.p_240.Rincage] = 0;
             timer1.Stop();
         }
 
@@ -182,9 +182,9 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Vehicle.Default.SetDoseFerti = nudDoseFerti.Value;
-                mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti) >> 8));
-                mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFerti)));
+                Properties.Settings.Default.UP_SetDoseFerti = nudDoseFerti.Value;
+                mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti) >> 8));
+                mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti)));
             }
         }
 
@@ -192,13 +192,13 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Vehicle.Default.SetTimerRincFerti = Convert.ToInt32(numTimerRincage.Value);
+                Properties.Settings.Default.UP_SetTimerRincFerti = Convert.ToInt32(numTimerRincage.Value);
             }
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            label3.Text = (Math.Round((mf.Débit_Pompe_Ferti / ((mf.pn.speed * mf.tool.toolWidth)/10)),2)).ToString();
+            label3.Text = (Math.Round((mf.Débit_Pompe_Ferti / ((mf.pn.speed * mf.tool.width) / 10)), 2)).ToString();
             label4.Text = mf.PWD_Pompe_Ferti.ToString();
             label5.Text = mf.Vol_Pompe_Ferti.ToString() + " l";
             timer2.Start();
@@ -239,43 +239,43 @@ namespace AgOpenGPS
                 mf.ferti_auto = false;
 
                 mf.ferti_vidange = true;
-                
-                mf.p_235.pgn[mf.p_235.Rincage] = 0;
-                mf.p_235.pgn[mf.p_235.Ferti_On] = 1;
-                
+
+                mf.p_240.pgn[mf.p_240.Rincage] = 0;
+                mf.p_240.pgn[mf.p_240.Ferti_On] = 1;
+
                 int largeur = 3;
-                mf.p_235.pgn[mf.p_235.LargeurHi] = unchecked((byte)(((short)largeur) >> 8));
-                mf.p_235.pgn[mf.p_235.LargeurLo] = unchecked((byte)(((short)largeur)));
+                mf.p_240.pgn[mf.p_240.LargeurHi] = unchecked((byte)(((short)largeur) >> 8));
+                mf.p_240.pgn[mf.p_240.LargeurLo] = unchecked((byte)(((short)largeur)));
 
                 int speed = 100;
-                mf.p_235.pgn[mf.p_235.speedHi] = unchecked((byte)(((short)speed) >> 8));
-                mf.p_235.pgn[mf.p_235.speedLo] = unchecked((byte)(((short)speed)));
+                mf.p_240.pgn[mf.p_240.speedHi] = unchecked((byte)(((short)speed) >> 8));
+                mf.p_240.pgn[mf.p_240.speedLo] = unchecked((byte)(((short)speed)));
 
-                mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFVidange) >> 8));
-                mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFVidange)));
+                mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange) >> 8));
+                mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange)));
 
             }
             else
             {
-                mf.p_235.pgn[mf.p_235.Ferti_On] = 0;
+                mf.p_240.pgn[mf.p_240.Ferti_On] = 0;
                 mf.ferti_vidange = false;
             }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Vehicle.Default.SetDoseFVidange = (numericUpDown1.Value * 60) / 3;
-            mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFVidange) >> 8));
-            mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFVidange)));
+            Properties.Settings.Default.UP_SetDoseFVidange = (numericUpDown1.Value * 60) / 3;
+            mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange) >> 8));
+            mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange)));
         }
 
         private void numericUpDown1_Click(object sender, EventArgs e)
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Vehicle.Default.SetDoseFVidange = (numericUpDown1.Value * 60) / 3;
-                mf.p_235.pgn[mf.p_235.DebitHi] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFVidange) >> 8));
-                mf.p_235.pgn[mf.p_235.DebitLo] = unchecked((byte)(((short)Properties.Vehicle.Default.SetDoseFVidange)));
+                Properties.Settings.Default.UP_SetDoseFVidange = (numericUpDown1.Value * 60) / 3;
+                mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange) >> 8));
+                mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange)));
             }
         }
     }

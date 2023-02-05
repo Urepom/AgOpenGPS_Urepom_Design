@@ -23,8 +23,8 @@ namespace AgOpenGPS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            FormGPS.DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
-            FormGPS.DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
+            FormGPS.DirectoryCopy(Settings.Default.UP_setF_local, Settings.Default.UP_setF_synchro, true);
+            FormGPS.DirectoryCopy(Settings.Default.UP_setF_synchro, Settings.Default.UP_setF_local, true);
             this.Close();
         }
     }

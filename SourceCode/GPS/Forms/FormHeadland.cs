@@ -192,7 +192,7 @@ namespace AgOpenGPS
             //make sure distance isn't too small between points on turnLine
             bndCount = foos.Count;
 
-            //double spacing = mf.tool.toolWidth * 0.25;
+            //double spacing = mf.tool.width * 0.25;
             for (int i = 0; i < bndCount - 1; i++)
             {
                 distance = glm.Distance(foos[i], foos[i + 1]);
@@ -301,7 +301,7 @@ namespace AgOpenGPS
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
             BuildHeadLineTemplateFromBoundary();
-            double width = (Math.Round(mf.tool.toolWidth * cboxToolWidths.SelectedIndex, 1));
+            double width = (Math.Round(mf.tool.width * cboxToolWidths.SelectedIndex, 1));
 
             for (int i = 0; i < headLineTemplate.Count; i++)
             {
@@ -321,6 +321,7 @@ namespace AgOpenGPS
             end = 99999;
             RebuildHeadLineTemplate();
         }
+
         private void oglSelf_Paint(object sender, PaintEventArgs e)
         {
             oglSelf.MakeCurrent();
@@ -616,24 +617,12 @@ namespace AgOpenGPS
 
         private void btnTurnOffHeadland_Click(object sender, EventArgs e)
         {
-            //Ajout-modification MEmprou et SPailleau
-            //----SPailleau - Ajout de confirmation de suppression
-            if (MessageBox.Show("Supprimer les limites de toutes les fourrières ?", "Confirm deleting headland", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                mf.FileSaveHeadland();
+            mf.bnd.bndList[0].hdLine?.Clear();
 
-                isClosing = true;
-                Close();
-            }
-            else
-            {
-                mf.bnd.bndList[0].hdLine?.Clear();
+            mf.FileSaveHeadland();
 
-                mf.FileSaveHeadland();
-
-                Close();
-            }
-            //----
+            isClosing = true;
+            Close();
         }
 
         private void btnDeletePoints_Click(object sender, EventArgs e)
@@ -749,5 +738,20 @@ namespace AgOpenGPS
         }
 
         #endregion
+
     }
 }
+
+/*
+            
+            MessageBox.Show(gStr, gStr.gsHelp);
+
+            DialogResult result2 = MessageBox.Show(gStr, gStr.gsHelp,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (result2 == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=rsJMRZrcuX4");
+            }
+
+*/

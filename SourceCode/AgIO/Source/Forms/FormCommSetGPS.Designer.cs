@@ -93,18 +93,18 @@
             this.lblCurrentModuleFertiPort = new System.Windows.Forms.Label();
             this.btnOpenSerialModuleFerti = new System.Windows.Forms.Button();
             this.btnCloseSerialModuleFerti = new System.Windows.Forms.Button();
+            this.ListComPort = new System.Windows.Forms.TextBox();
             this.lblfromferti = new System.Windows.Forms.Label();
             this.lblferti = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.Waiting = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnRescan = new System.Windows.Forms.Button();
             this.btnSerialOK = new System.Windows.Forms.Button();
-            this.Waiting = new System.Windows.Forms.PictureBox();
-            this.ListComPort = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -113,11 +113,11 @@
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -148,9 +148,9 @@
             this.groupBox1.Controls.Add(this.textBoxRcv);
             this.groupBox1.Controls.Add(this.btnOpenSerial);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(173, 1);
+            this.groupBox1.Location = new System.Drawing.Point(173, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(742, 231);
+            this.groupBox1.Size = new System.Drawing.Size(742, 247);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "GPS";
@@ -305,11 +305,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 40);
+            this.label2.Location = new System.Drawing.Point(174, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(223, 29);
+            this.label2.Size = new System.Drawing.Size(62, 29);
             this.label2.TabIndex = 74;
-            this.label2.Text = "GPS (com 8 ou 9)";
+            this.label2.Text = "GPS";
             // 
             // lblCurrentBaud
             // 
@@ -341,14 +341,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxRcv.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxRcv.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.textBoxRcv.Location = new System.Drawing.Point(15, 172);
+            this.textBoxRcv.Location = new System.Drawing.Point(12, 185);
             this.textBoxRcv.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxRcv.Multiline = true;
             this.textBoxRcv.Name = "textBoxRcv";
             this.textBoxRcv.ReadOnly = true;
             this.textBoxRcv.Size = new System.Drawing.Size(720, 53);
             this.textBoxRcv.TabIndex = 40;
-            this.textBoxRcv.TextChanged += new System.EventHandler(this.textBoxRcv_TextChanged);
             // 
             // btnOpenSerial
             // 
@@ -482,12 +481,12 @@
             this.groupBox3.Controls.Add(this.btnOpenSerialSteerModule);
             this.groupBox3.Controls.Add(this.btnCloseSerialSteerModule);
             this.groupBox3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(172, 357);
+            this.groupBox3.Location = new System.Drawing.Point(173, 371);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(369, 117);
+            this.groupBox3.Size = new System.Drawing.Size(369, 103);
             this.groupBox3.TabIndex = 66;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Steer (com 6 ou 7)";
+            this.groupBox3.Text = "Steer";
             // 
             // cboxSteerModulePort
             // 
@@ -517,7 +516,7 @@
             this.btnOpenSerialSteerModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenSerialSteerModule.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenSerialSteerModule.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenSerialSteerModule.Location = new System.Drawing.Point(161, 45);
+            this.btnOpenSerialSteerModule.Location = new System.Drawing.Point(160, 33);
             this.btnOpenSerialSteerModule.Name = "btnOpenSerialSteerModule";
             this.btnOpenSerialSteerModule.Size = new System.Drawing.Size(101, 58);
             this.btnOpenSerialSteerModule.TabIndex = 53;
@@ -531,7 +530,7 @@
             this.btnCloseSerialSteerModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseSerialSteerModule.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseSerialSteerModule.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialSteerModule.Image")));
-            this.btnCloseSerialSteerModule.Location = new System.Drawing.Point(268, 45);
+            this.btnCloseSerialSteerModule.Location = new System.Drawing.Point(267, 33);
             this.btnCloseSerialSteerModule.Name = "btnCloseSerialSteerModule";
             this.btnCloseSerialSteerModule.Size = new System.Drawing.Size(101, 58);
             this.btnCloseSerialSteerModule.TabIndex = 52;
@@ -546,9 +545,9 @@
             this.groupBox4.Controls.Add(this.btnOpenSerialMachineModule);
             this.groupBox4.Controls.Add(this.btnCloseSerialMachineModule);
             this.groupBox4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox4.Location = new System.Drawing.Point(172, 480);
+            this.groupBox4.Location = new System.Drawing.Point(173, 480);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(369, 117);
+            this.groupBox4.Size = new System.Drawing.Size(369, 103);
             this.groupBox4.TabIndex = 67;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Machine";
@@ -581,7 +580,7 @@
             this.btnOpenSerialMachineModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenSerialMachineModule.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenSerialMachineModule.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenSerialMachineModule.Location = new System.Drawing.Point(161, 49);
+            this.btnOpenSerialMachineModule.Location = new System.Drawing.Point(160, 39);
             this.btnOpenSerialMachineModule.Name = "btnOpenSerialMachineModule";
             this.btnOpenSerialMachineModule.Size = new System.Drawing.Size(101, 58);
             this.btnOpenSerialMachineModule.TabIndex = 53;
@@ -595,7 +594,7 @@
             this.btnCloseSerialMachineModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseSerialMachineModule.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseSerialMachineModule.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialMachineModule.Image")));
-            this.btnCloseSerialMachineModule.Location = new System.Drawing.Point(268, 49);
+            this.btnCloseSerialMachineModule.Location = new System.Drawing.Point(267, 39);
             this.btnCloseSerialMachineModule.Name = "btnCloseSerialMachineModule";
             this.btnCloseSerialMachineModule.Size = new System.Drawing.Size(101, 58);
             this.btnCloseSerialMachineModule.TabIndex = 52;
@@ -673,9 +672,9 @@
             this.groupBox6.Controls.Add(this.btnCloseIMU);
             this.groupBox6.Controls.Add(this.btnOpenIMU);
             this.groupBox6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox6.Location = new System.Drawing.Point(172, 234);
+            this.groupBox6.Location = new System.Drawing.Point(172, 265);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(369, 113);
+            this.groupBox6.Size = new System.Drawing.Size(369, 103);
             this.groupBox6.TabIndex = 68;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "IMU";
@@ -710,7 +709,7 @@
             this.btnCloseIMU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseIMU.Image = global::AgIO.Properties.Resources.USB_Disconnect;
-            this.btnCloseIMU.Location = new System.Drawing.Point(262, 45);
+            this.btnCloseIMU.Location = new System.Drawing.Point(268, 37);
             this.btnCloseIMU.Name = "btnCloseIMU";
             this.btnCloseIMU.Size = new System.Drawing.Size(101, 58);
             this.btnCloseIMU.TabIndex = 44;
@@ -724,7 +723,7 @@
             this.btnOpenIMU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenIMU.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenIMU.Location = new System.Drawing.Point(161, 45);
+            this.btnOpenIMU.Location = new System.Drawing.Point(161, 37);
             this.btnOpenIMU.Name = "btnOpenIMU";
             this.btnOpenIMU.Size = new System.Drawing.Size(101, 58);
             this.btnOpenIMU.TabIndex = 45;
@@ -737,7 +736,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(665, 254);
+            this.label1.Location = new System.Drawing.Point(665, 265);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 23);
             this.label1.TabIndex = 73;
@@ -749,11 +748,12 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(624, 341);
+            this.label4.Location = new System.Drawing.Point(624, 343);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 23);
             this.label4.TabIndex = 76;
             this.label4.Text = "Machine:";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -761,11 +761,12 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(653, 313);
+            this.label5.Location = new System.Drawing.Point(653, 320);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 23);
             this.label5.TabIndex = 77;
             this.label5.Text = "Steer:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -773,51 +774,55 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(663, 285);
+            this.label6.Location = new System.Drawing.Point(663, 294);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 23);
             this.label6.TabIndex = 78;
             this.label6.Text = "IMU:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // lblIMU
             // 
             this.lblIMU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblIMU.AutoSize = true;
             this.lblIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIMU.Location = new System.Drawing.Point(719, 285);
+            this.lblIMU.Location = new System.Drawing.Point(719, 294);
             this.lblIMU.Name = "lblIMU";
             this.lblIMU.Size = new System.Drawing.Size(50, 23);
             this.lblIMU.TabIndex = 83;
             this.lblIMU.Text = "IMU";
+            this.lblIMU.Click += new System.EventHandler(this.lblIMU_Click);
             // 
             // lblSteer
             // 
             this.lblSteer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSteer.AutoSize = true;
             this.lblSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSteer.Location = new System.Drawing.Point(719, 313);
+            this.lblSteer.Location = new System.Drawing.Point(719, 320);
             this.lblSteer.Name = "lblSteer";
             this.lblSteer.Size = new System.Drawing.Size(60, 23);
             this.lblSteer.TabIndex = 82;
             this.lblSteer.Text = "Steer";
+            this.lblSteer.Click += new System.EventHandler(this.lblSteer_Click);
             // 
             // lblMachine
             // 
             this.lblMachine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMachine.AutoSize = true;
             this.lblMachine.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMachine.Location = new System.Drawing.Point(719, 341);
+            this.lblMachine.Location = new System.Drawing.Point(719, 343);
             this.lblMachine.Name = "lblMachine";
             this.lblMachine.Size = new System.Drawing.Size(60, 23);
             this.lblMachine.TabIndex = 81;
             this.lblMachine.Text = "Mach";
+            this.lblMachine.Click += new System.EventHandler(this.lblMachine_Click);
             // 
             // lblGPS
             // 
             this.lblGPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGPS.AutoSize = true;
             this.lblGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGPS.Location = new System.Drawing.Point(719, 254);
+            this.lblGPS.Location = new System.Drawing.Point(719, 265);
             this.lblGPS.Name = "lblGPS";
             this.lblGPS.Size = new System.Drawing.Size(48, 23);
             this.lblGPS.TabIndex = 79;
@@ -829,7 +834,7 @@
             this.lblFromGPS.BackColor = System.Drawing.Color.Transparent;
             this.lblFromGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromGPS.ForeColor = System.Drawing.Color.Black;
-            this.lblFromGPS.Location = new System.Drawing.Point(798, 252);
+            this.lblFromGPS.Location = new System.Drawing.Point(798, 263);
             this.lblFromGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFromGPS.Name = "lblFromGPS";
             this.lblFromGPS.Size = new System.Drawing.Size(64, 27);
@@ -843,13 +848,14 @@
             this.lblFromMU.BackColor = System.Drawing.Color.Transparent;
             this.lblFromMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromMU.ForeColor = System.Drawing.Color.Black;
-            this.lblFromMU.Location = new System.Drawing.Point(798, 282);
+            this.lblFromMU.Location = new System.Drawing.Point(798, 291);
             this.lblFromMU.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFromMU.Name = "lblFromMU";
             this.lblFromMU.Size = new System.Drawing.Size(64, 27);
             this.lblFromMU.TabIndex = 175;
             this.lblFromMU.Text = "---";
             this.lblFromMU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFromMU.Click += new System.EventHandler(this.lblFromMU_Click);
             // 
             // lblFromSteerModule
             // 
@@ -857,13 +863,14 @@
             this.lblFromSteerModule.BackColor = System.Drawing.Color.Transparent;
             this.lblFromSteerModule.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromSteerModule.ForeColor = System.Drawing.Color.Black;
-            this.lblFromSteerModule.Location = new System.Drawing.Point(798, 311);
+            this.lblFromSteerModule.Location = new System.Drawing.Point(798, 318);
             this.lblFromSteerModule.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFromSteerModule.Name = "lblFromSteerModule";
             this.lblFromSteerModule.Size = new System.Drawing.Size(64, 27);
             this.lblFromSteerModule.TabIndex = 173;
             this.lblFromSteerModule.Text = "---";
             this.lblFromSteerModule.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFromSteerModule.Click += new System.EventHandler(this.lblFromSteerModule_Click);
             // 
             // lblFromMachineModule
             // 
@@ -871,13 +878,14 @@
             this.lblFromMachineModule.BackColor = System.Drawing.Color.Transparent;
             this.lblFromMachineModule.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromMachineModule.ForeColor = System.Drawing.Color.Black;
-            this.lblFromMachineModule.Location = new System.Drawing.Point(798, 339);
+            this.lblFromMachineModule.Location = new System.Drawing.Point(798, 341);
             this.lblFromMachineModule.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFromMachineModule.Name = "lblFromMachineModule";
             this.lblFromMachineModule.Size = new System.Drawing.Size(64, 27);
             this.lblFromMachineModule.TabIndex = 174;
             this.lblFromMachineModule.Text = "---";
             this.lblFromMachineModule.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFromMachineModule.Click += new System.EventHandler(this.lblFromMachineModule_Click);
             // 
             // groupBox7
             // 
@@ -887,10 +895,10 @@
             this.groupBox7.Controls.Add(this.btnOpenSerialModuleFerti);
             this.groupBox7.Controls.Add(this.btnCloseSerialModuleFerti);
             this.groupBox7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox7.Location = new System.Drawing.Point(173, 603);
+            this.groupBox7.Location = new System.Drawing.Point(173, 585);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(369, 117);
-            this.groupBox7.TabIndex = 176;
+            this.groupBox7.Size = new System.Drawing.Size(369, 100);
+            this.groupBox7.TabIndex = 178;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Fertilisation (com 40)";
             // 
@@ -903,7 +911,7 @@
             this.cboxferti.Name = "cboxferti";
             this.cboxferti.Size = new System.Drawing.Size(124, 37);
             this.cboxferti.TabIndex = 64;
-            this.cboxferti.SelectedIndexChanged += new System.EventHandler(this.cboxferti_SelectedIndexChanged);
+            this.cboxferti.SelectedIndexChanged += new System.EventHandler(this.cboxferti_SelectedIndexChanged_1);
             // 
             // lblCurrentModuleFertiPort
             // 
@@ -922,12 +930,12 @@
             this.btnOpenSerialModuleFerti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenSerialModuleFerti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenSerialModuleFerti.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenSerialModuleFerti.Location = new System.Drawing.Point(161, 49);
+            this.btnOpenSerialModuleFerti.Location = new System.Drawing.Point(161, 41);
             this.btnOpenSerialModuleFerti.Name = "btnOpenSerialModuleFerti";
             this.btnOpenSerialModuleFerti.Size = new System.Drawing.Size(101, 58);
             this.btnOpenSerialModuleFerti.TabIndex = 53;
             this.btnOpenSerialModuleFerti.UseVisualStyleBackColor = false;
-            this.btnOpenSerialModuleFerti.Click += new System.EventHandler(this.btnOpenSerialFerti_Click);
+            this.btnOpenSerialModuleFerti.Click += new System.EventHandler(this.btnOpenSerialModuleFerti_Click);
             // 
             // btnCloseSerialModuleFerti
             // 
@@ -936,23 +944,38 @@
             this.btnCloseSerialModuleFerti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseSerialModuleFerti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseSerialModuleFerti.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseSerialModuleFerti.Image")));
-            this.btnCloseSerialModuleFerti.Location = new System.Drawing.Point(268, 49);
+            this.btnCloseSerialModuleFerti.Location = new System.Drawing.Point(267, 41);
             this.btnCloseSerialModuleFerti.Name = "btnCloseSerialModuleFerti";
             this.btnCloseSerialModuleFerti.Size = new System.Drawing.Size(101, 58);
             this.btnCloseSerialModuleFerti.TabIndex = 52;
             this.btnCloseSerialModuleFerti.UseVisualStyleBackColor = false;
-            this.btnCloseSerialModuleFerti.Click += new System.EventHandler(this.btnCloseSerialFerti_Click);
+            this.btnCloseSerialModuleFerti.Click += new System.EventHandler(this.btnCloseSerialModuleFerti_Click);
+            // 
+            // ListComPort
+            // 
+            this.ListComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListComPort.BackColor = System.Drawing.SystemColors.Window;
+            this.ListComPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ListComPort.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListComPort.Location = new System.Drawing.Point(603, 392);
+            this.ListComPort.Multiline = true;
+            this.ListComPort.Name = "ListComPort";
+            this.ListComPort.ReadOnly = true;
+            this.ListComPort.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ListComPort.Size = new System.Drawing.Size(302, 229);
+            this.ListComPort.TabIndex = 202;
+            this.ListComPort.TabStop = false;
             // 
             // lblfromferti
             // 
             this.lblfromferti.BackColor = System.Drawing.Color.Transparent;
             this.lblfromferti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblfromferti.ForeColor = System.Drawing.Color.Black;
-            this.lblfromferti.Location = new System.Drawing.Point(798, 368);
+            this.lblfromferti.Location = new System.Drawing.Point(798, 364);
             this.lblfromferti.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblfromferti.Name = "lblfromferti";
             this.lblfromferti.Size = new System.Drawing.Size(64, 27);
-            this.lblfromferti.TabIndex = 199;
+            this.lblfromferti.TabIndex = 206;
             this.lblfromferti.Text = "---";
             this.lblfromferti.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -960,10 +983,10 @@
             // 
             this.lblferti.AutoSize = true;
             this.lblferti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblferti.Location = new System.Drawing.Point(719, 370);
+            this.lblferti.Location = new System.Drawing.Point(719, 366);
             this.lblferti.Name = "lblferti";
             this.lblferti.Size = new System.Drawing.Size(54, 23);
-            this.lblferti.TabIndex = 198;
+            this.lblferti.TabIndex = 205;
             this.lblferti.Text = "Ferti";
             // 
             // label9
@@ -971,27 +994,41 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label9.Location = new System.Drawing.Point(588, 370);
+            this.label9.Location = new System.Drawing.Point(588, 366);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(132, 23);
-            this.label9.TabIndex = 197;
+            this.label9.TabIndex = 204;
             this.label9.Text = "Fertilisation:";
             // 
             // pictureBox5
             // 
             this.pictureBox5.BackgroundImage = global::AgIO.Properties.Resources.B_Ferti;
             this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox5.Location = new System.Drawing.Point(27, 620);
+            this.pictureBox5.Location = new System.Drawing.Point(27, 585);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(120, 100);
-            this.pictureBox5.TabIndex = 177;
+            this.pictureBox5.TabIndex = 207;
             this.pictureBox5.TabStop = false;
+            // 
+            // Waiting
+            // 
+            this.Waiting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Waiting.BackColor = System.Drawing.Color.Transparent;
+            this.Waiting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Waiting.Location = new System.Drawing.Point(702, 463);
+            this.Waiting.Name = "Waiting";
+            this.Waiting.Size = new System.Drawing.Size(89, 81);
+            this.Waiting.TabIndex = 203;
+            this.Waiting.TabStop = false;
+            this.Waiting.Visible = false;
             // 
             // pictureBox4
             // 
             this.pictureBox4.BackgroundImage = global::AgIO.Properties.Resources.satellite;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox4.Location = new System.Drawing.Point(27, 38);
+            this.pictureBox4.Location = new System.Drawing.Point(27, 49);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(120, 120);
             this.pictureBox4.TabIndex = 72;
@@ -1001,7 +1038,7 @@
             // 
             this.pictureBox3.BackgroundImage = global::AgIO.Properties.Resources.Com_Module2;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 497);
+            this.pictureBox3.Location = new System.Drawing.Point(27, 479);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(120, 100);
             this.pictureBox3.TabIndex = 71;
@@ -1011,7 +1048,7 @@
             // 
             this.pictureBox2.BackgroundImage = global::AgIO.Properties.Resources.Com_AutosteerModule;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(26, 374);
+            this.pictureBox2.Location = new System.Drawing.Point(27, 374);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(120, 100);
             this.pictureBox2.TabIndex = 70;
@@ -1021,7 +1058,7 @@
             // 
             this.pictureBox1.BackgroundImage = global::AgIO.Properties.Resources.Com_IMUModule;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 247);
+            this.pictureBox1.Location = new System.Drawing.Point(26, 268);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(120, 100);
             this.pictureBox1.TabIndex = 69;
@@ -1036,7 +1073,7 @@
             this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRescan.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnRescan.Image = global::AgIO.Properties.Resources.ScanPorts;
-            this.btnRescan.Location = new System.Drawing.Point(631, 653);
+            this.btnRescan.Location = new System.Drawing.Point(665, 620);
             this.btnRescan.Name = "btnRescan";
             this.btnRescan.Size = new System.Drawing.Size(89, 63);
             this.btnRescan.TabIndex = 58;
@@ -1054,7 +1091,7 @@
             this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnSerialOK.Image = global::AgIO.Properties.Resources.OK64;
-            this.btnSerialOK.Location = new System.Drawing.Point(792, 652);
+            this.btnSerialOK.Location = new System.Drawing.Point(826, 619);
             this.btnSerialOK.Name = "btnSerialOK";
             this.btnSerialOK.Size = new System.Drawing.Size(91, 63);
             this.btnSerialOK.TabIndex = 59;
@@ -1062,48 +1099,18 @@
             this.btnSerialOK.UseVisualStyleBackColor = false;
             this.btnSerialOK.Click += new System.EventHandler(this.btnSerialOK_Click);
             // 
-            // Waiting
-            // 
-            this.Waiting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Waiting.BackColor = System.Drawing.Color.Transparent;
-            this.Waiting.BackgroundImage = global::AgIO.Properties.Resources.Sablier;
-            this.Waiting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Waiting.Location = new System.Drawing.Point(699, 482);
-            this.Waiting.Name = "Waiting";
-            this.Waiting.Size = new System.Drawing.Size(89, 81);
-            this.Waiting.TabIndex = 201;
-            this.Waiting.TabStop = false;
-            this.Waiting.Visible = false;
-            // 
-            // ListComPort
-            // 
-            this.ListComPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListComPort.BackColor = System.Drawing.SystemColors.Window;
-            this.ListComPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListComPort.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ListComPort.Location = new System.Drawing.Point(600, 393);
-            this.ListComPort.Multiline = true;
-            this.ListComPort.Name = "ListComPort";
-            this.ListComPort.ReadOnly = true;
-            this.ListComPort.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ListComPort.Size = new System.Drawing.Size(302, 247);
-            this.ListComPort.TabIndex = 200;
-            this.ListComPort.TabStop = false;
-            // 
             // FormCommSetGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(929, 746);
+            this.ClientSize = new System.Drawing.Size(929, 696);
             this.ControlBox = false;
-            this.Controls.Add(this.Waiting);
-            this.Controls.Add(this.ListComPort);
+            this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.lblfromferti);
             this.Controls.Add(this.lblferti);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.pictureBox5);
+            this.Controls.Add(this.Waiting);
+            this.Controls.Add(this.ListComPort);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.lblFromGPS);
             this.Controls.Add(this.lblFromMU);
@@ -1146,11 +1153,11 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Waiting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1222,16 +1229,16 @@
         private System.Windows.Forms.Button btnCloseRTCM;
         private System.Windows.Forms.Button btnOpenRTCM;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.ComboBox cboxferti;
         private System.Windows.Forms.Label lblCurrentModuleFertiPort;
         private System.Windows.Forms.Button btnOpenSerialModuleFerti;
         private System.Windows.Forms.Button btnCloseSerialModuleFerti;
+        private System.Windows.Forms.PictureBox Waiting;
+        private System.Windows.Forms.TextBox ListComPort;
         private System.Windows.Forms.Label lblfromferti;
         private System.Windows.Forms.Label lblferti;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox Waiting;
-        private System.Windows.Forms.TextBox ListComPort;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }

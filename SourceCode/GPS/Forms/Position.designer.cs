@@ -10,7 +10,7 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         //very first fix to setup grid etc
-        public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false, isFirstHeadingSet = false,
+        public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false, isFirstHeadingSet = false, 
             isReverse = false, isSuperSlow = false;
         public double startGPSHeading = 0;
 
@@ -49,9 +49,10 @@ namespace AgOpenGPS
         public double cosSectionHeading = 1.0, sinSectionHeading = 0.0;
 
         //how far travelled since last section was added, section points
-        double sectionTriggerDistance = 0, sectionTriggerStepDistance = 0;
+        double sectionTriggerDistance = 0, contourTriggerDistance = 0, sectionTriggerStepDistance = 0;
         public vec2 prevSectionPos = new vec2(0, 0);
-        public int sectionCounter = 0;
+        public vec2 prevContourPos = new vec2(0, 0);
+        public int patchCounter = 0;
 
         public vec2 prevBoundaryPos = new vec2(0, 0);
 
@@ -149,7 +150,7 @@ namespace AgOpenGPS
             #region Heading
             switch (headingFromSource)
             {
-
+               
                 case "Fix":
                     {
                         //calculate current heading only when moving, otherwise use last
@@ -263,10 +264,10 @@ namespace AgOpenGPS
                             //how far since last fix
                             distanceCurrentStepFix = glm.Distance(stepFixPts[0], pn.fix);
 
-                            if (stepFixPts[0].isSet == 0)
+                            if (stepFixPts[0].isSet == 0) 
                                 distanceCurrentStepFix = 0;
 
-                            //save current fix and distance and set as valid
+                                //save current fix and distance and set as valid
                             for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
                             stepFixPts[0].easting = pn.fix.easting;
                             stepFixPts[0].northing = pn.fix.northing;
@@ -276,7 +277,7 @@ namespace AgOpenGPS
                             //if (stepFixPts[1].isSet == 0)
                             //    return;
 
-                            if (stepFixPts[3].isSet == 0)
+                            if (stepFixPts[3].isSet == 0) 
                                 goto byPass;
 
                             //find back the fix to fix distance, then heading
@@ -321,11 +322,11 @@ namespace AgOpenGPS
                                     isReverse = false;
                             }
 
-                            if (isReverse)
-                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                    * mc.actualSteerAngleDegrees * ahrs.reverseComp);
+                            if (isReverse)                            
+                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1 
+                                    * mc.actualSteerAngleDegrees * ahrs.reverseComp);                            
                             else
-                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1
+                                newHeading -= glm.toRadians(vehicle.antennaPivot / 1 
                                     * mc.actualSteerAngleDegrees * ahrs.forwardComp);
 
                             if (newHeading < 0) newHeading += glm.twoPI;
@@ -363,7 +364,7 @@ namespace AgOpenGPS
                             {
                                 //most recent heading
                                 //double newHeading = Math.Atan2(pn.fix.easting - lastGPS.easting,
-                                //pn.fix.northing - lastGPS.northing);
+                                                            //pn.fix.northing - lastGPS.northing);
 
                                 //Pointing the opposite way the fixes are moving
                                 //if (vehicle.isReverse) gpsHeading += Math.PI;
@@ -397,7 +398,7 @@ namespace AgOpenGPS
                         }
 
                         // IMU Fusion with heading correction, add the correction
-                        if (ahrs.imuHeading != 99999)
+                        if (ahrs.imuHeading != 99999 )
                         {
                             //current gyro angle in radians
                             double imuHeading = (glm.toRadians(ahrs.imuHeading));
@@ -405,7 +406,7 @@ namespace AgOpenGPS
                             //Difference between the IMU heading and the GPS heading
                             double gyroDelta = (imuHeading + imuGPS_Offset) - gpsHeading;
                             //double gyroDelta = Math.Abs(Math.PI - Math.Abs(Math.Abs(imuHeading + gyroCorrection) - gpsHeading) - Math.PI);
-
+                            
                             if (gyroDelta < 0) gyroDelta += glm.twoPI;
                             else if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
 
@@ -612,7 +613,7 @@ namespace AgOpenGPS
 
                             //save for next meter check
                             lastReverseFix = pn.fix;
-                        }
+                        }                        
 
                         double camDelta = fixHeading - smoothCamHeading;
 
@@ -677,7 +678,7 @@ namespace AgOpenGPS
             if (recPath.isDrivingRecordedPath) recPath.UpdatePosition();
 
             // If Drive button off - normal autosteer 
-            if (!vehicle.ast.isInFreeDriveMode)
+            if (!vehicle.isInFreeDriveMode)
             {
                 //fill up0 the appropriate arrays with new values
                 p_254.pgn[p_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
@@ -687,9 +688,10 @@ namespace AgOpenGPS
                 //Ajout-modification MEmprou et SPailleau Fertilisation
                 if (ferti_vidange == false)
                 {
-                    p_235.pgn[p_235.speedHi] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0) >> 8));
-                    p_235.pgn[p_235.speedLo] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0)));
+                    p_240.pgn[p_240.speedHi] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0) >> 8));
+                    p_240.pgn[p_240.speedLo] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0)));
                 }
+                //fin
                 //save distance for display
                 lightbarDistance = guidanceLineDistanceOff;
 
@@ -739,7 +741,7 @@ namespace AgOpenGPS
                 p_254.pgn[p_254.status] = 1;
 
                 //send the steer angle
-                guidanceLineSteerAngle = (Int16)(vehicle.ast.driveFreeSteerAngle * 100);
+                guidanceLineSteerAngle = (Int16)(vehicle.driveFreeSteerAngle * 100);
 
                 p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
                 p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
@@ -749,9 +751,8 @@ namespace AgOpenGPS
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
             SendPgnToLoop(p_254.pgn);
-
             //Ajout-modification MEmprou et SPailleau Fertilisation
-            SendPgnToLoop(p_235.pgn);
+            SendPgnToLoop(p_240.pgn);
             //fin
 
             //for average cross track error
@@ -862,7 +863,7 @@ namespace AgOpenGPS
             //end of UppdateFixPosition
 
             //stop the timer and calc how long it took to do calcs and draw
-            frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
+            frameTimeRough = (double)(swFrame.ElapsedTicks*1000) / (double)System.Diagnostics.Stopwatch.Frequency;
 
             if (frameTimeRough > 50) frameTimeRough = 50;
             frameTime = frameTime * 0.90 + frameTimeRough * 0.1;
@@ -879,11 +880,19 @@ namespace AgOpenGPS
 
             //To prevent drawing high numbers of triangles, determine and test before drawing vertex
             sectionTriggerDistance = glm.Distance(pn.fix, prevSectionPos);
+            contourTriggerDistance = glm.Distance(pn.fix, prevContourPos);
 
-            //section on off and points, contour points
+            //contour points
+            if (isJobStarted &&(contourTriggerDistance > tool.contourWidth 
+                || contourTriggerDistance > sectionTriggerStepDistance))
+            {
+                AddContourPoints();
+            }
+
+            //section on off and points
             if (sectionTriggerDistance > sectionTriggerStepDistance && isJobStarted)
             {
-                AddSectionOrContourPathPoints();
+                AddSectionOrPathPoints();
 
                 //grab fix and elevation
                 if (isLogElevation) sbFix.Append(pn.fix.easting.ToString("N2") + "," + pn.fix.northing.ToString("N2") + ","
@@ -905,12 +914,12 @@ namespace AgOpenGPS
                 if ((fd.distanceUser += distanceCurrentStepFix) > 3000) fd.distanceUser = 0; ;//userDistance can be reset
             }
 
-            if ((avgSpeed - previousSpeed) < -vehicle.panicStopSpeed && vehicle.panicStopSpeed != 0)
+            if ((avgSpeed - previousSpeed  ) < -vehicle.panicStopSpeed && vehicle.panicStopSpeed != 0)
             {
                 if (isAutoSteerBtnOn) btnAutoSteer.PerformClick();
             }
 
-            previousSpeed = avgSpeed;
+            previousSpeed = avgSpeed;   
         }
 
 
@@ -930,10 +939,10 @@ namespace AgOpenGPS
             steerAxlePos.heading = fixHeading;
 
             //guidance look ahead distance based on time or tool width at least 
-
+            
             if (!ABLine.isLateralTriggered && !curve.isLateralTriggered)
             {
-                double guidanceLookDist = (Math.Max(tool.toolWidth * 0.5, avgSpeed * 0.277777 * guidanceLookAheadTime));
+                double guidanceLookDist = (Math.Max(tool.width * 0.5, avgSpeed * 0.277777 * guidanceLookAheadTime));
                 guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
                 guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
             }
@@ -951,7 +960,7 @@ namespace AgOpenGPS
                     //Torriem rules!!!!! Oh yes, this is all his. Thank-you
                     if (distanceCurrentStepFix != 0)
                     {
-                        double t = (tool.toolTankTrailingHitchLength) / distanceCurrentStepFix;
+                        double t = (tool.tankTrailingHitchLength) / distanceCurrentStepFix;
                         tankPos.easting = hitchPos.easting + t * (hitchPos.easting - tankPos.easting);
                         tankPos.northing = hitchPos.northing + t * (hitchPos.northing - tankPos.northing);
                         tankPos.heading = Math.Atan2(hitchPos.easting - tankPos.easting, hitchPos.northing - tankPos.northing);
@@ -962,16 +971,16 @@ namespace AgOpenGPS
 
                     if (over < 2.0 && startCounter > 50)
                     {
-                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.toolTankTrailingHitchLength));
-                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.toolTankTrailingHitchLength));
+                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
+                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
                     }
 
                     //criteria for a forced reset to put tool directly behind vehicle
                     if (over > 2.0 | startCounter < 51)
                     {
                         tankPos.heading = fixHeading;
-                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.toolTankTrailingHitchLength));
-                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.toolTankTrailingHitchLength));
+                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
+                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
                     }
                 }
                 else
@@ -984,7 +993,7 @@ namespace AgOpenGPS
                 //Torriem rules!!!!! Oh yes, this is all his. Thank-you
                 if (distanceCurrentStepFix != 0)
                 {
-                    double t = (tool.toolTrailingHitchLength) / distanceCurrentStepFix;
+                    double t = (tool.trailingHitchLength) / distanceCurrentStepFix;
                     toolPos.easting = tankPos.easting + t * (tankPos.easting - toolPos.easting);
                     toolPos.northing = tankPos.northing + t * (tankPos.northing - toolPos.northing);
                     toolPos.heading = Math.Atan2(tankPos.easting - toolPos.easting, tankPos.northing - toolPos.northing);
@@ -995,16 +1004,16 @@ namespace AgOpenGPS
 
                 if (over < 1.9 && startCounter > 50)
                 {
-                    toolPos.easting = tankPos.easting + (Math.Sin(toolPos.heading) * (tool.toolTrailingHitchLength));
-                    toolPos.northing = tankPos.northing + (Math.Cos(toolPos.heading) * (tool.toolTrailingHitchLength));
+                    toolPos.easting = tankPos.easting + (Math.Sin(toolPos.heading) * (tool.trailingHitchLength));
+                    toolPos.northing = tankPos.northing + (Math.Cos(toolPos.heading) * (tool.trailingHitchLength));
                 }
 
                 //criteria for a forced reset to put tool directly behind vehicle
                 if (over > 1.9 | startCounter < 51)
                 {
                     toolPos.heading = tankPos.heading;
-                    toolPos.easting = tankPos.easting + (Math.Sin(toolPos.heading) * (tool.toolTrailingHitchLength));
-                    toolPos.northing = tankPos.northing + (Math.Cos(toolPos.heading) * (tool.toolTrailingHitchLength));
+                    toolPos.easting = tankPos.easting + (Math.Sin(toolPos.heading) * (tool.trailingHitchLength));
+                    toolPos.northing = tankPos.northing + (Math.Cos(toolPos.heading) * (tool.trailingHitchLength));
                 }
             }
 
@@ -1020,29 +1029,29 @@ namespace AgOpenGPS
 
             //used to increase triangle count when going around corners, less on straight
             //pick the slow moving side edge of tool
-            double distance = tool.toolWidth * 0.5;
-            if (distance > 3) distance = 3;
+            double distance = tool.width * 0.5;
+            if (distance > 5) distance = 5;
 
             //whichever is less
-            if (tool.toolFarLeftSpeed < tool.toolFarRightSpeed)
+            if (tool.farLeftSpeed < tool.farRightSpeed)
             {
-                double twist = tool.toolFarLeftSpeed / tool.toolFarRightSpeed;
-                //twist *= twist;
+                double twist = tool.farLeftSpeed / tool.farRightSpeed;
+                twist *= twist;
                 if (twist < 0.2) twist = 0.2;
                 sectionTriggerStepDistance = distance * twist * twist;
             }
             else
             {
-                double twist = tool.toolFarRightSpeed / tool.toolFarLeftSpeed;
-                //twist *= twist;
+                double twist = tool.farRightSpeed / tool.farLeftSpeed;
+                twist *= twist;
                 if (twist < 0.2) twist = 0.2;
 
                 sectionTriggerStepDistance = distance * twist * twist;
             }
 
             //finally fixed distance for making a curve line
-            if (!curve.isOkToAddDesPoints) sectionTriggerStepDistance = sectionTriggerStepDistance + 0.2;
-            if (ct.isContourBtnOn) sectionTriggerStepDistance *= 0.5;
+            if (!curve.isOkToAddDesPoints) sectionTriggerStepDistance = sectionTriggerStepDistance + 0.5;
+            //if (ct.isContourBtnOn) sectionTriggerStepDistance *=0.5;
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPos.heading);
@@ -1065,7 +1074,7 @@ namespace AgOpenGPS
                     //Right side
                     vec3 point = new vec3(
                         pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset),
-                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset),
+                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset), 
                         pivotAxlePos.heading);
                     bnd.bndBeingMadePts.Add(point);
                 }
@@ -1076,15 +1085,77 @@ namespace AgOpenGPS
                     //Right side
                     vec3 point = new vec3(
                         pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset),
-                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset),
+                        pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset), 
                         pivotAxlePos.heading);
                     bnd.bndBeingMadePts.Add(point);
                 }
             }
         }
 
+        private void AddContourPoints()
+        {
+            if (isConstantContourOn)
+            {
+                //record contour all the time
+                //Contour Base Track.... At least One section on, turn on if not
+                if (patchCounter != 0)
+                {
+                    //keep the line going, everything is on for recording path
+                    if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
+                    else
+                    {
+                        ct.StartContourLine();
+                        ct.AddPoint(pivotAxlePos);
+                    }
+                }
+
+                //All sections OFF so if on, turn off
+                else
+                {
+                    if (ct.isContourOn)
+                    { ct.StopContourLine(); }
+                }
+
+                //Build contour line if close enough to a patch
+                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
+            }
+            else
+            {
+                if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isAutoSteerBtnOn) ||
+                            (!ct.isContourBtnOn && curve.isBtnCurveOn && curve.isCurveSet && isAutoSteerBtnOn))
+                {
+                    //no contour recorded
+                    if (ct.isContourOn) { ct.StopContourLine(); }
+                }
+                else
+                {
+                    //Contour Base Track.... At least One section on, turn on if not
+                    if (patchCounter != 0)
+                    {
+                        //keep the line going, everything is on for recording path
+                        if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
+                        else
+                        {
+                            ct.StartContourLine();
+                            ct.AddPoint(pivotAxlePos);
+                        }
+                    }
+
+                    //All sections OFF so if on, turn off
+                    else { if (ct.isContourOn) { ct.StopContourLine(); } }
+
+                    //Build contour line if close enough to a patch
+                    if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
+                }
+            }
+
+            //save the north & east as previous
+            prevContourPos.northing = pivotAxlePos.northing;
+            prevContourPos.easting = pivotAxlePos.easting;
+        }
+
         //add the points for section, contour line points, Area Calc feature
-        private void AddSectionOrContourPathPoints()
+        private void AddSectionOrPathPoints()
         {
             if (recPath.isRecordOn)
             {
@@ -1106,73 +1177,17 @@ namespace AgOpenGPS
             prevSectionPos.easting = pn.fix.easting;
 
             // if non zero, at least one section is on.
-            sectionCounter = 0;
+            patchCounter = 0;
 
             //send the current and previous GPS fore/aft corrected fix to each section
-            for (int j = 0; j < tool.numOfSections + 1; j++)
+            for (int j = 0; j < triStrip.Count; j++)
             {
-                if (section[j].isMappingOn)
+                if (triStrip[j].isDrawing)
                 {
-                    section[j].AddMappingPoint(j);
-                    sectionCounter++;
+                    triStrip[j].AddMappingPoint(j);
+                    patchCounter++;
                 }
             }
-
-            if (isConstantContourOn)
-            {
-                //record contour all the time
-                //Contour Base Track.... At least One section on, turn on if not
-                if (sectionCounter != 0)
-                {
-                    //keep the line going, everything is on for recording path
-                    if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
-                    else
-                    {
-                        ct.StartContourLine(pivotAxlePos);
-                        ct.AddPoint(pivotAxlePos);
-                    }
-                }
-
-                //All sections OFF so if on, turn off
-                else
-                {
-                    if (ct.isContourOn)
-                    { ct.StopContourLine(pivotAxlePos); }
-                }
-
-                //Build contour line if close enough to a patch
-                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos, steerAxlePos);
-            }
-            else
-            {
-                if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isAutoSteerBtnOn) ||
-                            (!ct.isContourBtnOn && curve.isBtnCurveOn && curve.isCurveSet && isAutoSteerBtnOn))
-                {
-                    //no contour recorded
-                    if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); }
-                }
-                else
-                {
-                    //Contour Base Track.... At least One section on, turn on if not
-                    if (sectionCounter != 0)
-                    {
-                        //keep the line going, everything is on for recording path
-                        if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
-                        else
-                        {
-                            ct.StartContourLine(pivotAxlePos);
-                            ct.AddPoint(pivotAxlePos);
-                        }
-                    }
-
-                    //All sections OFF so if on, turn off
-                    else { if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); } }
-
-                    //Build contour line if close enough to a patch
-                    if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos, steerAxlePos);
-                }
-            }
-
         }
 
         //calculate the extreme tool left, right velocities, each section lookahead, and whether or not its going backwards
@@ -1213,9 +1228,9 @@ namespace AgOpenGPS
 
                     //save a copy for next time
                     section[j].lastLeftPoint = section[j].leftPoint;
-
+                    
                     //Save the slower of the 2
-                    if (leftSpeed > rightSpeed) leftSpeed = rightSpeed;
+                    if (leftSpeed > rightSpeed) leftSpeed = rightSpeed;                    
                 }
 
                 section[j].rightPoint = new vec2(cosHeading * (section[j].positionRight) + easting,
@@ -1246,17 +1261,17 @@ namespace AgOpenGPS
 
                 double sped = 0;
                 //save the far left and right speed in m/sec averaged over 20%
-                if (j == 0)
+                if (j==0)
                 {
                     sped = (leftSpeed * 0.1);
                     if (sped < 0.1) sped = 0.1;
-                    tool.toolFarLeftSpeed = tool.toolFarLeftSpeed * 0.7 + sped * 0.3;
+                    tool.farLeftSpeed = tool.farLeftSpeed * 0.7 + sped * 0.3;
                 }
                 if (j == tool.numOfSections - 1)
                 {
                     sped = (rightSpeed * 0.1);
                     if (sped < 0.1) sped = 0.1;
-                    tool.toolFarRightSpeed = tool.toolFarRightSpeed * 0.7 + sped * 0.3;
+                    tool.farRightSpeed = tool.farRightSpeed * 0.7 + sped * 0.3;
                 }
 
                 //choose fastest speed
@@ -1268,359 +1283,7 @@ namespace AgOpenGPS
                 else sped = rightSpeed;
                 section[j].speedPixels = section[j].speedPixels * 0.7 + sped * 0.3;
             }
-
-            //fill in tool positions
-            section[tool.numOfSections].leftPoint = section[0].leftPoint;
-            section[tool.numOfSections].rightPoint = section[tool.numOfSections - 1].rightPoint;
-
-            //set the look ahead for hyd Lift in pixels per second
-            vehicle.hydLiftLookAheadDistanceLeft = tool.toolFarLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
-            vehicle.hydLiftLookAheadDistanceRight = tool.toolFarRightSpeed * vehicle.hydLiftLookAheadTime * 10;
-
-            if (vehicle.hydLiftLookAheadDistanceLeft > 200) vehicle.hydLiftLookAheadDistanceLeft = 200;
-            if (vehicle.hydLiftLookAheadDistanceRight > 200) vehicle.hydLiftLookAheadDistanceRight = 200;
-
-            tool.lookAheadDistanceOnPixelsLeft = tool.toolFarLeftSpeed * tool.lookAheadOnSetting * 10;
-            tool.lookAheadDistanceOnPixelsRight = tool.toolFarRightSpeed * tool.lookAheadOnSetting * 10;
-
-            if (tool.lookAheadDistanceOnPixelsLeft > 200) tool.lookAheadDistanceOnPixelsLeft = 200;
-            if (tool.lookAheadDistanceOnPixelsRight > 200) tool.lookAheadDistanceOnPixelsRight = 200;
-
-            tool.lookAheadDistanceOffPixelsLeft = tool.toolFarLeftSpeed * tool.lookAheadOffSetting * 10;
-            tool.lookAheadDistanceOffPixelsRight = tool.toolFarRightSpeed * tool.lookAheadOffSetting * 10;
-
-            if (tool.lookAheadDistanceOffPixelsLeft > 160) tool.lookAheadDistanceOffPixelsLeft = 160;
-            if (tool.lookAheadDistanceOffPixelsRight > 160) tool.lookAheadDistanceOffPixelsRight = 160;
-
-            //determine where the tool is wrt to headland
-            if (bnd.isHeadlandOn) bnd.WhereAreToolCorners();
-
-            //set up the super for youturn
-            section[tool.numOfSections].isInBoundary = true;
-
-            //determine if section is in boundary and headland using the section left/right positions
-            bool isLeftIn = true, isRightIn = true;
-
-            for (int j = 0; j < tool.numOfSections; j++)
-            {
-                if (bnd.bndList.Count > 0)
-                {
-                    //only one first left point, the rest are all rights moved over to left
-                    isLeftIn = j == 0 ? bnd.IsPointInsideFenceArea(section[j].leftPoint) : isRightIn;
-                    isRightIn = bnd.IsPointInsideFenceArea(section[j].rightPoint);
-
-                    //merge the two sides into in or out
-                    //Ajout-modification MEmprou et SPailleau Fertilisation if (isLeftIn && isRightIn) section[j].isInBoundary = true;
-                    if (isLeftIn) section[j].isInBoundary = true;
-                    else if (isRightIn) section[j].isInBoundary = true;
-                    //fin
-                    else section[j].isInBoundary = false;
-
-                    section[tool.numOfSections].isInBoundary &= section[j].isInBoundary;
-                }
-                else//no boundary created so always inside
-                {
-                    section[j].isInBoundary = true;
-                    section[tool.numOfSections].isInBoundary = false;
-                }
-            }
         }
-
-        private void DoRemoteSwitches()
-        {
-            //MTZ8302 Feb 2020 
-            if (isJobStarted)
-            {
-                //MainSW was used
-                if (mc.ss[mc.swMain] != mc.ssP[mc.swMain])
-                {
-                    //Main SW pressed
-                    if ((mc.ss[mc.swMain] & 1) == 1)
-                    {
-                        //set butto off and then press it = ON
-                        autoBtnState = btnStates.Off;
-                        btnSectionOffAutoOn.PerformClick();
-                    } // if Main SW ON
-
-                    //if Main SW in Arduino is pressed OFF
-                    if ((mc.ss[mc.swMain] & 2) == 2)
-                    {
-                        //set button on and then press it = OFF
-                        autoBtnState = btnStates.Auto;
-                        btnSectionOffAutoOn.PerformClick();
-                    } // if Main SW OFF
-
-                    mc.ssP[mc.swMain] = mc.ss[mc.swMain];
-                }  //Main or Rate SW
-
-
-                if (mc.ss[mc.swOnGr0] != 0)
-                {
-                    // ON Signal from Arduino 
-                    if ((mc.ss[mc.swOnGr0] & 128) == 128 & tool.numOfSections > 7)
-                    {
-                        if (section[7].manBtnState != manBtn.Auto) section[7].manBtnState = manBtn.Auto;
-                        btnSection8Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 64) == 64 & tool.numOfSections > 6)
-                    {
-                        if (section[6].manBtnState != manBtn.Auto) section[6].manBtnState = manBtn.Auto;
-                        btnSection7Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 32) == 32 & tool.numOfSections > 5)
-                    {
-                        if (section[5].manBtnState != manBtn.Auto) section[5].manBtnState = manBtn.Auto;
-                        btnSection6Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 16) == 16 & tool.numOfSections > 4)
-                    {
-                        if (section[4].manBtnState != manBtn.Auto) section[4].manBtnState = manBtn.Auto;
-                        btnSection5Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 8) == 8 & tool.numOfSections > 3)
-                    {
-                        if (section[3].manBtnState != manBtn.Auto) section[3].manBtnState = manBtn.Auto;
-                        btnSection4Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 4) == 4 & tool.numOfSections > 2)
-                    {
-                        if (section[2].manBtnState != manBtn.Auto) section[2].manBtnState = manBtn.Auto;
-                        btnSection3Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 2) == 2 & tool.numOfSections > 1)
-                    {
-                        if (section[1].manBtnState != manBtn.Auto) section[1].manBtnState = manBtn.Auto;
-                        btnSection2Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr0] & 1) == 1)
-                    {
-                        if (section[0].manBtnState != manBtn.Auto) section[0].manBtnState = manBtn.Auto;
-                        btnSection1Man.PerformClick();
-                    }
-                    mc.ssP[mc.swOnGr0] = mc.ss[mc.swOnGr0];
-                } //if swONLo != 0 
-                else { if (mc.ssP[mc.swOnGr0] != 0) { mc.ssP[mc.swOnGr0] = 0; } }
-
-                if (mc.ss[mc.swOnGr1] != 0)
-                {
-                    // sections ON signal from Arduino  
-                    if ((mc.ss[mc.swOnGr1] & 128) == 128 & tool.numOfSections > 15)
-                    {
-                        if (section[15].manBtnState != manBtn.Auto) section[15].manBtnState = manBtn.Auto;
-                        btnSection16Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr1] & 64) == 64 & tool.numOfSections > 14)
-                    {
-                        if (section[14].manBtnState != manBtn.Auto) section[14].manBtnState = manBtn.Auto;
-                        btnSection15Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr1] & 32) == 32 & tool.numOfSections > 13)
-                    {
-                        if (section[13].manBtnState != manBtn.Auto) section[13].manBtnState = manBtn.Auto;
-                        btnSection14Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr1] & 16) == 16 & tool.numOfSections > 12)
-                    {
-                        if (section[12].manBtnState != manBtn.Auto) section[12].manBtnState = manBtn.Auto;
-                        btnSection13Man.PerformClick();
-                    }
-
-                    if ((mc.ss[mc.swOnGr1] & 8) == 8 & tool.numOfSections > 11)
-                    {
-                        if (section[11].manBtnState != manBtn.Auto) section[11].manBtnState = manBtn.Auto;
-                        btnSection12Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr1] & 4) == 4 & tool.numOfSections > 10)
-                    {
-                        if (section[10].manBtnState != manBtn.Auto) section[10].manBtnState = manBtn.Auto;
-                        btnSection11Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr1] & 2) == 2 & tool.numOfSections > 9)
-                    {
-                        if (section[9].manBtnState != manBtn.Auto) section[9].manBtnState = manBtn.Auto;
-                        btnSection10Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOnGr1] & 1) == 1 & tool.numOfSections > 8)
-                    {
-                        if (section[8].manBtnState != manBtn.Auto) section[8].manBtnState = manBtn.Auto;
-                        btnSection9Man.PerformClick();
-                    }
-                    mc.ssP[mc.swOnGr1] = mc.ss[mc.swOnGr1];
-                } //if swONHi != 0   
-                else { if (mc.ssP[mc.swOnGr1] != 0) { mc.ssP[mc.swOnGr1] = 0; } }
-
-                // Switches have changed
-                if (mc.ss[mc.swOffGr0] != mc.ssP[mc.swOffGr0])
-                {
-                    //if Main = Auto then change section to Auto if Off signal from Arduino stopped
-                    if (autoBtnState == btnStates.Auto)
-                    {
-                        if (((mc.ssP[mc.swOffGr0] & 128) == 128) & ((mc.ss[mc.swOffGr0] & 128) != 128) & (section[7].manBtnState == manBtn.Off))
-                        {
-                            btnSection8Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 64) == 64) & ((mc.ss[mc.swOffGr0] & 64) != 64) & (section[6].manBtnState == manBtn.Off))
-                        {
-                            btnSection7Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 32) == 32) & ((mc.ss[mc.swOffGr0] & 32) != 32) & (section[5].manBtnState == manBtn.Off))
-                        {
-                            btnSection6Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 16) == 16) & ((mc.ss[mc.swOffGr0] & 16) != 16) & (section[4].manBtnState == manBtn.Off))
-                        {
-                            btnSection5Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 8) == 8) & ((mc.ss[mc.swOffGr0] & 8) != 8) & (section[3].manBtnState == manBtn.Off))
-                        {
-                            btnSection4Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 4) == 4) & ((mc.ss[mc.swOffGr0] & 4) != 4) & (section[2].manBtnState == manBtn.Off))
-                        {
-                            btnSection3Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 2) == 2) & ((mc.ss[mc.swOffGr0] & 2) != 2) & (section[1].manBtnState == manBtn.Off))
-                        {
-                            btnSection2Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr0] & 1) == 1) & ((mc.ss[mc.swOffGr0] & 1) != 1) & (section[0].manBtnState == manBtn.Off))
-                        {
-                            btnSection1Man.PerformClick();
-                        }
-                    }
-                    mc.ssP[mc.swOffGr0] = mc.ss[mc.swOffGr0];
-                }
-
-                if (mc.ss[mc.swOffGr1] != mc.ssP[mc.swOffGr1])
-                {
-                    //if Main = Auto then change section to Auto if Off signal from Arduino stopped
-                    if (autoBtnState == btnStates.Auto)
-                    {
-                        if (((mc.ssP[mc.swOffGr1] & 128) == 128) & ((mc.ss[mc.swOffGr1] & 128) != 128) & (section[15].manBtnState == manBtn.Off))
-                        { btnSection16Man.PerformClick(); }
-
-                        if (((mc.ssP[mc.swOffGr1] & 64) == 64) & ((mc.ss[mc.swOffGr1] & 64) != 64) & (section[14].manBtnState == manBtn.Off))
-                        { btnSection15Man.PerformClick(); }
-
-                        if (((mc.ssP[mc.swOffGr1] & 32) == 32) & ((mc.ss[mc.swOffGr1] & 32) != 32) & (section[13].manBtnState == manBtn.Off))
-                        { btnSection14Man.PerformClick(); }
-
-                        if (((mc.ssP[mc.swOffGr1] & 16) == 16) & ((mc.ss[mc.swOffGr1] & 16) != 16) & (section[12].manBtnState == manBtn.Off))
-                        { btnSection13Man.PerformClick(); }
-
-
-                        if (((mc.ssP[mc.swOffGr1] & 8) == 8) & ((mc.ss[mc.swOffGr1] & 8) != 8) & (section[11].manBtnState == manBtn.Off))
-                        {
-                            btnSection12Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr1] & 4) == 4) & ((mc.ss[mc.swOffGr1] & 4) != 4) & (section[10].manBtnState == manBtn.Off))
-                        {
-                            btnSection11Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr1] & 2) == 2) & ((mc.ss[mc.swOffGr1] & 2) != 2) & (section[9].manBtnState == manBtn.Off))
-                        {
-                            btnSection10Man.PerformClick();
-                        }
-                        if (((mc.ssP[mc.swOffGr1] & 1) == 1) & ((mc.ss[mc.swOffGr1] & 1) != 1) & (section[8].manBtnState == manBtn.Off))
-                        {
-                            btnSection9Man.PerformClick();
-                        }
-                    }
-                    mc.ssP[mc.swOffGr1] = mc.ss[mc.swOffGr1];
-                }
-
-                // OFF Signal from Arduino
-                if (mc.ss[mc.swOffGr0] != 0)
-                {
-                    //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
-                    if ((mc.ss[mc.swOffGr0] & 128) == 128 & section[7].manBtnState != manBtn.Off)
-                    {
-                        section[7].manBtnState = manBtn.On;
-                        btnSection8Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 64) == 64 & section[6].manBtnState != manBtn.Off)
-                    {
-                        section[6].manBtnState = manBtn.On;
-                        btnSection7Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 32) == 32 & section[5].manBtnState != manBtn.Off)
-                    {
-                        section[5].manBtnState = manBtn.On;
-                        btnSection6Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 16) == 16 & section[4].manBtnState != manBtn.Off)
-                    {
-                        section[4].manBtnState = manBtn.On;
-                        btnSection5Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 8) == 8 & section[3].manBtnState != manBtn.Off)
-                    {
-                        section[3].manBtnState = manBtn.On;
-                        btnSection4Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 4) == 4 & section[2].manBtnState != manBtn.Off)
-                    {
-                        section[2].manBtnState = manBtn.On;
-                        btnSection3Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 2) == 2 & section[1].manBtnState != manBtn.Off)
-                    {
-                        section[1].manBtnState = manBtn.On;
-                        btnSection2Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr0] & 1) == 1 & section[0].manBtnState != manBtn.Off)
-                    {
-                        section[0].manBtnState = manBtn.On;
-                        btnSection1Man.PerformClick();
-                    }
-                } // if swOFFLo !=0
-                if (mc.ss[mc.swOffGr1] != 0)
-                {
-                    //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
-                    if ((mc.ss[mc.swOffGr1] & 128) == 128 & section[15].manBtnState != manBtn.Off)
-                    {
-                        section[15].manBtnState = manBtn.On;
-                        btnSection16Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 64) == 64 & section[14].manBtnState != manBtn.Off)
-                    {
-                        section[14].manBtnState = manBtn.On;
-                        btnSection15Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 32) == 32 & section[13].manBtnState != manBtn.Off)
-                    {
-                        section[13].manBtnState = manBtn.On;
-                        btnSection14Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 16) == 16 & section[12].manBtnState != manBtn.Off)
-                    {
-                        section[12].manBtnState = manBtn.On;
-                        btnSection13Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 8) == 8 & section[11].manBtnState != manBtn.Off)
-                    {
-                        section[11].manBtnState = manBtn.On;
-                        btnSection12Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 4) == 4 & section[10].manBtnState != manBtn.Off)
-                    {
-                        section[10].manBtnState = manBtn.On;
-                        btnSection11Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 2) == 2 & section[9].manBtnState != manBtn.Off)
-                    {
-                        section[9].manBtnState = manBtn.On;
-                        btnSection10Man.PerformClick();
-                    }
-                    if ((mc.ss[mc.swOffGr1] & 1) == 1 & section[8].manBtnState != manBtn.Off)
-                    {
-                        section[8].manBtnState = manBtn.On;
-                        btnSection9Man.PerformClick();
-                    }
-                } // if swOFFHi !=0
-            }//if serial or udp port open
-        }
-
 
         //the start of first few frames to initialize entire program
         private void InitializeFirstFewGPSPositions()

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
-using System.Drawing;
 using System.Xml;
 using System.Text;
 
@@ -353,7 +355,8 @@ namespace AgOpenGPS
                     //read field directory
                     line = reader.ReadLine();
 
-                    currentFieldDirectory = line.Trim();
+                    currentFieldDirectory = Path.GetDirectoryName(fileAndDirectory);
+                    currentFieldDirectory = new DirectoryInfo(currentFieldDirectory).Name;
 
                     displayFieldName = currentFieldDirectory;
 
@@ -478,10 +481,10 @@ namespace AgOpenGPS
                             }
                             int verts = int.Parse(line);
 
-                            section[0].triangleList = new List<vec3>();
-                            section[0].triangleList.Capacity = verts + 1;
+                            triStrip[0].triangleList = new List<vec3>();
+                            triStrip[0].triangleList.Capacity = verts + 1;
 
-                            section[0].patchList.Add(section[0].triangleList);
+                            triStrip[0].patchList.Add(triStrip[0].triangleList);
 
 
                             for (int v = 0; v < verts; v++)
@@ -493,7 +496,7 @@ namespace AgOpenGPS
                                 vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
                                 if (words.Length == 4) vecFix.now = DateTime.Parse(words[3]); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 else vecFix.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
-                                section[0].triangleList.Add(vecFix);
+                                triStrip[0].triangleList.Add(vecFix);
                             }
 
                             //calculate area of this patch - AbsoluteValue of (Ax(By-Cy) + Bx(Cy-Ay) + Cx(Ay-By)/2)
@@ -503,9 +506,9 @@ namespace AgOpenGPS
                                 for (int j = 1; j < verts; j++)
                                 {
                                     double temp = 0;
-                                    temp = section[0].triangleList[j].easting * (section[0].triangleList[j + 1].northing - section[0].triangleList[j + 2].northing) +
-                                              section[0].triangleList[j + 1].easting * (section[0].triangleList[j + 2].northing - section[0].triangleList[j].northing) +
-                                                  section[0].triangleList[j + 2].easting * (section[0].triangleList[j].northing - section[0].triangleList[j + 1].northing);
+                                    temp = triStrip[0].triangleList[j].easting * (triStrip[0].triangleList[j + 1].northing - triStrip[0].triangleList[j + 2].northing) +
+                                              triStrip[0].triangleList[j + 1].easting * (triStrip[0].triangleList[j + 2].northing - triStrip[0].triangleList[j].northing) +
+                                                  triStrip[0].triangleList[j + 2].easting * (triStrip[0].triangleList[j].northing - triStrip[0].triangleList[j + 1].northing);
 
                                     fd.workedAreaTotal += Math.Abs((temp * 0.5));
                                 }
@@ -925,7 +928,7 @@ namespace AgOpenGPS
             }
 
 
-            FixPanelsAndMenus(true);
+            FixPanelsAndMenus();
             SetZoom();
 
             //Recorded Path
@@ -973,6 +976,55 @@ namespace AgOpenGPS
                 }
             }
 
+            worldGrid.isGeoMap = false;
+
+            //Back Image
+            fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\BackPic.txt";
+            if (File.Exists(fileAndDirectory))
+            {
+                using (StreamReader reader = new StreamReader(fileAndDirectory))
+                {
+                    try
+                    {
+                        //read header
+                        line = reader.ReadLine();
+
+                        line = reader.ReadLine();
+                        worldGrid.isGeoMap = bool.Parse(line);
+
+                        line = reader.ReadLine();
+                        worldGrid.eastingMaxGeo = double.Parse(line, CultureInfo.InvariantCulture);
+                        line = reader.ReadLine();
+                        worldGrid.eastingMinGeo = double.Parse(line, CultureInfo.InvariantCulture);
+                        line = reader.ReadLine();
+                        worldGrid.northingMaxGeo = double.Parse(line, CultureInfo.InvariantCulture);
+                        line = reader.ReadLine();
+                        worldGrid.northingMinGeo = double.Parse(line, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception)
+                    {
+                        worldGrid.isGeoMap = false;
+                    }
+
+                    if (worldGrid.isGeoMap)
+                    {
+                        fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\BackPic.png";
+                        if (File.Exists(fileAndDirectory))
+                        {
+                            var bitmap = new Bitmap(Image.FromFile(fileAndDirectory));
+
+                            GL.BindTexture(TextureTarget.Texture2D, texture[20]);
+                            BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
+                            bitmap.UnlockBits(bitmapData);
+                        }
+                        else
+                        {
+                            worldGrid.isGeoMap = false;
+                        }
+                    }
+                }
+            }
 
         }//end of open file
 
@@ -1008,7 +1060,7 @@ namespace AgOpenGPS
                 writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
 
                 writer.WriteLine("$FieldDir");
-                writer.WriteLine(currentFieldDirectory.ToString(CultureInfo.InvariantCulture));
+                writer.WriteLine("FieldNew");
 
                 //write out the easting and northing Offsets
                 writer.WriteLine("$Offsets");
@@ -1054,7 +1106,7 @@ namespace AgOpenGPS
                 writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
 
                 writer.WriteLine("$FieldDir");
-                writer.WriteLine(currentFieldDirectory.ToString(CultureInfo.InvariantCulture));
+                writer.WriteLine("Elevation");
 
                 //write out the easting and northing Offsets
                 writer.WriteLine("$Offsets");
@@ -1082,7 +1134,8 @@ namespace AgOpenGPS
                     {
                         int count2 = triList.Count();
                         writer.WriteLine(count2.ToString(CultureInfo.InvariantCulture));
-                        if (Properties.Settings.Default.setTimer_KML == true)
+                        //Ajout-modification MEmprou
+                        if (Properties.Settings.Default.UP_setTimer_KML == true)
                         {
                             for (int i = 0; i < count2; i++)
                                 writer.WriteLine((Math.Round(triList[i].easting, 3)).ToString(CultureInfo.InvariantCulture) +
@@ -1096,7 +1149,7 @@ namespace AgOpenGPS
                                     "," + (Math.Round(triList[i].northing, 3)).ToString(CultureInfo.InvariantCulture) +
                                      "," + (Math.Round(triList[i].heading, 3)).ToString(CultureInfo.InvariantCulture));
                         }
-
+                        //fin
                     }
                 }
 
@@ -1126,6 +1179,29 @@ namespace AgOpenGPS
             {
                 //write paths # of sections
                 //writer.WriteLine("$Sectionsv4");
+            }
+        }
+
+        public void FileCreateBoundary()
+        {
+            //$Sections
+            //10 - points in this patch
+            //10.1728031317344,0.723157039771303 -easting, northing
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string myFileName = "Boundary.txt";
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+            {
+                //write paths # of sections
+                writer.WriteLine("$Boundary");
             }
         }
 
@@ -1292,6 +1368,39 @@ namespace AgOpenGPS
             }
         }
 
+        //save tram
+        public void FileSaveBackPic()
+        {
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + "BackPic.Txt"))
+            {
+                writer.WriteLine("$BackPic");
+                //outer track of outer boundary tram
+                if (worldGrid.isGeoMap)
+                {
+                    writer.WriteLine(true);
+                    writer.WriteLine(worldGrid.eastingMaxGeo.ToString());
+                    writer.WriteLine(worldGrid.eastingMinGeo.ToString());
+                    writer.WriteLine(worldGrid.northingMaxGeo.ToString());
+                    writer.WriteLine(worldGrid.northingMinGeo.ToString());
+                }
+                else
+                {
+                    writer.WriteLine(false);
+                    writer.WriteLine(300);
+                    writer.WriteLine(-300);
+                    writer.WriteLine(300);
+                    writer.WriteLine(-300);
+                }
+            }
+        }
 
         //save the headland
         public void FileSaveHeadland()
@@ -1379,6 +1488,7 @@ namespace AgOpenGPS
                 }
             }
         }
+
         //load Recpath.txt
         public void FileLoadRecPath()
         {
@@ -1927,27 +2037,28 @@ namespace AgOpenGPS
             string secPts = "";
             int cntr = 0;
 
-            for (int j = 0; j < tool.numSuperSection; j++)
+            for (int j = 0; j < triStrip.Count; j++)
             {
-                int patches = section[j].patchList.Count;
+                int patches = triStrip[j].patchList.Count;
 
                 if (patches > 0)
                 {
                     //for every new chunk of patch
-                    foreach (var triList in section[j].patchList)
+                    foreach (var triList in triStrip[j].patchList)
                     {
                         if (triList.Count > 0)
                         {
                             kml.WriteStartElement("Placemark");
                             kml.WriteElementString("name", "Sections_" + cntr.ToString());
                             cntr++;
-                            if (Properties.Settings.Default.setTimer_KML == true)
+                            if (Properties.Settings.Default.UP_setTimer_KML == true)
                             {
                                 kml.WriteStartElement("TimeSpan"); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 kml.WriteElementString("begin", triList[1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 kml.WriteElementString("end", triList[triList.Count - 1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 kml.WriteEndElement();//TimeSpan //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                             }
+
                             string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
                                 ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
 

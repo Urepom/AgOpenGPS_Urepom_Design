@@ -46,7 +46,6 @@ namespace AgIO
         public string recvMachineModuleSentence = "Module 2";
         //Ajout-modification MEmprou et SPailleau Fertilisation
         public string recvModuleFertiSentence = "Module Ferti";
-
         //public string recvModule3Sentence = "Module 3";
 
         public bool isGPSCommOpen = false;
@@ -94,6 +93,7 @@ namespace AgIO
         private byte[] pgnSteerModule = new byte[22];
         private byte[] pgnMachineModule = new byte[22];
 
+
         //Ajout-modification MEmprou et SPailleau Fertilisation
         private byte[] pgnModuleFerti = new byte[262];
 
@@ -103,7 +103,6 @@ namespace AgIO
         #region IMUSerialPort //--------------------------------------------------------------------
         private void ReceiveIMUPort(byte[] Data)
         {
-            traffic.cntrIMUOut += Data.Length;
             SendToLoopBackMessageAOG(Data);
             traffic.helloFromIMU = 0;
         }
@@ -324,16 +323,9 @@ namespace AgIO
         private void ReceiveSteerModulePort(byte[] Data)
         {
             SendToLoopBackMessageAOG(Data);
-            if (isPluginUsed) SendToLoopBackMessageVR(Data);
-            traffic.cntrSteerOut += Data.Length;
+            if (isPluginUsed) 
+                SendToLoopBackMessageVR(Data);
             traffic.helloFromAutoSteer = 0;
-            //lblCnt.Text = "";
-
-            //for (int i = 4; i<Data.Length; i++)
-            //{
-            //    lblCnt.Text += Data[i].ToString() + ",";
-            //}
-            //System.Text.Encoding.UTF8.GetString(buf);
         }
 
         //Send machine info out to machine board
@@ -345,8 +337,6 @@ namespace AgIO
                 try
                 {
                     spSteerModule.Write(items, 0, numItems);
-                    traffic.cntrSteerIn += items.Length;
-                    //rtxtStatus.Text += BitConverter.ToString(items) + "\r\n";
                 }
                 catch (Exception)
                 {
@@ -545,7 +535,6 @@ namespace AgIO
             {
                 SendToLoopBackMessageAOG(Data);
                 if (isPluginUsed) SendToLoopBackMessageVR(Data);
-                traffic.cntrMachineOut += Data.Length;
                 traffic.helloFromMachine = 0;
             }
             catch { }
@@ -560,7 +549,6 @@ namespace AgIO
                 try
                 {
                     spMachineModule.Write(items, 0, numItems);
-                    traffic.cntrMachineIn += items.Length;
                 }
                 catch (Exception)
                 {
@@ -750,14 +738,20 @@ namespace AgIO
             }
         }
         #endregion --------------------------------------------------------------------
-
         //Ajout-modification MEmprou et SPailleau Fertilisation
         #region ModuleFertiSerialPort // --------------------------------------------------------------------
         private void ReceiveFertiPort(byte[] Data)
         {
-            traffic.cntrModuleFertiIn += Data.Length;
-            SendToLoopBackMessageAOG(Data);
+            try
+            {
+                SendToLoopBackMessageAOG(Data);
+                if (isPluginUsed) SendToLoopBackMessageVR(Data);
+                traffic.helloFromFertilisation = 0;
+            }
+            catch { }
         }
+
+        
 
         //Send machine info out to machine board
         public void SendFertiPort(byte[] items, int numItems)
@@ -768,7 +762,6 @@ namespace AgIO
                 try
                 {
                     spModuleFerti.Write(items, 0, numItems);
-                    traffic.cntrModuleFertiOut += items.Length;
                 }
                 catch (Exception)
                 {
@@ -797,7 +790,7 @@ namespace AgIO
                 MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
 
 
-                Properties.Settings.Default.setPort_wasModuleFertiConnected = false;
+                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = false;
                 Properties.Settings.Default.Save();
                 wasModuleFertiConnectedLastRun = false;
             }
@@ -810,8 +803,8 @@ namespace AgIO
                 spModuleFerti.DiscardOutBuffer();
                 spModuleFerti.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameModuleFerti = portNameModuleFerti;
-                Properties.Settings.Default.setPort_wasModuleFertiConnected = true;
+                Properties.Settings.Default.UP_setPort_portNameModuleFerti = portNameModuleFerti;
+                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = true;
                 Properties.Settings.Default.Save();
                 wasModuleFertiConnectedLastRun = true;
                 lblModFertiComm.Text = portNameModuleFerti;
@@ -827,7 +820,7 @@ namespace AgIO
                 try
                 {
                     spModuleFerti.Close();
-                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xEB, 2, 1, 0, 0xCC };
+                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xF0, 2, 1, 0, 0xCC };
 
                     //tell AOG ModuleFerti is disconnected
                     SendToLoopBackMessageAOG(FertiClose);
@@ -839,7 +832,7 @@ namespace AgIO
                     MessageBox.Show(e.Message, "Connection already terminated??");
                 }
 
-                Properties.Settings.Default.setPort_wasModuleFertiConnected = false;
+                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = false;
                 Properties.Settings.Default.Save();
 
                 spModuleFerti.Dispose();
@@ -848,7 +841,7 @@ namespace AgIO
 
             else
             {
-                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xEB, 2, 1, 0, 0xCC };
+                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xF0, 2, 1, 0, 0xCC };
 
                 //tell AOG Moldule Ferti is disconnected
                 SendToLoopBackMessageAOG(FertiClose);

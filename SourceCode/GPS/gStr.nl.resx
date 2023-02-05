@@ -445,7 +445,7 @@
     <value>Start nieuw perceel</value>
   </data>
   <data name="gsSteerChart" xml:space="preserve">
-    <value>Stuur grafiek</value>
+    <value>Grafiek</value>
   </data>
   <data name="gsStopRecordPauseBoundary" xml:space="preserve">
     <value>Stop opnemen Pauzeer perceelgrens</value>
@@ -467,8 +467,5 @@
   </data>
   <data name="gsUseSelected" xml:space="preserve">
     <value>gebruik geselecteerde</value>
-  </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>Webcam</value>
   </data>
 </root>

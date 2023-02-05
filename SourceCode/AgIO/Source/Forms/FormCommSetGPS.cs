@@ -188,7 +188,6 @@ namespace AgIO
 
             lblCurrentSteerModulePort.Text = mf.spSteerModule.PortName;
             lblCurrentMachineModulePort.Text = mf.spMachineModule.PortName;
-
             //Ajout-modification MEmprou et SPailleau Fertilisation 
             lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
             //lblCurrentModule3Port.Text = mf.spModule3.PortName;
@@ -355,19 +354,13 @@ namespace AgIO
             lblGPS.Text = mf.spGPS.PortName;
             lblIMU.Text = mf.spIMU.PortName;
             lblMachine.Text = mf.spMachineModule.PortName;
+
+            lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
             //Ajout-modification MEmprou et SPailleau Fertilisation
             lblferti.Text = mf.spModuleFerti.PortName;
 
-            lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
-
-            lblFromSteerModule.Text = mf.traffic.cntrSteerIn == 0 ? "--" : (mf.traffic.cntrSteerIn).ToString();
-
-            lblFromMachineModule.Text = mf.traffic.cntrMachineIn == 0 ? "--" : (mf.traffic.cntrMachineIn).ToString();
-
-            //Ajout-modification MEmprou et SPailleau Fertilisation
-            lblfromferti.Text = mf.traffic.cntrModuleFertiIn == 0 ? "--" : (mf.traffic.cntrModuleFertiIn).ToString();
         }
-
+        //ajout max
         private void btnRescan_Click(object sender, EventArgs e)
         {
             int i = 0; //SPailleau
@@ -488,12 +481,10 @@ namespace AgIO
             }
         }
         //----
-
         private void btnSerialOK_Click(object sender, EventArgs e)
         {
             Close();
         }
-
 
         private void btnClrGPS_Click(object sender, EventArgs e)
         {
@@ -683,6 +674,50 @@ namespace AgIO
             FormLoop.baudRateRtcm = Convert.ToInt32(cboxRtcmBaud.Text);
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblIMU_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFromMU_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSteer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFromSteerModule_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFromMachineModule_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblMachine_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
         //Ajout-modification MEmprou et SPailleau Fertilisation 
         private void btnOpenSerialFerti_Click(object sender, EventArgs e)
         {
@@ -719,16 +754,47 @@ namespace AgIO
             }
         }
         //Ajout-modification MEmprou et SPailleau Fertilisation 
-        private void cboxferti_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboxferti_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             mf.spModuleFerti.PortName = cboxferti.Text;
             FormLoop.portNameModuleFerti = cboxferti.Text;
             lblCurrentModuleFertiPort.Text = cboxferti.Text;
         }
 
-        private void textBoxRcv_TextChanged(object sender, EventArgs e)
+        private void btnCloseSerialModuleFerti_Click(object sender, EventArgs e)
         {
-
+            mf.CloseFertiPort();
+            if (mf.spModuleFerti.IsOpen)
+            {
+                cboxferti.Enabled = false;
+                btnCloseSerialModuleFerti.Enabled = true;
+                btnOpenSerialModuleFerti.Enabled = false;
+            }
+            else
+            {
+                cboxferti.Enabled = true;
+                btnCloseSerialModuleFerti.Enabled = false;
+                btnOpenSerialModuleFerti.Enabled = true;
+            }
         }
+
+        private void btnOpenSerialModuleFerti_Click(object sender, EventArgs e)
+        {
+            mf.OpenFertiPort();
+            if (mf.spModuleFerti.IsOpen)
+            {
+                cboxferti.Enabled = false;
+                btnCloseSerialModuleFerti.Enabled = true;
+                btnOpenSerialModuleFerti.Enabled = false;
+                lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
+            }
+            else
+            {
+                cboxferti.Enabled = true;
+                btnCloseSerialModuleFerti.Enabled = false;
+                btnOpenSerialModuleFerti.Enabled = true;
+            }
+        }
+
     } //class
 } //namespace

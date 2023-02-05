@@ -157,7 +157,7 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("IGS01")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SCSC")]
         public string setNTRIP_mount {
             get {
                 return ((string)(this["setNTRIP_mount"]));
@@ -253,7 +253,7 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("caster.centipede.fr")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NTRIP.itsware.net")]
         public string setNTRIP_casterURL {
             get {
                 return ((string)(this["setNTRIP_casterURL"]));
@@ -600,7 +600,7 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool setNTRIP_sendToUDP {
             get {
                 return ((bool)(this["setNTRIP_sendToUDP"]));
@@ -720,37 +720,97 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setPort_wasModuleFertiConnected {
+        [global::System.Configuration.DefaultSettingValueAttribute("127")]
+        public byte eth_loopOne {
             get {
-                return ((bool)(this["setPort_wasModuleFertiConnected"]));
+                return ((byte)(this["eth_loopOne"]));
             }
             set {
-                this["setPort_wasModuleFertiConnected"] = value;
+                this["eth_loopOne"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255")]
+        public byte eth_loopTwo {
+            get {
+                return ((byte)(this["eth_loopTwo"]));
+            }
+            set {
+                this["eth_loopTwo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255")]
+        public byte eth_loopThree {
+            get {
+                return ((byte)(this["eth_loopThree"]));
+            }
+            set {
+                this["eth_loopThree"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255")]
+        public byte eth_loopFour {
+            get {
+                return ((byte)(this["eth_loopFour"]));
+            }
+            set {
+                this["eth_loopFour"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Setting {
+            get {
+                return ((string)(this["Setting"]));
+            }
+            set {
+                this["Setting"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Ferti")]
-        public string setPort_portNameModuleFerti {
+        public string UP_setPort_portNameModuleFerti {
             get {
-                return ((string)(this["setPort_portNameModuleFerti"]));
+                return ((string)(this["UP_setPort_portNameModuleFerti"]));
             }
             set {
-                this["setPort_portNameModuleFerti"] = value;
+                this["UP_setPort_portNameModuleFerti"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UP_setPort_wasModuleFertiConnected {
+            get {
+                return ((bool)(this["UP_setPort_wasModuleFertiConnected"]));
+            }
+            set {
+                this["UP_setPort_wasModuleFertiConnected"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool setMod_isFertiConnected {
+        public bool UP_setMod_isFertiConnected {
             get {
-                return ((bool)(this["setMod_isFertiConnected"]));
+                return ((bool)(this["UP_setMod_isFertiConnected"]));
             }
             set {
-                this["setMod_isFertiConnected"] = value;
+                this["UP_setMod_isFertiConnected"] = value;
             }
         }
     }

@@ -26,7 +26,6 @@ namespace AgIO
         private static extern IntPtr GetForegroundWindow();
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-
         private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
         //key event to restore window
@@ -36,6 +35,8 @@ namespace AgIO
 
         //Stringbuilder
         public StringBuilder logNMEASentence = new StringBuilder();
+        public StringBuilder logMonitorSentence = new StringBuilder();
+
         private StringBuilder sbRTCM = new StringBuilder();
 
         public bool isKeyboardOn = true;
@@ -54,12 +55,12 @@ namespace AgIO
         //usually 256 - send ntrip to serial in chunks
         public int packetSizeNTRIP;
 
-        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU;
+        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU,lastHelloFertilisation;//Ajout-modification MEmprou et SPailleau Fertilisation
         public bool isConnectedIMU, isConnectedSteer, isConnectedMachine, isConnectedFerti;//Ajout-modification MEmprou et SPailleau Fertilisation
 
         //is the fly out displayed
         public bool isViewAdvanced = false;
-        public bool isLogNMEA;
+        public bool isLogNMEA, isLogMonitorOn;
 
         //used to hide the window and not update text fields and most counters
         public bool isAppInFocus = true, isLostFocus;
@@ -134,11 +135,10 @@ namespace AgIO
 
             //lblMount.Text = Properties.Settings.Default.setNTRIP_mount;
 
-            lblGPS1Comm.Text = "---";
-            lblIMUComm.Text = "---";
-            lblMod1Comm.Text = "---";
-            lblMod2Comm.Text = "---";
-
+            lblGPS1Comm.Text = "";
+            lblIMUComm.Text = "";
+            lblMod1Comm.Text = "";
+            lblMod2Comm.Text = "";
             //Ajout-modification MEmprou et SPailleau Fertilisation
             lblModFertiComm.Text = "---";
 
@@ -192,14 +192,14 @@ namespace AgIO
 
             //Ajout-modification MEmprou et SPailleau Fertilisation
             //same for ModuleFerti port
-            portNameModuleFerti = Settings.Default.setPort_portNameModuleFerti;
-            wasModuleFertiConnectedLastRun = Settings.Default.setPort_wasModuleFertiConnected;
+            portNameModuleFerti = Settings.Default.UP_setPort_portNameModuleFerti;
+            wasModuleFertiConnectedLastRun = Settings.Default.UP_setPort_wasModuleFertiConnected;
             if (wasModuleFertiConnectedLastRun)
             {
                 OpenFertiPort();
                 if (spModuleFerti.IsOpen) lblModFertiComm.Text = portNameModuleFerti;
             }
-
+            //fin
             ConfigureNTRIP();
 
             string[] ports = System.IO.Ports.SerialPort.GetPortNames();
@@ -219,9 +219,7 @@ namespace AgIO
             isConnectedIMU = cboxIsIMUModule.Checked = Properties.Settings.Default.setMod_isIMUConnected;
             isConnectedSteer = cboxIsSteerModule.Checked = Properties.Settings.Default.setMod_isSteerConnected;
             isConnectedMachine = cboxIsMachineModule.Checked = Properties.Settings.Default.setMod_isMachineConnected;
-            isConnectedFerti = cboxIsFertiModule.Checked = Properties.Settings.Default.setMod_isFertiConnected;//Ajout-modification MEmprou et SPailleau Fertilisation
-
-
+            isConnectedFerti = cboxIsFertiModule.Checked = Properties.Settings.Default.UP_setMod_isFertiConnected;//Ajout-modification MEmprou et SPailleau Fertilisation            
             SetModulesOnOff();
 
             oneSecondLoopTimer.Enabled = true;
@@ -243,30 +241,24 @@ namespace AgIO
             {
                 btnIMU.Visible = true; 
                 lblIMUComm.Visible = true;
-                lblFromMU.Visible = true;
                 cboxIsIMUModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnIMU.Visible = false;
                 lblIMUComm.Visible = false;
-                lblFromMU.Visible = false;
                 cboxIsIMUModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
             if (isConnectedMachine)
             {
                 btnMachine.Visible = true;
-                lblFromMachine.Visible = true;
-                lblToMachine.Visible = true;
                 lblMod2Comm.Visible = true;
                 cboxIsMachineModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnMachine.Visible = false;
-                lblFromMachine.Visible = false;
-                lblToMachine.Visible = false;
                 lblMod2Comm.Visible = false;
                 cboxIsMachineModule.BackgroundImage = Properties.Resources.AddNew;
             }
@@ -274,16 +266,12 @@ namespace AgIO
             if (isConnectedSteer)
             {
                 btnSteer.Visible = true;
-                lblFromSteer.Visible = true;
-                lblToSteer.Visible = true; 
                 lblMod1Comm.Visible = true;
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnSteer.Visible = false;
-                lblFromSteer.Visible = false;
-                lblToSteer.Visible = false;
                 lblMod1Comm.Visible = false;
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.AddNew;
             }
@@ -291,16 +279,12 @@ namespace AgIO
             if (isConnectedFerti)
             {
                 btnFerti.Visible = true;
-                lblFromModuleFerti.Visible = true;
-                lblToModuleFerti.Visible = true;
                 lblModFertiComm.Visible = true;
                 cboxIsFertiModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnFerti.Visible = false;
-                lblFromModuleFerti.Visible = false;
-                lblToModuleFerti.Visible = false;
                 lblModFertiComm.Visible = false;
                 cboxIsFertiModule.BackgroundImage = Properties.Resources.AddNew;
             }
@@ -309,7 +293,7 @@ namespace AgIO
             Properties.Settings.Default.setMod_isIMUConnected = isConnectedIMU;
             Properties.Settings.Default.setMod_isSteerConnected = isConnectedSteer;
             Properties.Settings.Default.setMod_isMachineConnected = isConnectedMachine;
-            Properties.Settings.Default.setMod_isFertiConnected = isConnectedFerti; //Ajout-modification MEmprou et SPailleau Fertilisation
+            Properties.Settings.Default.UP_setMod_isFertiConnected = isConnectedFerti; //Ajout-modification MEmprou et SPailleau Fertilisation
 
             Properties.Settings.Default.Save();
         }
@@ -321,7 +305,7 @@ namespace AgIO
             Settings.Default.setPort_wasSteerModuleConnected = wasSteerModuleConnectedLastRun;
             Settings.Default.setPort_wasMachineModuleConnected = wasMachineModuleConnectedLastRun;
             Settings.Default.setPort_wasRtcmConnected = wasRtcmConnectedLastRun;
-            Settings.Default.setPort_wasModuleFertiConnected = wasModuleFertiConnectedLastRun; //Ajout-modification MEmprou et SPailleau Fertilisation
+            Settings.Default.UP_setPort_wasModuleFertiConnected = wasModuleFertiConnectedLastRun; //Ajout-modification MEmprou et SPailleau Fertilisation
 
             Settings.Default.Save();
 
@@ -356,6 +340,8 @@ namespace AgIO
                 return;
             }
 
+            //to check if new data for subnet
+
             secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
 
             //Hello Alarm logic
@@ -374,7 +360,7 @@ namespace AgIO
 
             //send a hello to modules
             SendUDPMessage(helloFromAgIO, epModule);
-            helloFromAgIO[7] = 0;
+            //helloFromAgIO[7] = 0;
 
             #region Sleep
 
@@ -466,6 +452,17 @@ namespace AgIO
 
             if (focusSkipCounter != 0)
             {
+                //update connections
+                lblIP.Text = "";
+                foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
+                {
+                    if (IPA.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        _ = IPA.ToString();
+                        lblIP.Text += IPA.ToString() + "\r\n";
+                    }
+                }
+
                 if (isViewAdvanced && isNTRIP_RequiredOn)
                 {
                     try
@@ -523,7 +520,7 @@ namespace AgIO
                         //tell AOG IMU is disconnected
                         SendToLoopBackMessageAOG(imuClose);
                         wasIMUConnectedLastRun = false;
-                        lblIMUComm.Text = "---";
+                        lblIMUComm.Text = "";
                     }
                 }
 
@@ -532,7 +529,7 @@ namespace AgIO
                     if (!spGPS.IsOpen)
                     {
                         wasGPSConnectedLastRun = false;
-                        lblGPS1Comm.Text = "---";
+                        lblGPS1Comm.Text = "";
                     }
                 }
 
@@ -541,7 +538,7 @@ namespace AgIO
                     if (!spSteerModule.IsOpen)
                     {
                         wasSteerModuleConnectedLastRun = false;
-                        lblMod1Comm.Text = "---";
+                        lblMod1Comm.Text = "";
                     }
                 }
 
@@ -550,7 +547,7 @@ namespace AgIO
                     if (!spMachineModule.IsOpen)
                     {
                         wasMachineModuleConnectedLastRun = false;
-                        lblMod2Comm.Text = "---";
+                        lblMod2Comm.Text = "";
                     }
                 }
                 //Ajout-modification MEmprou et SPailleau Fertilisation 
@@ -571,7 +568,7 @@ namespace AgIO
         {
             if (this.Width < 600)
             {
-                this.Width = 700;
+                this.Width = 750;
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
                 sbRTCM.Clear();
@@ -620,7 +617,20 @@ namespace AgIO
                     ShowAgIO();
                 }
             }
+            //ajout max
+            if (isConnectedMachine)
+            {
+                currentHello = traffic.helloFromFertilisation < 3;
 
+                if (currentHello != lastHelloFertilisation)
+                {
+                    if (currentHello) btnFerti.BackColor = Color.LimeGreen;
+                    else btnFerti.BackColor = Color.Red;
+                    lastHelloFertilisation = currentHello;
+                    ShowAgIO();
+                }
+            }
+            //fin
             if (isConnectedSteer)
             {
                 currentHello = traffic.helloFromAutoSteer < 3;
@@ -703,40 +713,16 @@ namespace AgIO
         private void DoTraffic()
         {
             traffic.helloFromMachine++;
+            traffic.helloFromFertilisation++;
             traffic.helloFromAutoSteer++;
             traffic.helloFromIMU++;
 
             if (focusSkipCounter != 0)
             {
-
-                lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "--" : (traffic.cntrGPSOut).ToString();
-
-                if (isConnectedSteer)
-                {
-                    lblToSteer.Text = traffic.cntrSteerIn == 0 ? "--" : (traffic.cntrSteerIn).ToString();
-                    lblFromSteer.Text = traffic.cntrSteerOut == 0 ? "--" : (traffic.cntrSteerOut).ToString();
-                }
-
-                if (isConnectedMachine)
-                {
-                    lblToMachine.Text = traffic.cntrMachineIn == 0 ? "--" : (traffic.cntrMachineIn).ToString();
-                    lblFromMachine.Text = traffic.cntrMachineOut == 0 ? "--" : (traffic.cntrMachineOut).ToString();
-                }
-                //Ajout-modification MEmprou et SPailleau Fertilisation
-                if (isConnectedFerti)
-                {
-                    lblFromModuleFerti.Text = traffic.cntrModuleFertiIn == 0 ? "--" : (traffic.cntrModuleFertiIn).ToString();
-                    lblToModuleFerti.Text = traffic.cntrModuleFertiOut == 0 ? "--" : (traffic.cntrModuleFertiOut).ToString();
-                }
-                //fin
-                if (isConnectedIMU)
-                lblFromMU.Text = traffic.cntrIMUOut == 0 ? "--" : (traffic.cntrIMUOut).ToString();
+                lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : (traffic.cntrGPSOut).ToString();
 
                 //reset all counters
-                traffic.cntrPGNToAOG = traffic.cntrPGNFromAOG = traffic.cntrGPSOut =
-                    traffic.cntrIMUOut = traffic.cntrSteerIn = traffic.cntrSteerOut =
-                    traffic.cntrMachineOut = traffic.cntrMachineIn = 0;
-                    traffic.cntrModuleFertiOut = traffic.cntrModuleFertiIn = 0; //Ajout-modification MEmprou et SPailleau Fertilisation 
+                traffic.cntrGPSOut = 0;
                 lblCurentLon.Text = longitude.ToString("N7");
                 lblCurrentLat.Text = latitude.ToString("N7");
             }
@@ -777,6 +763,13 @@ namespace AgIO
             isConnectedMachine = cboxIsMachineModule.Checked;
             SetModulesOnOff();
         }
+        //Ajout-modification MEmprou et SPailleau Fertilisatio
+        private void cboxIsFertiModule_Click(object sender, EventArgs e)
+        {
+            isConnectedFerti = cboxIsFertiModule.Checked;
+            SetModulesOnOff();
+        }
+        //FIN
 
         private void lblMessages_Click(object sender, EventArgs e)
         {
@@ -841,12 +834,11 @@ namespace AgIO
         private void lblIP_Click(object sender, EventArgs e)
         {
             lblIP.Text = "";
-
             foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
             {
                 if (IPA.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    string data = IPA.ToString();
+                    _ = IPA.ToString();
                     lblIP.Text += IPA.ToString() + "\r\n";
                 }
             }
@@ -875,13 +867,33 @@ namespace AgIO
             }
         }
 
-        //Ajout-modification MEmprou et SPailleau Fertilisatio
-        private void cboxIsFertiModule_Click(object sender, EventArgs e)
+        private void btnGPSData_Click(object sender, EventArgs e)
         {
-            isConnectedFerti = cboxIsFertiModule.Checked;
-            SetModulesOnOff();
+            Form f = Application.OpenForms["FormGPSData"];
+
+            if (f != null)
+            {
+                f.Focus();
+                f.Close();
+                isGPSSentencesOn = false;
+                return;
+            }
+
+            isGPSSentencesOn = true;
+
+            Form form = new FormGPSData(this);
+            form.Show(this);
         }
-        //FIN
+
+        private void toolStripEthernet_Click(object sender, EventArgs e)
+        {
+            SettingsEthernet();
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(gStr.gsAgIOHelp);
+        }
 
         private void lblNTRIPBytes_Click(object sender, EventArgs e)
         {
@@ -902,7 +914,8 @@ namespace AgIO
 
         private void btnUDP_Click(object sender, EventArgs e)
         {
-            SettingsUDP();
+            if (!Settings.Default.setUDP_isOn) SettingsEthernet();
+            else SettingsUDP();
         }
 
         private void btnRunAOG_Click(object sender, EventArgs e)
@@ -922,20 +935,6 @@ namespace AgIO
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Form f = Application.OpenForms["FormGPSData"];
-
-            if (f != null)
-            {
-                f.Focus();
-                f.Close();
-                isGPSSentencesOn = false;
-                return;
-            }
-
-            isGPSSentencesOn = true;
-
-            Form form = new FormGPSData(this);
-            form.Show(this);
         }
 
         private void btnRadio_Click_1(object sender, EventArgs e)
@@ -980,7 +979,7 @@ namespace AgIO
             isLogNMEA = cboxLogNMEA.Checked;
         }
         //Ajout-modification MEmprou et SPailleau Fertilisation
-        private void btnFerti_Click(object sender, EventArgs e)
+        private void btnFerti_Click_1(object sender, EventArgs e)
         {
             SettingsCommunicationGPS();
         }

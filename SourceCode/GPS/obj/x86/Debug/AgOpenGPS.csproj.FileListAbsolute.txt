@@ -1,297 +1,134 @@
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\Manual.de.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\Manual.es.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\Manual.fr.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\Manual.it.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\Manual.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\AgOpenGPS.exe.config
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\AgOpenGPS.exe
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\AgOpenGPS.pdb
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\da\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\sk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\af\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\de\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\es\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\fr\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\it\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\nl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColorPicker.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveAs.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormKeyboard.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormDrivePicker.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTouchPick.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadland.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditCurve.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditAB.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFilePicker.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormNumeric.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMakeBndCon.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColor.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormConfig.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABDraw.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFlags.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormShiftPos.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABCurve.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundary.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundaryPlayer.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldDir.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABLine.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPSData.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPS.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormJob.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveOrNot.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSimCoords.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSmoothAB.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteer.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadingGraph.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerGraph.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTimedMessage.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTramCurve.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormWebCam.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTram.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Classes.gStr.Empty.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Properties.Resources.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.da.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.sk.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.af.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.de.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.es.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.fr.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.it.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.nl.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.pl.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.ru.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.uk.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.GenerateResource.cache
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\da\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\sk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\af\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\de\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\es\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\fr\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\it\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\nl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\pl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\ru\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CopyComplete
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.exe
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2\1\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.pdb
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.exe
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.pdb
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEnterAB.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColorPicker.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveAs.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormKeyboard.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormDrivePicker.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTouchPick.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadland.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditCurve.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditAB.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFilePicker.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormNumeric.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMakeBndCon.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSectionColor.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColor.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormConfig.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABDraw.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFlags.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormShiftPos.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABCurve.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundary.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundaryPlayer.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldDir.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABLine.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPSData.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPS.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormJob.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveOrNot.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSimCoords.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSmoothAB.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteer.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadingGraph.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerGraph.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTimedMessage.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTramCurve.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormWebCam.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTram.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Classes.gStr.Empty.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.da.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.sk.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.af.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.de.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.es.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.fr.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.it.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.nl.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.pl.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.ru.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.uk.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.GenerateResource.cache
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Properties.Resources.resources
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\Manual.de.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\Manual.es.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\Manual.fr.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\Manual.it.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\Manual.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\Manual.sr.pdf
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\da\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\sk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\af\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\de\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\es\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\fr\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\it\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\nl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\pl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\ru\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CopyComplete
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\AgOpenGPS.exe.config
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\AgOpenGPS.exe
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\AgOpenGPS.pdb
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\da\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\sk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\af\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\de\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\es\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\fr\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\it\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\nl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\AG8TRAD\AOG_5\5.2.17\UP\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csprojAssemblyReference.cache
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.de.pdf
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.es.pdf
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.fr.pdf
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.it.pdf
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.pdf
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.sr.pdf
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgOpenGPS.exe.config
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgOpenGPS.exe
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgOpenGPS.pdb
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\fr\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\da\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\sk\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\af\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\de\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\es\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\it\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\nl\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.AssemblyReference.cache
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.SuggestedBindingRedirects.cache
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_Help.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEnterAB.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColorPicker.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveAs.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormKeyboard.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormDrivePicker.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTouchPick.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadland.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditCurve.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditAB.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFilePicker.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormNumeric.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMakeBndCon.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormCorrection.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFertilisation.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSectionColor.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColor.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormConfig.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABDraw.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFlags.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormShiftPos.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABCurve.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundary.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundaryPlayer.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldDir.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABLine.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPSData.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPS.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormJob.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveOrNot.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSimCoords.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSmoothAB.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteer.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadingGraph.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerGraph.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTimedMessage.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTramCurve.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormWebCam.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTram.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Classes.gStr.Empty.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Properties.Resources.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.fr.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.da.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.sk.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.af.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.de.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.es.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.fr.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.it.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.nl.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.pl.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.ru.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.uk.resources
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.GenerateResource.cache
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CoreCompileInputs.cache
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\fr\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\da\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\sk\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\af\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\de\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\es\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\it\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\nl\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\pl\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\ru\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CopyComplete
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.exe
-C:\Users\maxim\OneDrive\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.pdb
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Nav.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Nav.exe
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Manual.de.pdf
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Manual.es.pdf
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Manual.fr.pdf
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Manual.it.pdf
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Manual.pdf
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Manual.sr.pdf
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\Nav.runtimeconfig.json
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\AgOpenGPS.exe.config
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\AgOpenGPS.exe
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\AgOpenGPS.pdb
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\da\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\tr\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\sk\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\af\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\de\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\es\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\fr\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\it\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\nl\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMap.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Forms.FormRecordName.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_Keys.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_Help.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEnterAB.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColorPicker.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveAs.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormKeyboard.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormDrivePicker.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Forms.Pickers.FormRecordPicker.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTouchPick.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadland.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditCurve.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditAB.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFilePicker.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormNumeric.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMakeBndCon.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormCorrection.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSectionColor.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColor.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormConfig.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABDraw.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFlags.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormShiftPos.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABCurve.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundary.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormBoundaryPlayer.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldDir.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormABLine.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPSData.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormGPS.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormJob.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSaveOrNot.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSimCoords.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSmoothAB.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteer.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadingGraph.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormXTEGraph.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerGraph.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTimedMessage.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormWebCam.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTram.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerWiz.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Properties.Resources.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.da.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.tr.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.sk.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.af.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.de.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.es.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.fr.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.it.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.nl.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.pl.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.ru.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.uk.resources
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.GenerateResource.cache
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CoreCompileInputs.cache
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\da\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\tr\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\sk\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\af\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\de\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\es\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\fr\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\it\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\nl\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\pl\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\ru\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\uk\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CopyComplete
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.exe
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.pdb
+C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-master\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.AssemblyReference.cache
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Nav.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Nav.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.de.pdf
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.es.pdf
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.fr.pdf
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.it.pdf
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.pdf
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Manual.sr.pdf
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\Nav.runtimeconfig.json
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgOpenGPS.exe.config
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgOpenGPS.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgOpenGPS.pdb
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\es\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\fr\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\da\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\tr\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\sk\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\af\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\de\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\es\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\fr\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\it\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\nl\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.AssemblyReference.cache
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMap.resources
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormUpdate.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Forms.FormRecordName.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_Keys.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_Help.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEnterAB.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColorPicker.resources
@@ -299,6 +136,7 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\D
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormKeyboard.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormDrivePicker.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Forms.Pickers.FormRecordPicker.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTouchPick.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadland.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormEditCurve.resources
@@ -307,7 +145,6 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\D
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormNumeric.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMakeBndCon.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormCorrection.resources
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFertilisation.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSectionColor.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormColor.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormConfig.resources
@@ -327,17 +164,15 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\D
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSmoothAB.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteer.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormHeadingGraph.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormXTEGraph.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerGraph.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTimedMessage.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormWebCam.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormTram.resources
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormSteerWiz.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Properties.Resources.resources
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.es.resources
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_About.fr.resources
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.es.resources
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Form_First.fr.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.da.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.tr.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.sk.resources
@@ -352,13 +187,13 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\D
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.gStr.uk.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.GenerateResource.cache
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CoreCompileInputs.cache
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\es\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\fr\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\da\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\tr\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\sk\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\af\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\de\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\es\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\fr\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\it\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\nl\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\pl\AgOpenGPS.resources.dll
@@ -367,4 +202,3 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\D
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CopyComplete
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.pdb
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.AssemblyReference.cache

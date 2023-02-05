@@ -19,7 +19,9 @@ namespace AgOpenGPS
 
         public double distSteerError, lastDistSteerError, derivativeDistError;
 
-        public double pivotDistanceError;
+        public double pivotDistanceError, stanleyModeMultiplier;
+
+        //public int modeTimeCounter = 0;
 
         //for adding steering angle based on side slope hill
         public double sideHillCompFactor;
@@ -45,7 +47,7 @@ namespace AgOpenGPS
             double sped = Math.Abs(mf.avgSpeed);
             if (sped > 1) sped = 1 + 0.277 * (sped - 1);
             else sped = 1;
-            double XTEc = Math.Atan((distanceFromCurrentLineSteer * mf.vehicle.stanleyDistanceErrorGain)
+            double XTEc = Math.Atan((distanceFromCurrentLineSteer * mf.vehicle.stanleyDistanceErrorGain * stanleyModeMultiplier)
                 / (sped));
 
             xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + XTEc * (0.5);
@@ -96,6 +98,9 @@ namespace AgOpenGPS
 
             if (steerAngleGu < -mf.vehicle.maxSteerAngle) steerAngleGu = -mf.vehicle.maxSteerAngle;
             else if (steerAngleGu > mf.vehicle.maxSteerAngle) steerAngleGu = mf.vehicle.maxSteerAngle;
+
+            //used for smooth mode 
+            mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
 
             //Convert to millimeters from meters
             mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
@@ -186,6 +191,8 @@ namespace AgOpenGPS
             else if (steerHeadingError < -glm.PIBy2)
                 steerHeadingError += Math.PI;
 
+            mf.vehicle.modeActualHeadingError = glm.toDegrees(steerHeadingError);
+
             DoSteerAngleCalc();
         }
 
@@ -242,7 +249,7 @@ namespace AgOpenGPS
                 }
 
                 ////too far from guidance line? Lost? Fresh delete of ref?
-                //if (minDistA < (1.5 * (mf.tool.toolWidth * mf.tool.toolWidth)))
+                //if (minDistA < (1.5 * (mf.tool.width * mf.tool.width)))
                 //{
                 //    if (minDistA == 100000000)
                 //        return;

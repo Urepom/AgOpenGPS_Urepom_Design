@@ -8,30 +8,28 @@ using System.Windows.Forms;
 namespace AgIO
 {
     public class CTraffic
-    {
-        public int cntrPGNFromAOG = 0;
-        public int cntrPGNToAOG = 0;
-     
+    {     
         public int cntrGPSIn = 0;
         public int cntrGPSInBytes = 0;
         public int cntrGPSOut = 0;
 
-        public int cntrIMUOut = 0;
-
-        public int cntrSteerIn = 0;
-        public int cntrSteerOut = 0;
-
-        public int cntrMachineIn = 0;
-        public int cntrMachineOut = 0;
-
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        public int cntrModuleFertiIn = 0;
-        public int cntrModuleFertiOut = 0;
-
-        public bool isTrafficOn = true;
-        //fin
-
         public uint helloFromMachine = 99, helloFromAutoSteer = 99, helloFromIMU = 99;
+        public uint helloFromFertilisation=99; //ajout max
+    }
+
+    public class CScanReply
+    {
+        public string steerIP =   "";
+        public string machineIP = "";
+        public string GPS_IP =    "";
+        public string IMU_IP =    "";
+        public string subnetStr = "";
+
+        public byte[] subnet = { 0, 0, 0 };
+
+        public bool isNewSteer, isNewMachine, isNewGPS, isNewIMU;
+
+        public bool isNewData = false;
     }
 
     public partial class FormLoop
@@ -41,14 +39,25 @@ namespace AgIO
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
         // UDP Socket
-        private Socket UDPSocket;
+        public Socket UDPSocket;
         private EndPoint endPointUDP = new IPEndPoint(IPAddress.Any, 0);
         
         public bool isUDPNetworkConnected;
 
         //2 endpoints for local and 2 udp
-        private IPEndPoint epAgOpen = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 15555);
-        private IPEndPoint epAgVR = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 16666);
+
+        private IPEndPoint epAgOpen = new IPEndPoint(IPAddress.Parse(
+            Properties.Settings.Default.eth_loopOne.ToString() + "." +
+            Properties.Settings.Default.eth_loopTwo.ToString() + "." +
+            Properties.Settings.Default.eth_loopThree.ToString() + "." +
+            Properties.Settings.Default.eth_loopFour.ToString()), 15555);
+
+        private IPEndPoint epAgVR = new IPEndPoint(IPAddress.Parse(
+            Properties.Settings.Default.eth_loopOne.ToString() + "." +
+            Properties.Settings.Default.eth_loopTwo.ToString() + "." +
+            Properties.Settings.Default.eth_loopThree.ToString() + "." +
+            Properties.Settings.Default.eth_loopFour.ToString()), 16666);
+        
         public IPEndPoint epModule = new IPEndPoint(IPAddress.Parse(
                 Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                 Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
@@ -56,9 +65,11 @@ namespace AgIO
         private IPEndPoint epNtrip;
 
         public IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 8888);
+        public byte[] ipAutoSet = { 192, 168, 5 };
 
         //class for counting bytes
         public CTraffic traffic = new CTraffic();
+        public CScanReply scanReply = new CScanReply();
 
         //scan results placed here
         public string scanReturn = "Scanning...";
@@ -74,8 +85,8 @@ namespace AgIO
         public void LoadUDPNetwork()
         {
             helloFromAgIO[5] = 56;
-            lblIP.Text = "";
 
+            lblIP.Text = "";
             try //udp network
             {
                 foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
@@ -83,7 +94,7 @@ namespace AgIO
                     if (IPA.AddressFamily == AddressFamily.InterNetwork)
                     {
                         string  data = IPA.ToString();
-                        lblIP.Text += IPA.ToString() + "\r\n";
+                        lblIP.Text += IPA.ToString().Trim() + "\r\n";
                     }
                 }
 
@@ -137,7 +148,6 @@ namespace AgIO
 
         private void SendToLoopBackMessageAOG(byte[] byteData)
         {
-            traffic.cntrPGNToAOG += byteData.Length;
             SendDataToLoopBack(byteData, epAgOpen);
         }
 
@@ -181,8 +191,6 @@ namespace AgIO
 
         private void ReceiveFromLoopBack(byte[] data)
         {
-            traffic.cntrPGNFromAOG += data.Length;
-
             //Send out to udp network
             SendUDPMessage(data, epModule);
 
@@ -223,17 +231,17 @@ namespace AgIO
                             SendSteerModulePort(data, data.Length);
                             break;
                         }
-                    case 0xEB: //235 ferti config //Ajout-modification MEmprou et SPailleau Fertilisation
-                        {
-                            SendFertiPort(data, data.Length);
-                            SendFertiPort(data, data.Length);
-                            break;
-                        }
 
                     case 0xEC: //236 machine config
                         {
                             SendMachineModulePort(data, data.Length);
                             SendSteerModulePort(data, data.Length);
+                            break;
+                        }
+                    case 0xF0: //240 ferti config //Ajout-modification MEmprou et SPailleau Fertilisation
+                        {
+                            SendFertiPort(data, data.Length);
+                            SendFertiPort(data, data.Length);
                             break;
                         }
                 }
@@ -278,15 +286,6 @@ namespace AgIO
                     {
                         UDPSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
                            endPoint, new AsyncCallback(SendDataUDPAsync), null);
-                        
-                        if (byteData[0] == 0x80 && byteData[1] == 0x81)
-                        {
-                            if (byteData[3] == 254)
-                                traffic.cntrSteerIn += byteData.Length;
-
-                            if (byteData[3] == 239)
-                                traffic.cntrMachineIn += byteData.Length;
-                        }
                     }
                 }
                 catch (Exception)
@@ -353,16 +352,8 @@ namespace AgIO
                     //module data also sent to VR
                     if (isPluginUsed) SendToLoopBackMessageVR(data);
 
-                    if (data[3] == 253)
-                        traffic.cntrSteerOut += data.Length;
-
-                    else if (data[3] == 237)
-                        traffic.cntrMachineOut += data.Length;
-
-                    else if (data[3] == 211)
-                        traffic.cntrIMUOut += data.Length;
-
-                    else if (data[3] == 126)
+                    //check for Scan and Hello
+                    if (data[3] == 126 && data.Length == 11)
                     {
                         traffic.helloFromAutoSteer = 0;
                         if (isViewAdvanced)
@@ -376,7 +367,7 @@ namespace AgIO
                         }
                     }
 
-                    else if (data[3] == 123)
+                    else if (data[3] == 123 && data.Length == 11)
                     {
                         traffic.helloFromMachine = 0;
 
@@ -386,37 +377,73 @@ namespace AgIO
                             lbl9To16.Text = Convert.ToString(data[6], 2).PadLeft(8, '0');
                         }
                     }
+                    //ajout max
+                    else if (data[3] == 128 && data.Length == 11)
+                    {
+                        traffic.helloFromFertilisation = 0;
+                    }
+                    //fin
 
-                    else if (data[3] == 121)
+                    else if (data[3] == 121 && data.Length == 11)
                         traffic.helloFromIMU = 0;
 
                     //scan Reply
-                    else if (data[3] == 203) //
+                    else if (data[3] == 203 && data.Length == 13) //
                     {
-                        if (data[2] == 123)
+                        if (data[2] == 126)  //steer module
                         {
-                            scanReturn += "Machine Module \r\n";
-                            scanReturn += data[5].ToString() + "." + data[6].ToString() + "."
-                                + data[7].ToString() + "." + data[8].ToString() + "\r\n\r\n";
+                            scanReply.steerIP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
+
+                            scanReply.subnet[0] = data[09];
+                            scanReply.subnet[1] = data[10];
+                            scanReply.subnet[2] = data[11];
+
+                            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
+
+                            scanReply.isNewData = true;
+                            scanReply.isNewSteer = true;
                         }
-                        else if (data[2] == 120)
+                        //
+                        else if (data[2] == 123)   //machine module
                         {
-                            scanReturn += "Panda Module \r\n";
-                            scanReturn += data[5].ToString() + "." + data[6].ToString() + "."
-                                + data[7].ToString() + "." + data[8].ToString() + "\r\n\r\n";
+                            scanReply.machineIP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
+
+                            scanReply.subnet[0] = data[09];
+                            scanReply.subnet[1] = data[10];
+                            scanReply.subnet[2] = data[11];
+
+                            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
+
+                            scanReply.isNewData = true;
+                            scanReply.isNewMachine = true;
+
+                        }
+                        else if (data[2] == 121)   //IMU Module
+                        {
+                            scanReply.IMU_IP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
+
+                            scanReply.subnet[0] = data[09];
+                            scanReply.subnet[1] = data[10];
+                            scanReply.subnet[2] = data[11];
+
+                            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
+
+                            scanReply.isNewData = true;
+                            scanReply.isNewIMU = true;
                         }
 
-                        else if (data[2] == 126)
+                        else if (data[2] == 120)    //GPS module
                         {
-                            scanReturn += "Steer Module \r\n";
-                            scanReturn += data[5].ToString() + "." + data[6].ToString() + "."
-                                + data[7].ToString() + "." + data[8].ToString() + "\r\n\r\n";
-                        }
-                        else if (data[2] == 121)
-                        {
-                            scanReturn += "IMU Module \r\n";
-                            scanReturn += data[5].ToString() + "." + data[6].ToString() + "."
-                                + data[7].ToString() + "." + data[8].ToString() + "\r\n\r\n";
+                            scanReply.GPS_IP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
+
+                            scanReply.subnet[0] = data[09];
+                            scanReply.subnet[1] = data[10];
+                            scanReply.subnet[2] = data[11];
+
+                            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
+
+                            scanReply.isNewData = true;
+                            scanReply.isNewGPS = true;
                         }
                     }
 

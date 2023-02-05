@@ -16,6 +16,7 @@ namespace AgOpenGPS
             //Ajout-modification MEmprou et SPailleau Fertilisation
             label2.Text = gStr.gsDistanceToFlag;
             //fin
+
             //this.bntOK.Text = gStr.gsForNow;
             //this.btnSave.Text = gStr.gsToFile;
 
