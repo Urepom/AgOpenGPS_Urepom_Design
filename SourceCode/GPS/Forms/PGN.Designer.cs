@@ -434,7 +434,7 @@ namespace AgOpenGPS
             /// PGN - 240 - F0
             /// speed=5-6  on/off=7  débit = 8-9 largeur 10-11
             /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xF0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7F, 0xF0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
             public int speedLo = 5;
             public int speedHi = 6;
             public int Ferti_On = 7;

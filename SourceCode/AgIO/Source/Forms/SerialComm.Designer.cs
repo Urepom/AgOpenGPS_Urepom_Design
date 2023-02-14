@@ -820,7 +820,7 @@ namespace AgIO
                 try
                 {
                     spModuleFerti.Close();
-                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xF0, 2, 1, 0, 0xCC };
+                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7F, 0xF0, 2, 1, 0, 0xCC };
 
                     //tell AOG ModuleFerti is disconnected
                     SendToLoopBackMessageAOG(FertiClose);
@@ -841,7 +841,7 @@ namespace AgIO
 
             else
             {
-                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7C, 0xF0, 2, 1, 0, 0xCC };
+                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7F, 0xF0, 2, 1, 0, 0xCC };
 
                 //tell AOG Moldule Ferti is disconnected
                 SendToLoopBackMessageAOG(FertiClose);
