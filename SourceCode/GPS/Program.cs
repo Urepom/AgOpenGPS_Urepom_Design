@@ -48,7 +48,11 @@ namespace AgOpenGPS
             }
             else
             {
-                MessageBox.Show("AgOpenGPS is Already Running");
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(Properties.Settings.Default.setF_culture);
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.setF_culture);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new FormGPS());
             }
 
         }

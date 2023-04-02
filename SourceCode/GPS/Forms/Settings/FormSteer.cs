@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms; 
+using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
@@ -154,6 +154,9 @@ namespace AgOpenGPS
             if ((sett & 1) == 0) cboxDanfoss.Checked = false;
             else cboxDanfoss.Checked = true;
 
+            if ((sett & 8) == 0) cboxXY.Text = "X";
+            else cboxXY.Text = "Y";
+
             if ((sett & 2) == 0) cboxPressureSensor.Checked = false;
             else cboxPressureSensor.Checked = true;
 
@@ -277,7 +280,7 @@ namespace AgOpenGPS
                 mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
 
                 Properties.Settings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
-                Properties.Settings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value/3));
+                Properties.Settings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
                 Properties.Settings.Default.setAS_Kp = mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
                 Properties.Settings.Default.setAS_minSteerPWM = mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
@@ -291,7 +294,7 @@ namespace AgOpenGPS
             //if (hsbarMinPWM.Value > hsbarLowSteerPWM.Value) lblMinPWM.ForeColor = Color.OrangeRed;
             //else lblMinPWM.ForeColor = SystemColors.ControlText;
 
-            
+
             if (mf.mc.sensorData != -1)
             {
                 if (mf.mc.sensorData < 0 || mf.mc.sensorData > 255) mf.mc.sensorData = 0;
@@ -322,7 +325,7 @@ namespace AgOpenGPS
             mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
 
             Properties.Settings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
-            Properties.Settings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value/3));
+            Properties.Settings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
             Properties.Settings.Default.setAS_Kp = mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
             Properties.Settings.Default.setAS_minSteerPWM = mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
@@ -574,8 +577,8 @@ namespace AgOpenGPS
         private void expandWindow_Click(object sender, EventArgs e)
         {
             if (windowSizeState++ > 0) windowSizeState = 0;
-            if (windowSizeState == 1) this.Size = new System.Drawing.Size(960,720);
-            else if (windowSizeState == 0) this.Size = new System.Drawing.Size(388,480);
+            if (windowSizeState == 1) this.Size = new System.Drawing.Size(960, 720);
+            else if (windowSizeState == 0) this.Size = new System.Drawing.Size(388, 480);
 
         }
 
@@ -752,10 +755,18 @@ namespace AgOpenGPS
             if (cboxPressureSensor.Checked) sett |= set;
             else sett &= reset;
 
+            //bit 2
             set <<= 1;
             reset <<= 1;
             reset += 1;
             if (cboxCurrentSensor.Checked) sett |= set;
+            else sett &= reset;
+
+            //bit 3
+            set <<= 1;
+            reset <<= 1;
+            reset += 1;
+            if (cboxXY.Text == "Y") sett |= set;
             else sett &= reset;
 
             Properties.Settings.Default.setArdSteer_setting1 = (byte)sett;
@@ -984,6 +995,10 @@ namespace AgOpenGPS
             MessageBox.Show(gStr.hc_cboxMotorDrive, gStr.gsHelp);
         }
 
+        private void cboxXY_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show(gStr.hc_cboxXY, gStr.gsHelp);
+        }
 
         private void cboxConv_HelpRequested(object sender, HelpEventArgs hlpevent)
         {

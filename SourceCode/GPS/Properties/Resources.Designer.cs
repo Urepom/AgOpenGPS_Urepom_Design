@@ -2469,6 +2469,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SectionOffBoundary {
+            get {
+                object obj = ResourceManager.GetObject("SectionOffBoundary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SectionsExample {
             get {
                 object obj = ResourceManager.GetObject("SectionsExample", resourceCulture);

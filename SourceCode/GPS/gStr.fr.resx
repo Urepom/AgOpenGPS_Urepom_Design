@@ -1311,6 +1311,9 @@ Button : c'est un interrupteur monentané (1 position) qui revient toujours à �
 
 Permet de couper les sections sur les passages si le materiel et les largeurs de sections le permettent</value>
   </data>
+  <data name="hc_cboxXY" xml:space="preserve">
+    <value>Sélectionnez l'axe d'orientation IMU afin que lorsque le véhicule roule sur le côté, la valeur de roulis change.</value>
+  </data>
   <data name="hc_chkDisplayDayNight" xml:space="preserve">
     <value>Jour Nuit automatique permet de passer automatiquement en mode nuit au coucher du soleil et en mode jour au lever du soleil</value>
   </data>

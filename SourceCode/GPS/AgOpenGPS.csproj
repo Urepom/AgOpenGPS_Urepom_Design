@@ -886,6 +886,7 @@
     <None Include="btnImages\UrepomRESS\Ferti.png" />
     <None Include="btnImages\UrepomRESS\synchronize.png" />
     <None Include="btnImages\UrepomRESS\ToolMenu.png" />
+    <None Include="btnImages\SectionOffBoundary.png" />
     <Content Include="Nav.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

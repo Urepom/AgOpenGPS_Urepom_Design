@@ -80,15 +80,15 @@ namespace AgOpenGPS
                 mf.ferti_auto = true;
                 //mf.Ferti_active = true;
                 //cbox_auto.Checked = true;
-                //mf.p_240.pgn[mf.p_240.Ferti_On] = 1;
+                mf.p_240.pgn[mf.p_240.Ferti_On] = 1;
                 mf.p_240.pgn[mf.p_240.Rincage] = 0;
                 mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti) >> 8));
                 mf.p_240.pgn[mf.p_240.DebitLo] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti)));
 
-                //if (mf.autoBtnState == FormGPS.btnStates.Off)
-                //{
-                //    mf.btnSectionOffAutoOn.PerformClick();
-               // }
+               if (mf.autoBtnState == btnStates.Off)
+                {
+                   mf.btnSectionMasterAuto.PerformClick();
+                }
 
                 if (cboxFertiActive.Checked == true)
                 {
@@ -111,6 +111,10 @@ namespace AgOpenGPS
                 // mf.Ferti_active = false;
                 //cbox_auto.Checked = false;
                 mf.p_240.pgn[mf.p_240.Ferti_On] = 0;
+                if (mf.autoBtnState == btnStates.Auto)
+                {
+                    mf.btnSectionMasterAuto.PerformClick();
+                }
 
             }
         }

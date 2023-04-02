@@ -641,7 +641,7 @@
             this.btnSerialMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSerialMonitor.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialMonitor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSerialMonitor.Image = global::AgIO.Properties.Resources.NTRIP_Serial;
+            this.btnSerialMonitor.Image = global::AgIO.Properties.Resources.SerialMonitor;
             this.btnSerialMonitor.Location = new System.Drawing.Point(761, 110);
             this.btnSerialMonitor.Name = "btnSerialMonitor";
             this.btnSerialMonitor.Size = new System.Drawing.Size(76, 65);

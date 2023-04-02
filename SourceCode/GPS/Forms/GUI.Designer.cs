@@ -1004,10 +1004,10 @@ namespace AgOpenGPS
                 //0 at bottom for opengl, 0 at top for windows, so invert Y value
                 Point point = oglMain.PointToClient(Cursor.Position);
 
-                if (point.Y < 90 && point.Y > 30 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn))
+                if (point.Y < 110 && point.Y > 50 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn)) //ajout max
                 {
 
-                    int middle = oglMain.Width / 2 + oglMain.Width / 5;
+                    double middle = oglMain.Width / 2 + oglMain.Width / 5; //ajout max (double)
                     if (point.X > middle - 80 && point.X < middle + 80)
                     {
                         if (isTT)
@@ -1021,7 +1021,7 @@ namespace AgOpenGPS
                     }
 
                     //manual uturn triggering
-                    middle = oglMain.Width / 2 - oglMain.Width / 4;
+                    middle = oglMain.Width / 2 - oglMain.Width / 6;
                     if (point.X > middle - 140 && point.X < middle && isUTurnOn)
                     {
                         if (isTT)
@@ -1065,9 +1065,9 @@ namespace AgOpenGPS
                     }
                 }
 
-                if (point.Y < 150 && point.Y > 90 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn))
+                if (point.Y < 180 && point.Y > 120 && (ABLine.isBtnABLineOn || curve.isBtnCurveOn)) //ajout max
                 {
-                    int middle = oglMain.Width / 2 - oglMain.Width / 4;
+                    double middle = oglMain.Width / 2 - oglMain.Width / 6;
                     if (point.X > middle - 140 && point.X < middle && isLateralOn)
                     {
                         if (isTT)

@@ -124,7 +124,6 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\nl\AgOpenGP
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\pl\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\ru\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\uk\AgOpenGPS.resources.dll
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.AssemblyReference.cache
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormFieldKML.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormMap.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.Forms.FormRecordName.resources
@@ -202,3 +201,4 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\D
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.CopyComplete
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.pdb
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.csproj.AssemblyReference.cache

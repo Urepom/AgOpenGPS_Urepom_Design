@@ -522,7 +522,7 @@ namespace AgOpenGPS
             {
                 //Start AgIO process
                 Process[] processName = Process.GetProcessesByName("AgIO");
-                if (processName.Length == 0)
+                if (processName.Length < 2)
                 {
                     //Start application here
                     DirectoryInfo di = new DirectoryInfo(Application.StartupPath);

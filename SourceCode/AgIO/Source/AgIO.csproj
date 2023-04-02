@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Deployment" />
@@ -90,6 +91,12 @@
     </Compile>
     <Compile Include="Forms\FormCommSetGPS.Designer.cs">
       <DependentUpon>FormCommSetGPS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPGN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPGN.Designer.cs">
+      <DependentUpon>FormPGN.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormSerialMonitor.cs">
       <SubType>Form</SubType>
@@ -138,6 +145,12 @@
     </Compile>
     <Compile Include="Forms\FormEthernet.designer.cs">
       <DependentUpon>FormEthernet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormUDPMonitor .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormUDPMonitor .Designer.cs">
+      <DependentUpon>FormUDPMonitor .cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormYes.cs">
       <SubType>Form</SubType>
@@ -322,6 +335,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgIO_ico.ico" />
+    <None Include="btnImages\SerialMonitor.png" />
+    <None Include="btnImages\EthernetSetup.png" />
     <None Include="btnImages\B_Ferti.png" />
     <None Include="btnImages\Help.png" />
     <None Include="btnImages\ConSt_Mandatory.png" />

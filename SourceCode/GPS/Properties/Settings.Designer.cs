@@ -2747,5 +2747,17 @@ namespace AgOpenGPS.Properties {
                 this["UP_SetTimerRincFerti"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool setTool_isSectionOffWhenOut {
+            get {
+                return ((bool)(this["setTool_isSectionOffWhenOut"]));
+            }
+            set {
+                this["setTool_isSectionOffWhenOut"] = value;
+            }
+        }
     }
 }

@@ -962,9 +962,10 @@ namespace AgOpenGPS
                                 recPath.recList.Add(point);
                             }
                         }
-
-                        if (recPath.recList.Count > 0) panelDrag.Visible = true;
-                        else panelDrag.Visible = false;
+                        //ajout max
+                        //if (recPath.recList.Count > 0) panelDrag.Visible = true;
+                        //else panelDrag.Visible = false;
+                        //fin
                     }
 
                     catch (Exception e)

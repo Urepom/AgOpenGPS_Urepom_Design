@@ -30,7 +30,6 @@ C:\Users\maxim\Documents\AOG DEV\2023\5.7.1\officielle\AgOpenGPS_UP\AgOpenGPS-ma
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgIO.exe.config
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgIO.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\AgIO.pdb
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.AssemblyReference.cache
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.FormCommPicker.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.FormCommSaver.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.FormCommSetGPS.resources

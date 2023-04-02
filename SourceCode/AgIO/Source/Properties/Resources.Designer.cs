@@ -313,6 +313,16 @@ namespace AgIO.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EthernetSetup {
+            get {
+                object obj = ResourceManager.GetObject("EthernetSetup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
@@ -456,6 +466,16 @@ namespace AgIO.Properties {
         internal static System.Drawing.Bitmap ScanPorts {
             get {
                 object obj = ResourceManager.GetObject("ScanPorts", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SerialMonitor {
+            get {
+                object obj = ResourceManager.GetObject("SerialMonitor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

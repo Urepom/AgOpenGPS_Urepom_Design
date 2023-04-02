@@ -18,6 +18,16 @@ namespace AgIO
             var form = new FormYes(s1);
             form.ShowDialog(this);
         }
+        private void toolStripUDPMonitor_Click(object sender, EventArgs e)
+        {
+            ShowUDPMonitor();
+        }
+
+        private void ShowUDPMonitor()
+        {
+            var form = new FormUDPMonitor(this);
+            form.Show(this);
+        }
 
         private void toolStripSerialMonitor_Click(object sender, EventArgs e)
         {
