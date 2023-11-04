@@ -58,7 +58,7 @@ namespace AgOpenGPS
             string[] fullVers = strWebVersion.Split(',');
             double webV = double.Parse(fullVers[0], CultureInfo.InvariantCulture);
             webV += double.Parse(fullVers[1], CultureInfo.InvariantCulture) * 0.1;
-            if (clientVersion < webV)
+            if (clientVersion + 0.0001 < webV)
             {
                 SaveConfig.Checked = true;
                 button1.Visible = true;
