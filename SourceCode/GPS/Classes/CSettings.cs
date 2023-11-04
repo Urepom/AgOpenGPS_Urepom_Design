@@ -13,16 +13,16 @@ namespace AgOpenGPS
         public CFeatureSettings() { }
 
         //public bool ;
-        public bool isHeadlandOn = true;
-        public bool isTramOn = true;
+        public bool isHeadlandOn = false;
+        public bool isTramOn = false;
         public bool isBoundaryOn = true;
         public bool isBndContourOn = true;
-        public bool isRecPathOn = true;
-        public bool isABSmoothOn = true;
+        public bool isRecPathOn = false;
+        public bool isABSmoothOn = false;
 
         public bool isHideContourOn = true;
-        public bool isWebCamOn = true;
-        public bool isOffsetFixOn = true;
+        public bool isWebCamOn = false;
+        public bool isOffsetFixOn = false;
         public bool isAgIOOn = true;
 
         public bool isContourOn = true;
@@ -36,8 +36,8 @@ namespace AgOpenGPS
         public bool isCurveOn = true;
         public bool isAutoSteerOn = true;
 
-        public bool isUTurnOn = true;
-        public bool isLateralOn = true;
+        public bool isUTurnOn = false;
+        public bool isLateralOn = false;
 
         public CFeatureSettings(CFeatureSettings _feature)
         {
@@ -149,7 +149,7 @@ namespace AgOpenGPS
         {
             if (!File.Exists(settingsFilePath))
             {
-                return(false);
+                return (false);
             }
             try
             {
@@ -170,7 +170,7 @@ namespace AgOpenGPS
                     if (line == null)
                     {
                         MessageBox.Show("Fatal Error with Settings File");
-                        return(false);
+                        return (false);
                     }
 
                     if (line.Contains("ies.Vehicle"))
@@ -219,7 +219,7 @@ namespace AgOpenGPS
             catch (Exception)
             {
                 MessageBox.Show("Fatal Error with Settings File");
-                return(false); 
+                return (false);
             }
 
             try
@@ -255,7 +255,7 @@ namespace AgOpenGPS
                 // Could not import settings.
                 Properties.Settings.Default.Reload();
                 MessageBox.Show("Fatal Error with Settings File");
-                return(false);
+                return (false);
 
             }
         }

@@ -232,6 +232,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Boundary Contour.
+        /// </summary>
+        public static string gsBoundaryMenu {
+            get {
+                return ResourceManager.GetString("gsBoundaryMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à But Field Is Loaded.
         /// </summary>
         public static string gsButFieldIsLoaded {
@@ -250,11 +259,20 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Centimeters.
+        ///   Recherche une chaîne localisée semblable à Centimeter.
         /// </summary>
         public static string gsCentimeters {
             get {
                 return ResourceManager.GetString("gsCentimeters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Charts.
+        /// </summary>
+        public static string gsCharts {
+            get {
+                return ResourceManager.GetString("gsCharts", resourceCulture);
             }
         }
         
@@ -520,7 +538,7 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Distance (m).
+        ///   Recherche une chaîne localisée semblable à Distance.
         /// </summary>
         public static string gsDistance {
             get {
@@ -543,6 +561,15 @@ namespace AgOpenGPS {
         public static string gsDriveForward {
             get {
                 return ResourceManager.GetString("gsDriveForward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Drive In.
+        /// </summary>
+        public static string gsDriveIn {
+            get {
+                return ResourceManager.GetString("gsDriveIn", resourceCulture);
             }
         }
         
@@ -588,6 +615,15 @@ namespace AgOpenGPS {
         public static string gsEditABLine {
             get {
                 return ResourceManager.GetString("gsEditABLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Edit Field Name.
+        /// </summary>
+        public static string gsEditFieldName {
+            get {
+                return ResourceManager.GetString("gsEditFieldName", resourceCulture);
             }
         }
         
@@ -763,11 +799,47 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à From Existing.
+        /// </summary>
+        public static string gsFromExisting {
+            get {
+                return ResourceManager.GetString("gsFromExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à From KML.
+        /// </summary>
+        public static string gsFromKml {
+            get {
+                return ResourceManager.GetString("gsFromKml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Grid.
         /// </summary>
         public static string gsGrid {
             get {
                 return ResourceManager.GetString("gsGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Guidance Stopped.
+        /// </summary>
+        public static string gsGuidanceStopped {
+            get {
+                return ResourceManager.GetString("gsGuidanceStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Heading Chart.
+        /// </summary>
+        public static string gsHeadingChart {
+            get {
+                return ResourceManager.GetString("gsHeadingChart", resourceCulture);
             }
         }
         
@@ -817,7 +889,16 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Inches.
+        ///   Recherche une chaîne localisée semblable à If Wrong Direction Tap Vehicle.
+        /// </summary>
+        public static string gsIfWrongDirectionTapVehicle {
+            get {
+                return ResourceManager.GetString("gsIfWrongDirectionTapVehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Inch.
         /// </summary>
         public static string gsInches {
             get {
@@ -1141,6 +1222,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à No Settings With IMU.
+        /// </summary>
+        public static string gsNoSettingsWithIMU {
+            get {
+                return ResourceManager.GetString("gsNoSettingsWithIMU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Nothing Deleted.
         /// </summary>
         public static string gsNothingDeleted {
@@ -1240,6 +1330,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Past End Of Curve.
+        /// </summary>
+        public static string gsPastEndOfCurve {
+            get {
+                return ResourceManager.GetString("gsPastEndOfCurve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pause.
         /// </summary>
         public static string gsPause {
@@ -1335,6 +1434,15 @@ namespace AgOpenGPS {
         public static string gsRecordedPathFileIsCorrupt {
             get {
                 return ResourceManager.GetString("gsRecordedPathFileIsCorrupt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Recorded Path.
+        /// </summary>
+        public static string gsRecordedPathMenu {
+            get {
+                return ResourceManager.GetString("gsRecordedPathMenu", resourceCulture);
             }
         }
         
@@ -1519,6 +1627,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Slow Down Below.
+        /// </summary>
+        public static string gsSlowDownBelow {
+            get {
+                return ResourceManager.GetString("gsSlowDownBelow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Smooth AB Curve.
         /// </summary>
         public static string gsSmoothABCurve {
@@ -1600,11 +1717,20 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Steer Chart.
+        ///   Recherche une chaîne localisée semblable à Charts.
         /// </summary>
         public static string gsSteerChart {
             get {
                 return ResourceManager.GetString("gsSteerChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Steer Wizard.
+        /// </summary>
+        public static string gsSteerWizard {
+            get {
+                return ResourceManager.GetString("gsSteerWizard", resourceCulture);
             }
         }
         
@@ -1623,6 +1749,15 @@ namespace AgOpenGPS {
         public static string gsToFile {
             get {
                 return ResourceManager.GetString("gsToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Too Fast.
+        /// </summary>
+        public static string gsTooFast {
+            get {
+                return ResourceManager.GetString("gsTooFast", resourceCulture);
             }
         }
         
@@ -1780,6 +1915,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Wizards.
+        /// </summary>
+        public static string gsWizards {
+            get {
+                return ResourceManager.GetString("gsWizards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Work Switch Active Low.
         /// </summary>
         public static string gsWorkSwActiveLow {
@@ -1803,6 +1947,15 @@ namespace AgOpenGPS {
         public static string gsWorkSwitchControlsManual {
             get {
                 return ResourceManager.GetString("gsWorkSwitchControlsManual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à XTE Chart.
+        /// </summary>
+        public static string gsXTEChart {
+            get {
+                return ResourceManager.GetString("gsXTEChart", resourceCulture);
             }
         }
         
@@ -2306,6 +2459,17 @@ namespace AgOpenGPS {
         public static string h_hsbarHighSteerPWM {
             get {
                 return ResourceManager.GetString("h_hsbarHighSteerPWM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Hold Look Ahead Slider
+        ///
+        ///How far ahead the algorithm looks to at the reference point to decide if it is wandering off line. When distance to line is &lt;10cm, system is in &quot;Hold&quot; mode. Otherwise, it is acquiring. If it is slow to realise it is losing the line, decrease this. If it constantly over-correcting at less than 10cm, increase this..
+        /// </summary>
+        public static string h_hsbarHoldLookAhead {
+            get {
+                return ResourceManager.GetString("h_hsbarHoldLookAhead", resourceCulture);
             }
         }
         
@@ -3184,7 +3348,7 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Select IMU orientation axis so when the vehicle rolls to the side, the roll value changes..
+        ///   Recherche une chaîne localisée semblable à Select IMU orientation axis so when the vehicle rolls to the side, the roll value changes. .
         /// </summary>
         public static string hc_cboxXY {
             get {

@@ -161,7 +161,7 @@ namespace AgOpenGPS
             }
 
             double dis = (Math.Abs(Properties.Settings.Default.setVehicle_hitchLength) * mf.m2InchOrCm);
-            nudDrawbarLength.Value = (decimal)(Math.Abs(Properties.Settings.Default.setVehicle_hitchLength)*mf.m2InchOrCm);
+            nudDrawbarLength.Value = (decimal)(Math.Abs(Properties.Settings.Default.setVehicle_hitchLength) * mf.m2InchOrCm);
             nudTrailingHitchLength.Value = (decimal)(Math.Abs(Properties.Settings.Default.setTool_toolTrailingHitchLength) * mf.m2InchOrCm);
             nudTankHitch.Value = (decimal)(Math.Abs(Properties.Settings.Default.setVehicle_tankTrailingHitchLength) * mf.m2InchOrCm);
         }
@@ -212,11 +212,11 @@ namespace AgOpenGPS
 
         private void tabTSettings_Enter(object sender, EventArgs e)
         {
-            nudLookAhead.Value =    (decimal)Properties.Settings.Default.setVehicle_toolLookAheadOn;
+            nudLookAhead.Value = (decimal)Properties.Settings.Default.setVehicle_toolLookAheadOn;
             nudLookAheadOff.Value = (decimal)Properties.Settings.Default.setVehicle_toolLookAheadOff;
             nudTurnOffDelay.Value = (decimal)Properties.Settings.Default.setVehicle_toolOffDelay;
-            nudOffset.Value =       (int)(Properties.Settings.Default.setVehicle_toolOffset*mf.m2InchOrCm);
-            nudOverlap.Value =      (int)(Properties.Settings.Default.setVehicle_toolOverlap*mf.m2InchOrCm);
+            nudOffset.Value = (int)(Properties.Settings.Default.setVehicle_toolOffset * mf.m2InchOrCm);
+            nudOverlap.Value = (int)(Properties.Settings.Default.setVehicle_toolOverlap * mf.m2InchOrCm);
         }
 
         private void tabTSettings_Leave(object sender, EventArgs e)
@@ -294,7 +294,7 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap 
+                Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap
                     = (double)nudOverlap.Value * mf.inchOrCm2m;
             }
         }
@@ -303,7 +303,7 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
-                Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset 
+                Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset
                     = (double)nudOffset.Value * mf.inchOrCm2m;
             }
         }
@@ -317,6 +317,14 @@ namespace AgOpenGPS
             cboxIsUnique.Checked = !mf.tool.isSectionsNotZones;
 
             cboxSectionBoundaryControl.Checked = Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            if (cboxSectionBoundaryControl.Checked)
+            {
+                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
+            }
+            else
+            {
+                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
+            }
 
             nudCutoffSpeed.Value = (decimal)Properties.Settings.Default.setVehicle_slowSpeedCutoff;
 
@@ -332,7 +340,7 @@ namespace AgOpenGPS
             }
 
             nudNumberOfSections.Maximum = FormGPS.MAXSECTIONS;
-            
+
             //fix ManualOffOnAuto buttons
             mf.manualBtnState = btnStates.Off;
             mf.btnSectionMasterManual.Image = Properties.Resources.ManualOff;
@@ -550,7 +558,7 @@ namespace AgOpenGPS
                 }
 
                 String str = "";
-                str = String.Join(",",mf.tool.zoneRanges);
+                str = String.Join(",", mf.tool.zoneRanges);
                 Properties.Settings.Default.setTool_zones = str;
 
                 mf.LineUpAllZoneButtons();
@@ -568,7 +576,7 @@ namespace AgOpenGPS
             if (mf.KeypadToNUD((NumericUpDown)sender, this))
             {
                 mf.tool.zoneRanges[1] = (int)nudZone1To.Value;
-                SetNudZoneVisibility(); 
+                SetNudZoneVisibility();
             }
         }
 
@@ -803,6 +811,21 @@ namespace AgOpenGPS
             }
 
         }
+        private void cboxSectionBoundaryControl_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.setTool_isSectionOffWhenOut = !Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            Properties.Settings.Default.Save();
+
+            cboxSectionBoundaryControl.Checked = Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            if (cboxSectionBoundaryControl.Checked)
+            {
+                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
+            }
+            else
+            {
+                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
+            }
+        }
 
         private void cboxIsUnique_Click(object sender, EventArgs e)
         {
@@ -824,7 +847,7 @@ namespace AgOpenGPS
                 lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * mf.cm2CmOrIn));
                 SectionFeetInchesTotalWidthLabelUpdate();
                 FillZoneNudsWithDefaultValues();
-                SetNudZoneVisibility(); 
+                SetNudZoneVisibility();
             }
         }
 
@@ -1343,15 +1366,15 @@ namespace AgOpenGPS
             int i = numberOfSections;
 
             //convert to meters spinner value
-            sectionWidth1  = nudSection1.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth2  = nudSection2.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth3  = nudSection3.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth4  = nudSection4.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth5  = nudSection5.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth6  = nudSection6.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth7  = nudSection7.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth8  = nudSection8.Value * (decimal)mf.inchOrCm2m;
-            sectionWidth9  = nudSection9.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth1 = nudSection1.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth2 = nudSection2.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth3 = nudSection3.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth4 = nudSection4.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth5 = nudSection5.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth6 = nudSection6.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth7 = nudSection7.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth8 = nudSection8.Value * (decimal)mf.inchOrCm2m;
+            sectionWidth9 = nudSection9.Value * (decimal)mf.inchOrCm2m;
             sectionWidth10 = nudSection10.Value * (decimal)mf.inchOrCm2m;
             sectionWidth11 = nudSection11.Value * (decimal)mf.inchOrCm2m;
             sectionWidth12 = nudSection12.Value * (decimal)mf.inchOrCm2m;
@@ -1785,7 +1808,7 @@ namespace AgOpenGPS
 
         private void chkSelectWorkSwitch_Click(object sender, EventArgs e)
         {
-            chkSetManualSections.Enabled = chkSetAutoSections.Enabled= chkWorkSwActiveLow.Enabled = chkSelectWorkSwitch.Checked;
+            chkSetManualSections.Enabled = chkSetAutoSections.Enabled = chkWorkSwActiveLow.Enabled = chkSelectWorkSwitch.Checked;
         }
 
         private void chkSelectSteerSwitch_Click(object sender, EventArgs e)

@@ -9,7 +9,7 @@ namespace AgOpenGPS
         public List<vec3> turnClosestList = new List<vec3>();
 
         public int turnSelected, closestTurnNum;
-        public double iE=0, iN=0;
+        public double iE = 0, iN = 0;
 
         //point at the farthest turn segment from pivotAxle
         public vec3 closestTurnPt = new vec3(-10000, -10000, 9);
@@ -31,9 +31,10 @@ namespace AgOpenGPS
             return -1; //is outside border turn
         }
 
-        public void FindClosestTurnPoint(bool isYouTurnRight, vec3 fromPt, double headAB)
+        public vec3 closePt;
+
+        public void FindClosestTurnPoint(vec3 fromPt)
         {
-            vec3 closePt;
             double eP = fromPt.easting;
             double nP = fromPt.northing;
             double eAB, nAB;
@@ -54,7 +55,7 @@ namespace AgOpenGPS
             for (int j = 0; j < bndList.Count; j++)
             {
 
-                for (int i = 0; i < mf.bnd.bndList[j].turnLine.Count - 2; i++)
+                for (int i = 0; i < mf.bnd.bndList[j].turnLine.Count - 1; i++)
                 {
                     int res = mf.yt.GetLineIntersection(
                         mf.bnd.bndList[j].turnLine[i].easting,
@@ -81,6 +82,16 @@ namespace AgOpenGPS
 
             //determine closest point
             double minDistance = double.MaxValue;
+
+            if (turnClosestList.Count == 1)
+            {
+                closestTurnPt.easting = turnClosestList[0].easting;
+                closestTurnPt.northing = turnClosestList[0].northing;
+                closestTurnPt.heading = turnClosestList[0].heading;
+
+                if (closestTurnPt.heading < 0) closestTurnPt.heading += glm.twoPI;
+                return;
+            }
 
             if (turnClosestList.Count > 0 || turnClosestList.Count != 0)
             {
@@ -173,7 +184,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                vec3 end = new vec3(bndList[j].turnLine[0].easting, 
+                vec3 end = new vec3(bndList[j].turnLine[0].easting,
                     bndList[j].turnLine[0].northing, bndList[j].turnLine[0].heading);
                 bndList[j].turnLine.Add(end);
             }

@@ -122,7 +122,6 @@ namespace AgOpenGPS
             nudAntennaHeight.Controls[0].Enabled = false;
             nudAntennaOffset.Controls[0].Enabled = false;
             nudAntennaPivot.Controls[0].Enabled = false;
-            nudLightbarCmPerPixel.Controls[0].Enabled = false;
             nudVehicleTrack.Controls[0].Enabled = false;
             nudSnapDistance.Controls[0].Enabled = false;
             nudABLength.Controls[0].Enabled = false;
@@ -150,7 +149,6 @@ namespace AgOpenGPS
             nudSection16.Controls[0].Enabled = false;
             nudNumberOfSections.Controls[0].Enabled = false;
 
-            nudMinFixStepDistance.Controls[0].Enabled = false;
             nudStartSpeed.Controls[0].Enabled = false;
 
             nudZone1To.Controls[0].Enabled = false;
@@ -173,6 +171,12 @@ namespace AgOpenGPS
             nudGuidanceLookAhead.Controls[0].Enabled = false;
 
             nudDualHeadingOffset.Controls[0].Enabled = false;
+
+            nudMaxAngularVelocity.Controls[0].Enabled = false;
+
+            nudGuidanceSpeedLimit.Controls[0].Enabled = false;
+            nudMaxSteerSpeed.Controls[0].Enabled = false;
+            nudMinSteerSpeed.Controls[0].Enabled = false;
         }
 
         private void FormConfig_Load(object sender, EventArgs e)
@@ -286,6 +290,7 @@ namespace AgOpenGPS
             chkDisplayDayNight.Checked = mf.isAutoDayNight;
             chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
             chkDisplayExtraGuides.Checked = mf.isSideGuideLines;
+            chkSvennArrow.Checked = mf.isSvennArrowOn;
             chkDisplayLogNMEA.Checked = mf.isLogNMEA;
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayLightbar.Checked = mf.isLightbarOn;
@@ -337,9 +342,6 @@ namespace AgOpenGPS
 
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
-
-            nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum / 2.54M);
-            nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum / 2.54M);
 
             nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum / 2.54M);
             nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum / 2.54M);
@@ -398,9 +400,6 @@ namespace AgOpenGPS
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
-            nudLightbarCmPerPixel.Minimum = Math.Round(nudLightbarCmPerPixel.Minimum / 2.54M);
-            nudLightbarCmPerPixel.Maximum = Math.Round(nudLightbarCmPerPixel.Maximum / 2.54M);
-
             //Meters to feet
             nudTurnDistanceFromBoundary.Minimum = Math.Round(nudTurnDistanceFromBoundary.Minimum * 3.28M);
             nudTurnDistanceFromBoundary.Maximum = Math.Round(nudTurnDistanceFromBoundary.Maximum * 3.28M);
@@ -424,6 +423,7 @@ namespace AgOpenGPS
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
             chkDisplayDayNight.Checked = mf.isAutoDayNight;
             chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
+            chkSvennArrow.Checked = mf.isSvennArrowOn;
             chkDisplayExtraGuides.Checked = mf.isSideGuideLines;
             chkDisplayLogNMEA.Checked = mf.isLogNMEA;
             chkDisplayPolygons.Checked = mf.isDrawPolygons;

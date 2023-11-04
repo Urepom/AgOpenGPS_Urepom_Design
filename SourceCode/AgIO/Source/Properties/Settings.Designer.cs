@@ -133,7 +133,7 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("69.75.31.235")]
+        [global::System.Configuration.DefaultSettingValueAttribute("147.100.179.214")]
         public string setNTRIP_casterIP {
             get {
                 return ((string)(this["setNTRIP_casterIP"]));
@@ -157,7 +157,7 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SCSC")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NORT")]
         public string setNTRIP_mount {
             get {
                 return ((string)(this["setNTRIP_mount"]));
@@ -253,7 +253,7 @@ namespace AgIO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NTRIP.itsware.net")]
+        [global::System.Configuration.DefaultSettingValueAttribute("caster.centipede.fr")]
         public string setNTRIP_casterURL {
             get {
                 return ((string)(this["setNTRIP_casterURL"]));

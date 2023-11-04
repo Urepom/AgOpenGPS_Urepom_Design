@@ -142,7 +142,7 @@
     <value>Type d'antenne</value>
   </data>
   <data name="gsAreYouSure" xml:space="preserve">
-    <value>Êtes-vous sûr ?</value>
+    <value>Êtes-vous sûr ?</value>
   </data>
   <data name="gsArea" xml:space="preserve">
     <value>Zone</value>
@@ -174,6 +174,9 @@
   <data name="gsBoundaryLineFilesAreCorrupt" xml:space="preserve">
     <value>Fichier de la bordure corrompu</value>
   </data>
+  <data name="gsBoundaryMenu" xml:space="preserve">
+    <value>Menu Limite</value>
+  </data>
   <data name="gsButFieldIsLoaded" xml:space="preserve">
     <value>Champ tout de même chargé</value>
   </data>
@@ -181,7 +184,10 @@
     <value>Annuler</value>
   </data>
   <data name="gsCentimeters" xml:space="preserve">
-    <value>Centimètres</value>
+    <value>Centimètre</value>
+  </data>
+  <data name="gsCharts" xml:space="preserve">
+    <value>Graphs Direction</value>
   </data>
   <data name="gsChooseADifferentField" xml:space="preserve">
     <value>Choisissez un autre champ</value>
@@ -190,10 +196,10 @@
     <value>Choisissez un autre nom.</value>
   </data>
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
-    <value>Choisissez ou créez un autre</value>
+    <value>Choisissez ou créez  un autre</value>
   </data>
   <data name="gsClick2Pointsontheboundary" xml:space="preserve">
-    <value>Saisissez 2 point sur les bordures du champ</value>
+    <value>Saisissez 2 points sur les bordures du champ</value>
   </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Fermez d'abord le champ !</value>
@@ -270,11 +276,17 @@
   <data name="gsDirectoryExists" xml:space="preserve">
     <value>Le répertoire existe</value>
   </data>
+  <data name="gsDistance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
   <data name="gsDistanceToFlag" xml:space="preserve">
     <value>Distance du drapeau</value>
   </data>
   <data name="gsDriveForward" xml:space="preserve">
     <value>Avancer ( &gt;1.5 Kmh)</value>
+  </data>
+  <data name="gsDriveIn" xml:space="preserve">
+    <value>En Route</value>
   </data>
   <data name="gsDriveThru" xml:space="preserve">
     <value>Parcourable</value>
@@ -290,6 +302,9 @@
   </data>
   <data name="gsEditABLine" xml:space="preserve">
     <value>Editer la ligne AB</value>
+  </data>
+  <data name="gsEditFieldName" xml:space="preserve">
+    <value>Modifier le nom du champ</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>Activer</value>
@@ -307,7 +322,7 @@
     <value>Entrez le nom du champ</value>
   </data>
   <data name="gsEnterSimCoords" xml:space="preserve">
-    <value>Entrez Coord. Sim</value>
+    <value>Entrez  Coord. Sim</value>
   </data>
   <data name="gsError" xml:space="preserve">
     <value>Erreur</value>
@@ -319,7 +334,7 @@
     <value>Lignes de guidage</value>
   </data>
   <data name="gsField" xml:space="preserve">
-    <value>Champ</value>
+    <value>Parcelle</value>
   </data>
   <data name="gsFieldFileIsCorrupt" xml:space="preserve">
     <value>Le fichier de terrain est corrompu!</value>
@@ -348,8 +363,17 @@
   <data name="gsForNow" xml:space="preserve">
     <value>Pour l'instant</value>
   </data>
+  <data name="gsFromExisting" xml:space="preserve">
+    <value>Depuis l'existant</value>
+  </data>
+  <data name="gsFromKml" xml:space="preserve">
+    <value>Depuis KLM</value>
+  </data>
   <data name="gsGrid" xml:space="preserve">
     <value>Grille</value>
+  </data>
+  <data name="gsHeadingChart" xml:space="preserve">
+    <value>Grafique Cap</value>
   </data>
   <data name="gsHeadland" xml:space="preserve">
     <value>Tournières</value>
@@ -357,14 +381,20 @@
   <data name="gsHeadlandForm" xml:space="preserve">
     <value>Créer/Editer une tournière</value>
   </data>
+  <data name="gsHelp" xml:space="preserve">
+    <value>Aide</value>
+  </data>
   <data name="gsHydraulicLiftConfig" xml:space="preserve">
     <value>Configuration du relevage</value>
   </data>
   <data name="gsHydraulicLiftLookAhead" xml:space="preserve">
     <value>Anticipation du relevage (secs)</value>
   </data>
+  <data name="gsIfWrongDirectionTapVehicle" xml:space="preserve">
+    <value>Mauvaise direction? Appuyez sur le Vehicule</value>
+  </data>
   <data name="gsInches" xml:space="preserve">
-    <value>Pouces</value>
+    <value>Pouce</value>
   </data>
   <data name="gsInner" xml:space="preserve">
     <value>Intérieure</value>
@@ -462,6 +492,9 @@
   <data name="gsNoGuidanceLines" xml:space="preserve">
     <value>Aucune ligne de guidage trouvée</value>
   </data>
+  <data name="gsNoSettingsWithIMU" xml:space="preserve">
+    <value>Aucun paramètres  IMU</value>
+  </data>
   <data name="gsNone" xml:space="preserve">
     <value>Aucun</value>
   </data>
@@ -531,6 +564,9 @@
   <data name="gsRecordedPathFileIsCorrupt" xml:space="preserve">
     <value>Fichier d'enregistrement chemin corrompu</value>
   </data>
+  <data name="gsRecordedPathMenu" xml:space="preserve">
+    <value>Menu Chemin enregistré</value>
+  </data>
   <data name="gsRemoveOffset" xml:space="preserve">
     <value>Supprimer le décalage</value>
   </data>
@@ -591,6 +627,9 @@
   <data name="gsSky" xml:space="preserve">
     <value>Ciel</value>
   </data>
+  <data name="gsSlowDownBelow" xml:space="preserve">
+    <value>Ralentir en dessous</value>
+  </data>
   <data name="gsSmoothABCurve" xml:space="preserve">
     <value>Courbe AB lisse</value>
   </data>
@@ -619,13 +658,19 @@
     <value>Vitesse de démarrage</value>
   </data>
   <data name="gsSteerChart" xml:space="preserve">
-    <value>Graph Angle</value>
+    <value>Tableau de pilotage</value>
+  </data>
+  <data name="gsSteerWizard" xml:space="preserve">
+    <value>Assistant Conduite</value>
   </data>
   <data name="gsStopRecordPauseBoundary" xml:space="preserve">
     <value>Enregistrement de la Bordure</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Sauver</value>
+  </data>
+  <data name="gsTooFast" xml:space="preserve">
+    <value>Trop vite</value>
   </data>
   <data name="gsToolWidth" xml:space="preserve">
     <value>Largeur d'outil</value>
@@ -678,6 +723,9 @@
   <data name="gsWheelbase" xml:space="preserve">
     <value>Empattement</value>
   </data>
+  <data name="gsWizards" xml:space="preserve">
+    <value>Assistant Conduite</value>
+  </data>
   <data name="gsWorkSwActiveLow" xml:space="preserve">
     <value>Activation à la masse</value>
   </data>
@@ -687,71 +735,76 @@
   <data name="gsWorkSwitchControlsManual" xml:space="preserve">
     <value>Activation manuelle</value>
   </data>
+  <data name="gsXTEChart" xml:space="preserve">
+    <value>Graphique XTE</value>
+  </data>
   <data name="gsZeroRoll" xml:space="preserve">
     <value>Roulis à zéro</value>
   </data>
+  <data name="h_btn2D" xml:space="preserve">
+    <value>Bouton vue 2D</value>
+  </data>
+  <data name="h_btn3D" xml:space="preserve">
+    <value>Bouton vue 3D</value>
+  </data>
   <data name="h_btnABDraw" xml:space="preserve">
-    <value>Bouton ABDraw
- 
- ABDraw n'est disponible qu'avec une limite créée. Il fait apparaître un nouveau formulaire pour cliquer sur le périmètre pour créer des lignes, des courbes et une ligne de guidage de périmètre complet. Toutes les lignes peuvent être nommées, supprimées et déplacées. Pratique pour voir toutes les lignes de guidage créées.</value>
+    <value>Bontoun traçage AB. 
+Disponible seulement si une bordure est créée. 
+Il fait apparaître une fenêtre afin de créer lignes, courbes et ligne de gidage du contour.
+Toutes les lignes peuvent être nommées, supprimées ou déplacées.
+Pratique poiru visualiser toutes les lignes créées.</value>
   </data>
   <data name="h_btnABLine" xml:space="preserve">
-    <value>Bouton ABLine
- 
- Le guidage ABLine répète des lignes droites parallèles à travers le champ. Appuyez sur le bouton pour activer le guidage AB si une ligne existe, ou s'il n'y en a pas, affiche le formulaire de création/modification où les lignes peuvent être créées soit par 2 points avec une ligne coupant les deux, soit par un seul point et direction ou cap. Les lignes à droite sont positives et les lignes à gauche sont comptées comme négatives.</value>
+    <value>Bouton Ligne AB.
+Les lignes de guidage AB sont répétées parallelement à travers le champs.
+Un click sur le bouton fait apparaître les lignes existantes, </value>
   </data>
   <data name="h_btnAutoSteer" xml:space="preserve">
-    <value>Bouton de direction automatique
- 
- Active et désactive la commande de direction automatique. Vous devez disposer d'une ligne de guidage active. Appuyer sur le bouton UTurn peut également activer l'Autoguidage. Dans Config/Guidage, vous pouvez définir les fonctionnalités et la fonction des boutons.</value>
+    <value>Bouton Autoguidage</value>
   </data>
   <data name="h_btnAutoSteerConfig" xml:space="preserve">
-    <value>Angle de braquage automatique et bouton Paramètres
- 
- Afficher les angles de braquage et configurer les paramètres AutoSteer</value>
+    <value>Affichage angle de roues
+Peut être cliqué pour afficher la fenêtre de réglage capteur d'angle et volant autoguidage</value>
   </data>
   <data name="h_btnAutoYouTurn" xml:space="preserve">
-    <value>Bouton UTurn
- 
- Si une ligne de guidage est disponible, vous pouvez faire demi-tour automatiquement dans la tournière. Vous pouvez définir la distance du bord du champ pour commencer à tourner, le diamètre et le type de virage. Appuyer sur ce bouton active également l'autoguidage et le demi-tour si les deux sont désactivés.</value>
+    <value>Bouton demi tour automatique
+Si une ligne de quidage est active, il est possible de faire le mi tour dans la tournière automatiquement
+Il est possible de régler la distance par rapport au bord du champs pour le démarrage du demi tour, the diamètre de réalisation du demi tour et son type
+En appuyant sur le bouton, le mode autoguidage + demi tour auto est engagé, si les 2 sont dans l'état non engagé</value>
   </data>
   <data name="h_btnChangeMappingColor" xml:space="preserve">
-    <value>Bouton de changement de couleur de coloriage
- 
- Affiche le sélecteur de couleurs pour choisir une couleur à dessiner là où vous avez travaillé. Vous pouvez changer aussi souvent que vous le souhaitez, mais vous devez parcourir un long chemin avant que la couleur ne change, ou éteindre et rallumer des sections, le changement de couleur sera immédiat.</value>
+    <value>Bouton de modification de la couleur de la coloriage
+</value>
   </data>
   <data name="h_btnConfig" xml:space="preserve">
-    <value>Bouton de configuration principale 
-
-La plupart des paramètres sont ici. Lorsque vous apportez des modifications, elles sont automatiquement enregistrées. Attention cependant car il n'y a pas d'annulation.</value>
+    <value>Bouton de Configuration Générale
+La plupart des réglages se trouvent ici. Tout changement est automatiquement enregistré sans retour en arrière possible</value>
   </data>
   <data name="h_btnContour" xml:space="preserve">
-    <value>Bouton Contour 
-
-Pour permettre d’être guidé par rapport au dernier passage. Si ABLine et ABCurve sont activées, vous pouvez activer et désactiver Contour pendant que l'une de ces fonctions est toujours activée et basculer entre elles.</value>
+    <value>Bouton Contour
+Permet d'être guidé à coté de la dernière passe réalisée. Si le mode courbes AB ou ligne AB est activé, il est possible de switcher entre le mode contour et le mode ligne ou courbe.</value>
   </data>
   <data name="h_btnCurve" xml:space="preserve">
     <value>Bouton Guidage en courbe
-
-Le guidage en courbe vous permet de suivre n'importe quelle forme en lignes se répétant sur le champ. Les lignes sont comme des ligne de contour où le dernier passage suit la courbure de la précédente, mais les changements éventuels ne sont pas reportées sur la ligne suivante. Appuyez sur le bouton pour afficher le formulaire de création/modification de ligne courbe ou l’afficher si elle existe. Un nouvel appui vous permet de copier/modifier/créer des lignes.</value>
+Le guidage en courbe vous permet de suivre n’importe quel tracè enregistré en se répétant à travers le champ. Les tracés sont comme des lignes de contour où la dernière passe suit la courbure de la précédente, mais les variations effectuées ne sont pas portées à la ligne suivante (Seule la courbe AB de référence est reproduite). Appuyez sur le bouton pour afficher le formulaire Création de courbe/Modifier ou, s’il existe déjà une  courbe AB, il l’affiche. Appuyer à nouveau dessus vous permet de copier / éditer / créer plus de lignes.</value>
   </data>
   <data name="h_btnCycleLines" xml:space="preserve">
-    <value>Bouton Parcourir les lignes 
+    <value>Bouton Parcourir les lignes
 
-Vous permet de parcourir les lignes existantes du mode qui est sélectionné. Faites défiler toutes les lignes AB ou toutes les lignes Courbes disponibles. Bouton désactivé si aucune ligne n'existe.</value>
+Vous permet de parcourir les lignes existantes du mode sélectionné (Lignes AB ou Courbes AB). Désactivé si aucune ligne n’est créée.</value>
   </data>
   <data name="h_btnDayNightMode" xml:space="preserve">
-    <value>Bouton mode Jour / mode Nuit</value>
+    <value>Bouton pour l'attribution des couleurs dans les modes jour et nuit</value>
   </data>
   <data name="h_btnDistanceArea" xml:space="preserve">
-    <value>Bouton de distance et de surface 
-
-Affiche la distance parcourue et la surface totale. Appuyez sur les chiffres pour remettre à zéro. Ils sont gardés en mémoire en quittant et en redémarrant</value>
+    <value>Bouton Distance et Zone
+Affiche la distance parcourue et la surface travaillée.
+Toucher les chiffres pour les remettre à zéro. Les valeurs sont enregistrées même si le champs est quitté.</value>
   </data>
   <data name="h_btnEditAB" xml:space="preserve">
-    <value>Bouton Modifier une ligne de guidage
- 
-Si une ligne de guidage active est disponible pour modification, le formulaire pourra s’afficher. C'est le même bouton pour les lignes droites et courbes . Pour copier ou créer de nouvelles lignes de guidage, appuyez sur le bouton Ligne AB ou Courbe AB.</value>
+    <value>Bouton Modifier la ligne de guidage
+S’il existe une ligne de guidage active disponible pour modification, le formulaire de modification de la ligne apparaîtra. C’est le même bouton pour le mode ligne AB ou COurbe AB. La fenêtre ouverte est adaptée en fonction du type Ligne ou Courbe
+Pour copier ou créer de nouvelles lignes de guidage, appuyez sur le bouton ABLine ou AB Curve</value>
   </data>
   <data name="h_btnFerti" xml:space="preserve">
     <value>Bouton gestion de la fertilisation localisée
@@ -759,1002 +812,873 @@ Si une ligne de guidage active est disponible pour modification, le formulaire p
 [Encore en développment par Maxime E] Ouvre un menu pour configurer la gestion de la fertilisation.</value>
   </data>
   <data name="h_btnFlag" xml:space="preserve">
-    <value>Bouton Poser un répère
- 
-Pour poser un drapeau de repère, cliquez avec le bouton droit ou appuyer longuement pour afficher un petit menu permettant de sélectionner des drapeaux de couleur rouge, verte ou jaune. La création d'un drapeau fait apparaître une zone d'édition pour vous permettre d'ajouter des notes, elle montre également quel numéro de drapeau a été créé.</value>
+    <value>Bouton Drapeau
+Ajouter un drapeau à la surface du champs comme indicateur. Vous pouvez faire un clic droit ou une longue pression pour afficher un petit menu pour sélectionner des drapeaux de couleur rouge-vert ou jaune. La création d’un indicateur fait apparaître une zone d’édition pour vous permettre d’ajouter des notes, elle indique également le numéro du drapeau créé</value>
   </data>
   <data name="h_btnFreeDrive" xml:space="preserve">
-    <value>Bouton Drive
- 
-Cela permet de tester manuellement l'autoguidage. Contrôlez l'autoguidage même si vous n’avez pas de ligne, roulez tout droit.
-Vous pouvez changer l'angle avec les flèches.</value>
+    <value>Bouton Conduite libre
+Vous permets d'activer l'autoguidage sans restriction. Permet de vérifier les angles de roues, leur sens. Privilégié une conduite ligne droite en zone dégagée</value>
   </data>
   <data name="h_btnFreeDriveZero" xml:space="preserve">
-    <value>Mode Drive - Angle de braquage zéro
- 
-Réglez l'angle de braquage sur zéro, ou s'il est égal à zéro, réglez l'angle sur plus 5 pour tester le fonctionnement de la direction.</value>
+    <value>Présélection angle de braquaque 0 / 5 dégrés.
+Permet de faire un leger mouvement des roues pour valider leur sens de direction</value>
   </data>
   <data name="h_btnHeadlandOnOff" xml:space="preserve">
-    <value>Bouton Marche / Arrêt Tournière
- 
-Une fois qu'une tournière est créée, vous pouvez activer et désactiver la tournière avec ce bouton. Lorsqu'il est désactivé, le contrôle de sections ne s'arrête plus en bout de champ. Vous pouvez désactiver la coupure de sections dans les tournières en désactivant la tournière dans le formulaire de création/modification de tournière à partir du menu Champ.</value>
+    <value>Bouton On / Off Tournières
+Ce bouton active / désactive le mode Tournière, après création d'une. Si désactiver le mode section automatique ne s'arrête pas à l'intersection de la tournière. Cette désactivation peut être réglé au moment de la création de la tournière</value>
   </data>
   <data name="h_btnHydLift" xml:space="preserve">
-    <value>Bouton On Off de relevage hydraulique
- 
- Une fois qu'une tournière est active et que la commande de tournière est activée, vous pouvez activer la commande de relevage hydraulique pour relever l'outil lors de l'entrée dans la tournière et l'abaisser à nouveau juste avant de le quitter dans la zone de travail. Ce bouton n'est visible qu'avec une tournière créée et activée.</value>
+    <value>Bouton On / Off Relevage automatique
+Une fois qu'une tournière est créée et active, il est possible d'activer le contrôle automatique du relevage, pour baisser à la prise de ligne et lever en fin de ligne</value>
   </data>
   <data name="h_btnLockToContour" xml:space="preserve">
-    <value>Verrouiller la ligne de guidage
- 
-Se verrouille sur la ligne de guidage actuelle jusqu'à ce que vous en arriviez à la fin. Ignore toutes les autres lignes.</value>
+    <value>Verrouiller la ligne
+S'applique au ligne de guidage du contour. Permet de verrouiller la ligne actuellement engagée pour ignorer toute autre prise de ligne</value>
   </data>
   <data name="h_btnManualOffOn" xml:space="preserve">
-    <value>Bouton de contrôle de sections manuel
- 
-Pour activer et désactiver les sections manuellement. Aucun contrôle n'est effectué, peu importe ce qui est actuellement appliqué ou non, à l'intérieur ou à l'extérieur des limites.</value>
-  </data>
-  <data name="h_btnN2D" xml:space="preserve">
-    <value>Affichage vers le Nord et vue 2D</value>
-  </data>
-  <data name="h_btnN3D" xml:space="preserve">
-    <value>Affichage vers le Nord et vue 3D</value>
-  </data>
-  <data name="h_btnRowWidthSkips" xml:space="preserve">
-    <value>Sauts de passage en mode U-turn 
+    <value>Bouton de contrôle manuel des tronçons
+Permet d'activer et désactiver manuellement les tronçons
 
-Sélectionnez le nombre de passages à sauter lorsque vous utilisez le mode U Turn.</value>
-  </data>
-  <data name="h_btnSectionOffAutoOn" xml:space="preserve">
-    <value>Bouton de Contrôle automatique des sections
-
-Le contrôle automatique des sections active les sections si la zone n'est pas appliquée et les désactive si la zone est déjà appliquée. Il s'éteindra en dehors des limites. Vous pouvez paramétrer les temps d’ouverture et de fermeture des sections dans Config/Sections</value>
-  </data>
-  <data name="h_btnSnapToPivot" xml:space="preserve">
-    <value>Bouton Réaligner la ligne de guidage
- 
-Appuyer sur ce bouton déplace la ligne de guidage jusqu'au point de pivot du véhicule. Le changement de position de la ligne n'est pas enregistré. Si vous souhaitez enregistrer la ligne, utilisez le bouton Modifier une ligne de guidage, où vous pouvez enregistrer la nouvelle position de manière permanente. Ce bouton fonctionne en ligne AB et Courbe AB mais pas en mode Contour.</value>
-  </data>
-  <data name="h_btnStanleyPure" xml:space="preserve">
-    <value>Mode de conduite Stanley ou Pure Pursuit
- 
-Sélectionnez le mode que vous souhaitez utiliser. Stanley utilise l'avant du véhicule pour se diriger rapidement vers la ligne. Le point de pivot suit juste l’avant et non la ligne. Bien pour une moissonneuse, mais pas si bien pour les outils attelés.
-Pure Pursuit utilise le point de pivot pour déterminer les corrections de direction et essaie de corriger les erreurs de cap et d’alignement pour se mettre sur la ligne. L'intégrale joue également sur le cap pour ramener le pivot sur la ligne, donc en pentes ou avec du tirant latéral, il suit mieux la ligne en survirant au-delà de la ligne. Chaque mode a son propre réglage, accessible par le bouton des réglages de direction qui est le bouton vert indiquant les angles de braquage dans la partie inférieure gauche de l'écran.</value>
-  </data>
-  <data name="h_btnStartAgIO" xml:space="preserve">
-    <value>Bouton démarrage de l'application AgIO
-
-Si AgIO fonctionne déjà, le bouton ne fait rien, mais si AgIO ne fonctionne pas, il démarrera. AgIO gère toutes les entrées et sorties série et UDP pour AgOpenGPS</value>
-  </data>
-  <data name="h_btnStartSA" xml:space="preserve">
-    <value>Calcul de l'angle de braquage
-
-Pour calculer l'angle de braquage réel, roulez lentement en cercle, cliquez sur Start, et il affichera l'angle une fois terminé. La différence entre la gauche et la droite montre l'erreur Ackermann. Ajustez l'angle Ackermann pour que le virage à gauche soit le même que le virage à droite.</value>
-  </data>
-  <data name="h_btnSteerAngleDown" xml:space="preserve">
-    <value>Bouton Baisser l'angle de braquage
-
-Trourne plus à gauche. Abaisse l'angle de braquage en mode Conduite</value>
-  </data>
-  <data name="h_btnSteerAngleUp" xml:space="preserve">
-    <value>Bouton Augmanter l'angle de braquage
-
-Trourne plus à Droite. Augmante l'angle de braquage en mode Conduite</value>
-  </data>
-  <data name="h_btnTiltDown" xml:space="preserve">
-    <value>Bouton d'inclinaison de la vue vers le bas</value>
-  </data>
-  <data name="h_btnTiltUp" xml:space="preserve">
-    <value>Bouton d'inclinaison de la vue vers le haut</value>
-  </data>
-  <data name="h_btnTramDisplayMode" xml:space="preserve">
-    <value>Bouton Jalonnage
-
-S'il y a des traces de jalonnage actives, vous pouvez sélectionner toutes les traces ou intérieures ou extérieures ou non visibles. Le jalonnages est créé dans le menu Champ et en sélectionnant Lignes de Jalonnage (Tramlines)</value>
-  </data>
-  <data name="h_btnYouSkipEnable" xml:space="preserve">
-    <value>Bouton activation UTurn
- 
-Permet de faire un demi tour automatique, basé sur un nombre de sauts de passages défini, pour passer au passage suivant</value>
-  </data>
-  <data name="h_btnZeroWAS" xml:space="preserve">
-    <value>Bouton réglage zéro de l'angle de braquage
-
-Permet de régler l'angle de braquage à zéro degré. Ce réglage doit être effectué et être à à zéro degré lorsque l'on conduit en ligne droite pour être juste. Ce réglage permet d'affiner le régalge du capteur d'angle pour qu'il soit à zéro degré. Ce réglage est très important et doit être fait avec pécision.</value>
-  </data>
-  <data name="h_btnZoomIn" xml:space="preserve">
-    <value>Bouton zoomer</value>
-  </data>
-  <data name="h_btnZoomOut" xml:space="preserve">
-    <value>Bouton  dézoomer</value>
-  </data>
-  <data name="h_hsbarAckerman" xml:space="preserve">
-    <value>Curseur de compensation Ackermann
-
-La géométrie Ackermann est un dispositif géométrique dans la direction d'un véhicule pour résoudre les problèmes de roues intérieures et extéreieures dans un virage qui tracent des cercles de rayon différents. 
-Ce réglage est basé sur la réféence de la roue droite où l'angle de la roue gauche est déterminé en multipliant l'angle de braquage par le pourcentage sur lequel Ackermann est réglé.
-Ackermann n'a pas d'impact sur l'angle de baquage lorsque l'on tourne à droite, seulement à gauche.
-
-Ex : Ackemann est à 80%. Lorsque l'on tourne à gauche et que l'angle est 10 degrés, l'angle corrigé sera de 8 dégrés</value>
-  </data>
-  <data name="h_hsbarCountsPerDegree" xml:space="preserve">
-    <value>Curseur de points par degré
-
-Le convertisseur ADS crée de -4000 à +4000 (8000) points lorsque le capteur d'angle sort de 0 à 5v. Pour convertir cela en degré d'angle de braquage, parce que nous ne visualisons pas très bien les points, nous divisons ces points par les degré. Ainsi, quand les points par degré augmentent les roues tournent plus loin pour chaque degré. Quand on les déminue les roues ne tournent pas aussi loin.
-Il s'agit d'un réglage important.
-Si le véhicule braque trop, baissez le nombre de point par degré et vice versa</value>
-  </data>
-  <data name="h_hsbarHeadingErrorGain" xml:space="preserve">
-    <value>Curseur réduction de dépassement Stanley
-
-Ce réglage fonctionne en opposition à l'agressivité en empêchant le véhicule dépasser la ligne de guidage.
-C’est le vainqueur des deux, en utilisant le cap et la distance qui déterminent le temps nécessaire pour atteindre la ligne. L'idéal
-est de les équilibrer pour arriver rapidement à la ligne sans aller trop loin sur la ligne ou oscillant d'avant en arrière (trop agréssif).</value>
-  </data>
-  <data name="h_hsbarHighSteerPWM" xml:space="preserve">
-    <value>Curseur puissance PWM maximale
-
-Limite la puissance délivrée au moteur ou à la valve pour éviter un braquage trop vioent.
-Paramétrez plus bas pour éviter les oscillations. Si vous conduisez rapidement, assurez vous de ne pas tourner trop vite.</value>
-  </data>
-  <data name="h_hsbarIntegral" xml:space="preserve">
-    <value>Curseur intégrale Stanley
-
-Le réglage de l’intégrale permet à l'erreur de distance de continuer à s'accumuler au fil du temps pour aider à ajouter un angle de braquage lorsqu'un calcul normal de distance et de cap n'amènera pas le tracteur sur la ligne.
-Comme dans un devers ou avec un outil tirant d’un côté. Trop d'intégrale l'amènera à atteindre la ligne trop rapidement et à la traverser. Un réglage trop bas mettra trop de temps à atteindre la ligne.  
-Mieux vaut régler un peu plus bas, sinon il oscillera beaucoup sur la ligne.</value>
-  </data>
-  <data name="h_hsbarIntegralPurePursuit" xml:space="preserve">
-    <value>Curseur intégrale Pure Poursuit
-
-Le réglage de l'intégrale permet à l'erreur de distance de continuer à s'accumuler au fils du temsps pour aider à ajouter un angle de braquage lorsqu'un calcul normal de distance et de cap n'amènera pas le tracteur sur la ligne.
-Comme dans un devers ou avec un outil tirant d’un côté. Trop d'intégrale l'amènera à atteindre la ligne trop rapidement et à la traverser. Un réglage trop bas mettra trop de temps à atteindre la ligne.  
-Mieux vaut régler un peu plus bas, sinon il oscillera beaucoup sur la ligne.</value>
-  </data>
-  <data name="h_hsbarLookAhead" xml:space="preserve">
-    <value>Curseur distance d'anticipation
-
-Distance en avant du véhicule où se trouve le point de référence. Si le point est proche, le véhicule tourne très rapidement. Plus loin, la direction est plus souple et met plus de temps à se mettre en ligne. Utilisez le gain de vitesse pour définir la distance en fonction de la vitesse car il faut moins de braquage lorsque vous allez plus vite.
-Réglez-le à la vitesse à laquelle vous travaillez le plus souvent.</value>
-  </data>
-  <data name="h_hsbarLookAheadMult" xml:space="preserve">
-    <value>Curseur gain de distance d'anticipation
-
-Plus vous conduisez vite, plus vite vous serez sur la ligne.
- Ce curseur définit la vitesse à laquelle le point de référence s'éloigne de vous à mesure que votre vitesse augmente et réduit l'angle de braquage afin qu'il ne tourne pas aussi vite, empêchant ainsi les allers-retours sur la ligne.</value>
-  </data>
-  <data name="h_hsbarLowSteerPWM" xml:space="preserve">
-    <value>Curseur puissance PWM minimale
-
-Au fur et à mesure que le véhicule se rapproche de la ligne, le gain est réduit linéairement de la valeur max à la valeur basse. Cela  l'aide à dépasser le ligne lorsqu'elle est proche, mais permet un mouvement rapide lorsqu'elle est plus éloignée.
 </value>
   </data>
-  <data name="h_hsbarMaxSteerAngle" xml:space="preserve">
-    <value>Curseur angle de braquage maximal
+  <data name="h_btnN2D" xml:space="preserve">
+    <value>Vue 2D à plat pointant vers le Nord</value>
+  </data>
+  <data name="h_btnN3D" xml:space="preserve">
+    <value>Vue 3D à plat pointant vers le Nord</value>
+  </data>
+  <data name="h_btnRowWidthSkips" xml:space="preserve">
+    <value>Saut de ligne en mode Demi tour automatique
+Sélectionner le nombre de ligne à ignorer lors du prochain demi tour automatique</value>
+  </data>
+  <data name="h_btnSectionOffAutoOn" xml:space="preserve">
+    <value>Bouton On / Off Contrôle de tronçons automatique
+Le contrôle automatique de tronçons, une fois activée permet d'ouvrir les tronçons sur les zones non travaillées, coupes les tronçons automatiquement sur les zones déjà travaillées. Désactive automatiquement tous les tronçons en dehors des limites du champs.
+Les temps et délais d'activaiton sont à regler dans le menu configuration, onglet Tronçons</value>
+  </data>
+  <data name="h_btnSnapToPivot" xml:space="preserve">
+    <value>Bouton Recalage de la ligne
+En appuyant sur ce bouton, la ligne de guidage est automatiquement recalée dans l'axe actuel du tracteur.
+Ce changement de position de la ligne de référence n'est pas mémorisé. Pour le mémoriser, utiliser le bouton Modifier la ligne AB, afin de décider d'enregistrer le décalage pour toujours.
+Le recalage est possible pour les lignes et courbes AB, mais pas pour le contour</value>
+  </data>
+  <data name="h_btnStanleyPure" xml:space="preserve">
+    <value>Mode d'autoguidage Pure P ou Stanley
 
-Cela indique l'angle de braquage maximal gauche et droit. Au départ un angle de braquage bas vous permettra de ne pas conduire avec un angle de braquage inatteignable.
-Vous avez besoin d'une valeur élevée pour braquer dans les demi-tours assez petits et nécessitant un virage serré</value>
+Sélectionnez le mode que vous souhaitez utiliser. Stanley utilise l’avant du véhicule pour indiquer la rapidité avec laquelle il faut se diriger vers la ligne. Le pivot suit simplement le long de la ligne et non sur la ligne.
+Préférable pour les outils type Batteuse. 
+
+Pure Pursuit utilise le point de pivot pour déterminer les corrections de direction et tente de corriger les erreurs de cap et de décalage de la ligne pour entrer sur la ligne et s'y maintenir.. Chaque mode a son propre réglage, accessible par le bouton des paramètres de lautoguidage, identique au bouton d'affichage ded angles de braquage instantanés en bas à gauche de l'écran.</value>
+  </data>
+  <data name="h_btnStartAgIO" xml:space="preserve">
+    <value>Bouton de lancement AgIO  ( AgIO, pour agopengps Inputs / Outputs)
+AgIO gère toutes les entrées et sorties entre AOG et les composants physiques via liaisons série et / ou UDP.</value>
+  </data>
+  <data name="h_btnStartSA" xml:space="preserve">
+    <value>Aide au calcul d’angle de braquage
+
+Fonction pour calculer l’angle de braquage réel, conduire lentement dans un cercle (roues braquées à fond), cliquer sur Démarrer, et l'angle de braquage maxi sera affiché à la fin. La différence entre gauche et droite montre une erreur d’Ackerman. Ajustez l’angle d’Ackermann de sorte que les butées max droite et gauche soient identiques</value>
+  </data>
+  <data name="h_btnSteerAngleDown" xml:space="preserve">
+    <value>Bouton Angle de braquage vers le bas
+
+Tourne plus vers la gauche. Abaisse l’angle de braquage en mode test Drive</value>
+  </data>
+  <data name="h_btnSteerAngleUp" xml:space="preserve">
+    <value>Bouton Angle de braquage vers le haut
+
+Tourne plus vers la droite. Augmente l’angle de braquage en mode test Drive</value>
+  </data>
+  <data name="h_btnTiltDown" xml:space="preserve">
+    <value>Incliner la vue vers le bas</value>
+  </data>
+  <data name="h_btnTiltUp" xml:space="preserve">
+    <value>Incliner la vue vers le haut</value>
+  </data>
+  <data name="h_btnTramDisplayMode" xml:space="preserve">
+    <value>Affichage du mode jalonnage
+Si des lignes de jalonnage sont créées, il est possibles de les afficher partout, seulement sur les lignes AB, seulement sur le contour</value>
+  </data>
+  <data name="h_btnYouSkipEnable" xml:space="preserve">
+    <value>Activation du saut de demi tour
+Permet l'enchainement automatique de plusieurs groupes de saut de ligne. 2 sauts puis 3 sauts puis 2….</value>
+  </data>
+  <data name="h_btnZeroWAS" xml:space="preserve">
+    <value>Bouton de validation du zéro capteur d'angle
+Permet de définir l'angle actuel des roues comme le nouveau zéro.
+Faire un premier réglage en statique, roues droites. Ensuite ajuster le zéro en conduisant sur une ligne AB. Le zéro permettra d'avoir un écart droite gauche équilibré autour de la ligne de guidage
+Ce réglage est primordial dans la précision finale attendue</value>
+  </data>
+  <data name="h_btnZoomIn" xml:space="preserve">
+    <value>Bouton de zoom en avant du champs</value>
+  </data>
+  <data name="h_btnZoomOut" xml:space="preserve">
+    <value>Bouton de zoom en arrière du champs</value>
+  </data>
+  <data name="h_hsbarAckerman" xml:space="preserve">
+    <value>Curseur de réglage de la compensation ackermann. ( Du nom de l'inventeur de cette géométrie)
+Quand un véhicule tourne, pour éviter tout ripage, la roue intérieur braque plus que la roue extérieur. Le capteur d'angle étant monté que d'un coté, il renvoi l'angle réel seulement dans le sens associé au coté du montage.
+La compensation ackermann permet de corriger la lecture de l'angle de la roue opposée.</value>
+  </data>
+  <data name="h_hsbarCountsPerDegree" xml:space="preserve">
+    <value>Curseur Points par dégré
+
+Permet d'ajuster l'angle réel des butées mécaniques des roues, à la plage utilisée du capteur d'angle</value>
+  </data>
+  <data name="h_hsbarHeadingErrorGain" xml:space="preserve">
+    <value>Curseur Cap en mode Stanley
+
+Fonctionne avec la distance. Plus il est agressif, plus vite il essaie de se diriger vers la ligne avec le risque de franchir la ligne etde la dépasser trop rapidement.</value>
+  </data>
+  <data name="h_hsbarHighSteerPWM" xml:space="preserve">
+    <value>Curseur Gain PWM maximal
+
+Limite la puissance totale délivrée au moteur / valves pour éviter une direction trop violente.
+Initialement réglé plus bas pour éviter les oscillations. Si vous conduisez vite, assurez-vous de ne pas tourner trop vite pour éviter tout accident lors des réglages</value>
+  </data>
+  <data name="h_hsbarHoldLookAhead" xml:space="preserve">
+    <value>Curseur d'anticipation</value>
+  </data>
+  <data name="h_hsbarIntegral" xml:space="preserve">
+    <value>Jusqu'où l'algorithme regarde le point de référence pour décider s'il s'écarte de la ligne. Lorsque la distance à la ligne est &lt;10 cm, le système est en mode "Hold". Sinon, vous acquérez. S'il vous faut beaucoup de temps pour vous rendre compte que vous perdez la ligne, baissez-la. Si vous dérivez constamment Jusqu'où l'algorithme regarde-t-il le point de référence pour décider si vous dérivez de la ligne. Lorsque la distance à la ligne est &lt;10 cm, le système est en mode "Hold". Sinon, vous acquérez. S'il vous faut beaucoup de temps pour vous rendre compte que vous perdez la ligne, baissez-la. S'il surcorrige constamment à moins de 10 cm, augmentez-le.</value>
+  </data>
+  <data name="h_hsbarIntegralPurePursuit" xml:space="preserve">
+    <value>Curseur intégral  Pure P
+
+Le réglage intégral permet à l’erreur de distance de continuer à s’accumuler au fil du temps pour aider à ajouter un angle de braquage lorsqu’un calcul de distance et de cap normal n’amènera pas le tracteur à la ligne.
+Comme sur un flanc ou avec un ripage sur le coté. Trop d’intégrale l’amènera à atteindre trop rapidement la ligne et à la franchir.
+Un réglage trop bas prendra trop de temps pour atteindre la ligne voire ne jamais l'atteindre.
+Mieux vaut régler un peu plus bas ou il oscillera beaucoup sur la ligne.</value>
+  </data>
+  <data name="h_hsbarLookAhead" xml:space="preserve">
+    <value>Distance entre le point de référence visé et le véhicule. Si le point est proche, le véhicule tourne très rapidement.
+Inversement si il est loin, la direction est plus détendue et prend plus de temps à se mettre en ligne. Régler ensuite le curseur gain de vitesse pour définir la distance en fonction de la vitesse, car il faut moins d'angle de direction lorsque vous allez plus vite</value>
+  </data>
+  <data name="h_hsbarLookAheadMult" xml:space="preserve">
+    <value>Plus vous conduisez vite, plus vite vous arrivez à la ligne. 
+Ce curseur définit la vitesse à laquelle le point de référence s’éloigne de vous à mesure que votre vitesse augmente et réduit l’angle de braquage afin qu’il ne tourne pas aussi vite, empêchant les allers-retours sur la ligne.</value>
+  </data>
+  <data name="h_hsbarLowSteerPWM" xml:space="preserve">
+    <value>PWM à faible angle de braquage
+
+Au fur et à mesure que le véhicule se rapproche de la ligne, le gain est réduit linéairement
+de la valeur maximale à la valeur minimale. Cela aide à rester proche de la ligne, mais fournit un mouvement rapide lorsqu’elle est plus éloignée.</value>
+  </data>
+  <data name="h_hsbarMaxSteerAngle" xml:space="preserve">
+    <value>Angle de braquage maximum
+
+L'angle maximale que AOG utilisera. Régler un dégré en dessous que vos butées maxi droite et gauche.</value>
   </data>
   <data name="h_hsbarMinPWM" xml:space="preserve">
-    <value>Curseur puissance PWM minimum
+    <value>Curseur réglage PWM Min
 
-La valeur PWM minimale est utilisée pour appliquer une puissance minimale pour surmonter la friction du moteur ou de la vanne. Trop haut, ça tournera tout le temps,  trop bas, il y aura un délai à mesure que le pwm augmente avant que la direction bouge.
-Plus le gain est proportionnel, plus ce réglage est sensible</value>
+La valeur PWM minimale est utilisée pour appliquer une quantité minimale de
+puissance pour surmonter le couple mini pour faire tourner le moteur / activer les valves. Trop haut et il tournera tout le temps, 
+trop bas et il y aura un retard à mesure que le pwm augmente avant que la direction ne se produise. 
+Plus le gain proportionnel est haut, plus ce réglage est sensible.</value>
   </data>
   <data name="h_hsbarProportionalGain" xml:space="preserve">
     <value>Curseur de gain proportionnel
 
-Le gain proportionnel est multiplié par l'erreur de distance puis ajouté à la valeur PWM minimale pour générer la valeur de sortie finale. Plus cette valeur est élevée, plus le moteur corrigera la direction rapidement.  Cependant, si elle est trop haute, la direction dépassera la ligne et  puis survirera dans l'autre sens. Une valeur trop faible,  cela prendra trop de temps, soit n'atteindra jamais la ligne de guidage. C'est unparamètre critique qu'il faut un peu tester pour voir l'effet. Ces 4 réglages de gain affectent les uns et les autres, fixez-en un et voyez l'effet.</value>
+Le gain proportionnel est multiplié par l'écart apr rapport à la ligne puis ajouté à
+la valeur PWM minimale pour générer la valeur de sortie finale. Plus cette valeur est élevée, plus le moteur corrigera rapidement la direction.
+Cependant, s’il est trop haut, la direction dépassera la ligne trp largement et générera des oscillations de plus en plus prononcées. A l'inverse une valeur trop faible entrainera une perte de temps pour atteindre la ligne, voire ne j'amais l'atteindre. Paramètre critique nécessitant beaucoups d'essais pour voir son effet. Chacun de ces 4 paramètres affecte les autres. Modifier toujours l'un après l'autre pour en comprendre les impacts réels</value>
   </data>
   <data name="h_hsbarSideHillComp" xml:space="preserve">
-    <value>Curseur de compensation de dévers
+    <value>Curseur de compensation "Travers"
 
-Ajoute un angle de braquage statique basé sur l'angle de roulis pour faire tourner les roues afin de compenser le déport latéral en deévers. Vous pouvez faire passer le véhicule au-dessus de la ligne avec ce paramètre permettant à l'outil de mieux suivre la ligne.</value>
+Ajoute un angle de braquage statique basé sur l’angle de roulis pour faire tourner les roues afin de compenser le ripage dans une pente. Vous pouvez faire en sorte que le véhicule dépasse la ligne avec ce réglage permettant à l’outil d'être correctement aligné</value>
   </data>
   <data name="h_hsbarStanleyGain" xml:space="preserve">
-    <value>Curseur agressivité Stanley
+    <value>Curseur Distance en mode Stanley
 
-L'agressivité fonctionne avec la distance. Plus il est agressif, plus vite il essaie de se diriger vers la ligne avec le risque de franchir la ligne et de la dépasser trop rapidement. Le curseur de réduction de dépassement permet d'atténuer cet effet.</value>
+En opposition avec le réglage cap, plus il est haut plus vite il essaie de se diriger vers la ligne avec le risque de traverser
+la ligne. Le curseur précédent tente d’atténuer cet effet</value>
   </data>
   <data name="h_hsbarWasOffset" xml:space="preserve">
-    <value>Curseur zéro d'angle de braquage.
+    <value>Curseur zéro capteur d'angle
 
-Le déplacement de ce curseur change la position zéro de l'angle de braquage. Conduisez en mode conduite et ajuster le pour aller tout droit.
-Ce paramétrage est essentiel.</value>
+Permet d'ajuster le zéro du capteur d'angle. Bouger le curseur en ligne AB droite, pour centrer le décalage symétriquement autour de la ligne. Paramêtre critique</value>
   </data>
   <data name="h_lblIntegral" xml:space="preserve">
-    <value>Valeur intégrale Autoguidage
- 
- Affichage uniquement. Cette valeur indique la quantité d'angle de braquage supplémentaire pour rapprocher le véhicule de la ligne de guidage.</value>
+    <value>Valeur intégrale d’Autoguidage
+
+Affichage uniquement. Cette valeur indique la quantité d’angle de braquage supplémentaire nécessaire pour atteindre la ligne de guidage.</value>
   </data>
   <data name="h_lblLateralTurnTouch" xml:space="preserve">
-    <value>Touche de décalage latéral
- 
-Toucher cette zone permet au véhicule de passer à gauche ou à droite jusqu'à la prochaine ligne de guidage. Vous pouvez toucher plus d'une fois et passer sur plusieurs lignes. Toucher l'autre flèche permet de réduire le nombre de changements.</value>
+    <value>Touche de décalage ligne latérale
+
+Toucher la flèche permet au véhicule de se déplacer à gauche ou à droite jusqu’à la ligne de guidage suivante. Vous pouvez toucher plus d’une fois et passer sur plusieurs lignes. </value>
   </data>
   <data name="h_lblManualTurnCancelTouch" xml:space="preserve">
-    <value>Demi-tour manuel et annulation
- 
-Vous pouvez lancer un demi-tour manuel ou l'annuler si vous êtes déjà dans un virage manuel. Lorsque vous conduisez en mode automatique, faites le demi-tour en touchant l'un de ces sauts.</value>
+    <value>Demi tour manuel.
+
+Peut ête lancé ou arreté à tout moment en toucant les flèches</value>
   </data>
   <data name="h_lblSpeed" xml:space="preserve">
-    <value>Indicateur de vitesse
+    <value>Compteur de vitesse
 
-Double affichage. Affiche la vitesse d'avancement du véhicule et en appuyant dessus, affiche toutes les informations GPS </value>
+En cliquant dessus, affiche toutes les données GPS entrantes</value>
   </data>
   <data name="h_lblSteerCircleTouch" xml:space="preserve">
-    <value>Indicateur d'information de direction
+    <value>Indicateur d'état d'engagement de l'autoguidage et position des roues
 
-Le dessin montre l'angle de braquage et la couleur indique le statut de l'autoguidage
-
- Violet - Module autoguidage non connecté.
-  Rouge - Module autoguidage connecté, non activé.
-  Orange - Module autoguidage activé mais non engagé (l'interrupteur d'autoguidage est off)
-  Vert - Module autoguidage activé et engagé. L'autoguidage est en fonctionnement.</value>
+Violet - Autoguidage non connecté.
+Rouge - Autoguidage connecté, non activé.
+Orange - Connecté, activé mais les autres conditions (vitesse, position hors du champ...) ne permette pas d'activer le moteur ou les valves
+Vert - Connecté, activé et direction automatique. Entièrement fonctionnel.</value>
   </data>
   <data name="h_lblSwapDirectionCancel" xml:space="preserve">
-    <value>Cette zone indique la distance jusqu'au début du prochain demi-tour. Il y a normalement 2 fonctions ici. Lorsque vous n'êtes pas dans un demi-tour, toucher cette zone vous permet de tourner dans la direction opposée. Si vous faites un demi-tour, toucher cette zone annule le demi-tour. Alors soyez prudent et tenez le volant.</value>
+    <value>Distance avant le prochain demi tour
+Permet également de faire un demi tour manuel, ou d'inverser le sens du prochain demi tour</value>
   </data>
   <data name="h_lblVehicleDirectionResetTouch" xml:space="preserve">
-    <value>Inverser le sens de direction
- 
-Touchez ici si le véhicule recule alors qu'il avance. Sans double cap, vous ne savez pas si vous reculez ou avancez. Reculer est  comme  avancer, mais 180 degrés sont ajoutés à votre cap pour donner l'impression que vous reculez. Parfois, comme en tournant brusquement lorsque vous allez lentement, la direction peut être confuse et cela réinitialise cette direction. Avancez et touchez cette zone pour indiquer à AOG dans quel sens il faut avancer. Vous pouvez à tout moment.</value>
+    <value>Toucher pour valider le sens de marche. 
+Certains moments, à faible vitesse, le véhicule peut être vu en marche arrière</value>
   </data>
   <data name="h_lbludpWatchCounts" xml:space="preserve">
-    <value>Combient de messages NMEA ont été manqués ou trop arrivés trop tard d'AgIO</value>
+    <value>Nombre de messages NMEA ignorés (ou en retard)</value>
   </data>
   <data name="ha_btnAPoint" xml:space="preserve">
     <value>Point A
-
-C'est le premier point de la ligne. Il est également utilisé comme point de départ plus le cap.
-
-Une fois A créé, vous pouvez appuyer sur B ou entrer le cap</value>
+Il s'agit du premier point de la ligne et le point A de base, associé à un cap
+Une fois A cliqué, il est possible soit re rentrer un cap manuellement ou bien de cliquer B après un certaine distance</value>
   </data>
   <data name="ha_btnAddTime" xml:space="preserve">
-    <value>Ajouter Date et heure
-
-Ajoute l'horodatage au nom de la ligne. Cela permet également d'avoir un nom unique</value>
+    <value>Ajout Horodatage
+Aide à nommer la ligne de façon unique</value>
   </data>
   <data name="ha_btnBPoint" xml:space="preserve">
     <value>Point B
-
-Crée une ligne entre le point A et le point B. Le cap de la ligne est calculé. Vous pouvez modifier la ligne en entrant un cap ou en appuyant sur B aussi souvent que vous le voulez.</value>
+Réalise une ligne entre A et B
+Le cap de la ligne est calculé une fois le point B réalisé
+La ligne peut être modifiée en rentrant manuellement un cap ou en cliquant autant de fois voulu le point B</value>
   </data>
   <data name="ha_btnCancel" xml:space="preserve">
-    <value>Annuler et quitter
-
-Quitter le formulaire et quitter guidage. Les lignes existantes ne sont pas supprimées, cela les cache  simplement dans l'affichage principal.</value>
+    <value>Supprimer puis Fermer
+Ferme la fenêtre et coupe le mode guidage
+Les lignes existantes ne sont pas supprimées, elles sont juste effacées de l'écran principal</value>
   </data>
   <data name="ha_btnCancelCreate" xml:space="preserve">
-    <value>Annule et retour
-
-Annule l'action en cours et retourne au début</value>
+    <value>Supprimer puis Retour
+Annule l'action en cours puis retour au début</value>
   </data>
   <data name="ha_btnDuplicate" xml:space="preserve">
-    <value>Copier ligne
-
-Crée une copie de la ligne sélectionnée dans la vue liste. Le nom doit rester unique</value>
+    <value>Copier la ligne
+Fait une copie de la ligne sélectionnée dans la liste
+La ligne copiée doit être renommée différement</value>
   </data>
   <data name="ha_btnEnterContinue" xml:space="preserve">
-    <value>Sauver et comtinuer</value>
+    <value>Enregistrer et Poursuivre</value>
   </data>
   <data name="ha_btnListDelete" xml:space="preserve">
-    <value>Supprimer liste
-
-Selectionner une ligne dans la liste, touchez sur Supprimer pour effaccer la ligne</value>
+    <value>Supression liste
+Sélectionner une ligne de la liste, cliquer "Supprimer" pour effacer la ligne </value>
   </data>
   <data name="ha_btnListUse" xml:space="preserve">
-    <value>Utiliser la ligne et quitter
-
-Utilisez la ligne sélectionnées dans la liste et quittez</value>
+    <value>Utiliser la ligne sélectionner et fermer la liste</value>
   </data>
   <data name="ha_btnManual" xml:space="preserve">
-    <value>Saisie manuelle
+    <value>Entrée manuelle AB
 
-Saisie manuelle des points A et B en utilisant la latitude et la longitude. Fait apparaitre un nouveau formulaire</value>
+Permet la création des points A et B par l'ajout de coordonnées GPS. Affiche une fenêtre supplémentaire</value>
   </data>
   <data name="ha_btnNewABLine" xml:space="preserve">
     <value>Nouvelle ligne
 
-Affiche le formulaire pour créer une nouvelle ligne AB ou A plus cap ou manuellement Lattitude et Longititude.</value>
+Permet la création par A et B ou par A plus un cap, ou via l'entrée manuelle des coordonnées GPS des points A et B</value>
   </data>
   <data name="ha_nudHeading" xml:space="preserve">
-    <value>Entrer un cap
+    <value>Entrée Cap
 
-Entrez un cap lorsqu'un point A a été posé. Entrez un nombre entre 0 et 360 dégrés.</value>
+Si un points A est créé, une cap peut être rentré manuellement au lieu de créer un point B. Entre 0 et 360</value>
   </data>
   <data name="ha_textBox1" xml:space="preserve">
-    <value>Nom de la ligne
+    <value>Nomer la ligne
 
-Edite et crée le nom de la ligne ici. le nom doit être unique. Appuyer sur le calendrier permet d'ajouter la date /heure à la description</value>
+Permet d'attribuer un nom unique à la ligne. Un horodatage peut être ajouté</value>
   </data>
   <data name="hb_btnAdd" xml:space="preserve">
-    <value>Créer une nouvelle bordure
+    <value>Création d'une nouvelle bordure
 
-Affiche le formulaire pour choisir d'importer un fichier kml pour les bordures ou pour les créer
-
-Si aucune limite n'est définie, la onduire et sur Oui ou Non pour que cette bordure change.</value>
+SI aucune brodure n'est créée, la première sera la limite extérieur, les suivantes des limites intérieures</value>
   </data>
   <data name="hb_btnAddPoint" xml:space="preserve">
-    <value>Ajouter point
+    <value>Ajouter un point
 
- Ajoutez un point à la position actuelle en fonction du décalage. Bien pour faire de longues lignes droites en marquant uniquement les coins.
- 
- Vous pouvez enregistrer dans les coins, faire une pause, appuyer sur Ajouter un point, conduire et continuer à enregistrer. </value>
+Ajoutez un point à la position actuelle en fonction du décalage. Permet de traçer les coins de champ à l'angle 
+
+Vous pouvez enregistrer dans les coins, faire une pause, appuyer sur Ajouter un point, conduire et continuer à enregistrer.</value>
   </data>
   <data name="hb_btnCancel" xml:space="preserve">
     <value>Annuler
 
-À tout moment ou sur n'importe quel formulaire, vous pouvez annuler. Quand vous faites les bordures  et effectuez des modifications, elles sont enregistrées. Rien n'est enregistré lors de l'annulation ou de la sortie.</value>
+À tout moment ou sur n’importe quel formulaire, il est possible d'annuler. Au fur et à mesure que vous créez des bordures et que vous apportez des modifications, elles sont enregistrées. Rien n’est enregistré lors de l’annulation ou de la sortie.
+</value>
   </data>
   <data name="hb_btnDelete" xml:space="preserve">
-    <value>Suppression d'une brodure
+    <value>Supprimer une bordure
 
-Sélectionnez une bordure et supprimez là</value>
+Sélectionner la bordure à supprimer dans la liste</value>
   </data>
   <data name="hb_btnDeleteAll" xml:space="preserve">
-    <value>Supprimer toutes les bordures
+    <value>Supprimer les bordures
 
-Ce bouton supprime toutes les bordures. Attention une fois effacées, elle sont perdues</value>
+Attention, pas de retour en arrière possible</value>
   </data>
   <data name="hb_btnDeleteLast" xml:space="preserve">
-    <value>Supprimer le dernier point créé
+    <value>Supprimer le dernier point créé.
 
-Supprime le dernier point créé. Continuer d'appuyer pour en supprimer autant que vous voulez</value>
+Permet d'arrondir les angles de champ durant la création de bordure</value>
   </data>
   <data name="hb_btnDriveOrExt" xml:space="preserve">
-    <value>Créer les bordures en conduisant
+    <value>Rouler pour créer la bordure
 
-Cela vous permet d'enregistrer les bordure en conduisant. Le bouton affiche le formulaire pour enregister les points à gauche ou à droite du point de pivot.</value>
+Mode de création de la bordure en arpentant le champ </value>
   </data>
   <data name="hb_btnGetKML" xml:space="preserve">
-    <value>Créer les bordure à partir d'un fichier kml
+    <value>Création de la bordure par import d'un fichier KML.
 
-Affiche le formulaire pour ouvir un fichier kml de bordures simples ou multiples</value>
+Permet l'affichage pour ajouter un fichier simple bordure ou multiples bordures</value>
   </data>
   <data name="hb_btnLeftRight" xml:space="preserve">
-    <value>Marquer à gauche ou à droite
- 
-Bouton utilisé pour sélectionner le côté gauche ou droit du véhicule pour faire la bordure.
- 
-Vous pouvez également entrer un décalage dans la zone numérique.</value>
+    <value>Traçage à droite ou à gauche du véhicule.
+
+Permet de choisir de quel coté conduire pour l'arpentage pour la création d'une bordure</value>
   </data>
   <data name="hb_btnLoadBoundaryFromGE" xml:space="preserve">
-    <value>Charger une bordure unique à partir de Google Earth
- 
-Chargez une bordure au format kml qui peut être soit extérieure, soit intérieure. S'il n'y a pas de bordures, elle sera considérée comme extérieure. S'il y a déjà une bordure, elle sera considérée comme intérieure.</value>
+    <value>Ajout d'une bordure via fichier KML</value>
   </data>
   <data name="hb_btnLoadMultiBoundaryFromGE" xml:space="preserve">
-    <value>Charger des bordures multiples à partir de Google Earth
- 
-Chargez des bordures km.La première ligne est considérée comme limite extérieure et les autres comme limites intérieures.</value>
+    <value>Ajoute de plusieurs bordures via un seul fichier KML</value>
   </data>
   <data name="hb_btnOpenGoogleEarth" xml:space="preserve">
-    <value>Ouvrir Google Earth
-
-Ouvre Google Earth s'il est installé. Ainsi vous pouvez créer et enregistrer les fichiers kml des bordures</value>
+    <value>Ouvrir Google Earth. Utile pour la création de fichier KML</value>
   </data>
   <data name="hb_btnPausePlay" xml:space="preserve">
-    <value>Pause enregistrement
+    <value>Enregistrer / Pause
 
-Appuyez sur démarrer l'enregistrement, appuyer encore pour faire pause. Pendant une pause vous pouvez appuyer pour ajouter, supprimer des points, changer de côté, changer le décalage.</value>
+Permet de lancer ou de stopper momentanément l'enregistrement de l'arpentage de la bordure</value>
   </data>
   <data name="hb_btnRestart" xml:space="preserve">
-    <value>Redémarrer une ligne
+    <value>Redemarrer la ligne
 
-Supprimer des points et redémarrer</value>
+Supprime tous les points et recommence</value>
   </data>
   <data name="hb_btnStop" xml:space="preserve">
-    <value>Arrêter bordure
+    <value>Stoper l'arpentage de la bordure
 
-La bordure est faite. Cela relie le dernier point au premier et quitte.
-
-Il faut au moins 5 point pour créer une bordure.</value>
+Clos la bordure entre le premier et le dernier point. A minima 5 points sont nécessaires</value>
   </data>
   <data name="hb_nudOffset" xml:space="preserve">
-    <value>Décalage du pivot
- 
-Le décalage pour créer la bordure est mesuré à partir du centre du point de pivot  (généralement au centre du pont arrière du tracteur).
- 
-La valeur par défaut est la moitié de la largeur de l'outil. Utilisez le bouton de sélection des côtés pour vous déplacer de gauche à droite.</value>
+    <value>Décalage par rapport rapport à l'axe longitudinale du tracteur pour l'arpentage d'une bordure.
+Par défaut, largeur outil /2</value>
   </data>
   <data name="hc_ListViewVehicles" xml:space="preserve">
-    <value>Liste de véhicule
-
-Liste des véhicules enregistrés</value>
+    <value>Liste des véhicules déjà enregistrés</value>
   </data>
   <data name="hc_btnRemoveZeroOffset" xml:space="preserve">
-    <value>Supprimer le zéro du devers
+    <value>Suppression décalage Dévers
 
-Supprime la mise à zéro du dévers pour afficher l'angle de devers réel tel que le capteur est monté</value>
+Supprime tout décalage actuellement ajouté au dévers pour afficher l’angle de roulis réel tel qu’il est vu par le capteur</value>
   </data>
   <data name="hc_btnResetIMU" xml:space="preserve">
-    <value>Supprimer l'IMU de l'affichage
- 
-Si vous déconnectez IMJ, vous pouvez supprimer toutes les valeurs affichées sur l'écran principal. Une fois que vous avez connecté un imu à AgIO, il s'affichera à nouveau automatiquement.</value>
+    <value>Supprimer l'affichage des valeurs de l'IMU</value>
   </data>
   <data name="hc_btnSendSteerConfigPGN" xml:space="preserve">
-    <value>Envoyer les modifications à l'autoguidage et enregistrer
- 
- Si vous apportez des modifications, assurez-vous de les envoyer et de les enregistrer en appuyant sur Envoyer. Si vous ne le faites pas, ils ne seront pas sauvegardés. si vous souhaitez annuler, accédez simplement à une autre page de configuration et revenez à nouveau.
- 
-N'oubliez pas d'envoyer et d'enregistrer en utilisant ce bouton.</value>
+    <value>Envoyer la configuration à contrôleur autoguidage
+
+Si vous apportez des modifications, assurez-vous de les envoyer et de les enregistrer en appuyant sur Envoyer.</value>
   </data>
   <data name="hc_btnVehicleDelete" xml:space="preserve">
-    <value>Bouton de suppression de véhicule
- 
-Sélectionnez un véhicule dans la liste, appuyez sur le bouton Supprimer pour le supprimer définitivement</value>
+    <value>Bouton Supprimer un véhicule
+
+Sélectionner un véhicule dans la liste et appuyer sur supprimer</value>
   </data>
   <data name="hc_btnVehicleLoad" xml:space="preserve">
-    <value>Bouton de chargement du véhicule
- 
-Sélectionnez un véhicule dans la liste, appuyez sur le bouton Charger pour l'importer.</value>
+    <value>Bouton Charger un véhicule
+
+Sélectionner un véhicule dans la liste et appuyer sur charger</value>
   </data>
   <data name="hc_btnVehicleSave" xml:space="preserve">
-    <value>Bouton de sauvegarde du véhicule
- 
-Après avoir entré le nom d'un véhicule dans la zone de texte, appuyez sur le bouton Enregistrer pour sauvegarder.</value>
+    <value>Bouton Enregistrer un véhicule
+
+Après avoir tapé le nom d'un nouveau véhicule, appuyer sur enregistrer
+</value>
   </data>
   <data name="hc_btnVehicleSaveAs" xml:space="preserve">
-    <value>Bouton enregistrer sous du véhicule
- 
-Cliquez sur un véhicule dans la liste, puis appuyez sur le bouton Enregistrer sous pour remplacer ce véhicule par les paramètres actuels. Répondez Oui pour écraser le véhicule choisi ou Non pour ne rien faire.</value>
+    <value>Bouton Enregistrer sous véhicule
+
+Permet d'écraser le données d'un véhicule déjà créé, par les valeurs courantes
+</value>
   </data>
   <data name="hc_btnZeroRoll" xml:space="preserve">
-    <value>Valeur zéro du dévers
-
-Indique la valeur de roulis pour avoir un devers nul. Supprime l'erreur d'angle de devers du capteur de sorte que lorsque le véhicule est à plat, la valeur de devers affiche zéro."</value>
+    <value>Acquisition du zéro capteur de dévers</value>
   </data>
   <data name="hc_cboxAutoSteerAuto" xml:space="preserve">
-    <value>Mode d'engagement manuel ou automatique de l'autoguidage
- 
-En mode manuel, vous devez appuyer sur le bouton Autoguidage pour l'activer.. L'interrupteur du moteur de direction/valve n'a aucun effet.
- 
-En mode automatique, lorsque vous enclenchez l'interrupteur du moteur/valve , le bouton Autoguidage s'active automatiquement.
- 
-Soyez prudent avec le mode Auto lorsque vous vous déplacez sur la route. Éteignez ou débranchez toujours l'alimentation de tout dispositif mécanique d'autoguidage lors des trajets quotidiens.</value>
+    <value>Engagemet autoguidage Manuel ou Automatique
+
+En mode manuel, il faut appuyer sur l'écran pour engager
+En mode automatique, il faut appuyer sur le bouton ou interrupteur
+
+En mode Auto, pensez à débrancher sur la route, ou désengager le moteur</value>
   </data>
   <data name="hc_cboxConv" xml:space="preserve">
-    <value>Configuration d'entrée du convertisseur A2D
- 
-Sélectionnez une entrée Single ou Différentielle. Le plus souvent, il s'agit d'une masse d'entrée Single. Curieusement, même le Différentiel est à la masse, mais semble fonctionner avec les capteur d'angle OEM.</value>
+    <value>Mode d'utilisation du convertisseur A2D pour le capteur d'angle
+Single : Seulement signal à brancher
+Différentiel : Signal + masse de référence du capteur</value>
   </data>
   <data name="hc_cboxCurrentSensor" xml:space="preserve">
-    <value>Capteur de courant activé
- 
-Si vous utilisez un capteur de courant, activez cette fonction pour arrêter l'autoguidage en maintenant le volant et en détectant une utilisation à courant élevé.</value>
+    <value>Activation Capteur de courant
+
+Se subtitue aucapteur de pression ou à l'encodeur. Permet de mesurer le courant consommé par le moteur et régler un seuil de déclenchement pour désactiver l'autoguidage à la reprise du volant </value>
   </data>
   <data name="hc_cboxDanfoss" xml:space="preserve">
-    <value>Valve Danfoss
+    <value>Mode Valves Danfoss
 
-Si vous utilisez une valve Udc de style Danfoss, sélectionnez-la. L'arduino utilisera et enverra alors automatiquement les bonnes valeurs pour la valve.</value>
+Applique automatiquement les valeurs de voltage en sortie pour les valves PWM</value>
   </data>
   <data name="hc_cboxDataInvertRoll" xml:space="preserve">
-    <value>Inverser le devers
- 
-Pencher vers la droite doit avoir une valeur positive. Si le devers affiche une valeur négative, touchez Inverser le roulis pour le rendre positif.
- 
-C'est un paramètre très important. Voir l'image sur ce formulaire pour plus de clarté.</value>
+    <value>Inversion valeur de dévers
+
+Dévers vers la droite doit être positif, sinon inverser</value>
   </data>
   <data name="hc_cboxEncoder" xml:space="preserve">
-    <value>Encodeur au volant
- 
-Mal nommé, mais permet la détection de la rotation du volant à l'aide d'un capteur d'arbre. Ce paramètre l'active.
- 
-Le paramètre supplémentaire est le nombre. lorsque l'encodeur compte autant de détections, il désactive l'autoguidage.</value>
+    <value>Encodeur Volant
+
+Remplace le capteur de pression, permet de désactiver l'autoguidage à la reprise du volant, à l'aide d'un codeur sur la colonne de direction</value>
   </data>
   <data name="hc_cboxIsDualAsIMU" xml:space="preserve">
-    <value>Utiliser la double antenne comme IMU
- 
-Au lieu d'utiliser une double antenne comme cap directement, utilise le fix to fix  d'une seule antenne pour un cap régulier avec une valeur de cap de  double antenne.</value>
+    <value>Utiliser le montage double antenne comme IMU
+
+Permet de ne pas obtenir la totalité du cap par le monrtage double antenne, mais un cap fix à fix lissé par le mode IMU du Montage double</value>
   </data>
   <data name="hc_cboxIsHydOn" xml:space="preserve">
-    <value>Contrôle hydraulique On Off
+    <value>On / Off Relevage automatique
 
-Activer le relevage hydraulique de l'outil lors de l'entrée et de la sortie de la tournière.</value>
+Permet l'activation ou non du relevage automatique dans les tournières</value>
   </data>
   <data name="hc_cboxIsRTK" xml:space="preserve">
     <value>Alarme RTK
 
-L'activation de cette option affiche une alarme Lost RTK sur l'écran principal en cas de perte de signal RTK</value>
+Affiche un alarme quand le RTK Fix est perdu</value>
   </data>
   <data name="hc_cboxIsRTK_KillAutoSteer" xml:space="preserve">
-    <value>Autoguidage désactivé si Alarme RTK
-
-Si l'alarme RTK est activée, l'autoguidage est désactivé quand le RTK est perdu.</value>
+    <value>Désactivation automatique de l'autoguidage si plus de RTK Fix</value>
   </data>
   <data name="hc_cboxIsReverseOn" xml:space="preserve">
     <value>Détection marche arrière
 
-Montre le véhicule en marche arrière lorsqu'elle est activée sinon l'écran tourne de 180 degrés et l'affiche toujours en marche avant</value>
+Permet de redéfinir le sens de marche du véhicule</value>
   </data>
   <data name="hc_cboxMachInvertRelays" xml:space="preserve">
-    <value>Inverser les commandes
+    <value>Inverser les relais 
 
-Si les commandes sont On au lieu de Off, activer cette option pour inverser.</value>
+Permets d'inverser l'état de tous les relais utilisés, à part celui utilisé sur PWM2</value>
   </data>
   <data name="hc_cboxMotorDrive" xml:space="preserve">
-    <value>Type de driver Moteur
+    <value>Choix du driver moteur utilisé dans le montage
 
-2 choix possible entre le Cytron et l'IBT2. Prenez celui que vous utilisez</value>
+IBT2 ou Cytron MD13S</value>
   </data>
   <data name="hc_cboxNumSections" xml:space="preserve">
-    <value>Nombre de sections
- 
-À l'aide du menu déroulant, choisissez le nombre de sections de votre outil. Il utilise la largeur de section par défaut pour remplir la largeur de section.
-En règle générale, définissez d'abord la largeur de section par défaut, puis le nombre de sections. Vous pouvez maintenant modifier manuellement n'importe quelles largeurs de sections si elles sont différentes.</value>
+    <value>Nombre de tronçons de l'outil
+
+En fonction de la largeur total de l'outil, défini automatiquement les largeur de chaque tronçon. Chaque largeur de tronçon peut ensuite être modifiée</value>
   </data>
   <data name="hc_cboxPressureSensor" xml:space="preserve">
-    <value>Interrupteur de capteur de pression
- 
-lors de l'utilisation d'un capteur de pression hydraulique, activez cette fonction.</value>
-  </data>
-  <data name="hc_cboxSectionResponse" xml:space="preserve">
-    <value>Réponse rapide/lente des sections
- 
-Cela sélectionne la fréquence à laquelle le contrôle de section est exécuté par seconde. En mode rapide, c'est la moitié de la vitesse nmea et en mode lent, c'est la moitié de cela.
-Si vous avez un ordinateur lent, que le contrôle de sections n'est pas super important et que les vitesses sont lentes, utilisez le mode lent. Si vous trouvez que les sections ne s'allument pas assez rapidement, sélectionnez le mode rapide.
-Les calculs de sections sont lourds avec les bordures et les tournières, cela peut aider une tablette plus lente. </value>
-  </data>
-  <data name="hc_cboxSteerEnable" xml:space="preserve">
-    <value>Tye d'interrupteur d'autoguidage
+    <value>Capteur de pression
 
-2 types d'interrupteurs :
-
-Switch : c'est un interrupteur 2 positions ON et OFF
-
-Button : c'est un interrupteur monentané (1 position) qui revient toujours à ça position initiale (bouton)
+Permet de régler la pression de désengagement à la reprise du volant en mode hydraulique
 </value>
   </data>
-  <data name="hc_cboxTramOnBackBuffer" xml:space="preserve">
-    <value>Activation coupure jalonnage
+  <data name="hc_cboxSectionResponse" xml:space="preserve">
+    <value>Fréquence de réponse de la coupure de tronçons
 
-Permet de couper les sections sur les passages si le materiel et les largeurs de sections le permettent</value>
+En rapide, fréquence GPS /2, en mode lent, GPS /4</value>
+  </data>
+  <data name="hc_cboxSteerEnable" xml:space="preserve">
+    <value>Type de bouton pour l'engagement
+
+Bouton momentanné ou interrupteur. Le premier est à privilégié pour l'utilisation d'un mode de coupure de l'autoguidage par reprise du volant à la main</value>
+  </data>
+  <data name="hc_cboxTramOnBackBuffer" xml:space="preserve">
+    <value>Activer / désactiver la coupure des tronçon de passage de roues</value>
   </data>
   <data name="hc_cboxXY" xml:space="preserve">
     <value>Sélectionnez l'axe d'orientation IMU afin que lorsque le véhicule roule sur le côté, la valeur de roulis change.</value>
   </data>
   <data name="hc_chkDisplayDayNight" xml:space="preserve">
-    <value>Jour Nuit automatique permet de passer automatiquement en mode nuit au coucher du soleil et en mode jour au lever du soleil</value>
+    <value>Affichage automatique Jour / Nuit</value>
   </data>
   <data name="hc_chkDisplayExtraGuides" xml:space="preserve">
-    <value>Lignes de guidage supplémentaires à côté de celle que vous suivez</value>
+    <value>Affiche les lignes de guidage supplémentaires de chaque coté de la ligne actuellement suivie</value>
   </data>
   <data name="hc_chkDisplayFloor" xml:space="preserve">
-    <value>Affiche l'arrière-plan texturé sur la surface du champ ou si désactivé, affiche simplement une couleur unie</value>
+    <value>Affiche l'arrière plan texturé, ou si désactivé, juste un fond coloré</value>
   </data>
   <data name="hc_chkDisplayGrid" xml:space="preserve">
-    <value>Affiche la grille sur la surface du champ</value>
+    <value>Affiche la grille sur le champs</value>
   </data>
   <data name="hc_chkDisplayKeyboard" xml:space="preserve">
-    <value>Utilise le clavier personnalisé lors de la saisie de texte</value>
+    <value>Utiliser le clavier personnaliser quand une entrée texte doit être réaliser</value>
   </data>
   <data name="hc_chkDisplayLightbar" xml:space="preserve">
-    <value>Les carrés en haut de l'écran indiquent la distance par rapport à la ligne de guidage</value>
+    <value>Points graphiques en haut de l'écran affichant la distance d'écart apr rapprot à la ligne de guidage</value>
   </data>
   <data name="hc_chkDisplayLogNMEA" xml:space="preserve">
-    <value>Enregistre le NMEA entrant, stocké dans le répertoire des champs
- 
-Attention - Peut faire un très gros fichier rapidement</value>
+    <value>Enregistre la trame NMEA rentrante. Fichier sauvé dans le dossier champs.
+Attention, génère un fichier lourd en très peu de temps</value>
   </data>
   <data name="hc_chkDisplayPolygons" xml:space="preserve">
-    <value>Afficher les polygones individuels qui composent la carte d'application</value>
+    <value>Affiche les polygones individuels composants la carte</value>
   </data>
   <data name="hc_chkDisplaySky" xml:space="preserve">
-    <value>Affichez le ciel en arrière-plan en 3D</value>
+    <value>Affiche le ciel coloré en arrière-plan et en 3D </value>
   </data>
   <data name="hc_chkDisplaySpeedo" xml:space="preserve">
-    <value>Afficher le compteur de vitesse dans l'angle supérieur droit</value>
+    <value>Affiche le compteur de vitesse dans le coin supérieur droit</value>
   </data>
   <data name="hc_chkDisplayStartFullScreen" xml:space="preserve">
-    <value>Plein écran au démarrage</value>
+    <value>Mode plein écran au démarrage</value>
   </data>
   <data name="hc_chkInvertSteer" xml:space="preserve">
-    <value>Inverser le sens de rotation moteur
+    <value>Inverse le sens de rotation du moteur
 
-Si le moteur tourne dans le mauvais sens dans le mode Conduite, activez le paramètre inverser le sens de rotation moteur pour qu'il tourne en sens inverse.</value>
+Si le moteur tourne dans le mauvais sens en mode test drive, inverser le sens de direction du moteur</value>
   </data>
   <data name="hc_chkInvertWAS" xml:space="preserve">
-    <value>Inverser le capteur d'angle de roue
- 
-En tournant vers la droite, le capteur d'angle doit avoir un angle positif. Si ce n'est pas le cas, activez ce paramètre.</value>
+    <value>Inverser sens capteur d'angle de roue
+
+Roues vers la droite, la valeur de l'angle lue doit être positive, sinon inverser le sens capteur</value>
   </data>
   <data name="hc_chkSteerInvertRelays" xml:space="preserve">
-    <value>Inverser le relais de direction
- 
-Cela contrôle uniquement le relais sur PWM2. Si vous avez besoin de normalement ouvert ou normalement fermé, cliquez sur l'inverseur pour avoir la fonction opposée du relais.</value>
+    <value>Inverser Relais
+
+Permet d'inverser le sens de fonctionnement d'un relais branché sur la pin PWM2 seulement</value>
   </data>
   <data name="hc_hsbarFusion" xml:space="preserve">
-    <value>Filtrage du cap
- 
-Comme souvent, un réglage à l'un ou l'autre des extrêmes est mauvais. Le filtrage de l'IMU définit la quantité d'IMU et la quantité de correction GPS utilisé pour déterminer un cap fusionné.
- 
-Le GPS est assez stable sur une période de temps plus longue tandis que l'IMU est très stable à court terme mais dérive au fil du temps.
- 
-Si trop d'IMU est réglé, cela fait des virages serrés et peut prendre beaucoup de temps pour être corrigé par le GPS, ce qui entraînera un cap erronée. Trop de GPS et le cap sera brouillé d'avant en arrière, provoquant une direction imprévisible.
- 
-Dans cet esprit, réglez l'IMU de sorte qu'il y ait un peu de cap pour fournir une direction assez douce, et si vous tournez rapidement, assurez-vous que le cap que vous suivez juste après le virage est le cap que vous suivez réellement. Comparez le cap GPS et le cap Fusionné et voyez qu'ils se suivent bien. Le GPS sera brouillé, mais le fusionné sera assez stable au milieu de ces valeurs.</value>
+    <value>Curseur balance IMU.
+
+Permet de balancer le pourcentage d'acquisition du cap entre l'antenne GPS et l'IMU.
+Plus de GPS, plus de distance à parcourir pour avoir un cap fiable
+Plus IMU, réactivité augmenté voire trop importante</value>
   </data>
   <data name="hc_lblUTurnLegDistance" xml:space="preserve">
-    <value>Longueur d'attaque des demi-tours
+    <value>Longueur de jambes des demi tours automatique ( partie ligne droite avant de tourner)
 
-Défini le nombre de mètres de la longueur d'attaque au delà des demi-tours. Cela permet au véhicule de mieux s'aligner sur la ligne de guidage.</value>
+Définit la distance en mètres avant d'attaquer à tourner. Permet au véhicule de mieux s’aligner sur la ligne de guidage suivante</value>
   </data>
   <data name="hc_lblUTurnSmoothing" xml:space="preserve">
-    <value>Lissage UTurn
+    <value>Lissage Demi tours automatiques
 
-Supprime le changement brusque de direction pour les demi-tours en trou de serrure et les adoucit. Facilite le suivi du virage.</value>
+Supprime le changement brusque de direction et rend le tournant plus facile à suivre.</value>
   </data>
   <data name="hc_nudABLength" xml:space="preserve">
-    <value>Longueur de la ligne AB
- 
-Assurez-vous que la ligne est suffisamment longue pour aller d'un bord à l'autre et un peu plus. Deux fois plus long que la dimension du champ est pratique.</value>
+    <value>Longueur totale maximun de la ligne AB
+</value>
   </data>
   <data name="hc_nudAgeAlarm" xml:space="preserve">
-    <value>Alame Age GPS
-
-Définissez le nombre de seconde avant que l'alarme se déclenche</value>
+    <value>Age Alarme GPS
+Temps en seconde avant que l'alarme apparaisse</value>
   </data>
   <data name="hc_nudCutoffSpeed" xml:space="preserve">
-    <value>Vitesse de fermeture de sections
+    <value>Vitesse mini de coupure de tronçon
 
-La limite inférieure de vitesse avant l'arrêt automatique des sections. En dessous de ce paramètre, les sections s'éteignent. Empêche la surapplication.</value>
+Vitesse sous laquelle tous les tronçons sont automatiquement fermés
+</value>
   </data>
   <data name="hc_nudDefaultSectionWidth" xml:space="preserve">
-    <value>Largeur de section par défaut
- 
-Entrez la largeur de section par défaut pour toutes les sections ici. En sélectionnant ensuite le nombre de sections, vous remplissez les sections individuelles avec la valeur par défaut. Modifiez ensuite toutes les sections qui nécessitent une largeur différente de celle par défaut.</value>
+    <value>Largeur de tronçon par défaut.
+
+S'applique à tous les tronçons. Chaque tronçon peut ensuite être modifié individuellement</value>
   </data>
   <data name="hc_nudForwardComp" xml:space="preserve">
-    <value>Compensation de direction avant pour les virages
- 
-C'est un concept difficile à décrire, il y a donc une vidéo à ce sujet sur YouTube intitulée Reverse Compensation. 
- 
-Cela compense l'effet de l'antenne qui oscille très rapidement vers la gauche ou vers la droite lorsque vous tournez le volant pour la première fois. Cela essaie d'atténuer cet effet. Il est très complexe à éliminer. Il y a beaucoup moins de cet effet lorsque vous avancez, il est donc préférable de laisser le réglage tel quel.
- 
-Vous pouvez utiliser le graphique du menu Outils pour voir l'effet.
- 
-Souhaitez-vous voir une vidéo YouTube pour plus d'aide ?</value>
+    <value>Compensation de direction vers l’avant pour les demi tours automatiques
+
+C’est un concept difficile à décrire, il y a donc une vidéo à ce sujet sur You Tube appelée Reverse CompCompensation</value>
   </data>
   <data name="hc_nudGuidanceLookAhead" xml:space="preserve">
-    <value>Distance d'acquisition de la ligne de guidage
- 
-Combien de secondes à l'avance l'AOG doit-il chercher la prochaine ligne de guidage sur laquelle se verrouiller. Plus vous roulez vite, plus il regardera loin devant vous. AOG tracera la prochaine ligne de guidage à cet endroit et vous pouvez appuyer sur le bouton d'autoguidage et verrouiller.</value>
+    <value>Distance d'acquisition de la ligne de guidage  
+Combien de secondes à l’avance AOG devrait-il rechercher la prochaine ligne de guidage sur laquelle se verrouiller. Plus vous conduisez vite, plus il regardera loin devant vous. AOG tracera la ligne de guidage suivante à cet endroit et vous pourrez alors engager au bouton</value>
   </data>
   <data name="hc_nudHydLiftLookAhead" xml:space="preserve">
-    <value>Anticipation Hydraulique
+    <value>Anticipation relevage automatique
 
-Temps en seconde à partir duquel l'outil doit commencer à s'abaisser en entrant dans la zone de travail. Le levage de l'outil se produit lorsque l'outil est complètement en dehors de la zone de travail et dans la tournière</value>
+Temps en seconde pour anticiper la levée et le terrage de l'outil par rapport à la tournière</value>
   </data>
   <data name="hc_nudLightbarCmPerPixel" xml:space="preserve">
-    <value>Distance par pixel de la barre lumineuse
- 
-Combien de cm/pouces représentent chaque point carré sur la barre lumineuse. Petites valeurs, les points bougent très vite, Trop gros et les points bougent à peine. pratique pour le guidage manuel.</value>
+    <value>Taille de points de la barre de guidage, plus les points sont gros, plus ils représentent un écart large</value>
   </data>
   <data name="hc_nudLineWidth" xml:space="preserve">
-    <value>Largeur en pixels des lignes de guidage
+    <value>Largeur de ligne en pixel des lignes affichées
 
-Combien de pixels de large font les lignes affichées. Plus il y a de pixels et plus la ligne affichée est large. Valable de 1 à 8</value>
+De 1 à 8, 8 étant la ligne la plus large</value>
   </data>
   <data name="hc_nudLookAheadOff" xml:space="preserve">
-    <value>Temps pour fermer les sections avant d'arriver dans la zone déjà appliquée.</value>
+    <value>Temps d'anticipation par rapport à la zone déjà traitée pour la coupure de tronçon</value>
   </data>
   <data name="hc_nudLookAheadOn" xml:space="preserve">
-    <value>Temps pour ouvrir la section avant d'atteindre la zone non appliquée.</value>
+    <value>Temps d'anticipation pour l'ouverture des tronçons avant une zone non traitée</value>
   </data>
   <data name="hc_nudLowerTime" xml:space="preserve">
-    <value>Temps de descente
+    <value>Temps pour baisser le relevage
 
-Combien de temps en secondes la commande hydraulique doit rester allumée pour abaisser l'outil.</value>
+Temps en secondes pour l'execution de l'action pour baisser automatiquement le relevage</value>
   </data>
   <data name="hc_nudMaxCounts" xml:space="preserve">
-    <value>Compteur d'impulsion
-
-Lorsque ce nombre de détections est effectué, le guidage automatique est désactivé.
- 
-Selon le capteur utilisé, la valeur peut être soit le nombre de tours, la pression d'huile en bar et le courant en ampères.</value>
+    <value>Seuil de déclenchement pour la coupure automatique de l'autoguidage
+Peut être : Impulsions pour le codeur, bars pour le capteur de pression ou A pour le capteur de courant</value>
   </data>
   <data name="hc_nudMinCoverage" xml:space="preserve">
-    <value>Pourcentage de couverture minimum
- 
- Sur la base de chaque section, quelle quantité de la zone à venir doit être appliquée afin d'activer ou de désactiver la section.
- S'il est défini sur 100, la section ne s'éteint jamais tant que toute la zone n'est pas appliquée.
- S'il est défini sur 50, si la moitié de la zone est déjà appliquée, la section s'éteindra.</value>
+    <value>Pourcentage de couverture minimale
+
+En fonction de chaque tronçon, définie la zone de recouvrement pour activer / désactiver un tronçon
+Si elle est définie sur 100, le tronçon ne s'éteind que lorsque tout la largeur de travail dejà réalisée est totalement recroisée
+Si elle est définie sur 50, si la moitié de la zone est dejà travaillée, le tronçon se ferme.</value>
   </data>
   <data name="hc_nudMinFixStepDistance" xml:space="preserve">
     <value>Distance pour le calcul du cap
 
-Le cap est déterminé en prenant 2 points et en calculant un angle. Plus vous allez lentement, plus il y a de variations d'un côté à l'autre, plus de brouillage, etc... rendent le cap assez instable pour passer du dernier point au point actuel.  OK quand on va vite. AOG se souvient de plusieurs points dans le temps à cette fin. La distance de pas est la distance dans l'historique des points que vous souhaitez utiliser pour calculer le cap.
+Le cap est déterminé en prenant 2 points et en calculant un angle. Plus vous allez lentement, plus il y a de variations d’un côté à l’autre. rendant le cap assez instable pour simplement aller du dernier point connu au point actuel. Plutôt fiable à vive allure. AOG mémorise plusieurs points dans le temps à cette fin. La distance pour le calcul du cap est la distance de recul dans cet historique de points que vous souhaitez utiliser pour calculer le cap
 
-Une longue distance fournit une lecture assez stable MAIS il y a un retard et une lenteur pour déterminer quand le véhicule tourne.
+Une longue distance fournit une lecture assez stable MAIS il y a du retard et de la lenteur pour déterminer quand le véhicule tourne.
 
-Une très courte distance réagit très vite mais est aussi sautillante et plus brouillé.
- 
-C'est là que l'IMU aidera à augmenter la distance courte avec un cap IMU pour donner un cap de réponse stable et rapide." </value>
+Une très courte distance réagit très rapidement pour le changement de direction mais apporte beaucoup d'instabilité 
+
+C’est là que l’IMU aidera à augmenter la stabilité à faible allure pour donner un cap stable et rapide. Le bon ratio de fusion entre le cap GPS et le cap IMU apportera la stabilité dans une plage variée de vitesse.</value>
   </data>
   <data name="hc_nudMinimumFrameTime" xml:space="preserve">
-    <value>Temps de rafraissiement minimum
+    <value>Durée minimale de rafraichissement trame GPS
 
-Définie en millisecondes. Si le GPS est à 10 Hz, une seule mise à jour prend 100 ms entre les nouvelles mises à jour de position. Dans ce cas, le temps écoulé serait nul puisqu'un nouveau arrive toutes les 100 ms.
- 
- Si vous le définissez sur 70, le temps écoulé attendra encore 70 ms - ou 170 ms au total - avant qu'une mise à jour manquée ne se produise. Ces mises à jour manquées sont comptées et affichées par le bouton AGIO sur le côté gauche. Quelques échecs se produisent parce que Windows est occupé ou que les paramètres de configuration sont affichés parce que Windows est trop occupé pour lire rapidement chaque mise à jour. C'est normal.
- 
-Mais, si juste en conduisant,  les manques s'ajoutent, il y a un problème. Quelque chose prend trop de temps.</value>
+Définie en millisecondes. Si le GPS est réglé à 10 Hz, une seule mise à jour prend 100 ms entre 2 transmissions de position. Dans ce cas, le temps écoulé serait nul puisqu’un nouveau arrive toutes les 100 msec. 
+
+Si vous le définissez sur 70, le temps écoulé sera de 70 ms supplémentaires - ou 170 ms au total - avant qu’une mise à jour manquée ne se produise. Ces mises à jour manquées sont comptées et apparaissent sur le bouton AGIO sur le côté gauche. Quelques ratés se produisent parce que Windows est surchargé, ou si d'autres logiciels tournent.
+
+Mais, si le simple fait de conduire générent un trop grand nombre de trames ignorées alors le problème peut s'avérer être matériel. Tablette, cable usb ...</value>
   </data>
   <data name="hc_nudOffset" xml:space="preserve">
-    <value>Décalage d'outil
- 
-Une valeur positive déplace l'outil vers la droite, une valeur négative déplace l'outil vers la gauche</value>
+    <value>Décalage de l'outils
+
+Valeur positive = décalage vers la droite.</value>
   </data>
   <data name="hc_nudOverlap" xml:space="preserve">
-    <value>Chevauchement ou écart de distance
- 
-Une valeur positive indique un chevauchement, une valeur négative indique un écart. La largeur de l'outil reste la même, mais les lignes de guidage sont ajustées en conséquence.</value>
+    <value>Distance de recroisement ou d'écart au recroisement. 
+
+Valeur positive = recroisement</value>
   </data>
   <data name="hc_nudRaiseTime" xml:space="preserve">
-    <value>Temps de relevage
+    <value>Temps de relevage automatique
 
-Combien de temps en secondes la commande hydraulique doit rester allumée pour lever l'outil </value>
+Temps en seconde pour la réalisation de l'action de relevage</value>
   </data>
   <data name="hc_nudReverseComp" xml:space="preserve">
-    <value>Compensation pour les virages en marche arrière
- 
-C'est un concept difficile à décrire, il y a donc une vidéo à ce sujet sur YouTube intitulée Reverse Compensation :
+    <value>Compensation de sens inverse pour les demi tours automatiques
 
-Le but est de compenser l'effet de l'antenne qui passe très rapidement vers la gauche ou vers la droite lorsque vous tournez le volant. C est très complexe à éliminer.
- 
-L'effet est beaucoup plus important en sens inverse parce que la position de l'antenne basée sur la direction est derrière l'antenne. Pensez à un godet de chargeur sur un tracteur et au chemin qu'il trace.
- 
-Vous pouvez utiliser le graphique du menu des outils pour voir l'effet de la modification de ce paramètre, mais il est assez difficile de savoir si cela aide ou aggrave les choses.
- 
-Souhaitez-vous voir une vidéo YouTube pour plus d'aide ?</value>
+C’est un concept difficile à décrire, il y a donc une vidéo à ce sujet sur You Tube appelée Reverse Compensation</value>
   </data>
   <data name="hc_nudSectionWidth" xml:space="preserve">
-    <value>Entrée de largeur de sections
- 
-Entrez la largeur de la section en cm/pouces. Toutes les largeurs de section additionnées deviennent la largeur de l'outil.</value>
+    <value>Largeur de la section en cm</value>
   </data>
   <data name="hc_nudSnapDistance" xml:space="preserve">
-    <value>Déplacer la distance
-
-Distance sur laquelle déplacer la ligne de guidage, utilisée dans le formulaire Modifier AB</value>
+    <value>Distance de décalage de la ligne</value>
   </data>
   <data name="hc_nudStartSpeed" xml:space="preserve">
-    <value>Vitesse de démarrage
- 
-Vitesse à atteindre avant d'utiliser chaque position pour calculer le cap. En dessous de cette valeur, vous devez parcourir environ un mètre avant que la position et le cap ne soient mis à jour à l'écran.
- 
-C'est important lorsque vous allez lentement, que vous reculez et que vous tournez, etc... pour savoir où vous êtes, quel cap suivre et si vous êtes ou non en marche arrière.
- 
-Un réglage plus élevé comme au moins 1,5 à 2 permet une détermination beaucoup plus fiable de la marche arrière et du cap.</value>
+    <value>Vitesse minimale
+
+Vitesse à partir de laquelle, la positon GPS est prise en compte pour le calcul du cap. 
+
+Ceci est important lorsque vous allez lentement, reculez et tournez, etc. pour savoir où vous êtes, votre orientation, et si vous êtes ou non en sens inverse. 
+
+Un réglage plus élevé comme au moins 1,5 à 2 permet une détermination beaucoup plus fiable de l’inversion de direction et du cap. 
+</value>
   </data>
   <data name="hc_nudTramWidth" xml:space="preserve">
-    <value>Largeur de jalonnage
- 
-Généralement la largeur de votre pulvérisateur, mais c'est la largeur de l'espacement entre les jalonnages</value>
+    <value>Largeur de voies
+
+Souvent écart entre l'axe des roues sur un pulvé par exemple</value>
   </data>
   <data name="hc_nudTurnDistanceFromBoundary" xml:space="preserve">
-    <value>Distance du demi-tour de la bordure
+    <value>Distance entre la demi tour automatique et la bordure extérieure
 
-Distance entre le sommet du demi-tour et la limite. C'est la distance la plus proche entre le véhicule et la bordure. Assurez-vous que le véhicule et la demi largeur de l'outil ne dépassent pas la bordure.</value>
+A adapter en fonction de l'outil pour ne pas risquer de sortir de la limite du champ</value>
   </data>
   <data name="hc_nudTurnOffDelay" xml:space="preserve">
-    <value>Temps pour laisser les sections ouvertes après que la zone appliquée indique qu'elles doivent s'éteindre.</value>
+    <value>Temps de retardement de la coupure de tronçons à l'approche d'une zone déjà traitée</value>
   </data>
   <data name="hc_pboxSendSteer" xml:space="preserve">
-    <value>Message les paramètres ont changé
- 
-Vous avez effectué une modification sur cette page de paramètres lorsque ce message apparaît. Assurez-vous d'enregistrer et d'envoyer vos modifications, sinon rien ne se passera et les modifications seront perdues.</value>
+    <value>Alerte graphique de changement de paramètres.
+L'alerte disparait une fois la config sauvée et envoyée vers le boitier autoguidage</value>
   </data>
   <data name="hc_rbtnDisplayImperial" xml:space="preserve">
-    <value>Définir les unités sur impériales</value>
+    <value>Paramètre les unités en Impérial</value>
   </data>
   <data name="hc_rbtnDisplayMetric" xml:space="preserve">
-    <value>définir les unités sur métriques</value>
+    <value>Paramètre les unités en Métrique</value>
   </data>
   <data name="hc_rbtnHeadingFix" xml:space="preserve">
-    <value>Type de cap Fix to Fix</value>
+    <value>Type de cap en Fixe à Fixe</value>
   </data>
   <data name="hc_rbtnHeadingGPS" xml:space="preserve">
-    <value>Type de cap VTG</value>
+    <value>Cap issue d'une trame VTG</value>
   </data>
   <data name="hc_rbtnHeadingHDT" xml:space="preserve">
-    <value>Type de cap Double Antenne</value>
+    <value>Cap isue d'un montage double antennes</value>
   </data>
   <data name="hc_rbtnTramInnerOuter" xml:space="preserve">
-    <value>Positionnement de l'outil au jalonnage
- 
-Sélectionnez l'endroit où l'outil se terminera lors d'un passage de jalonnage. C'est à déterminer en fonction du nombre pair ou impair de passes de semis pour vous rendre à la prochaine ligne de jalonnage.</value>
+    <value>Positionnement des passages de jalonnage
+
+Sélectionnez l’endroit où l’outil se retrouvera lors d’un passage sur la ligne de jalonnage.</value>
   </data>
   <data name="hc_tboxVehicleNameSave" xml:space="preserve">
-    <value>Nom du véhicule à enregistrer
-
-Entrez le nom du nouveau véhicule et appuyer sur le bouton Enregistrer</value>
+    <value>Nom du nouveau véhicule à enregistrer
+Entrer le nom du nouveau véhicule et cliquer le bouton "Enregistrer"</value>
   </data>
   <data name="hcur_btnAPoint" xml:space="preserve">
     <value>Point A
-
-Début de la coube</value>
+Début de la courbe AB</value>
   </data>
   <data name="hcur_btnBPoint" xml:space="preserve">
     <value>Point B
-
-Fin de la courbe</value>
+Fin de la courbe AB</value>
   </data>
   <data name="hcur_btnPausePlay" xml:space="preserve">
-    <value>Pause enregistrement
+    <value>Pause à l'enregistrement
 
-Stoppe la création des points et continue l'enregitrement de la ligne.
-
-C'est vraiment utile si vous voulez une ligne plus droite au lieu d'enregistrer tous les points. La ligne entre les pauses sera une ligne droite.
- 
-Après avoir enregistré la ligne, un légerde lissage est également appliqué.</value>
+facilite la création des coins de champ dans les bordures</value>
   </data>
   <data name="hd_btnCancelTouch" xml:space="preserve">
-    <value>Annuler les points touchés
- 
-Supprime les points touchés sur la ligne .
- 
-Si vous touchez à nouveau après avoir touché le deuxième point, il recommencera à sélectionner le premier point.</value>
+    <value>Annuler les points 
+
+Supprime tous les point touchés et recommence. Si vous touchez un autre points apres le second, celui-ci remplace le premier et ainsi de suite
+
+</value>
   </data>
   <data name="hd_btnDeleteABLine" xml:space="preserve">
-    <value>Supprimer la ligne AB
-
-Supprime la ligne AB sélectionnée</value>
+    <value>Supprime la ligne sélectionnée</value>
   </data>
   <data name="hd_btnDeleteCurve" xml:space="preserve">
-    <value>Supprimer la courbe
-
-Supprime la courbe sélectionnée</value>
+    <value>Supprimer la courbe sélectionnée</value>
   </data>
   <data name="hd_btnDrawSections" xml:space="preserve">
-    <value>Coloriage des sections
+    <value>Traçage des tronçons
 
-Crée une carte d'application sur le fond de carte du champ</value>
+Affiche ce à quoi ressemblera le champ une fois travaillé et colorié</value>
   </data>
   <data name="hd_btnFlipOffset" xml:space="preserve">
-    <value>Inverser le décalage
- 
-Inverse le décalage de l'autre côté de la ligne. A utiliser avant de créer la courbe</value>
+    <value>Décalage à droite ou à gauche au moment de la création de la courbe</value>
   </data>
   <data name="hd_btnMakeABLine" xml:space="preserve">
-    <value>Créer la ligne AB
- 
-Une fois que 2 points sont sélectionnés et que la distance par rapport à la bordure est définie, créez une nouvelle ligne de guidage AB. Vous pouvez modifier le nom dans la zone de texte.</value>
+    <value>Validation de création d'une ligne AB. La nom e la ligne peut être modifié à ce moment là</value>
   </data>
   <data name="hd_btnMakeBoundaryCurve" xml:space="preserve">
-    <value>Créer une bordure de champ
- 
-Crée une ligne de guidage autour de l'ensemble du champ qui est définie par la saisie  de la distance. Généralement c'est la demi-largeur de l'outil.</value>
+    <value>Création d'un ligne de guidage calquée sur la limite du champ. Décalée par défaut d'une demi largeur d'outil</value>
   </data>
   <data name="hd_btnMakeCurve" xml:space="preserve">
-    <value>Créer une courbe
- 
-Une fois que 2 points sont sélectionnés et que la distance par rapport à la limite est définie, créez une nouvelle ligne de guidage de courbe. Vous pouvez modifier le nom dans la zone de texte.</value>
+    <value>Créer une courbe AB
+
+Une fois que 2 points sont sélectionnés et que la distance par rapport à la limite est définie, une nouvelle courbe de référence est créée. Vous pouvez modifier le nom dans la zone de texte</value>
   </data>
   <data name="hd_btnSelectABLine" xml:space="preserve">
-    <value>Sélectionnez une ligne AB
+    <value>Sélectionner une ligne AB
 
-Parcourez les lignes et sélectionner celle que vous voulez.</value>
+Appuyer plusieurs fois pour faire défiler les lignes créées</value>
   </data>
   <data name="hd_btnSelectCurve" xml:space="preserve">
-    <value>Sélectionnez une courbe
+    <value>Sélectionner une courbe AB
 
-Parcourez les lignes et sélectionner celle que vous voulez.</value>
+Touchez plusieurs fois pour faire défiler les courbes déjà créées</value>
   </data>
   <data name="hd_nudDistance" xml:space="preserve">
-    <value>Distance de la bordure
- 
-Entrez la distance à gauche ou à droite de la ligne créée par les 2 points. La valeur par défaut est la moitié de la largeur de l'outil.</value>
+    <value>Distance par rapport à la bordure du champ
+
+Entrez la distance à gauche ou à droite de la ligne créée par les 2 points. La valeur par défaut est égale à 1 moitié de la largeur de l’outil.</value>
   </data>
   <data name="hd_oglSelf" xml:space="preserve">
-    <value>Affichage des limites
- 
-Appuyez sur 2 points sur la bordure pour tracer une ligne. Touchez Créer une courbe ou Créer une ligne AB pour créer la ligne. Modifiez le nom.</value>
+    <value>Affichage de la bordure du champ
+
+Touchez 2 points sur la brodure pour créer une ligne ou une courbe. Appuyez sur Créer une courbe AB ou Créer une ligne AB. Vous pouvez ensuite modifier le nom</value>
   </data>
   <data name="hd_tboxNameLine" xml:space="preserve">
-    <value>Modifier la ligne
-
-Appuyer sur modifier la ligne pour la renommer</value>
+    <value>Modifier la ligne</value>
   </data>
   <data name="he_btnNoSave" xml:space="preserve">
-    <value>Enregistrer pour le moment
+    <value>Enregistrement jusqu'à la fermeture.
 
-Les modifications sur les lignes ne sont pas enregistrées avec les champs, elles sont perdues lorsqu'on importe à nouveau le champ. Mais les changement sont appliqués.</value>
+SI un décalage de ligne est appliqué, il l'est jusqu'à la fermeture du champ seulement</value>
   </data>
   <data name="he_btnOK" xml:space="preserve">
-    <value>Enregistrer et quitter
-
-Les changements sont enregistrés avec le champ et l'on sort du formulaire</value>
+    <value>Enregistrer et Quitter</value>
   </data>
   <data name="hh_btnDeletePoints" xml:space="preserve">
-    <value>Supprimer des points sur la ligne
- 
-Sélectionnez d'abord 2 points sur la ligne entre lesquels vous voulez supprimer tous les points.
- 
-Appuyez sur le bouton Supprimer.
- 
-Cela supprime tous les points entre les 2 points sélectionnés et crée une ligne droite.</value>
+    <value>Supprimer une sélection de points
+
+Sélectionner 2 points et valider, entrainera la suppression de tous les points entre les 2 points sélectionnés</value>
   </data>
   <data name="hh_btnExit" xml:space="preserve">
     <value>Sortir
- 
-Quitte le formulaire et active la tournière.</value>
+
+Quitte la fenêtre et active la tournière</value>
   </data>
   <data name="hh_btnMakeFixedHeadland" xml:space="preserve">
-    <value>Ajouter une distance à la tournière
- 
-Ajoute la distance saisie à la tournière existante.</value>
+    <value>Ajoute une distance à la tournière créée</value>
   </data>
   <data name="hh_btnReset" xml:space="preserve">
-    <value>Réinitialiser la tournière
- 
-Remet la tournière sur la bordure, en la réinitialisant à la distance à 0.</value>
+    <value>Remet à zéro la tournière par rapport à la bordure du champ</value>
   </data>
   <data name="hh_btnSetDistance" xml:space="preserve">
-    <value>Ajouter une distance
- 
-Ajoute la distance saisie à la ligne sélectionnée par les 2 points.</value>
+    <value>Ajoute une distance entre la bordure et la tournière</value>
   </data>
   <data name="hh_btnTurnOffHeadland" xml:space="preserve">
-    <value>Arrêt tournières
-
-Arrête complètement le mode tournières.</value>
+    <value>Supprimer les tournières</value>
   </data>
   <data name="hh_cboxIsSectionControlled" xml:space="preserve">
-    <value>Contrôle des sections dans les tounières
+    <value>Contrôle de tronçon dans les tournières
 
-Active ou désactive les sections dans les tournières.</value>
+Activer ou non, le mode automatique de coupure des tronçons dans les tournières</value>
   </data>
   <data name="hh_cboxToolWidths" xml:space="preserve">
-    <value>Largeurs d'outil
- 
-Utilisez le menu déroulant pour définir combien de largeurs d'outil doit faire la tournière à partir de la bordure.
+    <value>Largeur d'outils
 
-Si vous le sélectionnez à nouveau, il supprimera la tournière précédente et en créera une nouvelle.</value>
+Permet de définir le nombre de passe à réaliser dans la tournière. Est ajouté à ka distanfe de décalage entre la tournière eet la limite extérieure du champ</value>
   </data>
   <data name="hh_nudDistance" xml:space="preserve">
-    <value>Distance saisie
- 
-La distance saisie sera ajoutée à la distance de tournière existante. Appuyez sur le bouton Entrer pour l'ajouter.</value>
+    <value>Distance de décalage de la tournière par rapport à la bordure</value>
   </data>
   <data name="hh_nudSetDistance" xml:space="preserve">
-    <value>Déplacement à la distance sélectionnée
- 
-Sélectionnez 2 points sur la ligne de tournière que vous souhaitez déplacer indépendamment
- 
-Entrez la distance pour déplacer le segment - la valeur peut être positive ou négative.</value>
+    <value>Sélectionner 2 points de la tournière à déplacer. 
+
+Ensuite sélectionner la distance à laquelle déplacer le segment précédemment défini</value>
   </data>
   <data name="ht_btnAdjHalfToolWidth" xml:space="preserve">
-    <value>Déplacer la référence de la moitié de la largeur de l'outil
-
-Déplace la ligne de référence d'une demi-largeur d'outil vers la gauche ou la droite.</value>
+    <value>Permet de décaler la ligne de référence d'une demi largeur d'outil, vers la droite ou la gauche, au choix</value>
   </data>
   <data name="ht_btnCancel" xml:space="preserve">
-    <value>Arrêt du jalonnage
-
-Annule et supprime tout. Arrête le jalonnage</value>
+    <value>Désactiver le jalonnage</value>
   </data>
   <data name="ht_btnLeftRightNudge" xml:space="preserve">
-    <value>Déplacer la ligne de référence
- 
-Décale la ligne de référence de la valeur affichée</value>
+    <value>Décalage de ligne en fonction de la valeur prédéfinie</value>
   </data>
   <data name="ht_btnSave" xml:space="preserve">
-    <value>Enregistre et quitte
+    <value>Enregistrer et fermer
 
-Enregistre et active le jalonnage. Quitte le formulaire</value>
+Enregistre et active les lignes de jalonnage</value>
   </data>
   <data name="ht_btnSwapAB" xml:space="preserve">
-    <value>Échange A et B
- 
-Échange l'ordre de la ligne pour que la droite soit la gauche.
- 
-C'est important car les lignes de jalonnage sont faites du côté droit de la ligne en comptant positivement.</value>
+    <value>Inverser point A et B
+
+Permet d'inverser le sens des lignes, par exemple à l'activation des lignes de jalonnage, si celle-ci ne sont pas du bon coté dans le champ</value>
   </data>
   <data name="ht_nudPasses" xml:space="preserve">
-    <value>Passes de jalonnage
-
-Entrez le nombre de passe de jalonnage ou utilisez les flèches pour changer le nombre</value>
+    <value>Nombre de passages jalonnés</value>
+  </data>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
+  </data>
+  <data name="v_RecordedPathForm" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=fE3TPRIRSFg</value>
+  </data>
+  <data name="v_SteerSettingsForm" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=3SdvYgx8HHc</value>
   </data>
 </root>
