@@ -122,7 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CBrightness.cs" />
-    <Compile Include="Classes\CExtensionMethods.cs" />
+    <Compile Include="Classes\CExtensionMethods.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\CFence.cs">
       <DependentUpon>CBoundary.cs</DependentUpon>
     </Compile>
@@ -610,21 +612,6 @@
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\vec3.cs" />
-    <Compile Include="RoundButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Round_Menu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Round_panel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Round_StatusStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Round_table.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <EmbeddedResource Include="Forms\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
     </EmbeddedResource>
@@ -960,6 +947,13 @@
     <None Include="btnImages\Config\ConV_MinAutoSteer.png" />
     <None Include="btnImages\Config\ConV_RevSteer.png" />
     <None Include="btnImages\Config\tractor-raise.gif" />
+    <None Include="btnImages\DrawLineExtendA.png" />
+    <None Include="btnImages\DrawLineExtendB.png" />
+    <None Include="btnImages\ResumeField.png" />
+    <None Include="btnImages\Config\4WD\z_4WDFrontHolder.png" />
+    <None Include="btnImages\Config\4WD\z_4WDRearHolder.png" />
+    <None Include="btnImages\Config\ConT_TramOverride.png" />
+    <None Include="btnImages\Config\Brand\Holder.png" />
     <Content Include="Nav.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -272,6 +272,18 @@ namespace AgOpenGPS
 
         }
 
+        private void contextMenuStrip_ResumeField_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void btnResumeField_Click(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+
+
         /// <summary>
         /// The new steer algorithms
         /// </summary>
@@ -414,11 +426,11 @@ namespace AgOpenGPS
             round_table6.Visible = false;
             round_table8.Visible = false;
             btnResetToolHeading.Visible = false;
-            round_StatusStrip1.Width = 176;
+            round_StatusStrip1.Width = 174;
             toolStripStatusLabel2.Visible = false;
-            round_table10.Width = 176;
-            round_table7.Width = 176;
-            round_table9.Width = 176;
+            round_table10.Width = 174;
+            round_table7.Width = 174;
+            round_table9.Width = 174;
             cboxpRowWidth.Visible = false;
             btnYouSkipEnable.Visible = false;
             if (!Properties.Settings.Default.UP_setDisplay_islong_touchOn)
@@ -791,6 +803,8 @@ namespace AgOpenGPS
 
                 if (result == DialogResult.OK) return 0;      //Save and Exit
                 if (result == DialogResult.Ignore) return 1;   //Ignore
+                if (result == DialogResult.Yes) return 2; //Ignore
+
                 return 3;  // oops something is really busted
             }
         }
@@ -931,6 +945,34 @@ namespace AgOpenGPS
             ABLine.abHeading = 0.00;
             btnAutoSteer.Enabled = true;
 
+            //ajout memprou
+            if (currentFieldDirectory.Contains("2020."))
+            {
+                if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
+            }
+            else if (currentFieldDirectory.Contains("2021."))
+            {
+                if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
+            }
+            else
+            {
+                toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
+            }
+            label1.Text = vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m";
+            round_table1.Visible = true;
+            round_table4.Visible = true;
+            round_table3.Visible = true;
+            round_table2.Visible = true;
+            round_table6.Visible = true;
+            round_table8.Visible = true;
+            btnResetToolHeading.Visible = true;
+            label1.Visible = true;
+            toolStripStatusLabel2.Visible = true;
+            round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
+            round_table10.Width = 290;
+            round_table7.Width = 227;
+
+            //fin 
             DisableYouTurnButtons();
             btnFlag.Enabled = true;
 
@@ -1103,6 +1145,7 @@ namespace AgOpenGPS
 
             //clean up tram
             tram.displayMode = 0;
+            tram.generateMode = 0;
             tram.tramBndInnerArr?.Clear();
             tram.tramBndOuterArr?.Clear();
 

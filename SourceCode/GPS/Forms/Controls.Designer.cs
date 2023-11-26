@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -33,7 +34,7 @@ namespace AgOpenGPS
             if (ct.isContourBtnOn)
             {
                 btnCycleLines.Image = Properties.Resources.ColorLocked;
-                //ajout memprou btnCycleLinesBk.Image = Properties.Resources.ColorLocked;
+                //ajout memprou btnCycleLinesBk.Visible = false;
                 //turn off youturn...
                 DisableYouTurnButtons();
                 guidanceLookAheadTime = 0.5;
@@ -49,7 +50,7 @@ namespace AgOpenGPS
                 }
 
                 btnCycleLines.Image = Properties.Resources.ABLineCycle;
-                //ajout memprou btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
+                //ajout memprou btnCycleLinesBk.Visible = true;
                 guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
             }
         }
@@ -341,10 +342,33 @@ namespace AgOpenGPS
             {
                 curve.moveDistance = 0;
 
-                curve.numCurveLineSelected++;
-                if (curve.numCurveLineSelected > curve.numCurveLines) curve.numCurveLineSelected = 1;
+                bool isVis = false;
+
+                //make sure one is visible
+                for (int i = 0; i < curve.curveArr.Count; i++)
+                {
+                    if (curve.curveArr[i].isVisible)
+                    {
+                        isVis = true;
+                        break;
+                    }
+                }
+
+                if (!isVis) return;
 
                 int idx = curve.numCurveLineSelected - 1;
+
+                while (isVis)
+                {
+                    curve.numCurveLineSelected++;
+
+                    if (curve.numCurveLineSelected > curve.numCurveLines) curve.numCurveLineSelected = 1;
+
+                    idx = curve.numCurveLineSelected - 1;
+
+                    if (curve.curveArr[idx].isVisible) break;
+                }
+
                 curve.aveLineHeading = curve.curveArr[idx].aveHeading;
                 curve.refList?.Clear();
                 for (int i = 0; i < curve.curveArr[idx].curvePts.Count; i++)
@@ -403,10 +427,33 @@ namespace AgOpenGPS
             {
                 curve.moveDistance = 0;
 
-                curve.numCurveLineSelected--;
-                if (curve.numCurveLineSelected == 0) curve.numCurveLineSelected = curve.numCurveLines;
+                bool isVis = false;
+
+                //make sure one is visible
+                for (int i = 0; i < curve.curveArr.Count; i++)
+                {
+                    if (curve.curveArr[i].isVisible)
+                    {
+                        isVis = true;
+                        break;
+                    }
+                }
+
+                if (!isVis) return;
 
                 int idx = curve.numCurveLineSelected - 1;
+
+                while (isVis)
+                {
+                    curve.numCurveLineSelected--;
+
+                    if (curve.numCurveLineSelected < 1) curve.numCurveLineSelected = curve.numCurveLines;
+
+                    idx = curve.numCurveLineSelected - 1;
+
+                    if (curve.curveArr[idx].isVisible) break;
+                }
+
                 curve.aveLineHeading = curve.curveArr[idx].aveHeading;
                 curve.refList?.Clear();
                 for (int i = 0; i < curve.curveArr[idx].curvePts.Count; i++)
@@ -572,6 +619,48 @@ namespace AgOpenGPS
                 form.Show(this);
             }
         }
+        //ajout memprou : resume path
+        private void toolStripBtnField_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (isTT)
+                {
+                    MessageBox.Show("Resumes Last Field Used", "Resume Field");
+                    ResetHelpBtn();
+                    return;
+                }
+
+
+                if (isJobStarted)
+                {
+                    if (autoBtnState == btnStates.Auto)
+                    {
+                        TimedMessageBox(2000, "Safe Shutdown", "Turn off Auto Section Control");
+                        return;
+                    }
+
+                    if (manualBtnState == btnStates.On)
+                    {
+                        TimedMessageBox(2000, "Safe Shutdown", "Turn off Auto Section Control");
+                        return;
+                    }
+
+                    //close the current job and ask how to or if to save
+                    Settings.Default.setF_CurrentDir = currentFieldDirectory;
+                    Settings.Default.Save();
+                    FileSaveEverythingBeforeClosingField();
+                    //ajout memprou panelRight.Enabled = false;
+                    //boundaryToolStripBtn.Enabled = false;
+                    FieldMenuButtonEnableDisable(false);
+                    displayFieldName = gStr.gsNone;
+                }
+
+                FileOpenField("Resume");
+            }
+        }
+        //fin
+
         private void btnStartAgIO_Click(object sender, EventArgs e)
         {
             if (isTT)
@@ -1157,6 +1246,13 @@ namespace AgOpenGPS
 
         private void btnStanleyPure_Click(object sender, EventArgs e)
         {
+            if (isTT)
+            {
+                MessageBox.Show(gStr.h_btnStanleyPure, "Steer Mode");
+                ResetHelpBtn();
+                return;
+            }
+
             isStanleyUsed = !isStanleyUsed;
 
             if (isStanleyUsed)
@@ -1961,18 +2057,18 @@ namespace AgOpenGPS
 
                     if (currentFieldDirectory.Contains("2020."))
                     {
-                        if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                        if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
                     }
                     else if (currentFieldDirectory.Contains("2021."))
                     {
-                        if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                        if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
                     }
                     else
                     {
-                        toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "- " + fd.AreaBoundaryLessInnersHectares;
+                        toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
                     }
 
-                    label1.Text = vehicleFileName + " - " + (Math.Round(tool.width, 2)).ToString() + " m";
+                    label1.Text = vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m";
                     round_table1.Visible = true;
                     round_table4.Visible = true;
                     round_table3.Visible = true;
@@ -1984,7 +2080,7 @@ namespace AgOpenGPS
                     toolStripStatusLabel2.Visible = true;
                     round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
                     round_table10.Width = 290;
-                    round_table7.Width = 242;
+                    round_table7.Width = 227;
                 }
                 else
                 {
@@ -2000,10 +2096,10 @@ namespace AgOpenGPS
                     round_table6.Visible = false;
                     round_table8.Visible = false;
                     btnResetToolHeading.Visible = false;
-                    round_StatusStrip1.Width = 176;
+                    round_StatusStrip1.Width = 174;
                     toolStripStatusLabel2.Visible = false;
-                    round_table10.Width = 176;
-                    round_table7.Width = 176;
+                    round_table10.Width = 174;
+                    round_table7.Width = 174;
                 }
                 //fin
             }
@@ -2011,6 +2107,7 @@ namespace AgOpenGPS
         private void toolStripBtnField_Click(object sender, EventArgs e)
         {
             CloseCurrentJob();
+            //ajout memprou
             lblCurveLineName.Text = lblCurrentField.Text = string.Empty;
             label1.Visible = false;
             round_table1.Visible = false;
@@ -2020,10 +2117,11 @@ namespace AgOpenGPS
             round_table6.Visible = false;
             round_table8.Visible = false;
             btnResetToolHeading.Visible = false;
-            round_StatusStrip1.Width = 176;
+            round_StatusStrip1.Width = 174;
             toolStripStatusLabel2.Visible = false;
-            round_table10.Width = 176;
-            round_table7.Width = 176;
+            round_table10.Width = 174;
+            round_table7.Width = 174;
+            //fin
         }
         private void CloseCurrentJob()
         {
@@ -2063,6 +2161,17 @@ namespace AgOpenGPS
                     case 1:
                         break;
 
+                    //Open Job
+                    case 2:
+                        Settings.Default.setF_CurrentDir = currentFieldDirectory;
+                        Settings.Default.Save();
+                        FileSaveEverythingBeforeClosingField();
+                        //ajout memprou panelRight.Enabled = false;
+                        //boundaryToolStripBtn.Enabled = false;
+                        FieldMenuButtonEnableDisable(false);
+                        displayFieldName = gStr.gsNone;
+                        toolStripBtnFieldOpen_Click(this, EventArgs.Empty);
+                        break;
                 }
             }
             //update GUI areas
@@ -2438,7 +2547,10 @@ namespace AgOpenGPS
         public void FixTramModeButton()
         {
             if (tram.tramList.Count > 0 || tram.tramBndOuterArr.Count > 0)
+            {
                 btnTramDisplayMode.Visible = true;
+                tram.displayMode = 1;
+            }
             //Ajout-modification MEmprou et SPailleau else btnTramDisplayMode.Visible = false;
 
             switch (tram.displayMode)

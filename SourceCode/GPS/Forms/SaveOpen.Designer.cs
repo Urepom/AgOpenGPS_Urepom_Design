@@ -1352,7 +1352,12 @@ namespace AgOpenGPS
                             Math.Round(tram.tramBndInnerArr[i].northing, 3).ToString(CultureInfo.InvariantCulture));
                     }
                 }
-
+                //no outer bnd
+                else
+                {
+                    writer.WriteLine("0");
+                    writer.WriteLine("0");
+                }
                 if (tram.tramList.Count > 0)
                 {
                     writer.WriteLine(tram.tramList.Count.ToString(CultureInfo.InvariantCulture));

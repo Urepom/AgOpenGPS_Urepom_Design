@@ -14,7 +14,7 @@ namespace AgOpenGPS
 {
     public enum TBrand { AGOpenGPS, Case, Claas, Deutz, Fendt, JDeere, Kubota, Massey, NewHolland, Same, Steyr, Ursus, Valtra }
     public enum HBrand { AgOpenGPS, Case, Claas, JDeere, NewHolland }
-    public enum WDBrand { AgOpenGPS, Case, Challenger, JDeere, NewHolland }
+    public enum WDBrand { AgOpenGPS, Case, Challenger, JDeere, NewHolland, Holder }
 
     public partial class FormGPS
     {
@@ -158,7 +158,7 @@ namespace AgOpenGPS
                 BatImage.Text = NiveauBatterie;
                 BatLevel.Text = NiveauBatterie;
                 //----
-                label1.Text = vehicleFileName + " - " + (Math.Round(tool.width, 2)).ToString() + " m";
+                label1.Text = vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m";
                 if (ferti_vidange == false)
                 {
                     p_240.pgn[p_240.LargeurHi] = unchecked((byte)(((short)tool.width) >> 8));
@@ -712,8 +712,6 @@ namespace AgOpenGPS
                 Location = Settings.Default.setWindow_Location;
                 Size = Settings.Default.setWindow_Size;
             }
-
-            isTramOnBackBuffer = Properties.Settings.Default.setTram_isTramOnBackBuffer;
 
             //night mode
             isDay = Properties.Settings.Default.setDisplay_isDayMode;
@@ -1445,6 +1443,8 @@ namespace AgOpenGPS
                 bitmap4WDFront = Resources.z_4WDFrontJDeere;
             else if (brandWDF == WDBrand.NewHolland)
                 bitmap4WDFront = Resources.z_4WDFrontNH;
+            else if (brandWDF == WDBrand.Holder)
+                bitmap4WDFront = Resources.z_4WDFrontHolder;
             else
                 bitmap4WDFront = Resources.z_4WDFrontAoG;
 
@@ -1462,6 +1462,8 @@ namespace AgOpenGPS
                 bitmap4WDRear = Resources.z_4WDRearJDeere;
             else if (brandWDR == WDBrand.NewHolland)
                 bitmap4WDRear = Resources.z_4WDRearNH;
+            else if (brandWDR == WDBrand.Holder)
+                bitmap4WDRear = Resources.z_4WDRearHolder;
             else
                 bitmap4WDRear = Resources.z_4WDRearAoG;
 

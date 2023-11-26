@@ -493,7 +493,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int setTram_passes {
             get {
                 return ((int)(this["setTram_passes"]));
@@ -830,13 +830,13 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool setTool_isTramOuter {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setTool_isTramOuterInverted {
             get {
-                return ((bool)(this["setTool_isTramOuter"]));
+                return ((bool)(this["setTool_isTramOuterInverted"]));
             }
             set {
-                this["setTool_isTramOuter"] = value;
+                this["setTool_isTramOuterInverted"] = value;
             }
         }
         

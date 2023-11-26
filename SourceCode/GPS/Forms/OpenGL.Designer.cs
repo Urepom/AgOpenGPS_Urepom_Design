@@ -19,8 +19,6 @@ namespace AgOpenGPS
         private int zoomUpdateCounter = 0;
         public int steerModuleConnectedCounter = 0;
 
-        public bool isTramOnBackBuffer = false;
-
         //data buffer for pixels read from off screen buffer
         byte[] grnPixels = new byte[150001];
 
@@ -611,34 +609,32 @@ namespace AgOpenGPS
             }
 
             //draw 245 green for the tram tracks
-            if (isTramOnBackBuffer)
+
+            if (tram.displayMode != 0 && (curve.isBtnCurveOn || ABLine.isBtnABLineOn))
             {
-                if (tram.displayMode != 0 && (curve.isBtnCurveOn || ABLine.isBtnABLineOn))
+                GL.Color3((byte)0, (byte)245, (byte)0);
+                GL.LineWidth(8);
+
+                if ((tram.displayMode == 1 || tram.displayMode == 2))
                 {
-                    GL.Color3((byte)0, (byte)245, (byte)0);
-                    GL.LineWidth(8);
-
-                    if ((tram.displayMode == 1 || tram.displayMode == 2))
+                    for (int i = 0; i < tram.tramList.Count; i++)
                     {
-                        for (int i = 0; i < tram.tramList.Count; i++)
-                        {
-                            GL.Begin(PrimitiveType.LineStrip);
-                            for (int h = 0; h < tram.tramList[i].Count; h++)
-                                GL.Vertex3(tram.tramList[i][h].easting, tram.tramList[i][h].northing, 0);
-                            GL.End();
-                        }
-                    }
-
-                    if (tram.displayMode == 1 || tram.displayMode == 3)
-                    {
-                        //boundary tram list
                         GL.Begin(PrimitiveType.LineStrip);
-                        for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
-                            GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
-                        for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
-                            GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
+                        for (int h = 0; h < tram.tramList[i].Count; h++)
+                            GL.Vertex3(tram.tramList[i][h].easting, tram.tramList[i][h].northing, 0);
                         GL.End();
                     }
+                }
+
+                if (tram.displayMode == 1 || tram.displayMode == 3)
+                {
+                    //boundary tram list
+                    GL.Begin(PrimitiveType.LineStrip);
+                    for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
+                        GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
+                    for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
+                        GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
+                    GL.End();
                 }
             }
 
@@ -757,7 +753,7 @@ namespace AgOpenGPS
             double mOn = 0, mOff = 0;
 
             //tram and hydraulics
-            if (isTramOnBackBuffer && tool.width > vehicle.trackWidth)
+            if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
             {
                 tram.controlByte = 0;
                 //1 pixels in is there a tram line?
@@ -1737,18 +1733,18 @@ namespace AgOpenGPS
 
                         if (currentFieldDirectory.Contains("2020."))
                         {
-                            if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                            if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
                         }
                         else if (currentFieldDirectory.Contains("2021."))
                         {
-                            if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "- " + fd.AreaBoundaryLessInnersHectares;
+                            if (currentFieldDirectory.Length > 18) toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length - 17) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
                         }
                         else
                         {
-                            toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "- " + fd.AreaBoundaryLessInnersHectares;
+                            toolStripStatusLabel2.Text = currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha";
                         }
 
-                        label1.Text = vehicleFileName + " - " + (Math.Round(tool.width, 2)).ToString() + " m";
+                        label1.Text = vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m";
                         round_table1.Visible = true;
                         round_table4.Visible = true;
                         round_table3.Visible = true;
@@ -1761,7 +1757,7 @@ namespace AgOpenGPS
                         //lblCurveLineName.Visible = true; //SPailleau - Nom de la ligne déplacé
                         round_StatusStrip1.Width = 176 + toolStripStatusLabel2.Width;
                         round_table10.Width = 290;
-                        round_table7.Width = 242;
+                        round_table7.Width = 227;
                         //toolStripBtnFieldClose.Visible = true; //SPailleau 
                     }
                     else
@@ -1779,10 +1775,10 @@ namespace AgOpenGPS
                         round_table8.Visible = false;
                         btnResetToolHeading.Visible = false;
                         lblCurveLineName.Visible = false;
-                        round_StatusStrip1.Width = 176;
+                        round_StatusStrip1.Width = 174;
                         toolStripStatusLabel2.Visible = false;
-                        round_table10.Width = 176;
-                        round_table7.Width = 176;
+                        round_table10.Width = 174;
+                        round_table7.Width = 174;
                     }
                 }
             }
@@ -2331,7 +2327,7 @@ namespace AgOpenGPS
             if (isMaxAngularVelocity)
             {
                 GL.Color3(0.98f, 0.4f, 0.4f);
-                font.DrawText(center - 10, oglMain.Height - 260, "*AV*", 4);
+                font.DrawText(center - 10, oglMain.Height - 260, "*", 2);
             }
 
             //if (ahrs.imuHeading != 99999)

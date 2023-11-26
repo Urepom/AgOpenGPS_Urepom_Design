@@ -40,7 +40,7 @@ namespace AgOpenGPS
             label13.Text = gStr.gsLoad;
             label42.Text = gStr.gsSaveAs;
             label57.Text = gStr.gsDelete;
-            label3.Text = gStr.gsSaveNewVehicle;
+            label3.Text = gStr.gsCurrentVehicle;
             lblCurrentVehicle.Text = gStr.gsCurrentVehicle;
             label22.Text = gStr.gsUnits;
             label52.Text = gStr.gsToolWidth;
@@ -198,7 +198,7 @@ namespace AgOpenGPS
                 btnVehicle.Visible = false;
                 ShowSubMenu(panelToolSubMenu, btnTool);
                 lvVehicles.Location = new Point(0, 0);
-                lvVehicles.Size = new Size(435, 588);
+                lvVehicles.Size = new Size(400, 588);
                 unitsGroupBox.Visible = false;
                 label43.Visible = false;
                 label36.Visible = false;
@@ -212,12 +212,13 @@ namespace AgOpenGPS
                 chkDisplayLogNMEA.Visible = false;
                 label122.Visible = false;
                 label61.Visible = false;
-                label13.Location = new Point(595, 237);
-                btnVehicleLoad.Location = new Point(577, 257);
-                label11.Location = new Point(585, 329);
-                btnVehicleSaveAs.Location = new Point(577, 348);
-                label57.Location = new Point(591, 419);
-                btnVehicleDelete.Location = new Point(577, 439);
+                label13.Location = new Point(570, 217);
+                btnVehicleLoad.Location = new Point(577, 220);
+                tboxVehicleNameSave.Location = new Point(422, 100);
+                label29.Location = new Point(428, 69);
+                btnVehicleSave.Location = new Point(577, 133);
+                label57.Location = new Point(570, 320);
+                btnVehicleDelete.Location = new Point(577, 340);
 
 
             }
@@ -311,6 +312,10 @@ namespace AgOpenGPS
 
             tab1.SelectedTab = tabSummary;
             tboxVehicleNameSave.Focus();
+
+
+            label29.Text = gStr.gsSaveAs;
+            //label3.Text = gStr.gsCurrent;
         }
 
         private void FormConfig_FormClosing(object sender, FormClosingEventArgs e)
@@ -441,6 +446,8 @@ namespace AgOpenGPS
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
+
+            lblSummaryVehicleName.Text = Properties.Settings.Default.setVehicle_vehicleName;
         }
 
         private void tabSummary_Leave(object sender, EventArgs e)
@@ -452,13 +459,13 @@ namespace AgOpenGPS
         {
             if (lvVehicles.SelectedItems.Count > 0)
             {
-                btnVehicleSaveAs.Enabled = true;
+                //btnVehicleSaveAs.Enabled = true;
                 btnVehicleLoad.Enabled = true;
                 btnVehicleDelete.Enabled = true;
             }
             else
             {
-                btnVehicleSaveAs.Enabled = false;
+                //btnVehicleSaveAs.Enabled = false;
                 btnVehicleLoad.Enabled = false;
                 btnVehicleDelete.Enabled = false;
             }

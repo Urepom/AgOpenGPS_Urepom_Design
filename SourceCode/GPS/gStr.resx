@@ -402,6 +402,9 @@
   <data name="gsInner" xml:space="preserve">
     <value>Inner</value>
   </data>
+  <data name="gsInside_Outside" xml:space="preserve">
+    <value>Inside/Outside</value>
+  </data>
   <data name="gsInvertMotorDir" xml:space="preserve">
     <value>Invert Motor Dir</value>
   </data>

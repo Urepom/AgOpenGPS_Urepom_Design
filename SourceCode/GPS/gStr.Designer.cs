@@ -916,6 +916,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Inside/Outside.
+        /// </summary>
+        public static string gsInside_Outside {
+            get {
+                return ResourceManager.GetString("gsInside_Outside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Invert Motor Dir.
         /// </summary>
         public static string gsInvertMotorDir {
