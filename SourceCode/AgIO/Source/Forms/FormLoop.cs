@@ -52,7 +52,7 @@ namespace AgIO
 
         public string lastSentence;
 
-        public bool isPluginUsed, isNTRIPToggle;
+        public bool isNTRIPToggle;
 
         //usually 256 - send ntrip to serial in chunks
         public int packetSizeNTRIP;
@@ -65,6 +65,7 @@ namespace AgIO
 
         //used to hide the window and not update text fields and most counters
         public bool isAppInFocus = true, isLostFocus;
+
         public int focusSkipCounter = 310;
 
         //The base directory where Drive will be stored and fields and vehicles branch from
@@ -127,7 +128,6 @@ namespace AgIO
             LoadLoopback();
 
             isSendNMEAToUDP = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
-            isPluginUsed = Properties.Settings.Default.setUDP_isUsePluginApp;
 
             packetSizeNTRIP = Properties.Settings.Default.setNTRIP_packetSize;
 
@@ -262,10 +262,7 @@ namespace AgIO
                 {
                     TimedMessageBox(1500, "URL Not Located, Network Down?", "Cannot Find: " + Properties.Settings.Default.setNTRIP_casterURL);
                     //if we had a timer already, kill it
-                    if (tmr != null)
-                    {
-                        tmr.Dispose();
-                    }
+                    tmr?.Dispose();
 
                     //use last known
                     broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
@@ -427,17 +424,17 @@ namespace AgIO
                 focusSkipCounter = int.MaxValue;
             }
 
-            if (isLostFocus && focusSkipCounter !=0)
+            if (isLostFocus && focusSkipCounter != 0)
             {
                 if (focusSkipCounter == 1)
                 {
                     WindowState = FormWindowState.Minimized;
                 }
 
-                focusSkipCounter-- ;
+                focusSkipCounter--;
             }
 
-            #endregion
+            #endregion Sleep
 
             //every couple or so seconds
             if ((secondsSinceStart - twoSecondTimer) > 2)
@@ -538,7 +535,7 @@ namespace AgIO
                         //add the uniques messages to all the new ones
                         foreach (var item in aList)
                         {
-                                rList.Add(item);
+                           rList.Add(item);
                         }
 
                         //sort and group using Linq
@@ -553,7 +550,7 @@ namespace AgIO
                         foreach (var grp in g)
                         {
                             aList.Add(grp.Key);
-                            sbRTCM.AppendLine(grp.Key + " - " + (grp.Count()-1));
+                            sbRTCM.AppendLine(grp.Key + " - " + (grp.Count() - 1));
                             count++;
                         }
 
@@ -628,7 +625,7 @@ namespace AgIO
                     }
                 }
 
-                #endregion
+                #endregion Serial update
             }
         }
 
@@ -643,7 +640,7 @@ namespace AgIO
                 lblMessages.Text = "Reading...";
                 threeMinuteTimer = secondsSinceStart;
                 lblMessagesFound.Text = "-";
-                aList.Clear();  
+                aList.Clear();
                 rList.Clear();
 
             }
@@ -738,7 +735,7 @@ namespace AgIO
 
         private void FormLoop_Resize(object sender, EventArgs e)
         {
-            if(this.WindowState == FormWindowState.Minimized)
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 if (isViewAdvanced) btnSlide.PerformClick();
                 isLostFocus = true;

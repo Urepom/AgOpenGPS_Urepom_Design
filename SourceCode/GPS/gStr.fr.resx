@@ -201,6 +201,12 @@
   <data name="gsClick2Pointsontheboundary" xml:space="preserve">
     <value>Saisissez 2 points sur les bordures du champ</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Conclure</value>
+  </data>
+  <data name="gsCloseAllWindowsFirst" xml:space="preserve">
+    <value>Fermez d'abord toutes les fenêtres</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Fermez d'abord le champ !</value>
   </data>
@@ -353,6 +359,9 @@
   </data>
   <data name="gsFixTrigger" xml:space="preserve">
     <value>Fix à Fix</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Drapeau par Latitude et Longitude</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Fichier Flag corrompu</value>
@@ -725,6 +734,9 @@
   </data>
   <data name="gsWheelbase" xml:space="preserve">
     <value>Empattement</value>
+  </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>Windows toujours ouvert</value>
   </data>
   <data name="gsWizards" xml:space="preserve">
     <value>Assistant Conduite</value>

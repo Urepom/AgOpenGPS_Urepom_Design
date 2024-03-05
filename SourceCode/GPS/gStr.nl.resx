@@ -177,6 +177,12 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Kies of maak een ander</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="gsCloseAllWindowsFirst" xml:space="preserve">
+    <value>Sluit eerst alle vensters</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Sluit eerst perceel</value>
   </data>
@@ -288,6 +294,9 @@
   <data name="gsFileError" xml:space="preserve">
     <value>Bestandfout</value>
   </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Vlag van Lat Lon</value>
+  </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>POI bestand corrupt</value>
   </data>
@@ -395,6 +404,9 @@
   </data>
   <data name="gsOffsetFix" xml:space="preserve">
     <value>FIX verschuiving</value>
+  </data>
+  <data name="gsOpen" xml:space="preserve">
+    <value>Openen</value>
   </data>
   <data name="gsOuter" xml:space="preserve">
     <value>Buitenste</value>
@@ -518,6 +530,9 @@
   </data>
   <data name="gsUseSelected" xml:space="preserve">
     <value>gebruik geselecteerde</value>
+  </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>Ramen nog open</value>
   </data>
   <data name="gsXTEChart" xml:space="preserve">
     <value>XTE Grafiek</value>

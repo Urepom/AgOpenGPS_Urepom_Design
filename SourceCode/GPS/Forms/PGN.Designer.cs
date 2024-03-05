@@ -425,6 +425,25 @@ namespace AgOpenGPS
             {
             }
         }
+
+        public class CPGN_E4
+        {
+            /// <summary>
+            /// 8 bytes
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public int rate0 = 5;
+            public int rate1 = 6;
+            public int rate2 = 7;
+            //public int  = 6;
+            //public int = 7;
+            //public int gleLo = 8;
+            //public int gleHi = 9;
+            //public int tance = 10;
+            //public int = 11;
+            //public int  = 12;
+        }
+
         //Ajout-modification MEmprou et SPailleau Fertilisation
 
         //PGN fertilisation
@@ -449,6 +468,7 @@ namespace AgOpenGPS
             }
         }
         //fin
+
 
         //pgn instances
 
@@ -488,11 +508,17 @@ namespace AgOpenGPS
         public CPGN_EB p_235 = new CPGN_EB();
 
         /// <summary>
-        /// Section dimensions PGN - 235 - EB
+        /// Section dimensions PGN - 240 - F0
         /// </summary>
         public CPGN_F0 p_240 = new CPGN_F0();
+
         /// <summary>
-        /// Section Symmetric PGN - 240 - F0
+        /// Section dimensions PGN - 228 - E4
+        /// </summary>
+        public CPGN_E4 p_228 = new CPGN_E4();
+
+        /// <summary>
+        /// Section Symmetric PGN - 235 - EB
         /// </summary>
         public CPGN_E5 p_229 = new CPGN_E5();
 

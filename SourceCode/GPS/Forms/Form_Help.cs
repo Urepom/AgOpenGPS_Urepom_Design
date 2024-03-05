@@ -30,7 +30,7 @@ namespace AgOpenGPS
             lblVersion.Text = "Version " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
             // Add a link to the LinkLabel.
-            LinkLabel.Link link = new LinkLabel.Link { LinkData = "https://github.com/farmerbriantee/AgOpenGPS" };
+            LinkLabel.Link link = new LinkLabel.Link { LinkData = "https://github.com/farmerbriantee/AgOpenGPS/releases" };
             linkLabelGit.Links.Add(link);
 
             // Add a link to the LinkLabel.
@@ -122,7 +122,6 @@ namespace AgOpenGPS
                 {
                     //mf.TimedMessageBox(2000, "No File Found", "Can't Find Manual.pdf");
                 }
-
             }
 
             Close();

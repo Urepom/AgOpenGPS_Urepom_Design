@@ -15,6 +15,7 @@ namespace AgOpenGPS
 
         //int FontTextureID;
         public const int textureWidth = 256;
+
         public const int textureHeight = 256;
 
         public bool isFontOn;
@@ -66,13 +67,12 @@ namespace AgOpenGPS
                 }
             }
 
-            GL.BindTexture(TextureTarget.Texture2D, mf.texture[2]);
+            GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
             GL.Enable(EnableCap.Texture2D);
             GL.Begin(PrimitiveType.Quads);
 
             double u_step = GlyphWidth / (double)textureWidth;
             double v_step = GlyphHeight / (double)textureHeight;
-
 
             for (int n = 0; n < text.Length; n++)
             {
@@ -121,7 +121,6 @@ namespace AgOpenGPS
                 size = Math.Pow(size, 0.8);
                 size /= 800;
             }
-
             else
             {
                 if (mf.camera.camFollowing) GL.Rotate(-mf.camHeading, 0, 0, 1);
@@ -130,13 +129,12 @@ namespace AgOpenGPS
                 size /= 1000;
             }
 
-            GL.BindTexture(TextureTarget.Texture2D, mf.texture[2]);
+            GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
             GL.Enable(EnableCap.Texture2D);
             GL.Begin(PrimitiveType.Quads);
 
             double u_step = GlyphWidth / (double)textureWidth;
             double v_step = GlyphHeight / (double)textureHeight;
-
 
             for (int n = 0; n < text.Length; n++)
             {
@@ -158,7 +156,6 @@ namespace AgOpenGPS
 
                 x += CharXSpacing * size;
             }
-
 
             GL.End();
             GL.Disable(EnableCap.Texture2D);
@@ -180,13 +177,12 @@ namespace AgOpenGPS
             size = Math.Pow(size, 0.8);
             size /= 800;
 
-            GL.BindTexture(TextureTarget.Texture2D, mf.texture[2]);
+            GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
             GL.Enable(EnableCap.Texture2D);
             GL.Begin(PrimitiveType.Quads);
 
             double u_step = GlyphWidth / (double)textureWidth;
             double v_step = GlyphHeight / (double)textureHeight;
-
 
             for (int n = 0; n < text.Length; n++)
             {
@@ -209,7 +205,6 @@ namespace AgOpenGPS
                 x += CharXSpacing * size;
             }
 
-
             GL.End();
             GL.Disable(EnableCap.Texture2D);
 
@@ -218,7 +213,7 @@ namespace AgOpenGPS
 
         public void DrawText(double x, double y, string text, double size = 1.0)
         {
-            GL.BindTexture(TextureTarget.Texture2D, mf.texture[2]);
+            GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
             // Select Our Texture
             //GL.Color3(0.95f, 0.95f, 0.40f);
             GL.Enable(EnableCap.Texture2D);

@@ -177,6 +177,9 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Pasirinkite arba sukurkite kitą</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Baigti</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Pirmiausia uždaryti lauką</value>
   </data>
@@ -287,6 +290,9 @@
   </data>
   <data name="gsFileError" xml:space="preserve">
     <value>Failo klaida</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Lat Lon vėliava</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Vėliavėlės failas sugadintas</value>

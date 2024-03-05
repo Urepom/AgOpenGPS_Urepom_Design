@@ -201,6 +201,12 @@
   <data name="gsClick2Pointsontheboundary" xml:space="preserve">
     <value>Click 2 Points on the boundary</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="gsCloseAllWindowsFirst" xml:space="preserve">
+    <value>Close All Windows First</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Close Field First</value>
   </data>
@@ -260,6 +266,9 @@
   </data>
   <data name="gsDeleteAppliedArea" xml:space="preserve">
     <value>Delete Applied Area</value>
+  </data>
+  <data name="gsDeleteBoundaryMapping" xml:space="preserve">
+    <value>This action will delete all the boundaries. Do you want to continue?</value>
   </data>
   <data name="gsDeleteContourPaths" xml:space="preserve">
     <value>Delete Contour Paths</value>
@@ -353,6 +362,9 @@
   </data>
   <data name="gsFixTrigger" xml:space="preserve">
     <value>Fix Trigger</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Flag By Lat Lon</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Flag File Corrupt</value>
@@ -738,6 +750,9 @@
   <data name="gsWheelbase" xml:space="preserve">
     <value>Wheelbase</value>
   </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>Windows Still Open</value>
+  </data>
   <data name="gsWizards" xml:space="preserve">
     <value>Wizards</value>
   </data>
@@ -755,6 +770,13 @@
   </data>
   <data name="gsZeroRoll" xml:space="preserve">
     <value>Zero Roll</value>
+  </data>
+  <data name="h_FieldData" xml:space="preserve">
+    <value>First 3 numbers are Total Field Area minus Actual covered area
+Then the percent of actual area overlapped
+Then the Total Area minus machine travelled area. 
+Time till finished based on work area
+Percent completed and work rate.</value>
   </data>
   <data name="h_btn2D" xml:space="preserve">
     <value>2D View Button.</value>

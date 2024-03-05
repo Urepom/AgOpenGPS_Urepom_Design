@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AgOpenGPS.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="setDisplay_camPitch" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">-62</Value>
-    </Setting>
     <Setting Name="setWindow_Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">30, 30</Value>
     </Setting>
@@ -144,7 +141,7 @@
       <Value Profile="(Default)">27, 151, 160</Value>
     </Setting>
     <Setting Name="setDisplay_colorFieldDay" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">130, 130, 150</Value>
+      <Value Profile="(Default)">100, 100, 125</Value>
     </Setting>
     <Setting Name="setDisplay_isDayMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -202,9 +199,6 @@
     </Setting>
     <Setting Name="setDisplay_colorTextDay" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">10, 10, 20</Value>
-    </Setting>
-    <Setting Name="setTool_isTramOuterInverted" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setTram_isTramOnBackBuffer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -321,12 +315,6 @@
       <Value Profile="(Default)">-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985</Value>
     </Setting>
     <Setting Name="setBrand_TBrand" Type="AgOpenGPS.TBrand" Scope="User">
-      <Value Profile="(Default)">AGOpenGPS</Value>
-    </Setting>
-    <Setting Name="setBrand_HBrand" Type="AgOpenGPS.HBrand" Scope="User">
-      <Value Profile="(Default)">AGOpenGPS</Value>
-    </Setting>
-    <Setting Name="setBrand_WDBrand" Type="AgOpenGPS.WDBrand" Scope="User">
       <Value Profile="(Default)">AGOpenGPS</Value>
     </Setting>
     <Setting Name="setHeadland_isSectionControlled" Type="System.Boolean" Scope="User">
@@ -575,9 +563,6 @@
     <Setting Name="setTool_isToolFront" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setVehicle_startSpeed" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
     <Setting Name="setVehicle_trackWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1.9</Value>
     </Setting>
@@ -609,13 +594,13 @@
       <Value Profile="(Default)">0.6</Value>
     </Setting>
     <Setting Name="setDisplay_brightness" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">80</Value>
+      <Value Profile="(Default)">40</Value>
     </Setting>
     <Setting Name="set_youTurnRadius" Type="System.Double" Scope="User">
       <Value Profile="(Default)">8.1</Value>
     </Setting>
     <Setting Name="setDisplay_brightnessSystem" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">80</Value>
+      <Value Profile="(Default)">40</Value>
     </Setting>
     <Setting Name="setTool_isSectionsNotZones" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -638,48 +623,6 @@
     <Setting Name="setVehicle_goalPointLookAheadHold" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="UP_OGLZoom_Location" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 68</Value>
-    </Setting>
-    <Setting Name="UP_OGLZoom_Size" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">160, 160</Value>
-    </Setting>
-    <Setting Name="UP_setF_local" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default</Value>
-    </Setting>
-    <Setting Name="UP_setF_synchro" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default</Value>
-    </Setting>
-    <Setting Name="UP_setTimer_KML" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UP_setUpdate_MAJ" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UP_setDisplay_issections_buttonOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UP_setDisplay_islong_touchOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="UP_setVineMode" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UP_SetArrowsRL" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UP_SetDoseFerti" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">20</Value>
-    </Setting>
-    <Setting Name="UP_SetDoseFVidange" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="UP_SetRollOFF" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UP_SetTimerRincFerti" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
     <Setting Name="setTool_isSectionOffWhenOut" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -701,11 +644,119 @@
     <Setting Name="setAS_minSteerSpeed" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="setBrand_HBrand" Type="AgOpenGPS.HBrand" Scope="User">
+      <Value Profile="(Default)">AgOpenGPS</Value>
+    </Setting>
+    <Setting Name="setBrand_WDBrand" Type="AgOpenGPS.WDBrand" Scope="User">
+      <Value Profile="(Default)">AgOpenGPS</Value>
+    </Setting>
     <Setting Name="setIMU_fusionWeight2" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.06</Value>
     </Setting>
     <Setting Name="setDisplay_isSvennArrowOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="setTool_isTramOuterInverted" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="setJobMenu_location" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">200, 200</Value>
+    </Setting>
+    <Setting Name="setJobMenu_size" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">640, 530</Value>
+    </Setting>
+    <Setting Name="setWindow_steerSettingsLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">40, 40</Value>
+    </Setting>
+    <Setting Name="setWindow_buildTracksLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">40, 40</Value>
+    </Setting>
+    <Setting Name="setTool_trailingToolToPivotLength" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="setWindow_formNudgeLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">200, 200</Value>
+    </Setting>
+    <Setting Name="setWindow_formNudgeSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">200, 400</Value>
+    </Setting>
+    <Setting Name="setAS_snapDistanceRef" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="setDisplay_buttonOrder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,1,2,3,4,5,6,7</Value>
+    </Setting>
+    <Setting Name="setDisplay_camPitch" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-62</Value>
+    </Setting>
+    <Setting Name="setWindow_abDrawSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1022, 742</Value>
+    </Setting>
+    <Setting Name="setWindow_HeadlineSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1022, 742</Value>
+    </Setting>
+    <Setting Name="setWindow_HeadAcheSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1022, 742</Value>
+    </Setting>
+    <Setting Name="setWindow_MapBndSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1022, 742</Value>
+    </Setting>
+    <Setting Name="setWindow_BingMapSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">965, 700</Value>
+    </Setting>
+    <Setting Name="setWindow_BingZoom" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="setWindow_RateMapSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1022, 742</Value>
+    </Setting>
+    <Setting Name="setWindow_RateMapZoom" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="setWindow_QuickABLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">100, 100</Value>
+    </Setting>
+	  <Setting Name="UP_OGLZoom_Location" Type="System.Drawing.Point" Scope="User">
+		  <Value Profile="(Default)">0, 68</Value>
+	  </Setting>
+	  <Setting Name="UP_OGLZoom_Size" Type="System.Drawing.Size" Scope="User">
+		  <Value Profile="(Default)">160, 160</Value>
+	  </Setting>
+	  <Setting Name="UP_setF_local" Type="System.String" Scope="User">
+		  <Value Profile="(Default)">Default</Value>
+	  </Setting>
+	  <Setting Name="UP_setF_synchro" Type="System.String" Scope="User">
+		  <Value Profile="(Default)">Default</Value>
+	  </Setting>
+	  <Setting Name="UP_setTimer_KML" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
+	  <Setting Name="UP_setUpdate_MAJ" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
+	  <Setting Name="UP_setDisplay_issections_buttonOn" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
+	  <Setting Name="UP_setDisplay_islong_touchOn" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">True</Value>
+	  </Setting>
+	  <Setting Name="UP_setVineMode" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
+	  <Setting Name="UP_SetArrowsRL" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
+	  <Setting Name="UP_SetDoseFerti" Type="System.Decimal" Scope="User">
+		  <Value Profile="(Default)">20</Value>
+	  </Setting>
+	  <Setting Name="UP_SetDoseFVidange" Type="System.Decimal" Scope="User">
+		  <Value Profile="(Default)">2</Value>
+	  </Setting>
+	  <Setting Name="UP_SetRollOFF" Type="System.Boolean" Scope="User">
+		  <Value Profile="(Default)">False</Value>
+	  </Setting>
+	  <Setting Name="UP_SetTimerRincFerti" Type="System.Int32" Scope="User">
+		  <Value Profile="(Default)">30</Value>
+	  </Setting>
   </Settings>
 </SettingsFile>

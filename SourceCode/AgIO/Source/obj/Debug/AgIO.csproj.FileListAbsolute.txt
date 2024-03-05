@@ -56,3 +56,32 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\o
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.pdb
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.AssemblyReference.cache
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\AgOpenGPS_v5\AgIO.exe.config
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\AgOpenGPS_v5\AgIO.exe
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\AgOpenGPS_v5\AgIO.pdb
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.AssemblyReference.cache
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormCommPicker.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormCommSaver.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormCommSetGPS.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormSerialMonitor.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormGPSData.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormKeyboard.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormLoop.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormNtrip.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormNumeric.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormRadio.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormRadioChannel.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormSource.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormSerialPass.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormEthernet.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormYes.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormYesNo.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormTimedMessage.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.FormUDP.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.Properties.Resources.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.gStr.resources
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.GenerateResource.cache
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.CoreCompileInputs.cache
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.Up2Date
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.exe
+C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.pdb

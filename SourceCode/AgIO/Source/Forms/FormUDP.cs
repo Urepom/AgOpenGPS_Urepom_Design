@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -51,7 +49,7 @@ namespace AgIO
             ScanNetwork();
         }
 
-        int tickCounter = 0;
+        private int tickCounter = 0;
 
         private void timer1_Tick(object sender, EventArgs e)
         {

@@ -63,13 +63,8 @@ namespace AgOpenGPS
             }
             else
             {
-                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(Properties.Settings.Default.setF_culture);
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.setF_culture);
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new FormGPS());
+                MessageBox.Show("AgOpenGPS is Already Running");
             }
-
         }
 
         //[System.Runtime.InteropServices.DllImport("user32.dll")]

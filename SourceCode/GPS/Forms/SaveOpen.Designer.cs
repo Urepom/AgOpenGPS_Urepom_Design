@@ -21,10 +21,815 @@ namespace AgOpenGPS
         //list of the list of patch data individual triangles for contour tracking
         public List<List<vec3>> contourSaveList = new List<List<vec3>>();
 
+        public void ExportFieldAs_ISOXMLv3()
+        {
+            //if (bnd.bndList.Count < 1) return;//If no Bnd, Quit
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\zISOXML\\v3\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string myFileName = "TASKDATA.xml";
+
+            try
+            {
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+                settings.IndentChars = "  ";
+                XmlWriter xml = XmlWriter.Create(dirField + myFileName, settings);
+
+                xml.WriteStartElement("ISO11783_TaskData");//Settings
+                xml.WriteAttributeString("DataTransferOrigin", "1");
+                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AgOpenGPS");
+                xml.WriteAttributeString("ManagementSoftwareVersion", "1.4.0");
+                xml.WriteAttributeString("VersionMajor", "3");
+                xml.WriteAttributeString("VersionMinor", "3");
+
+                {
+                    //PFD A = "Field ID" B = "Code" C = "Name" D = "Area sq m" E = "Customer Ref" F = "Farm Ref" >
+                    xml.WriteStartElement("PFD");//Field
+                    xml.WriteAttributeString("A", "PFD-1");
+                    xml.WriteAttributeString("C", currentFieldDirectory);
+                    xml.WriteAttributeString("D", ((int)(fd.areaOuterBoundary)).ToString());
+
+                    double lat = 0;
+                    double lon = 0;
+
+                    {
+                        //all the boundaries
+                        /*
+                        < PLN A = "1" C="Area in Sq M like 12568" >
+                            < LSG A = "1" >
+                                < PNT A = "2" C = "51.61918340" D = "4.51054560" />
+                                < PNT A = "2" C = "51.61915460" D = "4.51056120" />
+                            </ LSG >
+                        </ PLN >
+                        */
+                        for (int i = 0; i < bnd.bndList.Count; i++)
+                        {
+                            xml.WriteStartElement("PLN");//BND
+
+                            if (i == 0) xml.WriteAttributeString("A", "1"); //outerBnd
+                            else xml.WriteAttributeString("A", "6");  //innerBnd
+
+                            xml.WriteStartElement("LSG");//Polygon
+                            xml.WriteAttributeString("A", "1");
+
+                            for (int j = 0; j < bnd.bndList[i].fenceLineEar.Count; j++)
+                            {
+
+                                pn.ConvertLocalToWGS84(bnd.bndList[i].fenceLineEar[j].northing, bnd.bndList[i].fenceLineEar[j].easting, out lat, out lon);
+                                xml.WriteStartElement("PNT");//Boundary Points
+                                xml.WriteAttributeString("A", "2");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteEndElement(); //Boundary Points                   
+                            }
+
+                            xml.WriteEndElement();//Polygon
+                            xml.WriteEndElement();//BND
+                        }
+
+                        //all the headlands A=10
+                        if (bnd.bndList.Count > 0)
+                        {
+                            for (int i = 0; i < bnd.bndList.Count; i++)
+                            {
+                                if (bnd.bndList[i].hdLine.Count < 1) continue;
+
+                                xml.WriteStartElement("PLN");//BND
+
+                                xml.WriteAttributeString("A", "10"); //headland
+
+                                xml.WriteStartElement("LSG");//Polygon
+                                xml.WriteAttributeString("A", "1");
+
+                                for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
+                                {
+                                    pn.ConvertLocalToWGS84(bnd.bndList[i].hdLine[j].northing, bnd.bndList[i].hdLine[j].easting, out lat, out lon);
+                                    xml.WriteStartElement("PNT");//Boundary Points
+                                    xml.WriteAttributeString("A", "2");
+                                    xml.WriteAttributeString("C", lat.ToString());
+                                    xml.WriteAttributeString("D", lon.ToString());
+                                    xml.WriteEndElement(); //Boundary Points                   
+                                }
+
+                                xml.WriteEndElement();//Polygon
+                                xml.WriteEndElement();//BND
+                            }
+                        }
+
+                        //AB Lines
+                        /*
+                        LSG A = "5" B = "Line Name" >
+                            < PNT A = "2" C = "51.61851540" D = "4.51137030" />
+                            < PNT A = "2" C = "51.61912230" D = "4.51056060" />
+                        </ LSG >
+                        */
+
+                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        {
+                            for (int i = 0; i < trk.gArr.Count; i++)
+                            {
+                                xml.WriteStartElement("LSG");//Line
+                                xml.WriteAttributeString("A", "5");
+                                xml.WriteAttributeString("B", trk.gArr[i].name);
+                                ///xml.WriteAttributeString("C", (tool.width).ToString());
+                                {
+                                    xml.WriteStartElement("PNT");//A
+
+                                    pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing - (Math.Cos(trk.gArr[i].heading) * 1000),
+                                        trk.gArr[i].ptA.easting - (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+
+                                    xml.WriteAttributeString("A", "2");
+                                    xml.WriteAttributeString("C", lat.ToString());
+                                    xml.WriteAttributeString("D", lon.ToString());
+
+                                    xml.WriteEndElement();//A
+                                    xml.WriteStartElement("PNT");//B
+
+                                    pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * 1000),
+                                        trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+
+                                    xml.WriteAttributeString("A", "2");
+
+                                    xml.WriteAttributeString("C", lat.ToString());
+                                    xml.WriteAttributeString("D", lon.ToString());
+                                }
+                                xml.WriteEndElement();//B
+                                xml.WriteEndElement();//Line
+                            }
+                        }
+
+                        //curves
+                        /*
+                        LSG A = "5" B = "Name Here" >
+                            < PNT A = "2" C = "51.61851540" D = "4.51137030" />
+                            < PNT A = "2" C = "51.61912230" D = "4.51056060" />
+                            < PNT A = "2" C = "51.61962230" D = "4.51056760" />
+                        </ LSG >
+                        */
+                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        {
+                            for (int i = 0; i < trk.gArr.Count; i++)
+                            {
+                                xml.WriteStartElement("LSG");//Curve
+                                xml.WriteAttributeString("A", "5"); //denotes guidance
+                                xml.WriteAttributeString("B", trk.gArr[i].name);
+                                //xml.WriteAttributeString("C", (tool.width).ToString());
+
+                                for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                                {
+                                    xml.WriteStartElement("PNT");//point
+                                    pn.ConvertLocalToWGS84(trk.gArr[i].curvePts[j].northing,
+                                        trk.gArr[i].curvePts[j].easting, out lat, out lon);
+
+                                    xml.WriteAttributeString("A", "2");
+                                    xml.WriteAttributeString("C", lat.ToString());
+                                    xml.WriteAttributeString("D", lon.ToString());
+
+                                    xml.WriteEndElement();//point
+                                }
+                                xml.WriteEndElement(); //Curve   
+                            }
+                        }
+                    }
+
+                    //Last
+                    xml.WriteEndElement();//End Field
+                }
+
+                xml.WriteEndElement();//ISO11783_TaskData Settings
+
+                xml.Flush();
+
+                //Write the XML to file and close the kml
+                xml.Close();
+
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+        }
+
+        public void ExportFieldAs_ISOXMLv4()
+        {
+            int lineCounter = 0;
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\zISOXML\\v4\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+           
+            string myFileName = "TASKDATA.xml";
+
+            try
+            {
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+                settings.IndentChars = "  ";
+                XmlWriter xml = XmlWriter.Create(dirField + myFileName, settings);
+
+                xml.WriteStartElement("ISO11783_TaskData");//Settings
+                xml.WriteAttributeString("DataTransferOrigin", "1");
+                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AgOpenGPS");
+                xml.WriteAttributeString("ManagementSoftwareVersion", "1.4.0");
+                xml.WriteAttributeString("VersionMajor", "4");
+                xml.WriteAttributeString("VersionMinor", "2");
+
+                {
+                    //PFD A = "Field ID" B = "Code" C = "Name" D = "Area sq m" E = "Customer Ref" F = "Farm Ref" >
+                    xml.WriteStartElement("PFD");//Field
+                    xml.WriteAttributeString("A", "PFD-1");
+                    xml.WriteAttributeString("C", currentFieldDirectory);
+                    xml.WriteAttributeString("D", ((int)(fd.areaOuterBoundary)).ToString());
+
+                    double lat = 0;
+                    double lon = 0;
+
+                    {
+                        //all the boundaries
+                        /*
+                        < PLN A = "1" C="Area in Sq M like 12568" >
+                            < LSG A = "1" >
+                                < PNT A = "2" C = "51.61918340" D = "4.51054560" />
+                                < PNT A = "2" C = "51.61915460" D = "4.51056120" />
+                            </ LSG >
+                        </ PLN >
+                        */
+                        for (int i = 0; i < bnd.bndList.Count; i++)
+                        {
+                            xml.WriteStartElement("PLN");//BND
+
+                            if (i == 0) xml.WriteAttributeString("A", "1"); //outerBnd
+                            else xml.WriteAttributeString("A", "6");  //innerBnd
+
+                            xml.WriteStartElement("LSG");//Polygon
+                            xml.WriteAttributeString("A", "1");
+
+                            for (int j = 0; j < bnd.bndList[i].fenceLineEar.Count; j++)
+                            {
+
+                                pn.ConvertLocalToWGS84(bnd.bndList[i].fenceLineEar[j].northing, bnd.bndList[i].fenceLineEar[j].easting, out lat, out lon);
+                                xml.WriteStartElement("PNT");//Boundary Points
+                                xml.WriteAttributeString("A", "10");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteEndElement(); //Boundary Points                   
+                            }
+
+                            xml.WriteEndElement();//Polygon
+                            xml.WriteEndElement();//BND
+                        }
+
+                        //all the headlands A=10
+                        if (bnd.bndList.Count > 0)
+                        {
+                            for (int i = 0; i < bnd.bndList.Count; i++)
+                            {
+                                if (bnd.bndList[i].hdLine.Count < 1) continue;
+
+                                xml.WriteStartElement("PLN");//BND
+
+                                xml.WriteAttributeString("A", "10"); //headland
+
+                                xml.WriteStartElement("LSG");//Polygon
+                                xml.WriteAttributeString("A", "1");
+
+                                for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
+                                {
+                                    pn.ConvertLocalToWGS84(bnd.bndList[i].hdLine[j].northing, bnd.bndList[i].hdLine[j].easting, out lat, out lon);
+                                    xml.WriteStartElement("PNT");//Boundary Points
+                                    xml.WriteAttributeString("A", "10");
+                                    xml.WriteAttributeString("C", lat.ToString());
+                                    xml.WriteAttributeString("D", lon.ToString());
+                                    xml.WriteEndElement(); //Boundary Points                   
+                                }
+
+                                xml.WriteEndElement();//Polygon
+                                xml.WriteEndElement();//BND
+                            }
+                        }
+
+                        //AB Lines
+                        /*
+                        LSG A = "5" B = "Line Name" >
+                            < PNT A = "2" C = "51.61851540" D = "4.51137030" />
+                            < PNT A = "2" C = "51.61912230" D = "4.51056060" />
+                        </ LSG >
+                        */
+
+                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        {
+                            for (int i = 0; i < trk.gArr.Count; i++)
+                            {
+                                xml.WriteStartElement("GGP");//Guide-P
+                                string name = "GGP" + lineCounter.ToString();
+                                lineCounter++;
+                                xml.WriteAttributeString("A", name);
+                                xml.WriteAttributeString("B", trk.gArr[i].name);
+                                {
+                                    xml.WriteStartElement("GPN");//Guide-N
+                                    xml.WriteAttributeString("A", name);
+                                    xml.WriteAttributeString("B", trk.gArr[i].name);
+                                    xml.WriteAttributeString("C", "1");
+                                    xml.WriteAttributeString("E", "1");
+                                    xml.WriteAttributeString("F", "1");
+                                    xml.WriteAttributeString("I", "16");
+                                    {
+                                        xml.WriteStartElement("LSG");//Line
+                                        xml.WriteAttributeString("A", "5");
+                                        {
+                                            xml.WriteStartElement("PNT");//A
+
+                                            pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing - (Math.Cos(trk.gArr[i].heading) * 1000),
+                                                trk.gArr[i].ptA.easting - (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+
+                                            xml.WriteAttributeString("A", "6");
+                                            xml.WriteAttributeString("C", lat.ToString());
+                                            xml.WriteAttributeString("D", lon.ToString());
+
+                                            xml.WriteEndElement();//A
+                                            xml.WriteStartElement("PNT");//B
+
+                                            pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * 1000),
+                                                trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+
+                                            xml.WriteAttributeString("A", "7");
+
+                                            xml.WriteAttributeString("C", lat.ToString());
+                                            xml.WriteAttributeString("D", lon.ToString());
+                                            xml.WriteEndElement();//B
+                                        }
+                                        xml.WriteEndElement();//Line
+                                    }
+                                    xml.WriteEndElement(); //Guide-N
+                                }
+                                xml.WriteEndElement(); //Guide-P
+                            }
+                        }
+
+                        //curves
+                        /*
+                        LSG A = "5" B = "Name Here" >
+                            < PNT A = "2" C = "51.61851540" D = "4.51137030" />
+                            < PNT A = "2" C = "51.61912230" D = "4.51056060" />
+                            < PNT A = "2" C = "51.61962230" D = "4.51056760" />
+                        </ LSG >
+                        */
+
+                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        {
+                            for (int i = 0; i < trk.gArr.Count; i++)
+                            {
+                                xml.WriteStartElement("GGP");//Guide-P
+                                string name = "GGP" + lineCounter.ToString();
+                                lineCounter++;
+                                xml.WriteAttributeString("A", name);
+                                xml.WriteAttributeString("B", trk.gArr[i].name);
+                                {
+                                    xml.WriteStartElement("GPN");//Guide-N
+                                    xml.WriteAttributeString("A", name);
+                                    xml.WriteAttributeString("B", trk.gArr[i].name);
+                                    xml.WriteAttributeString("C", "3");
+                                    xml.WriteAttributeString("E", "1");
+                                    xml.WriteAttributeString("F", "1");
+                                    xml.WriteAttributeString("I", "16");
+                                    {
+                                        xml.WriteStartElement("LSG");//Curve
+                                        xml.WriteAttributeString("A", "5"); //denotes guidance
+
+                                        for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                                        {
+                                            xml.WriteStartElement("PNT");//point
+                                            pn.ConvertLocalToWGS84(trk.gArr[i].curvePts[j].northing,
+                                                trk.gArr[i].curvePts[j].easting, out lat, out lon);
+                                            if (j == 0)
+                                            {
+                                                xml.WriteAttributeString("A", "6");
+                                            }
+                                            else if (j == trk.gArr[i].curvePts.Count - 1)
+                                            {
+                                                xml.WriteAttributeString("A", "7");
+                                            }
+                                            else
+                                            {
+                                                xml.WriteAttributeString("A", "9");
+                                            }
+                                            xml.WriteAttributeString("C", lat.ToString());
+                                            xml.WriteAttributeString("D", lon.ToString());
+
+                                            xml.WriteEndElement();//point
+                                        }
+                                        xml.WriteEndElement(); //end LSG curve
+                                    }
+                                    xml.WriteEndElement(); //Guide-N
+                                }
+                                xml.WriteEndElement(); //Guide-P
+                            }
+                        }
+                    }
+
+                    //Last
+                    xml.WriteEndElement();//End Field
+                }
+
+                xml.WriteEndElement();//ISO11783_TaskData Settings
+
+                xml.Flush();
+
+                //Write the XML to file and close the kml
+                xml.Close();
+
+        }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+    /*
+        //xml.WriteStartElement("TSK");//Task
+        //xml.WriteAttributeString("A", "TSK1");
+        //xml.WriteAttributeString("B", "Tractor Work");
+        //xml.WriteAttributeString("C", "CTR1");
+        //xml.WriteAttributeString("E", "PFD-1");
+        //xml.WriteAttributeString("G", "1");
+        //xml.WriteAttributeString("I", "1");
+        //xml.WriteAttributeString("J", "0");
+        //xml.WriteEndElement();//Task
+    */
+
+}
+
+        public void FileSaveHeadLines()
+        {
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+            string directoryName = Path.GetDirectoryName(dirField).ToString(CultureInfo.InvariantCulture);
+
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string filename = directoryName + "\\HeadLines.txt";
+
+            int cnt = hdl.tracksArr.Count;
+
+            using (StreamWriter writer = new StreamWriter(filename, false))
+            {
+                try
+                {
+                    if (cnt > 0)
+                    {
+                        writer.WriteLine("$HeadLines");
+
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            //write out the name
+                            writer.WriteLine(hdl.tracksArr[i].name);
+
+
+                            //write out the moveDistance
+                            writer.WriteLine(hdl.tracksArr[i].moveDistance.ToString(CultureInfo.InvariantCulture));
+
+                            //write out the mode
+                            writer.WriteLine(hdl.tracksArr[i].mode.ToString(CultureInfo.InvariantCulture));
+                            
+                            //write out the A_Point index
+                            writer.WriteLine(hdl.tracksArr[i].a_point.ToString(CultureInfo.InvariantCulture));
+
+                            //write out the points of ref line
+                            int cnt2 = hdl.tracksArr[i].trackPts.Count;
+
+                            writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
+                            if (hdl.tracksArr[i].trackPts.Count > 0)
+                            {
+                                for (int j = 0; j < cnt2; j++)
+                                    writer.WriteLine(Math.Round(hdl.tracksArr[i].trackPts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                        Math.Round(hdl.tracksArr[i].trackPts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                            Math.Round(hdl.tracksArr[i].trackPts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        writer.WriteLine("$HeadLines");
+                        return;
+                    }
+                }
+                catch (Exception er)
+                {
+                    WriteErrorLog("Saving Head Lines" + er.ToString());
+
+                    return;
+                }
+            }
+        }
+
+        public void FileLoadHeadLines()
+        {
+            hdl.tracksArr?.Clear();
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+            string directoryName = Path.GetDirectoryName(dirField);
+
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string filename = directoryName + "\\HeadLines.txt";
+
+            if (!File.Exists(filename))
+            {
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    writer.WriteLine("$HeadLines");
+                }
+            }
+
+            //get the file of previous AB Lines
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            if (!File.Exists(filename))
+            {
+                TimedMessageBox(2000, gStr.gsFileError, "Missing HeadLines File");
+            }
+            else
+            {
+                using (StreamReader reader = new StreamReader(filename))
+                {
+                    try
+                    {
+                        string line;
+
+                        //read header $CurveLine
+                        line = reader.ReadLine();
+
+                        while (!reader.EndOfStream)
+                        {
+
+                            hdl.tracksArr.Add(new CHeadPath());
+                            hdl.idx = hdl.tracksArr.Count - 1;
+
+                            //read header $CurveLine
+                            hdl.tracksArr[hdl.idx].name = reader.ReadLine();
+
+                            line = reader.ReadLine();
+                            hdl.tracksArr[hdl.idx].moveDistance = double.Parse(line, CultureInfo.InvariantCulture);
+
+                            line = reader.ReadLine();
+                            hdl.tracksArr[hdl.idx].mode = int.Parse(line, CultureInfo.InvariantCulture);
+
+                            line = reader.ReadLine();
+                            hdl.tracksArr[hdl.idx].a_point = int.Parse(line, CultureInfo.InvariantCulture);
+
+                            line = reader.ReadLine();
+                            int numPoints = int.Parse(line);
+
+                            if (numPoints > 3)
+                            {
+                                hdl.tracksArr[hdl.idx].trackPts?.Clear();
+
+                                for (int i = 0; i < numPoints; i++)
+                                {
+                                    line = reader.ReadLine();
+                                    string[] words = line.Split(',');
+                                    vec3 vecPt = new vec3(double.Parse(words[0], CultureInfo.InvariantCulture),
+                                        double.Parse(words[1], CultureInfo.InvariantCulture),
+                                        double.Parse(words[2], CultureInfo.InvariantCulture));
+                                    hdl.tracksArr[hdl.idx].trackPts.Add(vecPt);
+                                }
+                            }
+                            else
+                            {
+                                if (hdl.tracksArr.Count > 0)
+                                {
+                                    hdl.tracksArr.RemoveAt(hdl.idx);
+                                }
+                            }
+                        }
+                    }
+
+                    catch (Exception er)
+                    {
+                        hdl.tracksArr?.Clear();
+
+                        var form = new FormTimedMessage(2000, "Headline Error", "Lines Deleted");
+                        form.Show(this);
+
+                        dirField = fieldsDirectory + currentFieldDirectory + "\\";
+                        directoryName = Path.GetDirectoryName(dirField).ToString(CultureInfo.InvariantCulture);
+
+                        if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+                        { Directory.CreateDirectory(directoryName); }
+
+                        filename = directoryName + "\\HeadLines.txt";
+
+                        using (StreamWriter writer = new StreamWriter(filename, false))
+                        {
+                            try
+                            {
+                                writer.WriteLine("$HeadLines");
+                                return;
+
+                            }
+                            catch { }
+                        }
+                        WriteErrorLog("Load Head Lines" + er.ToString());
+                    }
+                }
+            }
+
+            hdl.idx = -1;
+        }
+
+        public void FileSaveTracks()
+        {
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+            string directoryName = Path.GetDirectoryName(dirField).ToString(CultureInfo.InvariantCulture);
+
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string filename = directoryName + "\\TrackLines.txt";
+
+            int cnt = trk.gArr.Count;
+
+            using (StreamWriter writer = new StreamWriter(filename, false))
+            {
+                try
+                {
+                    if (cnt > 0)
+                    {
+                        writer.WriteLine("$TrackLines");
+
+                        for (int i = 0; i < cnt; i++)
+                        {
+                            //write out the name
+                            writer.WriteLine(trk.gArr[i].name);
+
+                            //write out the heading
+                            writer.WriteLine(trk.gArr[i].heading.ToString(CultureInfo.InvariantCulture));
+
+                            //A nd B
+                            writer.WriteLine(Math.Round(trk.gArr[i].ptA.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                Math.Round(trk.gArr[i].ptA.northing, 3).ToString(CultureInfo.InvariantCulture));
+                            writer.WriteLine(Math.Round(trk.gArr[i].ptB.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                Math.Round(trk.gArr[i].ptB.northing, 3).ToString(CultureInfo.InvariantCulture));
+
+                            //write out the nudgeDistance
+                            writer.WriteLine(trk.gArr[i].nudgeDistance.ToString(CultureInfo.InvariantCulture));
+
+                            //write out the mode
+                            writer.WriteLine(trk.gArr[i].mode.ToString(CultureInfo.InvariantCulture));
+
+                            //visible?
+                            writer.WriteLine(trk.gArr[i].isVisible.ToString(CultureInfo.InvariantCulture));
+
+                            //write out the points of ref line
+                            int cnt2 = trk.gArr[i].curvePts.Count;
+
+                            writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
+                            if (trk.gArr[i].curvePts.Count > 0)
+                            {
+                                for (int j = 0; j < cnt2; j++)
+                                    writer.WriteLine(Math.Round(trk.gArr[i].curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                        Math.Round(trk.gArr[i].curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                            Math.Round(trk.gArr[i].curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        writer.WriteLine("$TrackLines");
+                        return;
+                    }
+                }
+                catch (Exception er)
+                {
+                    WriteErrorLog("Saving Curve Line" + er.ToString());
+
+                    return;
+                }
+            }
+
+            if (trk.idx > (trk.gArr.Count - 1)) trk.idx = trk.gArr.Count - 1;
+
+            FileSaveABLines();
+            FileSaveCurveLines();
+        }
+
+        public void FileLoadTracks()
+        {
+            trk.gArr?.Clear();
+
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+            string directoryName = Path.GetDirectoryName(dirField);
+
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            string filename = directoryName + "\\TrackLines.txt";
+
+            if (!File.Exists(filename))
+            {
+                FileLoadABLines();
+                FileLoadCurveLines();
+                FileSaveTracks();
+                return;
+            }
+
+            //get the file of previous AB Lines
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            if (!File.Exists(filename))
+            {
+                TimedMessageBox(2000, gStr.gsFileError, "Missing Tracks File");
+            }
+            else
+            {
+                using (StreamReader reader = new StreamReader(filename))
+                {
+                    try
+                    {
+                        string line;
+
+                        //read header $CurveLine
+                        line = reader.ReadLine();
+
+                        while (!reader.EndOfStream)
+                        {
+
+                            trk.gArr.Add(new CTrk());
+                            trk.idx = trk.gArr.Count - 1;
+
+                            //read header $CurveLine
+                            trk.gArr[trk.idx].name = reader.ReadLine();
+                            // get the average heading
+                            line = reader.ReadLine();
+                            trk.gArr[trk.idx].heading = double.Parse(line, CultureInfo.InvariantCulture);
+
+                            line = reader.ReadLine();
+                            string[] words = line.Split(',');
+                            vec2 vecPt = new vec2(double.Parse(words[0], CultureInfo.InvariantCulture),
+                                double.Parse(words[1], CultureInfo.InvariantCulture));
+                            trk.gArr[trk.idx].ptA = (vecPt);
+
+                            line = reader.ReadLine();
+                            words = line.Split(',');
+                            vecPt = new vec2(double.Parse(words[0], CultureInfo.InvariantCulture),
+                                double.Parse(words[1], CultureInfo.InvariantCulture));
+                            trk.gArr[trk.idx].ptB = (vecPt);
+
+                            line = reader.ReadLine();
+                            trk.gArr[trk.idx].nudgeDistance = double.Parse(line, CultureInfo.InvariantCulture);
+
+                            line = reader.ReadLine();
+                            trk.gArr[trk.idx].mode = int.Parse(line, CultureInfo.InvariantCulture);
+
+                            line = reader.ReadLine();
+                            trk.gArr[trk.idx].isVisible = bool.Parse(line);
+
+                            line = reader.ReadLine();
+                            int numPoints = int.Parse(line);
+
+                            if (numPoints > 3)
+                            {
+                                trk.gArr[trk.idx].curvePts?.Clear();
+
+                                for (int i = 0; i < numPoints; i++)
+                                {
+                                    line = reader.ReadLine();
+                                    words = line.Split(',');
+                                    vec3 vecPtt = new vec3(double.Parse(words[0], CultureInfo.InvariantCulture),
+                                        double.Parse(words[1], CultureInfo.InvariantCulture),
+                                        double.Parse(words[2], CultureInfo.InvariantCulture));
+                                    trk.gArr[trk.idx].curvePts.Add(vecPtt);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception er)
+                    {
+                        var form = new FormTimedMessage(2000, gStr.gsCurveLineFileIsCorrupt, gStr.gsButFieldIsLoaded);
+                        form.Show(this);
+                        WriteErrorLog("Load Curve Line" + er.ToString());
+                    }
+                }
+            }
+
+            trk.idx = -1;
+        }
+
         public void FileSaveCurveLines()
         {
-            curve.moveDistance = 0;
-
             string dirField = fieldsDirectory + currentFieldDirectory + "\\";
             string directoryName = Path.GetDirectoryName(dirField).ToString(CultureInfo.InvariantCulture);
 
@@ -33,8 +838,7 @@ namespace AgOpenGPS
 
             string filename = directoryName + "\\CurveLines.txt";
 
-            int cnt = curve.curveArr.Count;
-            curve.numCurveLines = cnt;
+            int cnt = trk.gArr.Count;
 
             using (StreamWriter writer = new StreamWriter(filename, false))
             {
@@ -46,22 +850,24 @@ namespace AgOpenGPS
 
                         for (int i = 0; i < cnt; i++)
                         {
-                            //write out the Name
-                            writer.WriteLine(curve.curveArr[i].Name);
+                            if (trk.gArr[i].mode != (int)TrackMode.Curve) continue;
 
-                            //write out the aveheading
-                            writer.WriteLine(curve.curveArr[i].aveHeading.ToString(CultureInfo.InvariantCulture));
+                            //write out the Name
+                            writer.WriteLine(trk.gArr[i].name);
+
+                            //write out the heading
+                            writer.WriteLine(trk.gArr[i].heading.ToString(CultureInfo.InvariantCulture));
 
                             //write out the points of ref line
-                            int cnt2 = curve.curveArr[i].curvePts.Count;
+                            int cnt2 = trk.gArr[i].curvePts.Count;
 
                             writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
-                            if (curve.curveArr[i].curvePts.Count > 0)
+                            if (trk.gArr[i].curvePts.Count > 0)
                             {
                                 for (int j = 0; j < cnt2; j++)
-                                    writer.WriteLine(Math.Round(curve.curveArr[i].curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                        Math.Round(curve.curveArr[i].curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                            Math.Round(curve.curveArr[i].curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
+                                    writer.WriteLine(Math.Round(trk.gArr[i].curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                        Math.Round(trk.gArr[i].curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                            Math.Round(trk.gArr[i].curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
                             }
                         }
                     }
@@ -77,19 +883,10 @@ namespace AgOpenGPS
                     return;
                 }
             }
-
-            if (curve.numCurveLines == 0) curve.numCurveLineSelected = 0;
-            if (curve.numCurveLineSelected > curve.numCurveLines) curve.numCurveLineSelected = curve.numCurveLines;
-
         }
 
         public void FileLoadCurveLines()
         {
-            curve.moveDistance = 0;
-
-            curve.curveArr?.Clear();
-            curve.numCurveLines = 0;
-
             //get the directory and make sure it exists, create if not
             string dirField = fieldsDirectory + currentFieldDirectory + "\\";
             string directoryName = Path.GetDirectoryName(dirField);
@@ -128,20 +925,37 @@ namespace AgOpenGPS
 
                         while (!reader.EndOfStream)
                         {
-                            curve.curveArr.Add(new CCurveLines());
+                            trk.gArr.Add(new CTrk());
 
                             //read header $CurveLine
-                            curve.curveArr[curve.numCurveLines].Name = reader.ReadLine();
+                            string nam = reader.ReadLine();
+
+                            if (nam.Length > 4 && nam.Substring(0, 5) == "Bound")
+                            {
+                                trk.gArr[trk.gArr.Count - 1].name = nam;
+                                trk.gArr[trk.gArr.Count - 1].mode = (int)TrackMode.bndCurve;
+                            }
+                            else
+                            {
+                                if (nam.Length > 2 && nam.Substring(0, 2) != "Cu")
+                                    trk.gArr[trk.gArr.Count - 1].name = "Cu " + nam;
+                                else
+                                    trk.gArr[trk.gArr.Count - 1].name = nam;
+
+                                trk.gArr[trk.gArr.Count - 1].mode = (int)TrackMode.Curve;
+                            }
+
                             // get the average heading
                             line = reader.ReadLine();
-                            curve.curveArr[curve.numCurveLines].aveHeading = double.Parse(line, CultureInfo.InvariantCulture);
+                            trk.gArr[trk.gArr.Count - 1].heading = double.Parse(line, CultureInfo.InvariantCulture);
+
 
                             line = reader.ReadLine();
                             int numPoints = int.Parse(line);
 
-                            if (numPoints > 1)
+                            if (numPoints > 1) 
                             {
-                                curve.curveArr[curve.numCurveLines].curvePts?.Clear();
+                                trk.gArr[trk.gArr.Count - 1].curvePts?.Clear();
 
                                 for (int i = 0; i < numPoints; i++)
                                 {
@@ -150,15 +964,20 @@ namespace AgOpenGPS
                                     vec3 vecPt = new vec3(double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
-                                    curve.curveArr[curve.numCurveLines].curvePts.Add(vecPt);
+                                    trk.gArr[trk.gArr.Count - 1].curvePts.Add(vecPt);
                                 }
-                                curve.numCurveLines++;
+
+                                trk.gArr[trk.gArr.Count - 1].ptB.easting = trk.gArr[trk.gArr.Count - 1].curvePts[0].easting;
+                                trk.gArr[trk.gArr.Count - 1].ptB.northing = trk.gArr[trk.gArr.Count - 1].curvePts[0].northing;
+                                
+                                trk.gArr[trk.gArr.Count - 1].ptB.easting = trk.gArr[trk.gArr.Count - 1].curvePts[trk.gArr[trk.gArr.Count - 1].curvePts.Count - 1].easting;
+                                trk.gArr[trk.gArr.Count - 1].ptB.northing = trk.gArr[trk.gArr.Count - 1].curvePts[trk.gArr[trk.gArr.Count - 1].curvePts.Count - 1].northing;
                             }
                             else
                             {
-                                if (curve.curveArr.Count > 0)
+                                if (trk.gArr.Count > 0)
                                 {
-                                    curve.curveArr.RemoveAt(curve.numCurveLines);
+                                    trk.gArr.RemoveAt(trk.gArr.Count - 1);
                                 }
                             }
                         }
@@ -171,15 +990,10 @@ namespace AgOpenGPS
                     }
                 }
             }
-
-            if (curve.numCurveLines == 0) curve.numCurveLineSelected = 0;
-            if (curve.numCurveLineSelected > curve.numCurveLines) curve.numCurveLineSelected = curve.numCurveLines;
         }
 
         public void FileSaveABLines()
         {
-            ABLine.moveDistance = 0;
-
             //make sure at least a global blank AB Line file exists
             string dirField = fieldsDirectory + currentFieldDirectory + "\\";
             string directoryName = Path.GetDirectoryName(dirField).ToString(CultureInfo.InvariantCulture);
@@ -189,34 +1003,32 @@ namespace AgOpenGPS
             { Directory.CreateDirectory(directoryName); }
 
             string filename = directoryName + "\\ABLines.txt";
-            int cnt = ABLine.lineArr.Count;
+            int cnt = trk.gArr.Count;
 
             using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 if (cnt > 0)
                 {
-                    foreach (var item in ABLine.lineArr)
+                    foreach (var item in trk.gArr)
                     {
-                        //make it culture invariant
-                        string line = item.Name
-                            + ',' + (Math.Round(glm.toDegrees(item.heading), 8)).ToString(CultureInfo.InvariantCulture)
-                            + ',' + (Math.Round(item.origin.easting, 3)).ToString(CultureInfo.InvariantCulture)
-                            + ',' + (Math.Round(item.origin.northing, 3)).ToString(CultureInfo.InvariantCulture);
+                        if (item.mode == 2)
+                        {
+                            //make it culture invariant
+                            string line = item.name
+                                + ',' + (Math.Round(glm.toDegrees(item.heading), 8)).ToString(CultureInfo.InvariantCulture)
+                                + ',' + (Math.Round(item.ptA.easting, 3)).ToString(CultureInfo.InvariantCulture)
+                                + ',' + (Math.Round(item.ptA.northing, 3)).ToString(CultureInfo.InvariantCulture);
 
-                        //write out to file
-                        writer.WriteLine(line);
+                            //write out to file
+                            writer.WriteLine(line);
+                        }
                     }
                 }
             }
-
-            if (ABLine.numABLines == 0) ABLine.numABLineSelected = 0;
-            if (ABLine.numABLineSelected > ABLine.numABLines) ABLine.numABLineSelected = ABLine.numABLines;
         }
 
         public void FileLoadABLines()
         {
-            ABLine.moveDistance = 0;
-
             //make sure at least a global blank AB Line file exists
             string dirField = fieldsDirectory + currentFieldDirectory + "\\";
             string directoryName = Path.GetDirectoryName(dirField).ToString(CultureInfo.InvariantCulture);
@@ -244,9 +1056,6 @@ namespace AgOpenGPS
                     try
                     {
                         string line;
-                        ABLine.numABLines = 0;
-                        ABLine.numABLineSelected = 0;
-                        ABLine.lineArr?.Clear();
 
                         //read all the lines
                         for (int i = 0; !reader.EndOfStream; i++)
@@ -257,15 +1066,22 @@ namespace AgOpenGPS
 
                             if (words.Length != 4) break;
 
-                            ABLine.lineArr.Add(new CABLines());
+                            trk.gArr.Add(new CTrk());
 
-                            ABLine.lineArr[i].Name = words[0];
+                            if (words[0].Length > 2 && words[0].Substring(0, 2) != "AB")
+                                trk.gArr[i].name = "AB " + words[0];
+                            else
+                                trk.gArr[i].name = words[0];
+
+                            trk.gArr[i].mode = (int)TrackMode.AB;
 
 
-                            ABLine.lineArr[i].heading = glm.toRadians(double.Parse(words[1], CultureInfo.InvariantCulture));
-                            ABLine.lineArr[i].origin.easting = double.Parse(words[2], CultureInfo.InvariantCulture);
-                            ABLine.lineArr[i].origin.northing = double.Parse(words[3], CultureInfo.InvariantCulture);
-                            ABLine.numABLines++;
+                            trk.gArr[i].heading = glm.toRadians(double.Parse(words[1], CultureInfo.InvariantCulture));
+                            trk.gArr[i].ptA.easting = double.Parse(words[2], CultureInfo.InvariantCulture);
+                            trk.gArr[i].ptA.northing = double.Parse(words[3], CultureInfo.InvariantCulture);
+
+                            trk.gArr[i].ptB.easting = trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * 100);
+                            trk.gArr[i].ptB.northing = trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * 100);
                         }
                     }
                     catch (Exception er)
@@ -276,9 +1092,6 @@ namespace AgOpenGPS
                     }
                 }
             }
-
-            if (ABLine.numABLines == 0) ABLine.numABLineSelected = 0;
-            if (ABLine.numABLineSelected > ABLine.numABLines) ABLine.numABLineSelected = ABLine.numABLines;
         }
 
         //function to open a previously saved field, resume, open exisiting, open named field
@@ -410,46 +1223,12 @@ namespace AgOpenGPS
                 }
             }
 
-            // ABLine -------------------------------------------------------------------------------------------------
-            FileLoadABLines();
+            // Tracks -------------------------------------------------------------------------------------------------
 
-            if (ABLine.lineArr.Count > 0)
-            {
-                ABLine.numABLineSelected = 1;
-                ABLine.refPoint1 = ABLine.lineArr[ABLine.numABLineSelected - 1].origin;
-                //ABLine.refPoint2 = ABLine.lineArr[ABLine.numABLineSelected - 1].ref2;
-                ABLine.abHeading = ABLine.lineArr[ABLine.numABLineSelected - 1].heading;
-                ABLine.SetABLineByHeading();
-                ABLine.isABLineSet = false;
-                ABLine.isABLineLoaded = true;
-            }
-            else
-            {
-                ABLine.isABLineSet = false;
-                ABLine.isABLineLoaded = false;
-            }
+            trk.gArr?.Clear();
 
+            FileLoadTracks();
 
-            //CurveLines
-            FileLoadCurveLines();
-            if (curve.curveArr.Count > 0)
-            {
-                curve.numCurveLineSelected = 1;
-                int idx = curve.numCurveLineSelected - 1;
-                curve.aveLineHeading = curve.curveArr[idx].aveHeading;
-
-                curve.refList?.Clear();
-                for (int i = 0; i < curve.curveArr[idx].curvePts.Count; i++)
-                {
-                    curve.refList.Add(curve.curveArr[idx].curvePts[i]);
-                }
-                curve.isCurveSet = true;
-            }
-            else
-            {
-                curve.isCurveSet = false;
-                curve.refList?.Clear();
-            }
             
             //section patches
             fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\Sections.txt";
@@ -736,7 +1515,7 @@ namespace AgOpenGPS
                                         continue;
                                     }
                                     delta += (New.fenceLine[i - 1].heading - New.fenceLine[i].heading);
-                                    if (Math.Abs(delta) > 0.04)
+                                    if (Math.Abs(delta) > 0.005)
                                     {
                                         New.fenceLineEar.Add(new vec2(New.fenceLine[i].easting, New.fenceLine[i].northing));
                                         delta = 0;
@@ -823,10 +1602,10 @@ namespace AgOpenGPS
             }
             else
             {
-                bnd.isHeadlandOn = false;
+                //ajout memprou bnd.isHeadlandOn = false;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
-                //Ajout-modification MEmprou et SPailleau btnHeadlandOnOff.Visible = false;
-                //Ajout-modification MEmprou et SPailleau btnHydLift.Visible = false;
+                //ajout memprou btnHeadlandOnOff.Visible = false;
+                //ajout memprou btnHydLift.Visible = false;
             }
 
             //trams ---------------------------------------------------------------------------------
@@ -836,7 +1615,7 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramList?.Clear();
             tram.displayMode = 0;
-            //Ajout-modification MEmprou et SPailleau btnTramDisplayMode.Visible = false;
+            //ajout memprou btnTramDisplayMode.Visible = false;
 
             if (File.Exists(fileAndDirectory))
             {
@@ -927,9 +1706,13 @@ namespace AgOpenGPS
                 }
             }
 
-
-            FixPanelsAndMenus();
-            SetZoom();
+            //if (Directory.Exists(fieldsDirectory + currentFieldDirectory))
+            //{
+            //    foreach (string file in Directory.GetFiles(fieldsDirectory + currentFieldDirectory, "*.shp", SearchOption.TopDirectoryOnly))
+            //    {
+            //        shape.Main(fieldsDirectory + currentFieldDirectory + "\\" + Path.GetFileNameWithoutExtension(file));
+            //    }
+            //}
 
             //Recorded Path
             fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\RecPath.txt";
@@ -962,10 +1745,9 @@ namespace AgOpenGPS
                                 recPath.recList.Add(point);
                             }
                         }
-                        //ajout max
-                        //if (recPath.recList.Count > 0) panelDrag.Visible = true;
-                        //else panelDrag.Visible = false;
-                        //fin
+
+                        if (recPath.recList.Count > 0) panelDrag.Visible = true;
+                        else panelDrag.Visible = false;
                     }
 
                     catch (Exception e)
@@ -977,7 +1759,8 @@ namespace AgOpenGPS
                 }
             }
 
-            worldGrid.isGeoMap = false;
+            worldGrid.isGeoMap = worldGrid.isRateMap = false;
+            worldGrid.numRateChannels = 0;
 
             //Back Image
             fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\BackPic.txt";
@@ -1014,7 +1797,7 @@ namespace AgOpenGPS
                         {
                             var bitmap = new Bitmap(Image.FromFile(fileAndDirectory));
 
-                            GL.BindTexture(TextureTarget.Texture2D, texture[20]);
+                            GL.BindTexture(TextureTarget.Texture2D, texture[(int)textures.bingGrid]);
                             BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
                             bitmap.UnlockBits(bitmapData);
@@ -1026,6 +1809,113 @@ namespace AgOpenGPS
                     }
                 }
             }
+
+            //is there rateChannels?
+            if (!worldGrid.isGeoMap)
+            {
+                fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\RateMap.txt";
+                if (File.Exists(fileAndDirectory))
+                {
+                    using (StreamReader reader = new StreamReader(fileAndDirectory))
+                    {
+                        try
+                        {
+                            //read header
+                            line = reader.ReadLine();
+
+                            line = reader.ReadLine();
+                            worldGrid.isRateMap = bool.Parse(line);
+
+                            line = reader.ReadLine();
+                            worldGrid.eastingMaxRate = double.Parse(line, CultureInfo.InvariantCulture);
+                            line = reader.ReadLine();
+                            worldGrid.eastingMinRate = double.Parse(line, CultureInfo.InvariantCulture);
+                            line = reader.ReadLine();
+                            worldGrid.northingMaxRate = double.Parse(line, CultureInfo.InvariantCulture);
+                            line = reader.ReadLine();
+                            worldGrid.northingMinRate = double.Parse(line, CultureInfo.InvariantCulture);
+                            line = reader.ReadLine();
+                            worldGrid.numRateChannels = int.Parse(line, CultureInfo.InvariantCulture);
+                        }
+                        catch (Exception)
+                        {
+                            worldGrid.isRateMap = false;
+                        }
+
+                        bool isFileMissing = false;
+
+                        if (worldGrid.isRateMap)
+                        {
+                            fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\rateMap1.png";
+                            if (File.Exists(fileAndDirectory))
+                            {
+                                var bitmap = new Bitmap(Image.FromFile(fileAndDirectory));
+
+                                GL.BindTexture(TextureTarget.Texture2D, texture[(int)textures.RateMap1]);
+                                BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
+                                bitmap.UnlockBits(bitmapData);
+                            }
+                            else
+                            {
+                                isFileMissing = true;
+                            }
+
+                            if (worldGrid.numRateChannels > 1)
+                            {
+                                fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\rateMap2.png";
+                                if (File.Exists(fileAndDirectory))
+                                {
+                                    var bitmap = new Bitmap(Image.FromFile(fileAndDirectory));
+
+                                    GL.BindTexture(TextureTarget.Texture2D, texture[(int)textures.RateMap2]);
+                                    BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
+                                    bitmap.UnlockBits(bitmapData);
+                                }
+                                else
+                                {
+                                    isFileMissing = true;
+                                }
+                            }
+
+                            if (worldGrid.numRateChannels > 2)
+                            {
+
+                                fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\rateMap3.png";
+                                if (File.Exists(fileAndDirectory))
+                                {
+                                    var bitmap = new Bitmap(Image.FromFile(fileAndDirectory));
+
+                                    GL.BindTexture(TextureTarget.Texture2D, texture[(int)textures.RateMap3]);
+                                    BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
+                                    bitmap.UnlockBits(bitmapData);
+                                }
+                                else
+                                {
+                                    isFileMissing = true;
+                                }
+                            }
+
+                            if (isFileMissing)
+                            {
+                                YesMessageBox("Missing one of the 3 rate images, " +
+                                " There should be MapRate1, MapRate2, MapRate3, " +
+                                " VR is turned off") ;
+
+                                worldGrid.isRateMap = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            PanelsAndOGLSize();
+            SetZoom();
+
+            //update field data
+            oglZoom.Refresh();
 
         }//end of open file
 
@@ -1252,7 +2142,7 @@ namespace AgOpenGPS
             }
         }
 
-        //save the contour points which include elevation values
+        //save the contour points
         public void FileSaveContour()
         {
             //1  - points in patch
@@ -1352,12 +2242,14 @@ namespace AgOpenGPS
                             Math.Round(tram.tramBndInnerArr[i].northing, 3).ToString(CultureInfo.InvariantCulture));
                     }
                 }
+
                 //no outer bnd
                 else
                 {
                     writer.WriteLine("0");
                     writer.WriteLine("0");
                 }
+
                 if (tram.tramList.Count > 0)
                 {
                     writer.WriteLine(tram.tramList.Count.ToString(CultureInfo.InvariantCulture));
@@ -1404,6 +2296,42 @@ namespace AgOpenGPS
                     writer.WriteLine(-300);
                     writer.WriteLine(300);
                     writer.WriteLine(-300);
+                }
+            }
+        }
+
+        public void FileSaveRateMap()
+        {
+            //get the directory and make sure it exists, create if not
+            string dirField = fieldsDirectory + currentFieldDirectory + "\\";
+
+            string directoryName = Path.GetDirectoryName(dirField);
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
+
+            //write out the file
+            using (StreamWriter writer = new StreamWriter(dirField + "RateMap.Txt"))
+            {
+                writer.WriteLine("$RateMap");
+                //outer track of outer boundary tram
+                if (worldGrid.isRateMap)
+                {
+                    writer.WriteLine(true);
+                    writer.WriteLine(worldGrid.eastingMaxRate.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(worldGrid.eastingMinRate.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(worldGrid.northingMaxRate.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(worldGrid.northingMinRate.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(worldGrid.numRateChannels.ToString(CultureInfo.InvariantCulture));
+
+                }
+                else
+                {
+                    writer.WriteLine(false);
+                    writer.WriteLine(300);
+                    writer.WriteLine(-300);
+                    writer.WriteLine(300);
+                    writer.WriteLine(-300);
+                    writer.WriteLine(0);
                 }
             }
         }
@@ -1616,8 +2544,8 @@ namespace AgOpenGPS
         //            else writer.WriteLine(false);
 
         //            writer.WriteLine(ABLine.abHeading.ToString(CultureInfo.InvariantCulture));
-        //            writer.WriteLine(ABLine.refPoint1.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPoint1.northing.ToString(CultureInfo.InvariantCulture));
-        //            writer.WriteLine(ABLine.refPoint2.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPoint2.northing.ToString(CultureInfo.InvariantCulture));
+        //            writer.WriteLine(ABLine.refPtA.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPtA.northing.ToString(CultureInfo.InvariantCulture));
+        //            writer.WriteLine(ABLine.refPtB.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPtB.northing.ToString(CultureInfo.InvariantCulture));
         //            writer.WriteLine(ABLine.tramPassEvery.ToString(CultureInfo.InvariantCulture) + "," + ABLine.passBasedOn.ToString(CultureInfo.InvariantCulture));
         //        }
 
@@ -1652,17 +2580,17 @@ namespace AgOpenGPS
         //            //write out the ABLine
         //            writer.WriteLine("$CurveLine");
 
-        //            //write out the aveheading
-        //            writer.WriteLine(curve.aveLineHeading.ToString(CultureInfo.InvariantCulture));
+        //            //write out the heading
+        //            writer.WriteLine(curve.refCurve.heading.ToString(CultureInfo.InvariantCulture));
 
         //            //write out the points of ref line
-        //            writer.WriteLine(curve.refList.Count.ToString(CultureInfo.InvariantCulture));
-        //            if (curve.refList.Count > 0)
+        //            writer.WriteLine(curve.refCurve.curvePts.Count.ToString(CultureInfo.InvariantCulture));
+        //            if (curve.refCurve.curvePts.Count > 0)
         //            {
-        //                for (int j = 0; j < curve.refList.Count; j++)
-        //                    writer.WriteLine(Math.Round(curve.refList[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-        //                                        Math.Round(curve.refList[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-        //                                            Math.Round(curve.refList[j].heading, 5).ToString(CultureInfo.InvariantCulture));
+        //                for (int j = 0; j < curve.refCurve.curvePts.Count; j++)
+        //                    writer.WriteLine(Math.Round(curve.refCurve.curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+        //                                        Math.Round(curve.refCurve.curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+        //                                            Math.Round(curve.refCurve.curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
         //            }
         //        }
 
@@ -1691,9 +2619,9 @@ namespace AgOpenGPS
         {
             using (StreamWriter writer = new StreamWriter((fieldsDirectory + currentFieldDirectory + "\\Elevation.txt"), true))
             {
-                writer.Write(sbFix.ToString());
+                writer.Write(sbGrid.ToString());
             }
-            sbFix.Clear();
+            sbGrid.Clear();
         }
 
         //generate KML file from flag
@@ -1828,7 +2756,7 @@ namespace AgOpenGPS
         }
 
         //generate KML file from flags
-        public void FileSaveFieldKML()
+        public void ExportFieldAs_KML()
         {
             //get the directory and make sure it exists, create if not
             string dirField = fieldsDirectory + currentFieldDirectory + "\\";
@@ -1908,12 +2836,12 @@ namespace AgOpenGPS
 
             string linePts = "";
 
-            for (int i = 0; i < ABLine.lineArr.Count; i++)
+            for (int i = 0; i < trk.gArr.Count; i++)
             {
                 kml.WriteStartElement("Placemark");
                 kml.WriteElementString("visibility", "0");
 
-                kml.WriteElementString("name", ABLine.lineArr[i].Name);
+                kml.WriteElementString("name", trk.gArr[i].name);
                 kml.WriteStartElement("Style");
 
                 kml.WriteStartElement("LineStyle");
@@ -1926,10 +2854,10 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                linePts = pn.GetLocalToWSG84_KML(ABLine.lineArr[i].origin.easting - (Math.Sin(ABLine.lineArr[i].heading) * ABLine.abLength),
-                    ABLine.lineArr[i].origin.northing - (Math.Cos(ABLine.lineArr[i].heading) * ABLine.abLength));
-                linePts += pn.GetLocalToWSG84_KML(ABLine.lineArr[i].origin.easting + (Math.Sin(ABLine.lineArr[i].heading) * ABLine.abLength),
-                    ABLine.lineArr[i].origin.northing + (Math.Cos(ABLine.lineArr[i].heading) * ABLine.abLength));
+                linePts = pn.GetLocalToWSG84_KML(trk.gArr[i].ptA.easting - (Math.Sin(trk.gArr[i].heading) * ABLine.abLength),
+                    trk.gArr[i].ptA.northing - (Math.Cos(trk.gArr[i].heading) * ABLine.abLength));
+                linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * ABLine.abLength),
+                    trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * ABLine.abLength));
                 kml.WriteRaw(linePts);
 
                 kml.WriteEndElement(); // <coordinates>
@@ -1945,13 +2873,13 @@ namespace AgOpenGPS
             kml.WriteElementString("name", "Curve_Lines");
             kml.WriteElementString("visibility", "0");
 
-            for (int i = 0; i < curve.curveArr.Count; i++)
+            for (int i = 0; i < trk.gArr.Count; i++)
             {
                 linePts = "";
                 kml.WriteStartElement("Placemark");
                 kml.WriteElementString("visibility", "0");
 
-                kml.WriteElementString("name", curve.curveArr[i].Name);
+                kml.WriteElementString("name", trk.gArr[i].name);
                 kml.WriteStartElement("Style");
 
                 kml.WriteStartElement("LineStyle");
@@ -1964,9 +2892,9 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                for (int j = 0; j < curve.curveArr[i].curvePts.Count; j++)
+                for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
                 {
-                    linePts += pn.GetLocalToWSG84_KML(curve.curveArr[i].curvePts[j].easting, curve.curveArr[i].curvePts[j].northing);
+                    linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].curvePts[j].easting, trk.gArr[i].curvePts[j].northing);
                 }
                 kml.WriteRaw(linePts);
 
@@ -2072,7 +3000,6 @@ namespace AgOpenGPS
                                 kml.WriteElementString("end", triList[triList.Count - 1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 kml.WriteEndElement();//TimeSpan //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                             }
-
                             string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
                                 ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
 
@@ -2150,6 +3077,7 @@ namespace AgOpenGPS
             }
             return sb.ToString();
         }
+
         private void FileUpdateAllFieldsKML()
         {
 
@@ -2174,7 +3102,7 @@ namespace AgOpenGPS
             kml.WriteStartElement("kml", "http://www.opengis.net/kml/2.2");
             kml.WriteStartElement("Document");
 
-            foreach (String dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
+            foreach(String dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
             //loop
             {
                 if (!File.Exists(dir + "\\" + "Field.kml")) continue;
@@ -2185,10 +3113,10 @@ namespace AgOpenGPS
 
                 var lines = File.ReadAllLines(dir + "\\" + "Field.kml");
                 LinkedList<string> linebuffer = new LinkedList<string>();
-                for (var i = 3; i < lines.Length - 2; i++)  //We want to skip the first 3 and last 2 lines
+                for( var i = 3; i < lines.Length-2; i++)  //We want to skip the first 3 and last 2 lines
                 {
                     linebuffer.AddLast(lines[i]);
-                    if (linebuffer.Count > 2)
+                    if(linebuffer.Count > 2)
                     {
                         kml.WriteRaw("   ");
                         kml.WriteRaw(Environment.NewLine);
@@ -2206,7 +3134,7 @@ namespace AgOpenGPS
                 kml.WriteRaw(Environment.NewLine);
 
                 kml.WriteEndElement(); // <Folder>
-                kml.WriteComment("End of " + directoryName);
+                kml.WriteComment("End of " +directoryName);
             }
 
             //end of document

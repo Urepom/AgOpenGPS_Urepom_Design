@@ -313,6 +313,24 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Close.
+        /// </summary>
+        public static string gsClose {
+            get {
+                return ResourceManager.GetString("gsClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Close All Windows First.
+        /// </summary>
+        public static string gsCloseAllWindowsFirst {
+            get {
+                return ResourceManager.GetString("gsCloseAllWindowsFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Close Field First.
         /// </summary>
         public static string gsCloseFieldFirst {
@@ -489,6 +507,15 @@ namespace AgOpenGPS {
         public static string gsDeleteAppliedArea {
             get {
                 return ResourceManager.GetString("gsDeleteAppliedArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à This action will delete all the boundaries. Do you want to continue?.
+        /// </summary>
+        public static string gsDeleteBoundaryMapping {
+            get {
+                return ResourceManager.GetString("gsDeleteBoundaryMapping", resourceCulture);
             }
         }
         
@@ -768,6 +795,15 @@ namespace AgOpenGPS {
         public static string gsFixTrigger {
             get {
                 return ResourceManager.GetString("gsFixTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Flag By Lat Lon.
+        /// </summary>
+        public static string gsFlagByLatLon {
+            get {
+                return ResourceManager.GetString("gsFlagByLatLon", resourceCulture);
             }
         }
         
@@ -1924,6 +1960,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Windows Still Open.
+        /// </summary>
+        public static string gsWindowsStillOpen {
+            get {
+                return ResourceManager.GetString("gsWindowsStillOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Wizards.
         /// </summary>
         public static string gsWizards {
@@ -2404,6 +2449,19 @@ namespace AgOpenGPS {
         public static string h_btnZoomOut {
             get {
                 return ResourceManager.GetString("h_btnZoomOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à First 3 numbers are Total Field Area minus Actual covered area
+        ///Then the percent of actual area overlapped
+        ///Then the Total Area minus machine travelled area. 
+        ///Time till finished based on work area
+        ///Percent completed and work rate..
+        /// </summary>
+        public static string h_FieldData {
+            get {
+                return ResourceManager.GetString("h_FieldData", resourceCulture);
             }
         }
         

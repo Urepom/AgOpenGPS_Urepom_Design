@@ -177,6 +177,9 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Vyberte, alebo vytvorte iné</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Zavrieť</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Najskôr zavrite pole</value>
   </data>
@@ -287,6 +290,9 @@
   </data>
   <data name="gsFileError" xml:space="preserve">
     <value>Chyba súboru</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Vlajka od Lat Lon</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Súbor so značkami je neplatný</value>

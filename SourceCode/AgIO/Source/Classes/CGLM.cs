@@ -10,7 +10,7 @@ namespace AgIO
             if (value < numericUpDown.Minimum)
             {
                 value = numericUpDown.Minimum;
-                MessageBox.Show("Serious Settings Problem with - " + numericUpDown.Name
+                MessageBox.Show("Serious Settings Problem With - " + numericUpDown.Name
                     + " \n\rMinimum has been exceeded\n\rDouble check ALL your Settings and \n\rFix it and Resave Vehicle File",
                 "Critical Settings Warning",
                 MessageBoxButtons.OK,
@@ -21,7 +21,7 @@ namespace AgIO
             {
                 value = numericUpDown.Maximum;
                 MessageBox.Show("Serious Settings Problem with - " + numericUpDown.Name
-                    + " \n\rMaximum has been exceeded\n\rDouble check ALL your Settings and \n\rFix it and Resave Vehicle File",
+                    + " \n\rMaximum has been exceeded\n\rDouble Check ALL your Settings and \n\rFix it and Resave Vehicle File",
                 "Critical Settings Warning",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
@@ -117,9 +117,6 @@ namespace AgIO
         public const double twoPI = 6.28318530717958647692;
 
         public const double PIBy2 = 1.57079632679489661923;
-
-
-
 
         //Degrees Radians Conversions
         public static double toDegrees(double radians)

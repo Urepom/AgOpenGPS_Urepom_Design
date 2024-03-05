@@ -171,6 +171,9 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Wybierz lub utwórz inny</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Zewrzeć</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Najpierw zamknij pole</value>
   </data>
@@ -269,6 +272,9 @@
   </data>
   <data name="gsFileError" xml:space="preserve">
     <value>Błąd pliku</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Flaga firmy Lat Lon</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Uszkodzony plik flagi</value>

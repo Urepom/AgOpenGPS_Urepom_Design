@@ -177,6 +177,12 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Wähle oder erstellen sie ein Anderes</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="gsCloseAllWindowsFirst" xml:space="preserve">
+    <value>Schließen Sie zunächst alle Fenster</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Feld vorher schließen</value>
   </data>
@@ -287,6 +293,9 @@
   </data>
   <data name="gsFileError" xml:space="preserve">
     <value>Dateien fehlerhaft</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Flagge von Lat Lon</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Flaggen Datei fehlerhaft</value>
@@ -527,6 +536,9 @@
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Westen</value>
+  </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>Windows ist immer noch geöffnet</value>
   </data>
   <data name="gsXTEChart" xml:space="preserve">
     <value>Abweichung von der Linie (XTE)</value>

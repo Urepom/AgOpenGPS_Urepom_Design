@@ -52,12 +52,6 @@ namespace AgIO
             Properties.Settings.Default.eth_loopThree.ToString() + "." +
             Properties.Settings.Default.eth_loopFour.ToString()), 15555);
 
-        private IPEndPoint epAgVR = new IPEndPoint(IPAddress.Parse(
-            Properties.Settings.Default.eth_loopOne.ToString() + "." +
-            Properties.Settings.Default.eth_loopTwo.ToString() + "." +
-            Properties.Settings.Default.eth_loopThree.ToString() + "." +
-            Properties.Settings.Default.eth_loopFour.ToString()), 16666);
-        
         public IPEndPoint epModule = new IPEndPoint(IPAddress.Parse(
                 Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                 Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
@@ -151,11 +145,6 @@ namespace AgIO
             SendDataToLoopBack(byteData, epAgOpen);
         }
 
-        private void SendToLoopBackMessageVR(byte[] byteData)
-        {
-            SendDataToLoopBack(byteData, epAgVR);
-        }
-
         private void SendDataToLoopBack(byte[] byteData, IPEndPoint endPoint)
         {
             try
@@ -194,9 +183,6 @@ namespace AgIO
             //Send out to udp network
             SendUDPMessage(data, epModule);
 
-            //send out to VR Loopback
-            if (isPluginUsed) SendToLoopBackMessageVR(data);
-
             if (data[0] == 0x80 && data[1] == 0x81)
             {
                 switch (data[3])
@@ -208,6 +194,18 @@ namespace AgIO
                             SendMachineModulePort(data, data.Length);
                             break;
                         }
+                    case 0xEF: //239 machine pgn
+                        {
+                            SendMachineModulePort(data, data.Length);
+                            SendSteerModulePort(data, data.Length);
+                            break;
+                        }
+                    case 0xE5: //229 Symmetric Sections - Zones
+                        {
+                            SendMachineModulePort(data, data.Length);
+                            //SendSteerModulePort(data, data.Length);
+                            break;
+                        }
                     case 0xFC: //252 steer settings
                         {
                             SendSteerModulePort(data, data.Length);
@@ -215,12 +213,6 @@ namespace AgIO
                         }
                     case 0xFB: //251 steer config
                         {
-                            SendSteerModulePort(data, data.Length);
-                            break;
-                        }
-                    case 0xEF: //239 machine pgn
-                        {
-                            SendMachineModulePort(data, data.Length);
                             SendSteerModulePort(data, data.Length);
                             break;
                         }
@@ -360,9 +352,6 @@ namespace AgIO
                 {
                     //module return via udp sent to AOG
                     SendToLoopBackMessageAOG(data);
-
-                    //module data also sent to VR
-                    if (isPluginUsed) SendToLoopBackMessageVR(data);
 
                     //check for Scan and Hello
                     if (data[3] == 126 && data.Length == 11)

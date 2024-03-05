@@ -177,6 +177,12 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>zChoose or Build a Different one</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>ZClose</value>
+  </data>
+  <data name="gsCloseAllWindowsFirst" xml:space="preserve">
+    <value>zClose All Windows First</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>zClose Field First</value>
   </data>
@@ -218,6 +224,9 @@
   </data>
   <data name="gsDeleteAppliedArea" xml:space="preserve">
     <value>zDelete Applied Area</value>
+  </data>
+  <data name="gsDeleteBoundaryMapping" xml:space="preserve">
+    <value>zThis action will delete all the boundaries. Do you want to continue?</value>
   </data>
   <data name="gsDeleteContourPaths" xml:space="preserve">
     <value>zDelete Contour Paths</value>
@@ -287,6 +296,9 @@
   </data>
   <data name="gsFileError" xml:space="preserve">
     <value>zFile Error</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Flag By Lat Lon</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>zFlag File Corrupt</value>
@@ -537,11 +549,17 @@
   <data name="gsWest" xml:space="preserve">
     <value>zWest</value>
   </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>zWindows Still Open</value>
+  </data>
   <data name="gsWizards" xml:space="preserve">
     <value>zWizards</value>
   </data>
   <data name="gsXTEChart" xml:space="preserve">
     <value>zXTE Chart</value>
+  </data>
+  <data name="h_FieldData" xml:space="preserve">
+    <value>zField Data</value>
   </data>
   <data name="h_btn2D" xml:space="preserve">
     <value>Changed</value>

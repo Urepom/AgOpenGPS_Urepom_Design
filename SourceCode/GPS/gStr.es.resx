@@ -177,6 +177,12 @@
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
     <value>Seleccione o cree otro</value>
   </data>
+  <data name="gsClose" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="gsCloseAllWindowsFirst" xml:space="preserve">
+    <value>Por favor, cierre primero todas las ventanas</value>
+  </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Antes cierre el fichero</value>
   </data>
@@ -287,6 +293,9 @@
   </data>
   <data name="gsFileError" xml:space="preserve">
     <value>Error de archivo</value>
+  </data>
+  <data name="gsFlagByLatLon" xml:space="preserve">
+    <value>Bandera de Lat Lon</value>
   </data>
   <data name="gsFlagFileIsCorrupt" xml:space="preserve">
     <value>Fichero de marcas corrupto</value>
@@ -530,6 +539,9 @@
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Oeste</value>
+  </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>Hay ventanas abiertas</value>
   </data>
   <data name="gsWizards" xml:space="preserve">
     <value>Asistentes de configuración</value>
