@@ -443,10 +443,15 @@ namespace AgOpenGPS
 
         }
 
+        private void dis(object sender, EventArgs e)
+        {
+
+        }
+
         private void FormGPS_Load(object sender, EventArgs e)
         {
             this.MouseWheel += ZoomByMouseWheel;
-
+            CheckSettingsUpdate();
             //start udp server is required
             StartLoopbackServer();
 

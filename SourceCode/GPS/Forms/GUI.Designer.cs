@@ -171,6 +171,9 @@ namespace AgOpenGPS
                 */
 
                 //Ajout-modification MEmprou et SPailleau
+                lblAge.Text = "age: " + pn.age.ToString("N1");
+                lbludpWatchCounts.Text = "Miss: " + udpWatchCounts.ToString();
+
                 lblHz.Text = gpsHz.ToString("N1") + "Hz " + (int)(frameTime) + "\r\n" +
                     FixQuality + Math.Round(gpsHz, MidpointRounding.AwayFromZero) + " Hz";
 
@@ -433,7 +436,7 @@ namespace AgOpenGPS
                 if (isMetric)  //metric or imperial
                 {
                     //status strip values
-                    distanceToolBtn.Text = fd.DistanceUserMeters + "\r\n" + fd.WorkedUserHectares;
+                    distanceToolBtn.Text = Math.Round(Convert.ToDecimal(fd.DistanceUserMeters),1) + "\r\n" + fd.WorkedUserHectares;
 
                 }
                 else  //Imperial Measurements
@@ -842,11 +845,14 @@ namespace AgOpenGPS
                 {
                     round_table1.Left = oglMain.Width - 225;
                     round_table4.Left = oglMain.Width - 150;
+                    btnNudge.Visible = true;
                 }
                 else
                 {
                     round_table1.Left = oglMain.Width - 85;
                     round_table4.Left = oglMain.Width - 85;
+                    btnNudge.Visible = false;
+
                 }
 
                 cboxpRowWidth.Visible = trk.idx > -1;
@@ -992,8 +998,8 @@ namespace AgOpenGPS
             flp1.Left = this.Width - 120 - flp1.Width;
             /*/
             //Ajout-modification MEmprou et SPailleau
-            btn_synchro.Left = round_Menu1.Right - 82;
-            btn_synchro.Top = round_Menu1.Top + 2;
+            btn_synchro.Left = round_Menu1.Right - 74;
+            btn_synchro.Top = round_Menu1.Top + 4;
             //fin
         }
 
@@ -1269,7 +1275,7 @@ namespace AgOpenGPS
                             }
 
                             //manual uturn triggering
-                            middle = oglMain.Width / 2 - oglMain.Width / 6;
+                            middle = oglMain.Width / 2 - oglMain.Width / 6; //ajout max
                             if (point.X > middle - 140 && point.X < middle && isUTurnOn)
                             {
                                 if (isTT)
@@ -1432,7 +1438,8 @@ namespace AgOpenGPS
                         form.Show(this);
 
                         form.Top = this.Top + 90;
-                        form.Left = this.Left + 120;
+                        form.Left = round_table11.Left - 100; //ajout max
+                        return;
                     }
                     //zoom buttons
                     //---

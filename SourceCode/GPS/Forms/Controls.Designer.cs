@@ -1003,6 +1003,10 @@ namespace AgOpenGPS
                 {
                     FileLoadRecPath();
                     panelDrag.Visible = true;
+                    //ajout memprou
+                    panelDrag.Left = round_StatusStrip1.Right;
+                    panelDrag.Top = round_StatusStrip1.Top;
+                    //fin
                 }
             }
             else
@@ -2781,7 +2785,17 @@ namespace AgOpenGPS
             form.Show(this);
             form.Location = new Point(round_table7.Location.X + round_table7.Width - (btnAutoSteer.Width * 2), round_table7.Location.Y + 10);
         }
-
+        private void distancetoolbutton(object sender, EventArgs e)
+        {
+            if (isTT)
+            {
+                MessageBox.Show(gStr.h_btnDistanceArea, gStr.gsHelp);
+                ResetHelpBtn();
+                return;
+            }
+            fd.distanceUser = 0;
+            fd.workedAreaTotalUser = 0;
+        }
         //fin
 
         private ToolStripMenuItem steerChartToolStripMenuItem;

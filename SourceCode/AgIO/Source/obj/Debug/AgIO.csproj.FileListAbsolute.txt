@@ -52,7 +52,6 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\o
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.gStr.resources
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.GenerateResource.cache
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.CoreCompileInputs.cache
-C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.CopyComplete
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.exe
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.pdb
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.AssemblyReference.cache
@@ -85,3 +84,4 @@ C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCo
 C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.Up2Date
 C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.exe
 C:\Users\maxim\Documents\AOG DEV\2024\6.0.10\AgOpenGPS\AgOpenGPS-master\SourceCode\AgIO\Source\obj\Debug\AgIO.pdb
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\AgIO\Source\obj\Debug\AgIO.csproj.Up2Date
