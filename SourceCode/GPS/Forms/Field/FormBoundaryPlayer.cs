@@ -42,6 +42,12 @@ namespace AgOpenGPS
             mf.bnd.createBndOffset = (mf.tool.width * 0.5);
             mf.bnd.isBndBeingMade = true;
             mf.Focus();
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
         }
 
         private void FormBoundaryPlayer_FormClosing(object sender, FormClosingEventArgs e)
@@ -199,44 +205,47 @@ namespace AgOpenGPS
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
         }
 
-        #region Help
-
-        private void nudOffset_HelpRequested(object sender, HelpEventArgs hlpevent)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            MessageBox.Show(gStr.hb_nudOffset, gStr.gsHelp);
+            if (keyData == Keys.B) //autosteer button on off
+            {
+                mf.bnd.isOkToAddPoints = true;
+                mf.AddBoundaryPoint();
+                mf.bnd.isOkToAddPoints = false;
+                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+            }
+
+            if (keyData == Keys.D) //autosteer button on off
+            {
+                int ptCount = mf.bnd.bndBeingMadePts.Count;
+                if (ptCount > 0)
+                    mf.bnd.bndBeingMadePts.RemoveAt(ptCount - 1);
+                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+            }
+
+            if (keyData == Keys.R) //autosteer button on off
+            {
+                if (mf.bnd.isOkToAddPoints)
+                {
+                    mf.bnd.isOkToAddPoints = false;
+                    btnPausePlay.Image = Properties.Resources.BoundaryRecord;
+                    //btnPausePlay.Text = gStr.gsRecord;
+                    btnAddPoint.Enabled = true;
+                    btnDeleteLast.Enabled = true;
+                }
+                else
+                {
+                    mf.bnd.isOkToAddPoints = true;
+                    btnPausePlay.Image = Properties.Resources.boundaryPause;
+                    //btnPausePlay.Text = gStr.gsPause;
+                    btnAddPoint.Enabled = false;
+                    btnDeleteLast.Enabled = false;
+                }
+            }
+            // Call the base class
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void btnLeftRight_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hb_btnLeftRight, gStr.gsHelp);
-        }
-
-        private void btnDeleteLast_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hb_btnDeleteLast, gStr.gsHelp);
-        }
-
-        private void btnAddPoint_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hb_btnAddPoint, gStr.gsHelp);
-        }
-
-        private void btnRestart_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hb_btnRestart, gStr.gsHelp);
-        }
-
-        private void btnPausePlay_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hb_btnPausePlay, gStr.gsHelp);
-        }
-
-        private void btnStop_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hb_btnStop, gStr.gsHelp);
-        }
-
-        #endregion Help
     }
 }
 

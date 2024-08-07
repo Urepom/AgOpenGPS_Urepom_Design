@@ -241,6 +241,15 @@ namespace AgOpenGPS {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Brightness.
+        /// </summary>
+        public static string gsBrightness {
+            get {
+                return ResourceManager.GetString("gsBrightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à But Field Is Loaded.
         /// </summary>
         public static string gsButFieldIsLoaded {

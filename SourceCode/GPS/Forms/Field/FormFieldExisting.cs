@@ -226,6 +226,12 @@ namespace AgOpenGPS
                 Close();
                 return;
             }
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
+
         }
 
         private void tboxFieldName_TextChanged(object sender, EventArgs e)
@@ -593,9 +599,14 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        lblTemplateChosen.Text = lvLines.SelectedItems[0].SubItems[0].Text;
+                        lblTemplateChosen.Text = lvLines.SelectedItems[0].SubItems[1].Text;
                         tboxFieldName.Text = lvLines.SelectedItems[0].SubItems[1].Text.Trim();
                     }
+                    //else 
+                    //{
+                    //    lblTemplateChosen.Text = lvLines.SelectedItems[0].SubItems[2].Text;
+                    //    tboxFieldName.Text = lvLines.SelectedItems[0].SubItems[2].Text.Trim();
+                    //}
                     btnSave.Enabled = true;
                 }
             }

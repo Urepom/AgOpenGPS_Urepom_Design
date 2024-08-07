@@ -63,6 +63,13 @@ namespace AgOpenGPS
 
             if (mf.worldGrid.isGeoMap) cboxDrawMap.Image = Properties.Resources.MappingOn;
             else cboxDrawMap.Image = Properties.Resources.MappingOff;
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
+
         }
 
         private void FormMap_FormClosing(object sender, FormClosingEventArgs e)
@@ -272,6 +279,7 @@ namespace AgOpenGPS
             {
                 if (mf.bnd.bndList == null || mf.bnd.bndList.Count == 0) return;
                 int cnt = mf.bnd.bndList.Count;
+                mf.bnd.bndList[cnt - 1].hdLine?.Clear();
                 mf.bnd.bndList.RemoveAt(cnt - 1);
 
                 mf.FileSaveBoundary();

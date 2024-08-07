@@ -15,7 +15,6 @@ namespace AgOpenGPS
         public double antennaHeight;
         public double antennaPivot;
         public double wheelbase;
-        public double minTurningRadius;
         public double antennaOffset, panicStopSpeed;
         public int vehicleType;
 
@@ -23,7 +22,7 @@ namespace AgOpenGPS
         public double slowSpeedCutoff = 0;
 
         //autosteer values
-        public double goalPointLookAhead, goalPointLookAheadHold, goalPointLookAheadMult;
+        public double goalPointLookAhead, goalPointLookAheadHold, goalPointLookAheadMult, uturnCompensation;
 
         public double stanleyDistanceErrorGain, stanleyHeadingErrorGain;
         public double minLookAheadDistance = 2.0;
@@ -58,7 +57,6 @@ namespace AgOpenGPS
             antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
 
             wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
-            minTurningRadius = Properties.Settings.Default.setVehicle_minTurningRadius;
             isSteerAxleAhead = Properties.Settings.Default.setVehicle_isSteerAxleAhead;
 
             slowSpeedCutoff = Properties.Settings.Default.setVehicle_slowSpeedCutoff;
@@ -97,6 +95,8 @@ namespace AgOpenGPS
             functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
             maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
             minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
+
+            uturnCompensation = Properties.Settings.Default.setAS_uTurnCompensation;
         }
 
         public int modeTimeCounter = 0;
@@ -434,13 +434,13 @@ namespace AgOpenGPS
                 GL.PointSize(16);
                 GL.Begin(PrimitiveType.Points);
                 GL.Color3(0, 0, 0);
-                GL.Vertex3(0, antennaPivot, 0.1);
+                GL.Vertex3(-antennaOffset, antennaPivot, 0.1);
                 GL.End();
 
                 GL.PointSize(10);
                 GL.Begin(PrimitiveType.Points);
                 GL.Color3(0.20, 0.98, 0.98);
-                GL.Vertex3(0, antennaPivot, 0.1);
+                GL.Vertex3(-antennaOffset, antennaPivot, 0.1);
                 GL.End();
             }
 
@@ -523,47 +523,47 @@ namespace AgOpenGPS
             }
             GL.LineWidth(1);
 
-            if (mf.camera.camSetDistance < -500)
-            {
-                GL.Color4(0.5f, 0.5f, 1.2f, 0.25);
-                double theta = glm.twoPI / 20;
-                double c = Math.Cos(theta);//precalculate the sine and cosine
-                double s = Math.Sin(theta);
+            //if (mf.camera.camSetDistance < -500)
+            //{
+            //    GL.Color4(0.5f, 0.5f, 1.2f, 0.25);
+            //    double theta = glm.twoPI / 20;
+            //    double c = Math.Cos(theta);//precalculate the sine and cosine
+            //    double s = Math.Sin(theta);
 
-                double x = mf.camera.camSetDistance * -.015;//we start at angle = 0
-                double y = 0;
-                GL.LineWidth(1);
-                GL.Begin(PrimitiveType.TriangleFan);
-                GL.Vertex3(x, y, 0.0);
-                for (int ii = 0; ii < 20; ii++)
-                {
-                    //output vertex
-                    GL.Vertex3(x, y, 0.0);
+            //    double x = mf.camera.camSetDistance * -.015;//we start at angle = 0
+            //    double y = 0;
+            //    GL.LineWidth(1);
+            //    GL.Begin(PrimitiveType.TriangleFan);
+            //    GL.Vertex3(x, y, 0.0);
+            //    for (int ii = 0; ii < 20; ii++)
+            //    {
+            //        //output vertex
+            //        GL.Vertex3(x, y, 0.0);
 
-                    //apply the rotation matrix
-                    double t = x;
-                    x = (c * x) - (s * y);
-                    y = (s * t) + (c * y);
-                    // GL.Vertex3(x, y, 0.0);
-                }
-                GL.End();
-                GL.Color3(0.5f, 1.2f, 0.2f);
-                GL.LineWidth(2);
-                GL.Begin(PrimitiveType.LineLoop);
+            //        //apply the rotation matrix
+            //        double t = x;
+            //        x = (c * x) - (s * y);
+            //        y = (s * t) + (c * y);
+            //        // GL.Vertex3(x, y, 0.0);
+            //    }
+            //    GL.End();
+            //    GL.Color3(0.5f, 1.2f, 0.2f);
+            //    GL.LineWidth(2);
+            //    GL.Begin(PrimitiveType.LineLoop);
 
-                for (int ii = 0; ii < 20; ii++)
-                {
-                    //output vertex
-                    GL.Vertex3(x, y, 0.0);
+            //    for (int ii = 0; ii < 20; ii++)
+            //    {
+            //        //output vertex
+            //        GL.Vertex3(x, y, 0.0);
 
-                    //apply the rotation matrix
-                    double t = x;
-                    x = (c * x) - (s * y);
-                    y = (s * t) + (c * y);
-                    // GL.Vertex3(x, y, 0.0);
-                }
-                GL.End();
-            }
+            //        //apply the rotation matrix
+            //        double t = x;
+            //        x = (c * x) - (s * y);
+            //        y = (s * t) + (c * y);
+            //        // GL.Vertex3(x, y, 0.0);
+            //    }
+            //    GL.End();
+            //}
         }
     }
 }

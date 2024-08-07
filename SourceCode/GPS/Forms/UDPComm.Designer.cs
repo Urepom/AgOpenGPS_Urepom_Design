@@ -105,7 +105,7 @@ namespace AgOpenGPS
                                     ahrs.imuRoll = temp - ahrs.rollZero;
                                 }
                                 if (temp == float.MinValue)
-                                    ahrs.imuRoll = 0;                               
+                                    ahrs.imuRoll = 0;
 
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
@@ -161,8 +161,8 @@ namespace AgOpenGPS
 
                                 if (isLogNMEA)
                                     pn.logNMEASentence.Append(
-                                        DateTime.UtcNow.ToString("mm:ss.ff",CultureInfo.InvariantCulture)+ " " +
-                                        Lat.ToString("N7") + " " + Lon.ToString("N7") );
+                                        DateTime.UtcNow.ToString("mm:ss.ff", CultureInfo.InvariantCulture) + " " +
+                                        Lat.ToString("N7") + " " + Lon.ToString("N7"));
 
                                 UpdateFixPosition();
                             }
@@ -177,13 +177,13 @@ namespace AgOpenGPS
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
-                            
+
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
                             if (ahrs.isRollInvert) rollK *= -0.1;
                             else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;                           
+                            rollK -= ahrs.rollZero;
                             ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
 
                             //Angular velocity
@@ -258,8 +258,9 @@ namespace AgOpenGPS
                             break;
                         }
                     //fin
+
                     case 250:
-                        {                            
+                        {
                             if (data.Length != 14)
                                 break;
                             mc.sensorData = data[5];
@@ -279,7 +280,7 @@ namespace AgOpenGPS
 
                             break;
                         }
-                     #endregion
+                        #endregion
                 }
             }
         }
@@ -383,37 +384,39 @@ namespace AgOpenGPS
             {
                 case 0x0084/*NCHITTEST*/ :
                     base.WndProc(ref m);
-
-                    if ((int)m.Result == 0x01/*HTCLIENT*/)
+                    if (!isKioskMode)
                     {
-                        Point screenPoint = new Point(m.LParam.ToInt32());
-                        Point clientPoint = this.PointToClient(screenPoint);
-                        if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
+                        if ((int)m.Result == 0x01/*HTCLIENT*/)
                         {
-                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                m.Result = (IntPtr)13/*HTTOPLEFT*/ ;
-                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                m.Result = (IntPtr)12/*HTTOP*/ ;
+                            Point screenPoint = new Point(m.LParam.ToInt32());
+                            Point clientPoint = this.PointToClient(screenPoint);
+                            if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
+                            {
+                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                    m.Result = (IntPtr)13/*HTTOPLEFT*/ ;
+                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                    m.Result = (IntPtr)12/*HTTOP*/ ;
+                                else
+                                    m.Result = (IntPtr)14/*HTTOPRIGHT*/ ;
+                            }
+                            else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
+                            {
+                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                    m.Result = (IntPtr)10/*HTLEFT*/ ;
+                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                    m.Result = (IntPtr)2/*HTCAPTION*/ ;
+                                else
+                                    m.Result = (IntPtr)11/*HTRIGHT*/ ;
+                            }
                             else
-                                m.Result = (IntPtr)14/*HTTOPRIGHT*/ ;
-                        }
-                        else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
-                        {
-                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                m.Result = (IntPtr)10/*HTLEFT*/ ;
-                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                m.Result = (IntPtr)2/*HTCAPTION*/ ;
-                            else
-                                m.Result = (IntPtr)11/*HTRIGHT*/ ;
-                        }
-                        else
-                        {
-                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                m.Result = (IntPtr)16/*HTBOTTOMLEFT*/ ;
-                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                m.Result = (IntPtr)15/*HTBOTTOM*/ ;
-                            else
-                                m.Result = (IntPtr)17/*HTBOTTOMRIGHT*/ ;
+                            {
+                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                    m.Result = (IntPtr)16/*HTBOTTOMLEFT*/ ;
+                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                    m.Result = (IntPtr)15/*HTBOTTOM*/ ;
+                                else
+                                    m.Result = (IntPtr)17/*HTBOTTOMRIGHT*/ ;
+                            }
                         }
                     }
                     return;
@@ -616,6 +619,7 @@ namespace AgOpenGPS
                 sim.headingTrue += Math.PI;
                 ABLine.isABValid = false;
                 curve.isCurveValid = false;
+                curve.lastHowManyPathsAway = 98888;
                 if (isBtnAutoSteerOn) btnAutoSteer.PerformClick();
             }
 
@@ -623,7 +627,7 @@ namespace AgOpenGPS
             if (keyData == Keys.Up)
             {
                 if (sim.stepDistance < 0.4 && sim.stepDistance > -0.36) sim.stepDistance += 0.01;
-                else 
+                else
                     sim.stepDistance += 0.04;
                 if (sim.stepDistance > 4) sim.stepDistance = 4;
                 return true;

@@ -12,7 +12,7 @@ using System.Text;
 
 namespace AgOpenGPS
 {
-    
+
     public partial class FormGPS
     {
         //list of the list of patch data individual triangles for field sections
@@ -226,7 +226,7 @@ namespace AgOpenGPS
             string directoryName = Path.GetDirectoryName(dirField);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
-           
+
             string myFileName = "TASKDATA.xml";
 
             try
@@ -447,25 +447,25 @@ namespace AgOpenGPS
                 //Write the XML to file and close the kml
                 xml.Close();
 
-        }
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
-    /*
-        //xml.WriteStartElement("TSK");//Task
-        //xml.WriteAttributeString("A", "TSK1");
-        //xml.WriteAttributeString("B", "Tractor Work");
-        //xml.WriteAttributeString("C", "CTR1");
-        //xml.WriteAttributeString("E", "PFD-1");
-        //xml.WriteAttributeString("G", "1");
-        //xml.WriteAttributeString("I", "1");
-        //xml.WriteAttributeString("J", "0");
-        //xml.WriteEndElement();//Task
-    */
+            /*
+                //xml.WriteStartElement("TSK");//Task
+                //xml.WriteAttributeString("A", "TSK1");
+                //xml.WriteAttributeString("B", "Tractor Work");
+                //xml.WriteAttributeString("C", "CTR1");
+                //xml.WriteAttributeString("E", "PFD-1");
+                //xml.WriteAttributeString("G", "1");
+                //xml.WriteAttributeString("I", "1");
+                //xml.WriteAttributeString("J", "0");
+                //xml.WriteEndElement();//Task
+            */
 
-}
+        }
 
         public void FileSaveHeadLines()
         {
@@ -475,7 +475,7 @@ namespace AgOpenGPS
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
 
-            string filename = directoryName + "\\HeadLines.txt";
+            string filename = directoryName + "\\Headlines.txt";
 
             int cnt = hdl.tracksArr.Count;
 
@@ -498,7 +498,7 @@ namespace AgOpenGPS
 
                             //write out the mode
                             writer.WriteLine(hdl.tracksArr[i].mode.ToString(CultureInfo.InvariantCulture));
-                            
+
                             //write out the A_Point index
                             writer.WriteLine(hdl.tracksArr[i].a_point.ToString(CultureInfo.InvariantCulture));
 
@@ -541,13 +541,13 @@ namespace AgOpenGPS
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
 
-            string filename = directoryName + "\\HeadLines.txt";
+            string filename = directoryName + "\\Headlines.txt";
 
             if (!File.Exists(filename))
             {
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.WriteLine("$HeadLines");
+                    writer.WriteLine("$Headlines");
                 }
             }
 
@@ -557,7 +557,7 @@ namespace AgOpenGPS
 
             if (!File.Exists(filename))
             {
-                TimedMessageBox(2000, gStr.gsFileError, "Missing HeadLines File");
+                TimedMessageBox(2000, gStr.gsFileError, "Missing Headlines File");
             }
             else
             {
@@ -628,13 +628,13 @@ namespace AgOpenGPS
                         if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
                         { Directory.CreateDirectory(directoryName); }
 
-                        filename = directoryName + "\\HeadLines.txt";
+                        filename = directoryName + "\\Headlines.txt";
 
                         using (StreamWriter writer = new StreamWriter(filename, false))
                         {
                             try
                             {
-                                writer.WriteLine("$HeadLines");
+                                writer.WriteLine("$Headlines");
                                 return;
 
                             }
@@ -953,7 +953,7 @@ namespace AgOpenGPS
                             line = reader.ReadLine();
                             int numPoints = int.Parse(line);
 
-                            if (numPoints > 1) 
+                            if (numPoints > 1)
                             {
                                 trk.gArr[trk.gArr.Count - 1].curvePts?.Clear();
 
@@ -969,7 +969,7 @@ namespace AgOpenGPS
 
                                 trk.gArr[trk.gArr.Count - 1].ptB.easting = trk.gArr[trk.gArr.Count - 1].curvePts[0].easting;
                                 trk.gArr[trk.gArr.Count - 1].ptB.northing = trk.gArr[trk.gArr.Count - 1].curvePts[0].northing;
-                                
+
                                 trk.gArr[trk.gArr.Count - 1].ptB.easting = trk.gArr[trk.gArr.Count - 1].curvePts[trk.gArr[trk.gArr.Count - 1].curvePts.Count - 1].easting;
                                 trk.gArr[trk.gArr.Count - 1].ptB.northing = trk.gArr[trk.gArr.Count - 1].curvePts[trk.gArr[trk.gArr.Count - 1].curvePts.Count - 1].northing;
                             }
@@ -1229,7 +1229,7 @@ namespace AgOpenGPS
 
             FileLoadTracks();
 
-            
+
             //section patches
             fileAndDirectory = fieldsDirectory + currentFieldDirectory + "\\Sections.txt";
             if (!File.Exists(fileAndDirectory))
@@ -1307,10 +1307,10 @@ namespace AgOpenGPS
                 //was old version prior to v4
                 if (isv3)
                 {
-                        //Append the current list to the field file
-                        using (StreamWriter writer = new StreamWriter((fieldsDirectory + currentFieldDirectory + "\\Sections.txt"), false))
-                        {
-                        }
+                    //Append the current list to the field file
+                    using (StreamWriter writer = new StreamWriter((fieldsDirectory + currentFieldDirectory + "\\Sections.txt"), false))
+                    {
+                    }
                 }
             }
 
@@ -1323,7 +1323,7 @@ namespace AgOpenGPS
                 form.Show(this);
                 //return;
             }
-            
+
             //Points in Patch followed by easting, heading, northing, altitude
             else
             {
@@ -1615,7 +1615,7 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramList?.Clear();
             tram.displayMode = 0;
-            //ajout memprou btnTramDisplayMode.Visible = false;
+            btnTramDisplayMode.Visible = false;
 
             if (File.Exists(fileAndDirectory))
             {
@@ -1746,8 +1746,8 @@ namespace AgOpenGPS
                             }
                         }
 
-                        if (recPath.recList.Count > 0) panelDrag.Visible = true;
-                        else panelDrag.Visible = false;
+                        //ajout memprou if (recPath.recList.Count > 0) panelDrag.Visible = true;
+                        //else panelDrag.Visible = false; // fin
                     }
 
                     catch (Exception e)
@@ -1902,7 +1902,7 @@ namespace AgOpenGPS
                             {
                                 YesMessageBox("Missing one of the 3 rate images, " +
                                 " There should be MapRate1, MapRate2, MapRate3, " +
-                                " VR is turned off") ;
+                                " VR is turned off");
 
                                 worldGrid.isRateMap = false;
                             }
@@ -2008,6 +2008,8 @@ namespace AgOpenGPS
 
                 writer.WriteLine("StartFix");
                 writer.WriteLine(pn.latitude.ToString(CultureInfo.InvariantCulture) + "," + pn.longitude.ToString(CultureInfo.InvariantCulture));
+
+                writer.WriteLine("Latitude,Longitude,Elevation,Quality,Easting,Northing,Heading,Roll");
             }
         }
 
@@ -2025,6 +2027,7 @@ namespace AgOpenGPS
                     {
                         int count2 = triList.Count();
                         writer.WriteLine(count2.ToString(CultureInfo.InvariantCulture));
+
                         //Ajout-modification MEmprou
                         if (Properties.Settings.Default.UP_setTimer_KML == true)
                         {
@@ -2165,7 +2168,7 @@ namespace AgOpenGPS
                         for (int i = 0; i < count2; i++)
                         {
                             writer.WriteLine(Math.Round((triList[i].easting), 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                Math.Round(triList[i].northing, 3).ToString(CultureInfo.InvariantCulture)+ "," +
+                                Math.Round(triList[i].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                 Math.Round(triList[i].heading, 3).ToString(CultureInfo.InvariantCulture));
                         }
                     }
@@ -2199,9 +2202,9 @@ namespace AgOpenGPS
                     if (bnd.bndList[i].fenceLine.Count > 0)
                     {
                         for (int j = 0; j < bnd.bndList[i].fenceLine.Count; j++)
-                            writer.WriteLine(Math.Round(bnd.bndList[i].fenceLine[j].easting,3).ToString(CultureInfo.InvariantCulture) + "," +
+                            writer.WriteLine(Math.Round(bnd.bndList[i].fenceLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                                 Math.Round(bnd.bndList[i].fenceLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                    Math.Round(bnd.bndList[i].fenceLine[j].heading,5).ToString(CultureInfo.InvariantCulture));
+                                                    Math.Round(bnd.bndList[i].fenceLine[j].heading, 5).ToString(CultureInfo.InvariantCulture));
                     }
                 }
             }
@@ -2673,7 +2676,7 @@ namespace AgOpenGPS
 
             }
         }
-                                   
+
         //generate KML file from flag
         public void FileSaveSingleFlagKML(int flagNumber)
         {
@@ -2699,20 +2702,20 @@ namespace AgOpenGPS
 
                 writer.WriteLine(@"<Document>");
 
-                    writer.WriteLine(@"  <Placemark>                                  ");
-                    writer.WriteLine(@"<Style> <IconStyle>");
-                    if (flagPts[flagNumber - 1].color == 0)  //red - xbgr
-                        writer.WriteLine(@"<color>ff4400ff</color>");
-                    if (flagPts[flagNumber - 1].color == 1)  //grn - xbgr
-                        writer.WriteLine(@"<color>ff44ff00</color>");
-                    if (flagPts[flagNumber - 1].color == 2)  //yel - xbgr
-                        writer.WriteLine(@"<color>ff44ffff</color>");
-                    writer.WriteLine(@"</IconStyle> </Style>");
-                    writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
-                    writer.WriteLine(@"<Point><coordinates> " +
-                                    flagPts[flagNumber-1].longitude.ToString(CultureInfo.InvariantCulture) + "," + flagPts[flagNumber-1].latitude.ToString(CultureInfo.InvariantCulture) + ",0" +
-                                    @"</coordinates> </Point> ");
-                    writer.WriteLine(@"  </Placemark>                                 ");
+                writer.WriteLine(@"  <Placemark>                                  ");
+                writer.WriteLine(@"<Style> <IconStyle>");
+                if (flagPts[flagNumber - 1].color == 0)  //red - xbgr
+                    writer.WriteLine(@"<color>ff4400ff</color>");
+                if (flagPts[flagNumber - 1].color == 1)  //grn - xbgr
+                    writer.WriteLine(@"<color>ff44ff00</color>");
+                if (flagPts[flagNumber - 1].color == 2)  //yel - xbgr
+                    writer.WriteLine(@"<color>ff44ffff</color>");
+                writer.WriteLine(@"</IconStyle> </Style>");
+                writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
+                writer.WriteLine(@"<Point><coordinates> " +
+                                flagPts[flagNumber - 1].longitude.ToString(CultureInfo.InvariantCulture) + "," + flagPts[flagNumber - 1].latitude.ToString(CultureInfo.InvariantCulture) + ",0" +
+                                @"</coordinates> </Point> ");
+                writer.WriteLine(@"  </Placemark>                                 ");
                 writer.WriteLine(@"</Document>");
                 writer.WriteLine(@"</kml>                                         ");
 
@@ -2946,7 +2949,7 @@ namespace AgOpenGPS
             for (int i = 0; i < flagPts.Count; i++)
             {
                 kml.WriteStartElement("Placemark");
-                kml.WriteElementString("name", "Flag_"+ i.ToString());
+                kml.WriteElementString("name", "Flag_" + i.ToString());
 
                 kml.WriteStartElement("Style");
                 kml.WriteStartElement("IconStyle");
@@ -2993,6 +2996,7 @@ namespace AgOpenGPS
                             kml.WriteStartElement("Placemark");
                             kml.WriteElementString("name", "Sections_" + cntr.ToString());
                             cntr++;
+                            //ajout memprou
                             if (Properties.Settings.Default.UP_setTimer_KML == true)
                             {
                                 kml.WriteStartElement("TimeSpan"); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
@@ -3000,6 +3004,7 @@ namespace AgOpenGPS
                                 kml.WriteElementString("end", triList[triList.Count - 1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                                 kml.WriteEndElement();//TimeSpan //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                             }
+
                             string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
                                 ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
 
@@ -3010,7 +3015,7 @@ namespace AgOpenGPS
                             kml.WriteElementString("color", collor);
                             //kml.WriteElementString("width", "6");
                             kml.WriteEndElement(); // <LineStyle>
-                            
+
                             kml.WriteStartElement("PolyStyle");
                             kml.WriteElementString("color", collor);
                             kml.WriteEndElement(); // <PloyStyle>
@@ -3020,7 +3025,7 @@ namespace AgOpenGPS
                             kml.WriteElementString("tessellate", "1");
                             kml.WriteStartElement("outerBoundaryIs");
                             kml.WriteStartElement("LinearRing");
-                            
+
                             //coords
                             kml.WriteStartElement("coordinates");
                             secPts = "";
@@ -3102,7 +3107,7 @@ namespace AgOpenGPS
             kml.WriteStartElement("kml", "http://www.opengis.net/kml/2.2");
             kml.WriteStartElement("Document");
 
-            foreach(String dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
+            foreach (String dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
             //loop
             {
                 if (!File.Exists(dir + "\\" + "Field.kml")) continue;
@@ -3113,10 +3118,10 @@ namespace AgOpenGPS
 
                 var lines = File.ReadAllLines(dir + "\\" + "Field.kml");
                 LinkedList<string> linebuffer = new LinkedList<string>();
-                for( var i = 3; i < lines.Length-2; i++)  //We want to skip the first 3 and last 2 lines
+                for (var i = 3; i < lines.Length - 2; i++)  //We want to skip the first 3 and last 2 lines
                 {
                     linebuffer.AddLast(lines[i]);
-                    if(linebuffer.Count > 2)
+                    if (linebuffer.Count > 2)
                     {
                         kml.WriteRaw("   ");
                         kml.WriteRaw(Environment.NewLine);
@@ -3134,7 +3139,7 @@ namespace AgOpenGPS
                 kml.WriteRaw(Environment.NewLine);
 
                 kml.WriteEndElement(); // <Folder>
-                kml.WriteComment("End of " +directoryName);
+                kml.WriteComment("End of " + directoryName);
             }
 
             //end of document

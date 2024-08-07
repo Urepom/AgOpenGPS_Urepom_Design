@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
@@ -359,6 +360,7 @@ namespace AgIO
                         traffic.helloFromAutoSteer = 0;
                         if (isViewAdvanced)
                         {
+                            lblPing.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) * 1000).ToString("N0");
                             double actualSteerAngle = (Int16)((data[6] << 8) + data[5]);
                             lblSteerAngle.Text = (actualSteerAngle * 0.01).ToString("N1");
                             lblWASCounts.Text = ((Int16)((data[8] << 8) + data[7])).ToString();
@@ -374,6 +376,7 @@ namespace AgIO
 
                         if (isViewAdvanced)
                         {
+                            lblPingMachine.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) * 1000).ToString("N0");
                             lbl1To8.Text = Convert.ToString(data[5], 2).PadLeft(8, '0');
                             lbl9To16.Text = Convert.ToString(data[6], 2).PadLeft(8, '0');
                         }

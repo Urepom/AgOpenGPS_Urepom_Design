@@ -32,6 +32,11 @@ namespace AgOpenGPS
         private void FormFlags_Load(object sender, EventArgs e)
         {
             UpdateLabels();
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
         }
 
         private void btnNorth_MouseDown(object sender, MouseEventArgs e)
@@ -91,11 +96,10 @@ namespace AgOpenGPS
 
                 if (mf.flagNumberPicked > mf.flagPts.Count) mf.flagNumberPicked = mf.flagPts.Count;
 
-                vec3 steerAxlePosRP = mf.pivotAxlePos;
                 if (mf.isMetric)
-                    lblDistanceToFlag.Text = glm.Distance(steerAxlePosRP,
+                    lblDistanceToFlag.Text = glm.Distance(mf.pn.fix,
                         mf.flagPts[mf.flagNumberPicked - 1].easting, mf.flagPts[mf.flagNumberPicked - 1].northing).ToString("N2") + " m";
-                else lblDistanceToFlag.Text = (glm.Distance(steerAxlePosRP,
+                else lblDistanceToFlag.Text = (glm.Distance(mf.pn.fix,
                     mf.flagPts[mf.flagNumberPicked - 1].easting, mf.flagPts[mf.flagNumberPicked - 1].northing) * glm.m2ft).ToString("N2") + " m";
 
                 UpdateLabels();

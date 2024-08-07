@@ -48,7 +48,7 @@ namespace AgIO
             string language = Properties.Settings.Default.setF_culture;
             if (language == "fr")
             {
-                this.Height = 640;
+                this.Height = 587;
             }
             else
             {

@@ -48,7 +48,7 @@ namespace AgIO
         public bool isGPSSentencesOn = false, isSendNMEAToUDP;
 
         //timer variables
-        public double secondsSinceStart, twoSecondTimer, tenSecondTimer, threeMinuteTimer;
+        public double secondsSinceStart, twoSecondTimer, tenSecondTimer, threeMinuteTimer, pingSecondsStart;
 
         public string lastSentence;
 
@@ -115,8 +115,6 @@ namespace AgIO
                 label12.Visible = false;
                 lbl1To8.Visible = false;
                 lbl9To16.Visible = false;
-
-                btnRelayTest.Visible = false;
 
                 btnUDP.BackColor = Color.Gainsboro;
                 lblIP.Text = "Off";
@@ -489,21 +487,26 @@ namespace AgIO
             DoHelloAlarmLogic();
 
             DoTraffic();
+            if (isViewAdvanced)
+            {
+                pingSecondsStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
+                lblPing.Text = lblPingMachine.Text = "*";
+            }
 
             //send a hello to modules
             SendUDPMessage(helloFromAgIO, epModule);
+            //if (isLogNMEA)
+            //{
+            //    using (StreamWriter writer = new StreamWriter("zAgIO_log.txt", true))
+            //    {
+            //        writer.Write(logNMEASentence.ToString());
+            //    }
+            //    logNMEASentence.Clear();
+            //}
 
-            if (isLogNMEA)
-            {
-                using (StreamWriter writer = new StreamWriter("zAgIO_log.txt", true))
-                {
-                    writer.Write(logNMEASentence.ToString());
-                }
-                logNMEASentence.Clear();
-            }
+            //if (focusSkipCounter < 310) lblSkipCounter.Text = focusSkipCounter.ToString();
+            //else lblSkipCounter.Text = "On";
 
-            if (focusSkipCounter < 310) lblSkipCounter.Text = focusSkipCounter.ToString();
-            else lblSkipCounter.Text = "On";
 
         }
 
@@ -873,29 +876,6 @@ namespace AgIO
             }
         }
 
-        private void btnRelayTest_Click(object sender, EventArgs e)
-        {
-                helloFromAgIO[7] = 1;
-        }
-
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-            Form f = Application.OpenForms["FormGPSData"];
-
-            if (f != null)
-            {
-                f.Focus();
-                f.Close();
-                isGPSSentencesOn = false;
-                return;
-            }
-
-            isGPSSentencesOn = true;
-
-            Form form = new FormGPSData(this);
-            form.Show(this);
-        }
-
         private void lblIP_Click(object sender, EventArgs e)
         {
             lblIP.Text = "";
@@ -1042,11 +1022,6 @@ namespace AgIO
 
             Form form = new FormGPSData(this);
             form.Show(this);
-        }
-
-        private void cboxLogNMEA_CheckedChanged(object sender, EventArgs e)
-        {
-            isLogNMEA = cboxLogNMEA.Checked;
         }
         //Ajout-modification MEmprou et SPailleau Fertilisation
         private void btnFerti_Click_1(object sender, EventArgs e)

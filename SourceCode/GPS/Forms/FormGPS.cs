@@ -16,7 +16,6 @@ using System.Media;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Resources;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -90,6 +89,8 @@ namespace AgOpenGPS
         private readonly Stopwatch swFrame = new Stopwatch();
 
         public double secondsSinceStart;
+        public double gridToolSpacing;
+
 
         //private readonly Stopwatch swDraw = new Stopwatch();
         //swDraw.Reset();
@@ -819,6 +820,25 @@ namespace AgOpenGPS
                 f.Left = this.Left + 120;
             }
         }
+        // Return True if a certain percent of a rectangle is shown across the total screen area of all monitors, otherwise return False.
+        public bool IsOnScreen(System.Drawing.Point RecLocation, System.Drawing.Size RecSize, double MinPercentOnScreen = 0.8)
+        {
+            double PixelsVisible = 0;
+            System.Drawing.Rectangle Rec = new System.Drawing.Rectangle(RecLocation, RecSize);
+
+            foreach (Screen Scrn in Screen.AllScreens)
+            {
+                System.Drawing.Rectangle r = System.Drawing.Rectangle.Intersect(Rec, Scrn.WorkingArea);
+                // intersect rectangle with screen
+                if (r.Width != 0 & r.Height != 0)
+                {
+                    PixelsVisible += (r.Width * r.Height);
+                    // tally visible pixels
+                }
+            }
+            return PixelsVisible >= (Rec.Width * Rec.Height) * MinPercentOnScreen;
+        }
+
 
         private void FormGPS_Move(object sender, EventArgs e)
         {
@@ -876,7 +896,8 @@ namespace AgOpenGPS
             NoGPS, ZoomIn48, ZoomOut48, 
             Pan, MenuHideShow, 
             ToolWheels, Tire, TramDot,
-            RateMap1, RateMap2, RateMap3
+            RateMap1, RateMap2, RateMap3,
+            YouTurnU, YouTurnH
         }
 
         public void LoadGLTextures()
@@ -896,9 +917,9 @@ namespace AgOpenGPS
                 Resources.z_LateralManual, Resources.z_bingMap, 
                 Resources.z_NoGPS, Resources.ZoomIn48, Resources.ZoomOut48, 
                 Resources.Pan, Resources.MenuHideShow,
-                Resources.z_Tool, Resources.z_Tire, Resources.z_TramOnOff, 
-                Resources.z_RateMap1, Resources.z_RateMap2, Resources.z_RateMap3
-            };
+                Resources.z_Tool, Resources.z_Tire, Resources.z_TramOnOff,
+                Resources.z_RateMap1, Resources.z_RateMap2, Resources.z_RateMap3,
+                Resources.YouTurnU, Resources.YouTurnH            };
 
             texture = new uint[oglTextures.Length];
 
@@ -1088,7 +1109,7 @@ namespace AgOpenGPS
             this.menustripLanguage.Enabled = false;
             //ajout memprou panelRight.Enabled = true;
             //boundaryToolStripBtn.Enabled = true;
-            isPanelABHidden = false;
+            isPanelBottomHidden = false;
 
             FieldMenuButtonEnableDisable(true);
             PanelUpdateRightAndBottom();
@@ -1291,8 +1312,8 @@ namespace AgOpenGPS
             recPath.recList?.Clear();
             recPath.shortestDubinsList?.Clear();
             recPath.shuttleDubinsList?.Clear();
-            
-            isPanelABHidden = false;
+
+            isPanelBottomHidden = false;
 
             PanelsAndOGLSize();
             SetZoom();
@@ -1335,15 +1356,11 @@ namespace AgOpenGPS
         public void SetZoom()
         {
             //match grid to cam distance and redo perspective
-            if (camera.camSetDistance > -50) camera.gridZoom = 10;
-            else if (camera.camSetDistance > -150) camera.gridZoom = 20;
-            else if (camera.camSetDistance > -250) camera.gridZoom = 40;
-            else if (camera.camSetDistance > -500) camera.gridZoom = 80;
-            else if (camera.camSetDistance > -1000) camera.gridZoom = 160;
-            else if (camera.camSetDistance > -2000) camera.gridZoom = 320;
-            else if (camera.camSetDistance > -5000) camera.gridZoom = 640;
-            else if (camera.camSetDistance > -10000) camera.gridZoom = 1280;
-            else if (camera.camSetDistance > -20000) camera.gridZoom = 2000;
+            camera.gridZoom = camera.camSetDistance / -15;
+
+            gridToolSpacing = (int)(camera.gridZoom / tool.width + 0.5);
+            if (gridToolSpacing < 1) gridToolSpacing = 1;
+            camera.gridZoom = gridToolSpacing * tool.width;
 
             oglMain.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);

@@ -331,13 +331,12 @@ namespace AgOpenGPS
         {
             nudOffset.Value = (decimal)(Math.Abs(Properties.Settings.Default.setVehicle_toolOffset) * mf.m2InchOrCm);
 
-            nudOverlap.Value = (decimal)(Math.Abs(Properties.Settings.Default.setVehicle_toolOverlap) * mf.m2InchOrCm);
-
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
             rbtnToolRightPositive.Checked = Properties.Settings.Default.setVehicle_toolOffset > 0;
             rbtnLeftNegative.Checked = Properties.Settings.Default.setVehicle_toolOffset < 0;
 
+            nudOverlap.Value = (decimal)(Math.Abs(Properties.Settings.Default.setVehicle_toolOverlap) * mf.m2InchOrCm);
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
@@ -540,6 +539,8 @@ namespace AgOpenGPS
 
                 //enable disable manual buttons
                 mf.LineUpIndividualSectionBtns();
+
+                nudDefaultSectionWidth.DecimalPlaces = 0;
             }
             else
             {
@@ -547,6 +548,8 @@ namespace AgOpenGPS
                 mf.AllZonesAndButtonsToState(btnStates.Off);
 
                 mf.LineUpAllZoneButtons();
+
+                nudDefaultSectionWidth.DecimalPlaces = 1;
             }
 
             cboxIsUnique.Checked = !mf.tool.isSectionsNotZones;
@@ -639,7 +642,7 @@ namespace AgOpenGPS
                 nudNumberOfSections.Value = numberOfSections;
 
                 defaultSectionWidth = Properties.Settings.Default.setTool_sectionWidthMulti;
-                nudDefaultSectionWidth.Value = (int)(defaultSectionWidth * mf.m2InchOrCm);
+                nudDefaultSectionWidth.Value = (decimal)(Math.Round((defaultSectionWidth * mf.m2InchOrCm),1));
 
                 SetNudZoneMinMax();
 

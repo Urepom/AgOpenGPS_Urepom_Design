@@ -54,6 +54,8 @@ namespace AgOpenGPS
         public int zones;
         public int[] zoneRanges = new int[9];
 
+        public bool isDisplayTramControl;
+
         //Constructor called by FormGPS
         public CTool(FormGPS _f)
         {
@@ -116,6 +118,8 @@ namespace AgOpenGPS
             {
                 zoneRanges[i] = int.Parse(words[i]);
             }
+
+            isDisplayTramControl = Properties.Settings.Default.setTool_isDisplayTramControl;
         }
 
         public void DrawTool()
@@ -297,9 +301,9 @@ namespace AgOpenGPS
             //draw the sections
             GL.LineWidth(2);
 
-            double hite = mf.camera.camSetDistance / -200;
-            if (hite > 0.5) hite = 0.5;
-            if (hite < 0.3) hite = 0.3;
+            double hite = mf.camera.camSetDistance / -150;
+            if (hite > 12) hite = 12;
+            if (hite < 1) hite = 1;
 
             {
                 for (int j = 0; j < numOfSections; j++)
@@ -336,7 +340,7 @@ namespace AgOpenGPS
                     }
                     GL.End();
 
-                    if (mf.camera.camSetDistance > -150)
+                    if (mf.camera.camSetDistance > -width * 200)
                     {
                         GL.Begin(PrimitiveType.LineLoop);
                         {
@@ -371,7 +375,7 @@ namespace AgOpenGPS
                 }
 
                 //tram Dots
-                if (mf.tram.displayMode != 0)
+                if (isDisplayTramControl && mf.tram.displayMode != 0)
                 {
                     if (mf.camera.camSetDistance > -300)
                     {

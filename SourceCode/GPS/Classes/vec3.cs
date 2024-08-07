@@ -30,7 +30,8 @@ namespace AgOpenGPS
         public double easting;
         public double northing;
         public double heading;
-        public DateTime now; //ajout max
+        public DateTime now; //ajout memprou
+
 
         public vec3(double easting, double northing, double heading)
         {

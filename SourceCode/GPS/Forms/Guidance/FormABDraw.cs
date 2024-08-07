@@ -40,13 +40,11 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-
             //Ajout-modification MEmprou et SPailleau Fertilisation
 
             this.Text = gStr.gsClick2Pointsontheboundary;
 
             //fin
-
             mf.CalculateMinMax();
         }
 
@@ -97,6 +95,12 @@ namespace AgOpenGPS
             this.Top = (area.Height - this.Height) / 2;
             this.Left = (area.Width - this.Width) / 2;
             FormABDraw_ResizeEnd(this, e);
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
         }
 
         private void FormABDraw_FormClosing(object sender, FormClosingEventArgs e)
@@ -178,6 +182,7 @@ namespace AgOpenGPS
             }
 
             mf.curve.isCurveValid = false;
+            mf.curve.lastHowManyPathsAway = 98888;
             mf.ABLine.isABValid = false;
 
             mf.twoSecondCounter = 100;
@@ -206,7 +211,7 @@ namespace AgOpenGPS
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            isCancel = true; 
+            isCancel = true;
             Close();
         }
 
@@ -318,7 +323,7 @@ namespace AgOpenGPS
 
             if (gTemp.Count > 0)
             {
-                if (indx >  gTemp.Count - 1)
+                if (indx > gTemp.Count - 1)
                 {
                     indx = gTemp.Count - 1;
                 }
@@ -353,7 +358,7 @@ namespace AgOpenGPS
             if (mf.isKeyboardOn)
             {
                 mf.KeyboardToText((System.Windows.Forms.TextBox)sender, this);
-                
+
                 if (indx > -1)
                     gTemp[indx].name = tboxNameCurve.Text.Trim();
                 btnExit.Focus();
@@ -375,19 +380,19 @@ namespace AgOpenGPS
             {
                 vec3 pt3;
                 mf.curve.desList?.Clear();
-                    for (int i = 0; i < mf.bnd.bndList[bndSelect].fenceLine.Count; i++)
-                    {
-                        //calculate the point inside the boundary
-                       pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
+                for (int i = 0; i < mf.bnd.bndList[bndSelect].fenceLine.Count; i++)
+                {
+                    //calculate the point inside the boundary
+                    pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
 
-                        mf.curve.desList.Add(new vec3(pt3));
-                    }
+                    mf.curve.desList.Add(new vec3(pt3));
+                }
 
 
                 gTemp.Add(new CTrk());
                 //array number is 1 less since it starts at zero
                 indx = gTemp.Count - 1;
-                
+
                 gTemp[indx].ptA = new vec2(mf.curve.desList[0].easting, mf.curve.desList[0].northing);
                 gTemp[indx].ptB = new vec2(mf.curve.desList[mf.curve.desList.Count - 1].easting, mf.curve.desList[mf.curve.desList.Count - 1].northing);
 
@@ -403,7 +408,7 @@ namespace AgOpenGPS
                     //make sure point distance isn't too big 
                     mf.curve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
                     mf.curve.CalculateHeadings(ref mf.curve.desList);
-                    
+
                     //create a name
                     gTemp[indx].name = "Boundary Curve";
 
@@ -459,30 +464,30 @@ namespace AgOpenGPS
             mf.curve.desList?.Clear();
             vec3 pt3;
 
-                for (int i = start; i < end; i++)
+            for (int i = start; i < end; i++)
+            {
+                //calculate the point inside the boundary
+                pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
+
+                mf.curve.desList.Add(new vec3(pt3));
+
+                if (isLoop && i == mf.bnd.bndList[bndSelect].fenceLine.Count - 1)
                 {
-                    //calculate the point inside the boundary
-                    pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
-
-                    mf.curve.desList.Add(new vec3(pt3));
-
-                    if (isLoop && i == mf.bnd.bndList[bndSelect].fenceLine.Count - 1)
-                    {
-                        i = -1;
-                        isLoop = false;
-                        end = limit;
-                    }
+                    i = -1;
+                    isLoop = false;
+                    end = limit;
                 }
-            
+            }
+
 
             gTemp.Add(new CTrk());
             //array number is 1 less since it starts at zero
             indx = gTemp.Count - 1;
 
-            gTemp[indx].ptA = 
+            gTemp[indx].ptA =
                 new vec2(mf.curve.desList[0].easting, mf.curve.desList[0].northing);
-            gTemp[indx].ptB = 
-                new vec2(mf.curve.desList[mf.curve.desList.Count - 1].easting, 
+            gTemp[indx].ptB =
+                new vec2(mf.curve.desList[mf.curve.desList.Count - 1].easting,
                 mf.curve.desList[mf.curve.desList.Count - 1].northing);
 
             int cnt = mf.curve.desList.Count;
@@ -516,7 +521,7 @@ namespace AgOpenGPS
                 //create a name
                 gTemp[indx].name = "Cu " +
                     (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture)
-                    + "\u00B0" ;
+                    + "\u00B0";
 
                 gTemp[indx].mode = (int)TrackMode.Curve;
 
@@ -579,8 +584,8 @@ namespace AgOpenGPS
             gTemp[indx].ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
 
             //create a name
-            gTemp[indx].name = "AB " + 
-                (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0" ;
+            gTemp[indx].name = "AB " +
+                (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0";
 
             //clean up gui
             btnMakeABLine.Enabled = false;
@@ -601,8 +606,8 @@ namespace AgOpenGPS
 
             if (cboxIsZoom.Checked && !zoomToggle)
             {
-                sX = (( halfWid - (double)pt.X) / wid)*1.1;
-                sY = ((halfWid - (double)pt.Y) / -wid)*1.1;
+                sX = ((halfWid - (double)pt.X) / wid) * 1.1;
+                sY = ((halfWid - (double)pt.Y) / -wid) * 1.1;
                 zoom = 0.1;
                 zoomToggle = true;
                 return;
@@ -754,7 +759,7 @@ namespace AgOpenGPS
                         GL.LineWidth(8);
                         GL.Disable(EnableCap.LineStipple);
                     }
-                    
+
                     GL.Color3(1.0f, 0.20f, 0.20f);
 
                     GL.Begin(PrimitiveType.Lines);
@@ -855,7 +860,7 @@ namespace AgOpenGPS
         {
             oglSelf.Refresh();
 
-            btnMakeBoundaryCurve.Enabled = true; 
+            btnMakeBoundaryCurve.Enabled = true;
             for (int i = 0; i < gTemp.Count; i++)
             {
                 if (gTemp[i].mode == (int)TrackMode.bndCurve)
@@ -960,7 +965,7 @@ namespace AgOpenGPS
             oglSelf.MakeCurrent();
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
-            GL.ClearColor(0.0f,0.0f,0.0f,1.0f);
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         }
 
         private void DrawSections()
@@ -1005,84 +1010,5 @@ namespace AgOpenGPS
                 }
             } //end of section patches
         }
-
-        #region Help
-
-        private void btnCancelTouch_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnCancelTouch, gStr.gsHelp);
-        }
-
-        private void nudDistance_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_nudDistance, gStr.gsHelp);
-        }
-
-        private void btnFlipOffset_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnFlipOffset, gStr.gsHelp);
-        }
-
-        private void btnMakeBoundaryCurve_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnMakeBoundaryCurve, gStr.gsHelp);
-        }
-
-        private void btnMakeCurve_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnMakeCurve, gStr.gsHelp);
-        }
-
-        private void btnSelectCurve_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnSelectCurve, gStr.gsHelp);
-        }
-
-        private void btnDeleteCurve_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnDeleteCurve, gStr.gsHelp);
-        }
-
-        private void btnMakeABLine_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnMakeABLine, gStr.gsHelp);
-        }
-
-        private void btnSelectABLine_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnSelectABLine, gStr.gsHelp);
-        }
-
-        private void btnDeleteABLine_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnDeleteABLine, gStr.gsHelp);
-        }
-
-        private void btnDrawSections_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_btnDrawSections, gStr.gsHelp);
-        }
-
-        private void btnExit_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hh_btnExit, gStr.gsHelp);
-        }
-
-        private void oglSelf_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_oglSelf, gStr.gsHelp);
-        }
-
-        private void tboxNameCurve_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_tboxNameLine, gStr.gsHelp);
-        }
-
-        private void tboxNameLine_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hd_tboxNameLine, gStr.gsHelp);
-        }
-
-        #endregion Help
     }
 }

@@ -46,6 +46,12 @@ namespace AgOpenGPS
 
             //Location = Properties.Settings.Default.setWindow_formNudgeLocation;
             //Size = Properties.Settings.Default.setWindow_formNudgeSize;
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
         }
 
         private void FormEditTrack_FormClosing(object sender, FormClosingEventArgs e)
@@ -57,7 +63,7 @@ namespace AgOpenGPS
         {
             mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
-            Properties.Settings.Default.setAS_snapDistanceRef = snapAdj*100;
+            Properties.Settings.Default.setAS_snapDistanceRef = snapAdj * 100;
             Properties.Settings.Default.Save();
             mf.Activate();
         }
@@ -65,7 +71,7 @@ namespace AgOpenGPS
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
             mf.trk.NudgeRefTrack(snapAdj);
-            distanceMoved += snapAdj;            
+            distanceMoved += snapAdj;
             DistanceMovedLabel();
             mf.Activate();
         }
@@ -80,7 +86,7 @@ namespace AgOpenGPS
 
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((mf.tool.width-mf.tool.overlap) * 0.5);
+            mf.trk.NudgeRefTrack((mf.tool.width - mf.tool.overlap) * 0.5);
             distanceMoved += (mf.tool.width - mf.tool.overlap) * 0.5;
             DistanceMovedLabel();
             mf.Activate();
@@ -96,7 +102,7 @@ namespace AgOpenGPS
 
         private void DistanceMovedLabel()
         {
-            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() +  " " + mf.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() + " " + mf.unitsInCm;
             mf.Focus();
         }
 
@@ -121,6 +127,7 @@ namespace AgOpenGPS
 
             mf.ABLine.isABValid = false;
             mf.curve.isCurveValid = false;
+            mf.curve.lastHowManyPathsAway = 98888;
 
             //mf.FileSaveTracks();
             Close();

@@ -473,9 +473,6 @@ namespace AgOpenGPS
             nudYouTurnRadius.Value = (decimal)(Math.Round(bob, 2));
 
             lblFtMUTurn.Text = lblFtMTurnRadius.Text = mf.unitsFtM;
-
-            if (Properties.Settings.Default.set_uTurnStyle == 0) rbtnNormal.Checked = true;
-            else rbtn3PtH.Checked = true;
         }
 
         private void tabUTurn_Leave(object sender, EventArgs e)
@@ -495,19 +492,6 @@ namespace AgOpenGPS
         #endregion
 
         #region Uturn controls
-        private void rbtnNormal_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbtnNormal.Checked)
-            {
-                Properties.Settings.Default.set_uTurnStyle = 0;
-                mf.yt.uTurnStyle = 0;
-            }
-            else
-            {
-                Properties.Settings.Default.set_uTurnStyle = 1;
-                mf.yt.uTurnStyle = 1;
-            }
-        }
 
         private void UpdateUturnText()
         {
@@ -571,11 +555,15 @@ namespace AgOpenGPS
 
             nudTramWidth.Value = (int)(Math.Abs(Properties.Settings.Default.setTram_tramWidth) * mf.m2InchOrCm);
             chkBoxOverrideTramControlPos.Checked = Properties.Settings.Default.setTool_isTramOuterInverted;
+            cboxDisplayTramControl.Checked = Properties.Settings.Default.setTool_isDisplayTramControl;
         }
 
         private void tabTram_Leave(object sender, EventArgs e)
         {
             Properties.Settings.Default.setTool_isTramOuterInverted = chkBoxOverrideTramControlPos.Checked;
+
+            Properties.Settings.Default.setTool_isDisplayTramControl = cboxDisplayTramControl.Checked;
+            mf.tool.isDisplayTramControl = cboxDisplayTramControl.Checked;
 
             mf.tram.IsTramOuterOrInner();
 

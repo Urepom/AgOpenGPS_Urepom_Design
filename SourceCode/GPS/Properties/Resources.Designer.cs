@@ -123,6 +123,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ABPivot {
+            get {
+                object obj = ResourceManager.GetObject("ABPivot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ABShrinkGrow {
             get {
                 object obj = ResourceManager.GetObject("ABShrinkGrow", resourceCulture);
@@ -265,6 +275,36 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap AntennaHarvester {
             get {
                 object obj = ResourceManager.GetObject("AntennaHarvester", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AntennaLeftOffset {
+            get {
+                object obj = ResourceManager.GetObject("AntennaLeftOffset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AntennaNoOffset {
+            get {
+                object obj = ResourceManager.GetObject("AntennaNoOffset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AntennaRightOffset {
+            get {
+                object obj = ResourceManager.GetObject("AntennaRightOffset", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1052,6 +1092,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConD_LogElevation {
+            get {
+                object obj = ResourceManager.GetObject("ConD_LogElevation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConD_LogNMEA {
             get {
                 object obj = ResourceManager.GetObject("ConD_LogNMEA", resourceCulture);
@@ -1155,6 +1205,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap ConF_HydLiftSound {
             get {
                 object obj = ResourceManager.GetObject("ConF_HydLiftSound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConF_SoundSections {
+            get {
+                object obj = ResourceManager.GetObject("ConF_SoundSections", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1485,6 +1545,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap ConT_TramOverride {
             get {
                 object obj = ResourceManager.GetObject("ConT_TramOverride", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConT_TramOverrideDisplay {
+            get {
+                object obj = ResourceManager.GetObject("ConT_TramOverrideDisplay", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1955,6 +2025,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap GPSQuality {
             get {
                 object obj = ResourceManager.GetObject("GPSQuality", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GridRotate {
+            get {
+                object obj = ResourceManager.GetObject("GridRotate", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3227,6 +3307,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap TrackOn {
             get {
                 object obj = ResourceManager.GetObject("TrackOn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TrackPivot {
+            get {
+                object obj = ResourceManager.GetObject("TrackPivot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

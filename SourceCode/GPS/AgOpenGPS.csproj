@@ -38,7 +38,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\AgOpenGPS_v5\</OutputPath>
+    <OutputPath>..\..\AgOpenGPS_v63\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -222,6 +222,12 @@
     </Compile>
     <Compile Include="Forms\FormYes.designer.cs">
       <DependentUpon>FormYes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Guidance\FormGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Guidance\FormGrid.Designer.cs">
+      <DependentUpon>FormGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Guidance\FormQuickAB.cs">
       <SubType>Form</SubType>
@@ -965,6 +971,15 @@
     <None Include="btnImages\UrepomRESS\Ferti.png" />
     <None Include="btnImages\UrepomRESS\synchronize.png" />
     <None Include="btnImages\UrepomRESS\ToolMenu.png" />
+    <None Include="btnImages\GridRotate.png" />
+    <None Include="btnImages\Config\ConD_LogElevation.png" />
+    <None Include="btnImages\Config\ConF_SoundSections.png" />
+    <None Include="btnImages\Config\ConT_TramOverrideDisplay.png" />
+    <None Include="btnImages\AntennaLeftOffset.png" />
+    <None Include="btnImages\AntennaNoOffset.png" />
+    <None Include="btnImages\AntennaRightOffset.png" />
+    <None Include="btnImages\ABPivot.png" />
+    <None Include="btnImages\TrackPivot.png" />
     <Content Include="Resources\TF012.WAV" />
     <None Include="Resources\SectionOn.wav" />
     <None Include="Resources\SectionOff.wav" />

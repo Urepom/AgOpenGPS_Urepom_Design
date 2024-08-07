@@ -12,7 +12,7 @@ namespace AgOpenGPS.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1658,7 +1658,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public double purePursuitIntegralGainAB {
             get {
                 return ((double)(this["purePursuitIntegralGainAB"]));
@@ -2294,7 +2294,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public double stanleyIntegralGainAB {
             get {
                 return ((double)(this["stanleyIntegralGainAB"]));
@@ -2558,7 +2558,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
         public double setAS_functionSpeedLimit {
             get {
                 return ((double)(this["setAS_functionSpeedLimit"]));
@@ -2582,7 +2582,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public double setAS_minSteerSpeed {
             get {
                 return ((double)(this["setAS_minSteerSpeed"]));
@@ -3045,6 +3045,102 @@ namespace AgOpenGPS.Properties {
             }
             set {
                 this["UP_SetTimerRincFerti"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setDisplay_isLogElevation {
+            get {
+                return ((bool)(this["setDisplay_isLogElevation"]));
+            }
+            set {
+                this["setDisplay_isLogElevation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setSound_isSectionsOn {
+            get {
+                return ((bool)(this["setSound_isSectionsOn"]));
+            }
+            set {
+                this["setSound_isSectionsOn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.25")]
+        public double setGPS_dualReverseDetectionDistance {
+            get {
+                return ((double)(this["setGPS_dualReverseDetectionDistance"]));
+            }
+            set {
+                this["setGPS_dualReverseDetectionDistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool setTool_isDisplayTramControl {
+            get {
+                return ((bool)(this["setTool_isDisplayTramControl"]));
+            }
+            set {
+                this["setTool_isDisplayTramControl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double setAS_uTurnCompensation {
+            get {
+                return ((double)(this["setAS_uTurnCompensation"]));
+            }
+            set {
+                this["setAS_uTurnCompensation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400, 400")]
+        public global::System.Drawing.Size setWindow_gridSize {
+            get {
+                return ((global::System.Drawing.Size)(this["setWindow_gridSize"]));
+            }
+            set {
+                this["setWindow_gridSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20, 20")]
+        public global::System.Drawing.Point setWindow_gridLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["setWindow_gridLocation"]));
+            }
+            set {
+                this["setWindow_gridLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool setWindow_isKioskMode {
+            get {
+                return ((bool)(this["setWindow_isKioskMode"]));
+            }
+            set {
+                this["setWindow_isKioskMode"] = value;
             }
         }
     }

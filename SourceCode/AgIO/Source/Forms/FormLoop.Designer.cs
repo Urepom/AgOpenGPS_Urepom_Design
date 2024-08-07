@@ -29,9 +29,8 @@ namespace AgIO
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoop));
-            this.oneSecondLoopTimer = new System.Windows.Forms.Timer(this.components);
+            this.oneSecondLoopTimer = new System.Windows.Forms.Timer();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblCurentLon = new System.Windows.Forms.Label();
@@ -61,7 +60,7 @@ namespace AgIO
             this.lblSerialPorts = new System.Windows.Forms.Label();
             this.lblMount = new System.Windows.Forms.Label();
             this.lblIP = new System.Windows.Forms.Label();
-            this.ntripMeterTimer = new System.Windows.Forms.Timer(this.components);
+            this.ntripMeterTimer = new System.Windows.Forms.Timer();
             this.lblMessages = new System.Windows.Forms.Label();
             this.lblWASCounts = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -83,6 +82,9 @@ namespace AgIO
             this.lblCount = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblToGPS = new System.Windows.Forms.Label();
+            this.lblModFertiComm = new System.Windows.Forms.Label();
+            this.cboxIsFertiModule = new System.Windows.Forms.CheckBox();
+            this.btnFerti = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnResetTimer = new System.Windows.Forms.Button();
             this.cboxIsSteerModule = new System.Windows.Forms.CheckBox();
@@ -95,15 +97,15 @@ namespace AgIO
             this.btnWindowsShutDown = new System.Windows.Forms.Button();
             this.btnSlide = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cboxLogNMEA = new System.Windows.Forms.CheckBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnRunAOG = new System.Windows.Forms.Button();
-            this.btnRelayTest = new System.Windows.Forms.Button();
             this.btnUDP = new System.Windows.Forms.Button();
             this.btnGPSData = new System.Windows.Forms.Button();
-            this.lblModFertiComm = new System.Windows.Forms.Label();
-            this.cboxIsFertiModule = new System.Windows.Forms.CheckBox();
-            this.btnFerti = new System.Windows.Forms.Button();
+            this.btnGPS_Out = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblPingMachine = new System.Windows.Forms.Label();
+            this.lblPing = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -760,6 +762,55 @@ namespace AgIO
             this.lblToGPS.Text = "---";
             this.lblToGPS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblModFertiComm
+            // 
+            this.lblModFertiComm.BackColor = System.Drawing.Color.Transparent;
+            this.lblModFertiComm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModFertiComm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblModFertiComm.Location = new System.Drawing.Point(168, 338);
+            this.lblModFertiComm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblModFertiComm.Name = "lblModFertiComm";
+            this.lblModFertiComm.Size = new System.Drawing.Size(64, 25);
+            this.lblModFertiComm.TabIndex = 528;
+            this.lblModFertiComm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cboxIsFertiModule
+            // 
+            this.cboxIsFertiModule.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxIsFertiModule.BackColor = System.Drawing.Color.Transparent;
+            this.cboxIsFertiModule.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cboxIsFertiModule.BackgroundImage")));
+            this.cboxIsFertiModule.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cboxIsFertiModule.Checked = true;
+            this.cboxIsFertiModule.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxIsFertiModule.FlatAppearance.BorderSize = 0;
+            this.cboxIsFertiModule.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboxIsFertiModule.Location = new System.Drawing.Point(411, 336);
+            this.cboxIsFertiModule.Name = "cboxIsFertiModule";
+            this.cboxIsFertiModule.Size = new System.Drawing.Size(26, 27);
+            this.cboxIsFertiModule.TabIndex = 527;
+            this.cboxIsFertiModule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.cboxIsFertiModule.UseVisualStyleBackColor = false;
+            this.cboxIsFertiModule.Click += new System.EventHandler(this.cboxIsFertiModule_Click);
+            // 
+            // btnFerti
+            // 
+            this.btnFerti.BackColor = System.Drawing.Color.Transparent;
+            this.btnFerti.BackgroundImage = global::AgIO.Properties.Resources.B_Ferti;
+            this.btnFerti.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnFerti.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnFerti.FlatAppearance.BorderSize = 0;
+            this.btnFerti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFerti.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFerti.ForeColor = System.Drawing.Color.White;
+            this.btnFerti.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnFerti.Location = new System.Drawing.Point(238, 321);
+            this.btnFerti.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFerti.Name = "btnFerti";
+            this.btnFerti.Size = new System.Drawing.Size(84, 59);
+            this.btnFerti.TabIndex = 526;
+            this.btnFerti.UseVisualStyleBackColor = false;
+            this.btnFerti.Click += new System.EventHandler(this.btnBringUpCommSettings_Click);
+            // 
             // btnHelp
             // 
             this.btnHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -968,34 +1019,12 @@ namespace AgIO
             this.pictureBox1.BackColor = System.Drawing.Color.Black;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::AgIO.Properties.Resources.AgIO_First;
-            this.pictureBox1.Location = new System.Drawing.Point(583, 360);
+            this.pictureBox1.Location = new System.Drawing.Point(411, 377);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(42, 35);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 182;
             this.pictureBox1.TabStop = false;
-            // 
-            // cboxLogNMEA
-            // 
-            this.cboxLogNMEA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxLogNMEA.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxLogNMEA.BackColor = System.Drawing.Color.Transparent;
-            this.cboxLogNMEA.BackgroundImage = global::AgIO.Properties.Resources.LogNMEA;
-            this.cboxLogNMEA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cboxLogNMEA.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cboxLogNMEA.FlatAppearance.BorderSize = 0;
-            this.cboxLogNMEA.FlatAppearance.CheckedBackColor = System.Drawing.Color.Red;
-            this.cboxLogNMEA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxLogNMEA.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxLogNMEA.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxLogNMEA.Location = new System.Drawing.Point(562, 415);
-            this.cboxLogNMEA.Name = "cboxLogNMEA";
-            this.cboxLogNMEA.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboxLogNMEA.Size = new System.Drawing.Size(63, 58);
-            this.cboxLogNMEA.TabIndex = 461;
-            this.cboxLogNMEA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxLogNMEA.UseVisualStyleBackColor = false;
-            this.cboxLogNMEA.CheckedChanged += new System.EventHandler(this.cboxLogNMEA_CheckedChanged);
             // 
             // btnExit
             // 
@@ -1034,28 +1063,6 @@ namespace AgIO
             this.btnRunAOG.TabIndex = 190;
             this.btnRunAOG.UseVisualStyleBackColor = false;
             this.btnRunAOG.Click += new System.EventHandler(this.btnRunAOG_Click);
-            // 
-            // btnRelayTest
-            // 
-            this.btnRelayTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRelayTest.BackColor = System.Drawing.Color.Transparent;
-            this.btnRelayTest.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnRelayTest.FlatAppearance.BorderSize = 0;
-            this.btnRelayTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelayTest.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRelayTest.ForeColor = System.Drawing.Color.Black;
-            this.btnRelayTest.Image = global::AgIO.Properties.Resources.TestRelays;
-            this.btnRelayTest.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnRelayTest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnRelayTest.Location = new System.Drawing.Point(510, 311);
-            this.btnRelayTest.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRelayTest.Name = "btnRelayTest";
-            this.btnRelayTest.Size = new System.Drawing.Size(61, 73);
-            this.btnRelayTest.TabIndex = 190;
-            this.btnRelayTest.Text = "Test";
-            this.btnRelayTest.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnRelayTest.UseVisualStyleBackColor = false;
-            this.btnRelayTest.Click += new System.EventHandler(this.btnRelayTest_Click);
             // 
             // btnUDP
             // 
@@ -1096,54 +1103,79 @@ namespace AgIO
             this.btnGPSData.UseVisualStyleBackColor = false;
             this.btnGPSData.Click += new System.EventHandler(this.btnGPSData_Click);
             // 
-            // lblModFertiComm
+            // btnGPS_Out
             // 
-            this.lblModFertiComm.BackColor = System.Drawing.Color.Transparent;
-            this.lblModFertiComm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModFertiComm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblModFertiComm.Location = new System.Drawing.Point(168, 338);
-            this.lblModFertiComm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblModFertiComm.Name = "lblModFertiComm";
-            this.lblModFertiComm.Size = new System.Drawing.Size(64, 25);
-            this.lblModFertiComm.TabIndex = 528;
-            this.lblModFertiComm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnGPS_Out.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnGPS_Out.BackColor = System.Drawing.Color.Transparent;
+            this.btnGPS_Out.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnGPS_Out.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnGPS_Out.FlatAppearance.BorderSize = 0;
+            this.btnGPS_Out.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGPS_Out.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGPS_Out.ForeColor = System.Drawing.Color.Black;
+            this.btnGPS_Out.Image = global::AgIO.Properties.Resources.GPS_Out;
+            this.btnGPS_Out.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnGPS_Out.Location = new System.Drawing.Point(562, 415);
+            this.btnGPS_Out.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGPS_Out.Name = "btnGPS_Out";
+            this.btnGPS_Out.Size = new System.Drawing.Size(63, 58);
+            this.btnGPS_Out.TabIndex = 529;
+            this.btnGPS_Out.UseVisualStyleBackColor = false;
+            this.btnGPS_Out.Click += new System.EventHandler(this.btnGPS_Out_Click);
             // 
-            // cboxIsFertiModule
+            // label11
             // 
-            this.cboxIsFertiModule.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxIsFertiModule.BackColor = System.Drawing.Color.Transparent;
-            this.cboxIsFertiModule.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cboxIsFertiModule.BackgroundImage")));
-            this.cboxIsFertiModule.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cboxIsFertiModule.Checked = true;
-            this.cboxIsFertiModule.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxIsFertiModule.FlatAppearance.BorderSize = 0;
-            this.cboxIsFertiModule.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboxIsFertiModule.Location = new System.Drawing.Point(411, 336);
-            this.cboxIsFertiModule.Name = "cboxIsFertiModule";
-            this.cboxIsFertiModule.Size = new System.Drawing.Size(26, 27);
-            this.cboxIsFertiModule.TabIndex = 527;
-            this.cboxIsFertiModule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.cboxIsFertiModule.UseVisualStyleBackColor = false;
-            this.cboxIsFertiModule.Click += new System.EventHandler(this.cboxIsFertiModule_Click);
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label11.Location = new System.Drawing.Point(489, 342);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 16);
+            this.label11.TabIndex = 533;
+            this.label11.Text = "Tool Ping:";
             // 
-            // btnFerti
+            // lblPingMachine
             // 
-            this.btnFerti.BackColor = System.Drawing.Color.Transparent;
-            this.btnFerti.BackgroundImage = global::AgIO.Properties.Resources.B_Ferti;
-            this.btnFerti.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnFerti.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnFerti.FlatAppearance.BorderSize = 0;
-            this.btnFerti.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFerti.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFerti.ForeColor = System.Drawing.Color.White;
-            this.btnFerti.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnFerti.Location = new System.Drawing.Point(238, 321);
-            this.btnFerti.Margin = new System.Windows.Forms.Padding(4);
-            this.btnFerti.Name = "btnFerti";
-            this.btnFerti.Size = new System.Drawing.Size(84, 59);
-            this.btnFerti.TabIndex = 526;
-            this.btnFerti.UseVisualStyleBackColor = false;
-            this.btnFerti.Click += new System.EventHandler(this.btnBringUpCommSettings_Click);
+            this.lblPingMachine.AutoSize = true;
+            this.lblPingMachine.BackColor = System.Drawing.Color.Transparent;
+            this.lblPingMachine.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPingMachine.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPingMachine.Location = new System.Drawing.Point(552, 342);
+            this.lblPingMachine.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPingMachine.Name = "lblPingMachine";
+            this.lblPingMachine.Size = new System.Drawing.Size(35, 16);
+            this.lblPingMachine.TabIndex = 532;
+            this.lblPingMachine.Text = "2850";
+            this.lblPingMachine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblPing
+            // 
+            this.lblPing.AutoSize = true;
+            this.lblPing.BackColor = System.Drawing.Color.Transparent;
+            this.lblPing.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPing.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPing.Location = new System.Drawing.Point(552, 317);
+            this.lblPing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPing.Name = "lblPing";
+            this.lblPing.Size = new System.Drawing.Size(35, 16);
+            this.lblPing.TabIndex = 531;
+            this.lblPing.Text = "2850";
+            this.lblPing.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label14.Location = new System.Drawing.Point(483, 317);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(71, 16);
+            this.label14.TabIndex = 530;
+            this.label14.Text = "Steer Ping:";
             // 
             // FormLoop
             // 
@@ -1152,6 +1184,11 @@ namespace AgIO
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(734, 475);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.lblPingMachine);
+            this.Controls.Add(this.lblPing);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.btnGPS_Out);
             this.Controls.Add(this.lblModFertiComm);
             this.Controls.Add(this.cboxIsFertiModule);
             this.Controls.Add(this.btnFerti);
@@ -1192,7 +1229,6 @@ namespace AgIO
             this.Controls.Add(this.btnSlide);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.cboxLogNMEA);
             this.Controls.Add(this.lblGPS1Comm);
             this.Controls.Add(this.lblMod2Comm);
             this.Controls.Add(this.lblMod1Comm);
@@ -1206,7 +1242,6 @@ namespace AgIO
             this.Controls.Add(this.label12);
             this.Controls.Add(this.lblCurentLon);
             this.Controls.Add(this.lblCurrentLat);
-            this.Controls.Add(this.btnRelayTest);
             this.Controls.Add(this.btnUDP);
             this.Controls.Add(this.lblIP);
             this.Controls.Add(this.lblToGPS);
@@ -1255,7 +1290,6 @@ namespace AgIO
         private System.Windows.Forms.Button btnUDP;
         private System.Windows.Forms.Button btnRunAOG;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.CheckBox cboxLogNMEA;
         private System.Windows.Forms.Timer ntripMeterTimer;
         private System.Windows.Forms.Label lblMount;
         private System.Windows.Forms.Label lblIP;
@@ -1287,7 +1321,6 @@ namespace AgIO
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem serialPassThroughToolStripMenuItem;
         private System.Windows.Forms.Label lblSkipCounter;
-        private System.Windows.Forms.Button btnRelayTest;
         private System.Windows.Forms.Label lblCount;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblToGPS;
@@ -1303,6 +1336,10 @@ namespace AgIO
         private System.Windows.Forms.Label lblModFertiComm;
         private System.Windows.Forms.CheckBox cboxIsFertiModule;
         private System.Windows.Forms.Button btnFerti;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblPingMachine;
+        private System.Windows.Forms.Label lblPing;
+        private System.Windows.Forms.Label label14;
     }
 }
 

@@ -13,7 +13,7 @@ namespace AgOpenGPS
 
         public FormJob(Form callingForm)
         {
-            //get copy of the calling main form
+            //get ref of the calling main form
             mf = callingForm as FormGPS;
 
             InitializeComponent();
@@ -49,24 +49,30 @@ namespace AgOpenGPS
             else
             {
                 lblResumeField.Text = gStr.gsResume + ": " + mf.currentFieldDirectory;
-            
 
-            if (mf.isJobStarted)
-            {
 
-                btnJobResume.Enabled = false;
-                lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
-            }
-            else
-            {
-                btnJobClose.Enabled = false;
-            }
+                if (mf.isJobStarted)
+                {
+
+                    btnJobResume.Enabled = false;
+                    lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
+                }
+                else
+                {
+                    btnJobClose.Enabled = false;
+                }
             }
 
             Location = Properties.Settings.Default.setJobMenu_location;
             Size = Properties.Settings.Default.setJobMenu_size;
 
             mf.CloseTopMosts();
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
         }
 
         private void btnJobNew_Click(object sender, EventArgs e)
@@ -250,6 +256,11 @@ namespace AgOpenGPS
             //back to FormGPS
             DialogResult = DialogResult.Abort;
             Close();
+        }
+
+        private void btnDeleteAB_Click(object sender, EventArgs e)
+        {
+            mf.isCancelJobMenu = true;
         }
     }
 }

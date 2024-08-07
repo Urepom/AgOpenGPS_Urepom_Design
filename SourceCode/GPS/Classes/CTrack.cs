@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public enum TrackMode { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32};//, Heading, Circle, Spiral
+    public enum TrackMode { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32, waterPivot = 64};//, Heading, Circle, Spiral
 
     public class CTrack
     {
@@ -63,7 +63,7 @@ namespace AgOpenGPS
                 else
                 {
                     double diff = Math.PI - Math.Abs(Math.Abs(pivot.heading - gArr[i].heading) - Math.PI);
-                    if (diff < 0.6 || diff > 2.54)
+                    if (diff < 1 || diff > 2.14)
                         isAlignedArr[i] = true;
                     else
                         isAlignedArr[i] = false;
@@ -139,6 +139,7 @@ namespace AgOpenGPS
                 else
                 {
                     mf.curve.isCurveValid = false;
+                    mf.curve.lastHowManyPathsAway = 98888;
                     mf.curve.lastSecond = 0;
                     gArr[idx].nudgeDistance += mf.curve.isHeadingSameWay ? dist : -dist;
 
@@ -161,6 +162,7 @@ namespace AgOpenGPS
                 else
                 {
                     mf.curve.isCurveValid = false;
+                    mf.curve.lastHowManyPathsAway = 98888;
                     mf.curve.lastSecond = 0;
                 }
 
@@ -201,6 +203,7 @@ namespace AgOpenGPS
                 else
                 {
                     mf.curve.isCurveValid = false;
+                    mf.curve.lastHowManyPathsAway = 98888;
                     mf.curve.lastSecond = 0;
                     NudgeRefCurve( mf.curve.isHeadingSameWay ? dist : -dist);
                 }
@@ -221,6 +224,7 @@ namespace AgOpenGPS
         public void NudgeRefCurve(double distAway)
         {
             mf.curve.isCurveValid = false;
+            mf.curve.lastHowManyPathsAway = 98888;
             mf.curve.lastSecond = 0;
 
             List<vec3> curList = new List<vec3>();

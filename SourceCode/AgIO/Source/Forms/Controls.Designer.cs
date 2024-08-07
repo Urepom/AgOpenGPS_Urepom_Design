@@ -121,7 +121,37 @@ namespace AgIO
                 formEth.Show(this);
             }
         }
+        private void btnGPS_Out_Click(object sender, EventArgs e)
+        {
+            Process[] processName = Process.GetProcessesByName("GPS_Out");
+            if (processName.Length == 0)
+            {
+                //Start application here
+                DirectoryInfo di = new DirectoryInfo(Application.StartupPath);
+                string strPath = di.ToString();
+                strPath += "\\GPS_Out.exe";
 
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strPath;
+                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    Process proc = Process.Start(processInfo);
+                }
+                catch
+                {
+                    TimedMessageBox(2000, "No File Found", "Can't Find GPS_Out");
+                }
+            }
+            else
+            {
+                //Set foreground window
+                ShowWindow(processName[0].MainWindowHandle, 9);
+                SetForegroundWindow(processName[0].MainWindowHandle);
+            }
+
+
+        }
         private void StartAOG()
         {
             Process[] processName = Process.GetProcessesByName("AgOpenGPS");
@@ -212,5 +242,6 @@ namespace AgIO
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem deviceManagerToolStripMenuItem;
+        private Button btnGPS_Out;
     }
 }

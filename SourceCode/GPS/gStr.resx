@@ -177,6 +177,9 @@
   <data name="gsBoundaryMenu" xml:space="preserve">
     <value>Boundary Contour</value>
   </data>
+  <data name="gsBrightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
   <data name="gsButFieldIsLoaded" xml:space="preserve">
     <value>But Field Is Loaded</value>
   </data>

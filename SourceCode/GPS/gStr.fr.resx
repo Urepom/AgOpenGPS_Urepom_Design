@@ -177,6 +177,9 @@
   <data name="gsBoundaryMenu" xml:space="preserve">
     <value>Menu Limite</value>
   </data>
+  <data name="gsBrightness" xml:space="preserve">
+    <value>Luminosité</value>
+  </data>
   <data name="gsButFieldIsLoaded" xml:space="preserve">
     <value>Champ tout de même chargé</value>
   </data>

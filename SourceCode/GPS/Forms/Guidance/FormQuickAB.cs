@@ -56,6 +56,12 @@ namespace AgOpenGPS
 
             nudHeading.Controls[0].Enabled = false;
             nudHeading.Value = 0;
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
         }
 
         private void FormQuickAB_FormClosing(object sender, FormClosingEventArgs e)
@@ -288,7 +294,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
+                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
             
             textBox1.Text = mf.ABLine.desName;
             mf.trk.gArr[idx].name = mf.ABLine.desName;
@@ -379,7 +385,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+" +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
+                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -491,51 +497,5 @@ namespace AgOpenGPS
                 mf.curve.desList.Add(arr[i]);
             }
         }
-
-        #region Help
-
-        private void btnAddTime_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.ha_btnAddTime, gStr.gsHelp);
-        }
-
-        private void btnCancel_Name_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.ha_btnCancelCreate, gStr.gsHelp);
-        }
-
-        private void btnCancelCurve_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.ha_btnCancelCreate, gStr.gsHelp);
-        }
-
-        private void btnAdd_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.ha_btnEnterContinue, gStr.gsHelp);
-        }
-
-        private void btnAPoint_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hcur_btnAPoint, gStr.gsHelp);
-        }
-
-        private void btnBPoint_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hcur_btnBPoint, gStr.gsHelp);
-        }
-
-        private void btnPausePlay_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.hcur_btnPausePlay, gStr.gsHelp);
-        }
-
-        private void textBox1_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            MessageBox.Show(gStr.ha_textBox1, gStr.gsHelp);
-        }
-
-        #endregion Help
-
-
     }
 }
