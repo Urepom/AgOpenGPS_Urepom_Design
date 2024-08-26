@@ -380,6 +380,7 @@ namespace AgOpenGPS
             Timer_kml.Checked = Properties.Settings.Default.UP_setTimer_KML;
             VineMode.Checked = Properties.Settings.Default.UP_setVineMode;
             ArrowsRL.Checked = Properties.Settings.Default.UP_SetArrowsRL;
+            Minimap.Checked = Properties.Settings.Default.UP_setMenu_isOGLZoomOn;
             //fin
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;

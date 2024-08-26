@@ -505,13 +505,13 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int setMenu_isOGLZoomOn {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UP_setMenu_isOGLZoomOn {
             get {
-                return ((int)(this["setMenu_isOGLZoomOn"]));
+                return ((bool)(this["UP_setMenu_isOGLZoomOn"]));
             }
             set {
-                this["setMenu_isOGLZoomOn"] = value;
+                this["UP_setMenu_isOGLZoomOn"] = value;
             }
         }
         
@@ -1286,7 +1286,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool setHeadland_isSectionControlled {
             get {
                 return ((bool)(this["setHeadland_isSectionControlled"]));
@@ -2942,7 +2942,7 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UP_setUpdate_MAJ {
             get {
                 return ((bool)(this["UP_setUpdate_MAJ"]));

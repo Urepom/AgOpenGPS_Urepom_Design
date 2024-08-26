@@ -468,6 +468,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.UP_SetArrowsRL = ArrowsRL.Checked;
             Properties.Settings.Default.UP_setTimer_KML = Timer_kml.Checked;
             Properties.Settings.Default.UP_setVineMode = VineMode.Checked;
+            Properties.Settings.Default.UP_setMenu_isOGLZoomOn = Minimap.Checked;
             //fin
 
             Properties.Settings.Default.setDisplay_isBrightnessOn = mf.isBrightnessOn;

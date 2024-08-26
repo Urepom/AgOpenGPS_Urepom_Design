@@ -1615,7 +1615,7 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramList?.Clear();
             tram.displayMode = 0;
-            btnTramDisplayMode.Visible = false;
+            //ajout max btnTramDisplayMode.Visible = false;
 
             if (File.Exists(fileAndDirectory))
             {

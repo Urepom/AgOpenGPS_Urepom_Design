@@ -1,7 +1,19 @@
 ﻿using AgOpenGPS.Properties;
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Xml;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
+using System.Data.Common;
 
 namespace AgOpenGPS
 {
@@ -1017,6 +1029,77 @@ namespace AgOpenGPS
                 mf.vehicle.driveFreeSteerAngle = 5;
             else mf.vehicle.driveFreeSteerAngle = 0;
             //hSBarFreeDrive.Value = mf.driveFreeSteerAngle;
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+        string ConfigFilePath = "C:\\Users\\maxim\\Documents\\AgOpenGPS\\Vehicles\\test.XML";
+        private string m_ConfigFilePath;
+        private XmlDocument m_XmlDoc;
+
+        private FileStream fIn;
+        private StreamReader sr;
+        private StreamWriter sw;
+
+        private OrderedDictionary m_AppSettings;
+        private OrderedDictionary m_ConnectionStrings;
+
+        private XmlNode m_AppSettingsNode;
+        private XmlNode m_ConnectionStringsNode;
+
+        public String Path
+        {
+            get
+            {
+                return m_ConfigFilePath;
+            }
+        }
+
+        public OrderedDictionary AppSettings
+        {
+            get
+            {
+                return m_AppSettings;
+            }
+        }
+
+        public OrderedDictionary ConnectionStrings
+        {
+            get
+            {
+                return m_ConnectionStrings;
+            }
+        }
+        int t = 1;
+        public static void ReadDataGridViewSettings(DataGridView dgv)
+        {
+            XmlDocument xmldoc = new XmlDocument();
+            XmlNodeList xmlnode;
+            FileStream fs = new FileStream("C:\\Users\\maxim\\Documents\\AgOpenGPS\\Vehicles\\test.XML", FileMode.Open, FileAccess.Read);
+            xmldoc.Load(fs);
+            xmlnode = xmldoc.GetElementsByTagName("setting");
+            MessageBox.Show(xmlnode.Count.ToString());
+            for (int i = 0; i <= xmlnode.Count - 1; i++)
+            {
+                string columnname = xmlnode[i].OuterXml;
+                MessageBox.Show(columnname);
+                //int width = int.Parse(xmlnode[i].ChildNodes.Item(1).InnerText.Trim());
+                string headerText = xmlnode[i].ChildNodes.Item(0).InnerText.Trim();
+                //int displayIndex = int.Parse(xmlnode[i].ChildNodes.Item(3).InnerText.Trim());
+                //Boolean visible = Convert.ToBoolean(xmlnode[i].ChildNodes.Item(4).InnerText.Trim());
+                //dgv.Columns[columnname].Width = width;
+                dgv.Columns[columnname].HeaderText = headerText;
+                //dgv.Columns[columnname].DisplayIndex = displayIndex;
+                //dgv.Columns[columnname].Visible = visible;
+            }
+            fs.Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void btnSteerAngleUp_MouseDown(object sender, MouseEventArgs e)

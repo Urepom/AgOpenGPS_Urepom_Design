@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConfig));
             this.panelLeftSideMenu = new System.Windows.Forms.Panel();
             this.btnFeatureHides = new System.Windows.Forms.Button();
             this.btnDisplay = new System.Windows.Forms.Button();
@@ -536,6 +537,7 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Minimap = new System.Windows.Forms.CheckBox();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -869,7 +871,7 @@
             this.btnSubHeading.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubHeading.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubHeading.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubHeading.Image = global::AgOpenGPS.Properties.Resources.ConS_SourcesHeading;
+            this.btnSubHeading.Image = ((System.Drawing.Image)(resources.GetObject("btnSubHeading.Image")));
             this.btnSubHeading.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubHeading.Location = new System.Drawing.Point(0, 0);
             this.btnSubHeading.Name = "btnSubHeading";
@@ -1536,7 +1538,7 @@
             this.btnVehicleLoad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnVehicleLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleLoad.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleLoad.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
+            this.btnVehicleLoad.Image = ((System.Drawing.Image)(resources.GetObject("btnVehicleLoad.Image")));
             this.btnVehicleLoad.Location = new System.Drawing.Point(764, 156);
             this.btnVehicleLoad.Name = "btnVehicleLoad";
             this.btnVehicleLoad.Size = new System.Drawing.Size(81, 49);
@@ -2240,7 +2242,7 @@
             this.btnOpacityDn.BackColor = System.Drawing.Color.Transparent;
             this.btnOpacityDn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnOpacityDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpacityDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnOpacityDn.Image = ((System.Drawing.Image)(resources.GetObject("btnOpacityDn.Image")));
             this.btnOpacityDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpacityDn.Location = new System.Drawing.Point(555, 438);
             this.btnOpacityDn.Name = "btnOpacityDn";
@@ -2278,7 +2280,7 @@
             this.btnOpacityUp.BackColor = System.Drawing.Color.Transparent;
             this.btnOpacityUp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnOpacityUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpacityUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnOpacityUp.Image = ((System.Drawing.Image)(resources.GetObject("btnOpacityUp.Image")));
             this.btnOpacityUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpacityUp.Location = new System.Drawing.Point(773, 438);
             this.btnOpacityUp.Name = "btnOpacityUp";
@@ -4974,7 +4976,7 @@
             this.chkSetAutoSectionsSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetAutoSectionsSteer.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetAutoSectionsSteer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetAutoSectionsSteer.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
+            this.chkSetAutoSectionsSteer.Image = ((System.Drawing.Image)(resources.GetObject("chkSetAutoSectionsSteer.Image")));
             this.chkSetAutoSectionsSteer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetAutoSectionsSteer.Location = new System.Drawing.Point(44, 272);
             this.chkSetAutoSectionsSteer.Name = "chkSetAutoSectionsSteer";
@@ -4993,7 +4995,7 @@
             this.chkSelectSteerSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSelectSteerSwitch.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSelectSteerSwitch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSelectSteerSwitch.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.chkSelectSteerSwitch.Image = ((System.Drawing.Image)(resources.GetObject("chkSelectSteerSwitch.Image")));
             this.chkSelectSteerSwitch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSelectSteerSwitch.Location = new System.Drawing.Point(44, 56);
             this.chkSelectSteerSwitch.Name = "chkSelectSteerSwitch";
@@ -5012,7 +5014,7 @@
             this.chkSetManualSectionsSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetManualSectionsSteer.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetManualSectionsSteer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetManualSectionsSteer.Image = global::AgOpenGPS.Properties.Resources.ManualOff;
+            this.chkSetManualSectionsSteer.Image = ((System.Drawing.Image)(resources.GetObject("chkSetManualSectionsSteer.Image")));
             this.chkSetManualSectionsSteer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetManualSectionsSteer.Location = new System.Drawing.Point(44, 172);
             this.chkSetManualSectionsSteer.Name = "chkSetManualSectionsSteer";
@@ -5047,7 +5049,7 @@
             this.chkSelectWorkSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSelectWorkSwitch.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSelectWorkSwitch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSelectWorkSwitch.Image = global::AgOpenGPS.Properties.Resources.HydraulicLiftOff;
+            this.chkSelectWorkSwitch.Image = ((System.Drawing.Image)(resources.GetObject("chkSelectWorkSwitch.Image")));
             this.chkSelectWorkSwitch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSelectWorkSwitch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chkSelectWorkSwitch.Location = new System.Drawing.Point(38, 56);
@@ -5067,7 +5069,7 @@
             this.chkSetAutoSections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetAutoSections.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetAutoSections.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetAutoSections.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
+            this.chkSetAutoSections.Image = ((System.Drawing.Image)(resources.GetObject("chkSetAutoSections.Image")));
             this.chkSetAutoSections.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetAutoSections.Location = new System.Drawing.Point(38, 272);
             this.chkSetAutoSections.Name = "chkSetAutoSections";
@@ -5086,7 +5088,7 @@
             this.chkSetManualSections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetManualSections.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetManualSections.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetManualSections.Image = global::AgOpenGPS.Properties.Resources.ManualOff;
+            this.chkSetManualSections.Image = ((System.Drawing.Image)(resources.GetObject("chkSetManualSections.Image")));
             this.chkSetManualSections.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetManualSections.Location = new System.Drawing.Point(38, 172);
             this.chkSetManualSections.Name = "chkSetManualSections";
@@ -5715,7 +5717,7 @@
             this.cboxIsRTK_KillAutoSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsRTK_KillAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK_KillAutoSteer.ForeColor = System.Drawing.Color.Black;
-            this.cboxIsRTK_KillAutoSteer.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.cboxIsRTK_KillAutoSteer.Image = ((System.Drawing.Image)(resources.GetObject("cboxIsRTK_KillAutoSteer.Image")));
             this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(242, 477);
             this.cboxIsRTK_KillAutoSteer.Name = "cboxIsRTK_KillAutoSteer";
             this.cboxIsRTK_KillAutoSteer.Size = new System.Drawing.Size(103, 90);
@@ -5775,7 +5777,7 @@
             this.btnRollOffsetUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRollOffsetUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRollOffsetUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnRollOffsetUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnRollOffsetUp.Image = ((System.Drawing.Image)(resources.GetObject("btnRollOffsetUp.Image")));
             this.btnRollOffsetUp.Location = new System.Drawing.Point(416, 214);
             this.btnRollOffsetUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnRollOffsetUp.Name = "btnRollOffsetUp";
@@ -5791,7 +5793,7 @@
             this.btnRollOffsetDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRollOffsetDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRollOffsetDown.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnRollOffsetDown.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnRollOffsetDown.Image = ((System.Drawing.Image)(resources.GetObject("btnRollOffsetDown.Image")));
             this.btnRollOffsetDown.Location = new System.Drawing.Point(342, 215);
             this.btnRollOffsetDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnRollOffsetDown.Name = "btnRollOffsetDown";
@@ -6161,7 +6163,7 @@
             this.btnTurnSmoothingUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTurnSmoothingUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTurnSmoothingUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTurnSmoothingUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnTurnSmoothingUp.Image = ((System.Drawing.Image)(resources.GetObject("btnTurnSmoothingUp.Image")));
             this.btnTurnSmoothingUp.Location = new System.Drawing.Point(387, 317);
             this.btnTurnSmoothingUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnTurnSmoothingUp.Name = "btnTurnSmoothingUp";
@@ -6177,7 +6179,7 @@
             this.btnTurnSmoothingDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTurnSmoothingDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTurnSmoothingDown.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTurnSmoothingDown.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnTurnSmoothingDown.Image = ((System.Drawing.Image)(resources.GetObject("btnTurnSmoothingDown.Image")));
             this.btnTurnSmoothingDown.Location = new System.Drawing.Point(294, 317);
             this.btnTurnSmoothingDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnTurnSmoothingDown.Name = "btnTurnSmoothingDown";
@@ -6229,7 +6231,7 @@
             this.btnDistanceUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDistanceUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDistanceUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDistanceUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnDistanceUp.Image = ((System.Drawing.Image)(resources.GetObject("btnDistanceUp.Image")));
             this.btnDistanceUp.Location = new System.Drawing.Point(160, 317);
             this.btnDistanceUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnDistanceUp.Name = "btnDistanceUp";
@@ -6245,7 +6247,7 @@
             this.btnDistanceDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDistanceDn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDistanceDn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDistanceDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnDistanceDn.Image = ((System.Drawing.Image)(resources.GetObject("btnDistanceDn.Image")));
             this.btnDistanceDn.Location = new System.Drawing.Point(67, 317);
             this.btnDistanceDn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnDistanceDn.Name = "btnDistanceDn";
@@ -7387,7 +7389,7 @@
             this.btnRelaySetDefaultConfig.BackColor = System.Drawing.Color.Transparent;
             this.btnRelaySetDefaultConfig.FlatAppearance.BorderSize = 0;
             this.btnRelaySetDefaultConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelaySetDefaultConfig.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnRelaySetDefaultConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnRelaySetDefaultConfig.Image")));
             this.btnRelaySetDefaultConfig.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRelaySetDefaultConfig.Location = new System.Drawing.Point(148, 500);
             this.btnRelaySetDefaultConfig.Name = "btnRelaySetDefaultConfig";
@@ -8425,7 +8427,7 @@
             this.cboxFeatureNudge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureNudge.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureNudge.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureNudge.Image = global::AgOpenGPS.Properties.Resources.SnapToPivot;
+            this.cboxFeatureNudge.Image = ((System.Drawing.Image)(resources.GetObject("cboxFeatureNudge.Image")));
             this.cboxFeatureNudge.Location = new System.Drawing.Point(424, 237);
             this.cboxFeatureNudge.Name = "cboxFeatureNudge";
             this.cboxFeatureNudge.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8465,7 +8467,7 @@
             this.cboxAutoStartAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxAutoStartAgIO.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxAutoStartAgIO.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxAutoStartAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.cboxAutoStartAgIO.Image = ((System.Drawing.Image)(resources.GetObject("cboxAutoStartAgIO.Image")));
             this.cboxAutoStartAgIO.Location = new System.Drawing.Point(33, 504);
             this.cboxAutoStartAgIO.Name = "cboxAutoStartAgIO";
             this.cboxAutoStartAgIO.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8599,7 +8601,7 @@
             this.cboxFeatureOffsetFix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureOffsetFix.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureOffsetFix.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureOffsetFix.Image = global::AgOpenGPS.Properties.Resources.YouTurnReverse;
+            this.cboxFeatureOffsetFix.Image = ((System.Drawing.Image)(resources.GetObject("cboxFeatureOffsetFix.Image")));
             this.cboxFeatureOffsetFix.Location = new System.Drawing.Point(174, 371);
             this.cboxFeatureOffsetFix.Name = "cboxFeatureOffsetFix";
             this.cboxFeatureOffsetFix.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8621,7 +8623,7 @@
             this.cboxFeatureWebcam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureWebcam.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureWebcam.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureWebcam.Image = global::AgOpenGPS.Properties.Resources.Webcam;
+            this.cboxFeatureWebcam.Image = ((System.Drawing.Image)(resources.GetObject("cboxFeatureWebcam.Image")));
             this.cboxFeatureWebcam.Location = new System.Drawing.Point(174, 267);
             this.cboxFeatureWebcam.Name = "cboxFeatureWebcam";
             this.cboxFeatureWebcam.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8665,7 +8667,7 @@
             this.cboxFeatureABSmooth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureABSmooth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureABSmooth.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureABSmooth.Image = global::AgOpenGPS.Properties.Resources.ABSmooth;
+            this.cboxFeatureABSmooth.Image = ((System.Drawing.Image)(resources.GetObject("cboxFeatureABSmooth.Image")));
             this.cboxFeatureABSmooth.Location = new System.Drawing.Point(174, 59);
             this.cboxFeatureABSmooth.Name = "cboxFeatureABSmooth";
             this.cboxFeatureABSmooth.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8687,7 +8689,7 @@
             this.cboxFeatureRecPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureRecPath.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureRecPath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureRecPath.Image = global::AgOpenGPS.Properties.Resources.RecPath;
+            this.cboxFeatureRecPath.Image = ((System.Drawing.Image)(resources.GetObject("cboxFeatureRecPath.Image")));
             this.cboxFeatureRecPath.Location = new System.Drawing.Point(33, 371);
             this.cboxFeatureRecPath.Name = "cboxFeatureRecPath";
             this.cboxFeatureRecPath.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8709,7 +8711,7 @@
             this.cboxFeatureBoundary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureBoundary.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureBoundary.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureBoundary.Image = global::AgOpenGPS.Properties.Resources.Boundary;
+            this.cboxFeatureBoundary.Image = ((System.Drawing.Image)(resources.GetObject("cboxFeatureBoundary.Image")));
             this.cboxFeatureBoundary.Location = new System.Drawing.Point(33, 267);
             this.cboxFeatureBoundary.Name = "cboxFeatureBoundary";
             this.cboxFeatureBoundary.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8765,6 +8767,7 @@
             // tabDisplay
             // 
             this.tabDisplay.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabDisplay.Controls.Add(this.Minimap);
             this.tabDisplay.Controls.Add(this.cbox_long_touch);
             this.tabDisplay.Controls.Add(this.cBox_sections_button);
             this.tabDisplay.Controls.Add(this.Timer_kml);
@@ -8814,10 +8817,10 @@
             this.cbox_long_touch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbox_long_touch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbox_long_touch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbox_long_touch.Location = new System.Drawing.Point(694, 347);
+            this.cbox_long_touch.Location = new System.Drawing.Point(691, 308);
             this.cbox_long_touch.Name = "cbox_long_touch";
             this.cbox_long_touch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cbox_long_touch.Size = new System.Drawing.Size(106, 39);
+            this.cbox_long_touch.Size = new System.Drawing.Size(106, 37);
             this.cbox_long_touch.TabIndex = 550;
             this.cbox_long_touch.Text = "Long touch";
             this.cbox_long_touch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8837,7 +8840,7 @@
             this.cBox_sections_button.Margin = new System.Windows.Forms.Padding(0);
             this.cBox_sections_button.Name = "cBox_sections_button";
             this.cBox_sections_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cBox_sections_button.Size = new System.Drawing.Size(135, 37);
+            this.cBox_sections_button.Size = new System.Drawing.Size(106, 37);
             this.cBox_sections_button.TabIndex = 549;
             this.cBox_sections_button.Text = "Sections visibles";
             this.cBox_sections_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8872,7 +8875,7 @@
             this.VineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VineMode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VineMode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.VineMode.Location = new System.Drawing.Point(694, 388);
+            this.VineMode.Location = new System.Drawing.Point(691, 347);
             this.VineMode.Name = "VineMode";
             this.VineMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.VineMode.Size = new System.Drawing.Size(106, 39);
@@ -9150,7 +9153,7 @@
             this.chkDisplayBrightness.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayBrightness.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayBrightness.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayBrightness.Image = global::AgOpenGPS.Properties.Resources.BrightnessUp;
+            this.chkDisplayBrightness.Image = ((System.Drawing.Image)(resources.GetObject("chkDisplayBrightness.Image")));
             this.chkDisplayBrightness.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkDisplayBrightness.Location = new System.Drawing.Point(90, 155);
             this.chkDisplayBrightness.Name = "chkDisplayBrightness";
@@ -9460,7 +9463,7 @@
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnOK.Image = ((System.Drawing.Image)(resources.GetObject("btnOK.Image")));
             this.btnOK.Location = new System.Drawing.Point(777, 1);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnOK.Name = "btnOK";
@@ -9488,6 +9491,25 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // Minimap
+            // 
+            this.Minimap.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Minimap.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Minimap.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Minimap.FlatAppearance.BorderSize = 2;
+            this.Minimap.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.Minimap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Minimap.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Minimap.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Minimap.Location = new System.Drawing.Point(691, 388);
+            this.Minimap.Name = "Minimap";
+            this.Minimap.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.Minimap.Size = new System.Drawing.Size(106, 39);
+            this.Minimap.TabIndex = 551;
+            this.Minimap.Text = "Minimap";
+            this.Minimap.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Minimap.UseVisualStyleBackColor = false;
             // 
             // FormConfig
             // 
@@ -10157,5 +10179,6 @@
         private System.Windows.Forms.CheckBox Timer_kml;
         private System.Windows.Forms.CheckBox VineMode;
         private System.Windows.Forms.CheckBox ArrowsRL;
+        private System.Windows.Forms.CheckBox Minimap;
     }
 }

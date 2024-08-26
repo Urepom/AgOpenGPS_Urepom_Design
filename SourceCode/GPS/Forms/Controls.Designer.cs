@@ -488,7 +488,15 @@ namespace AgOpenGPS
                 f.Focus();
                 f.Close();
             }
+            //ajout memprou
+            f = Application.OpenForms["FormUpdate"];
 
+            if (f != null)
+            {
+                f.Focus();
+                f.Close();
+            }
+            //fin
             if (this.OwnedForms.Any())
             {
                 TimedMessageBox(2000, gStr.gsWindowsStillOpen, gStr.gsCloseAllWindowsFirst);
@@ -1203,7 +1211,7 @@ namespace AgOpenGPS
             Form ff = Application.OpenForms["FormGPS"];
             ff.Focus();
         }
-        private void btnShutdown_Click(object sender, EventArgs e)
+        public void btnShutdown_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -2553,15 +2561,20 @@ namespace AgOpenGPS
         {
             if (isJobStarted)
             {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                form.Show(this);
+                var mess = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                mess.Show(this);
                 return;
             }
-            using (FormUpdate form = new FormUpdate(this))
-            {
+            //check if window already exists
+            Form fc = Application.OpenForms["FormUpdate"];
 
-                form.ShowDialog(this);
+            if (fc != null)
+            {
+                fc.Focus();
+                return;
             }
+            Form form = new FormUpdate(this);
+            form.Show(this);
         }
         private void button1_Click(object sender, EventArgs e)
         {

@@ -122,8 +122,8 @@
     <Setting Name="setTram_offset" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="setMenu_isOGLZoomOn" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="UP_setMenu_isOGLZoomOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="setMenu_isCompassOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -318,7 +318,7 @@
       <Value Profile="(Default)">AGOpenGPS</Value>
     </Setting>
     <Setting Name="setHeadland_isSectionControlled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setSound_isAutoSteerOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -732,7 +732,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UP_setUpdate_MAJ" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UP_setDisplay_issections_buttonOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -175,10 +175,10 @@ namespace AgOpenGPS
                 //}
                 */
 
-
+                //ajout memprou
                 lblHz.Text = gpsHz.ToString("N1") + "Hz " + (int)(frameTime) + "\r\n" +
-                    FixQuality + Math.Round(gpsHz, MidpointRounding.AwayFromZero) + " Hz";
-
+                    FixQuality;
+                //fin
                 lblTotalAppliedArea.Text = fd.WorkedHectares;
                 lblWorkRemaining.Text = fd.WorkedAreaRemainHectares;
                 lblTimeRemaining.Text = fd.TimeTillFinished + " H";
@@ -1642,16 +1642,18 @@ namespace AgOpenGPS
         {
             get
             {
-                if (pn.fixQuality == 0) return "Invalid: ";
-                else if (pn.fixQuality == 1) return "GPS single: ";
-                else if (pn.fixQuality == 2) return "DGPS: ";
-                else if (pn.fixQuality == 3) return "PPS: ";
-                else if (pn.fixQuality == 4) return "RTK fix: ";
-                else if (pn.fixQuality == 5) return "RTK Float: ";
-                else if (pn.fixQuality == 6) return "Estimate: ";
-                else if (pn.fixQuality == 7) return "Man IP: ";
-                else if (pn.fixQuality == 8) return "Sim: ";
+                //ajout memprou enlever ": "
+                if (pn.fixQuality == 0) return "Invalid";
+                else if (pn.fixQuality == 1) return "GPS single";
+                else if (pn.fixQuality == 2) return "DGPS";
+                else if (pn.fixQuality == 3) return "PPS";
+                else if (pn.fixQuality == 4) return "RTK fix";
+                else if (pn.fixQuality == 5) return "RTK Float";
+                else if (pn.fixQuality == 6) return "Estimate";
+                else if (pn.fixQuality == 7) return "Man IP";
+                else if (pn.fixQuality == 8) return "Sim";
                 else return "Unknown: ";
+                //fin
             }
         }
         public string GyroInDegrees

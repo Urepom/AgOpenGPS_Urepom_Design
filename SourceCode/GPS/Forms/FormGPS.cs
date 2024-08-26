@@ -282,7 +282,7 @@ namespace AgOpenGPS
         {
             //winform initialization
             InitializeComponent();
-
+            //heckSettingsUpdate();
             CheckSettingsNotNull();
 
             //time keeper
@@ -452,7 +452,6 @@ namespace AgOpenGPS
         private void FormGPS_Load(object sender, EventArgs e)
         {
             this.MouseWheel += ZoomByMouseWheel;
-            CheckSettingsUpdate();
             //start udp server is required
             StartLoopbackServer();
 
@@ -590,7 +589,7 @@ namespace AgOpenGPS
                     btnBrightnessUp.Enabled = false;
                 }
             }
-
+            CheckSettingsUpdate(); //ajout memprou
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
@@ -717,7 +716,15 @@ namespace AgOpenGPS
                 f.Focus();
                 f.Close();
             }
+            //ajout memprou
+            f = Application.OpenForms["FormUpdate"];
 
+            if (f != null)
+            {
+                f.Focus();
+                f.Close();
+            }
+            //fin
 
             if (this.OwnedForms.Any())
             {
@@ -864,15 +871,42 @@ namespace AgOpenGPS
             }
         }
 
-        //Ajout-modification MEmprou et SPailleau Fertilisation memprou
+        //Ajout-modification MEmprou et SPailleau update memprou
         public void CheckSettingsUpdate()
         {
-            if (Properties.Settings.Default.UP_setUpdate_MAJ == true)
+            //MessageBox.Show("line");
+            if (Properties.Settings.Default.UP_setUpdate_MAJ)
+            { 
+            string line;
+            string fusionsettingfile = baseDirectory + "\\update\\fusionsetting.txt";
+            bool fusionsetting = false;
+            if (File.Exists(fusionsettingfile))
+            {
+                using (StreamReader reader = new StreamReader(fusionsettingfile))
+                {
+                    try
+                    {
+                        //read header
+                        line = reader.ReadLine();
+                        fusionsetting = bool.Parse(line);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+            }
+
+
+            if (fusionsetting)
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UP_setUpdate_MAJ = false;
+                File.Delete(fusionsettingfile);
+
             }
             //fin
+            }
         }
 
         public void CheckSettingsNotNull()
@@ -978,16 +1012,6 @@ namespace AgOpenGPS
         //request a new job
         public void JobNew()
         {
-            if (Settings.Default.setMenu_isOGLZoomOn == 1)
-            {
-                //Ajout-modification MEmprou et SPailleau
-                oglZoom.BringToFront();
-
-                //----SPailleau - Applique la position enregistrée
-                oglZoom.Location = Properties.Settings.Default.UP_OGLZoom_Location;
-                oglZoom.Size = Properties.Settings.Default.UP_OGLZoom_Size;
-                //fin
-            }
 
             //SendSteerSettingsOutAutoSteerPort();
             isJobStarted = true;
@@ -1119,6 +1143,18 @@ namespace AgOpenGPS
             lblGuidanceLine.Visible = false;
             btnAutoTrack.Image = Resources.AutoTrackOff;
             trk.isAutoTrack = false;
+
+            if (Settings.Default.UP_setMenu_isOGLZoomOn)
+            {
+                //Ajout-modification MEmprou et SPailleau
+                //oglZoom.BringToFront();
+                //oglZoom.Refresh();
+                //----SPailleau - Applique la position enregistrée
+                oglZoom.Location = Properties.Settings.Default.UP_OGLZoom_Location;
+                oglZoom.Size = Properties.Settings.Default.UP_OGLZoom_Size;
+                //fin
+            }
+            else oglZoom.SendToBack();
         }
 
         //close the current job

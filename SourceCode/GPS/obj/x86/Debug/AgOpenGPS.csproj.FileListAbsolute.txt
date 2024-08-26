@@ -254,3 +254,4 @@ C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v63\nl\AgOpenG
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v63\pl\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v63\ru\AgOpenGPS.resources.dll
 C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v63\uk\AgOpenGPS.resources.dll
+C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\SourceCode\GPS\obj\x86\Debug\AgOpenGPS.FormUpdate.resources

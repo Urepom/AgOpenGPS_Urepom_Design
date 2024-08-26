@@ -8,7 +8,7 @@
 
 [Setup]
 AppName=AgOpenGPS
-AppVersion=6.0.1
+AppVersion=6.3.3
 AppPublisher=Urepom - Maxime EMPROU
 ;SignTool=Urepom - Maxime EMPROU 
 AppPublisherURL=ttt
@@ -19,7 +19,7 @@ UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design
-OutputBaseFilename=AgOpenGPS 6.0.1 Urepom_Setup
+OutputBaseFilename=AgOpenGPS 6.3.3 Urepom_Setup
 DisableDirPage=no
 DisableProgramGroupPage=no
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
@@ -38,7 +38,7 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
 [Files]
 ;Source: "C:\Users\maxim\Documents\GitHub\Full_custom\ProgramV4/AgOpenGPS.exe"; DestDir: "{app}"; DestName: "AgOpenGPS.exe";Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v5\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\maxim\Documents\GitHub\AgOpenGPS_Urepom_Design\AgOpenGPS_v63\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ;Source: "MyProg.chm"; DestDir: "{app}"
 ;Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
 

@@ -80,9 +80,43 @@ namespace AgOpenGPS
         {
             download_ok = true;
             Properties.Settings.Default.UP_setUpdate_MAJ = SaveConfig.Checked;
-            this.BeginInvoke((MethodInvoker)delegate {
+
+                string line;
+                string fusionsettingfile = mf.baseDirectory + "\\update\\fusionsetting.txt";
+                bool fusionsetting = true;
+            if (File.Exists(fusionsettingfile))
+            {
+                using (StreamWriter writer = new StreamWriter(fusionsettingfile))
+                {
+                    //read header
+                    writer.WriteLine(SaveConfig.Checked.ToString(), 1);
+
+                }
+            }
+            else
+            {
+                File.Create(fusionsettingfile).Close();
+                using (StreamWriter writer = new StreamWriter(fusionsettingfile))
+                {
+                    //read header
+                    writer.WriteLine(SaveConfig.Checked.ToString(), 1);
+
+                }
+            }
+
+
+
+
+                this.BeginInvoke((MethodInvoker)delegate {
                 Process.Start(packageFile);
-                Application.Exit();
+
+                Process[] runningProcesses = Process.GetProcesses();
+                foreach (Process process in runningProcesses)
+                {
+                    if (process.ProcessName == "AgIO")
+                        process.CloseMainWindow();
+                }
+                mf.Close();
             });
         }
 
@@ -128,7 +162,9 @@ namespace AgOpenGPS
                     e.Cancel = false;
                 }
             }
-
+            if (download_ok == true)
+            {         
+            }
         }
 
         private void FormUpdate_Load(object sender, EventArgs e)
@@ -142,6 +178,11 @@ namespace AgOpenGPS
             aogV += int.Parse(fullVers[2], CultureInfo.InvariantCulture) * 0.01;
             aogVStr = aogV.ToString();
             clientVersion = double.Parse(aogVStr);
+        }
+
+        private void FormUpdate_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
