@@ -11,8 +11,8 @@ namespace AgOpenGPS
         public double createBndOffset;
         public bool isBndBeingMade;
 
-        public bool isDrawRightSide = true, isOkToAddPoints = false;
-
+        public bool isDrawRightSide = true, isDrawAtPivot = true, isOkToAddPoints = false;
+        public bool isRecBoundaryWhenSectionOn = false;
         public int closestFenceNum;
 
         //point at the farthest boundary segment from pivotAxle
@@ -62,18 +62,31 @@ namespace AgOpenGPS
         {
             if (!mf.mc.isOutOfBounds)
             {
-                GL.Color3(0.95f, 0.75f, 0.50f);
-                GL.LineWidth(1);
+                GL.Color4(0,0,0,0.8);
+                GL.LineWidth(6);
+
+                for (int i = 0; i < bndList.Count; i++)
+                {
+                    bndList[i].fenceLineEar.DrawPolygon();
+                }
+
+                GL.Color4(0.95f, 0.44f, 0.350f, 0.8f);
+                GL.LineWidth(2);
+
+                for (int i = 0; i < bndList.Count; i++)
+                {
+                    bndList[i].fenceLineEar.DrawPolygon();
+                }
             }
             else
             {
                 GL.LineWidth(mf.ABLine.lineWidth * 3);
                 GL.Color3(0.95f, 0.25f, 0.250f);
-            }
 
-            for (int i = 0; i < bndList.Count; i++)
-            {
-                bndList[i].fenceLineEar.DrawPolygon();
+                for (int i = 0; i < bndList.Count; i++)
+                {
+                    bndList[i].fenceLineEar.DrawPolygon();
+                }
             }
 
             ////closest points  TooDoo
@@ -100,21 +113,40 @@ namespace AgOpenGPS
                 GL.Enable(EnableCap.LineStipple);
                 GL.LineStipple(1, 0x0700);
                 GL.Begin(PrimitiveType.LineStrip);
-                if (isDrawRightSide)
-                {
-                    GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
 
-                    GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * -createBndOffset),
-                            pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * -createBndOffset), 0);
-                    GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                if (isDrawAtPivot)
+                {
+                    if (isDrawRightSide)
+                    {
+                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+
+                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * -createBndOffset),
+                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * -createBndOffset), 0);
+                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                    }
+                    else
+                    {
+                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+
+                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * createBndOffset),
+                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * createBndOffset), 0);
+                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                    }
                 }
-                else
+                else //draw from tool
                 {
-                    GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
-
-                    GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * createBndOffset),
-                            pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * createBndOffset), 0);
-                    GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                    if (isDrawRightSide)
+                    {
+                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                        GL.Vertex3(mf.section[mf.tool.numOfSections - 1].rightPoint.easting, mf.section[mf.tool.numOfSections - 1].rightPoint.northing, 0);
+                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                    }
+                    else
+                    {
+                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                        GL.Vertex3(mf.section[0].leftPoint.easting, mf.section[0].leftPoint.northing, 0);
+                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                    }
                 }
                 GL.End();
                 GL.Disable(EnableCap.LineStipple);

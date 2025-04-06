@@ -70,6 +70,8 @@ namespace AgOpenGPS
 
                 //Right side of triangle
                 triangleList.Add(new vec3(rightPoint.easting, rightPoint.northing, 0));
+
+                mf.patchCounter++;
             }
         }
 
@@ -109,10 +111,10 @@ namespace AgOpenGPS
             //Right side
             triangleList.Add(new vec3(rightPoint.easting, rightPoint.northing, 0));
 
-            //count the triangle pairs
+            //countExit the triangle pairs
             numTriangles++;
 
-            //quick count
+            //quick countExit
             int c = triangleList.Count - 1;
 
             //when closing a job the triangle patches all are emptied but the section delay keeps going.

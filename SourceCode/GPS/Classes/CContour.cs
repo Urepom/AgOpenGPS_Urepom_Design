@@ -781,7 +781,7 @@ namespace AgOpenGPS
                     else localHeading = glm.twoPI - mf.fixHeading - inty;
 
                     steerAngleCT = glm.toDegrees(Math.Atan(2 * (((goalPointCT.easting - pivot.easting) * Math.Cos(localHeading))
-                        + ((goalPointCT.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase / goalPointDistanceSquared));
+                        + ((goalPointCT.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.VehicleConfig.Wheelbase / goalPointDistanceSquared));
 
                     if (mf.ahrs.imuRoll != 88888)
                         steerAngleCT += mf.ahrs.imuRoll * -mf.gyd.sideHillCompFactor;
@@ -924,7 +924,7 @@ namespace AgOpenGPS
 
             for (int j = 0; j < mf.bnd.bndList.Count; j++)
             {
-                //count the points from the boundary
+                //countExit the points from the boundary
                 int ptCount = mf.bnd.bndList[j].fenceLine.Count;
 
                 ptList = new List<vec3>(128);

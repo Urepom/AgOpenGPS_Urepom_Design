@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using AgLibrary.Logging;
+using AgOpenGPS.Helpers;
+using AgOpenGPS.Culture;
 
 namespace AgOpenGPS
 {
@@ -17,6 +20,16 @@ namespace AgOpenGPS
             //get copy of the calling main form
             mf = callingForm as FormGPS;
             InitializeComponent();
+
+            //translate all the controls
+            this.Text = gStr.gsButtonPicker;
+            groupBoxSelectButtons.Text = gStr.gsSelectButtons;
+            groupBoxAOGMenu.Text = gStr.gsAOGMenu; 
+            labelButtonArrangeOne.Text = gStr.gsArrangeText;
+            buttonLabelDefault.Text = gStr.gsDefault;
+            buttonLabelReset.Text = gStr.gsReset;
+            labelPreview.Text = gStr.gsPreview;
+
         }
 
         private void FormToolPivot_Load(object sender, EventArgs e)
@@ -30,7 +43,7 @@ namespace AgOpenGPS
             //}
             flpRight.Controls.Clear();
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -158,6 +171,7 @@ namespace AgOpenGPS
             if (mf.buttonOrder.Count < 2)
             {
                 mf.TimedMessageBox(2000, "Button Error", "Not Enough Buttons Added");
+                Log.EventWriter("Button Picker, Not Enough Buttons");
                 return;
             }
             else
@@ -211,9 +225,7 @@ namespace AgOpenGPS
         {
             Process[] processName = Process.GetProcessesByName("BobsYourUncle");
             //Start application here
-            DirectoryInfo di = new DirectoryInfo(Application.StartupPath);
-            string strPath = di.ToString();
-            strPath += "\\Buttons.mp4";
+            string strPath = Path.Combine(Application.StartupPath, "Buttons.mp4");
 
             try
             {

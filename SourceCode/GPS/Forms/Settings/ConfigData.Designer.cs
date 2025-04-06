@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using AgLibrary.Logging;
+using AgOpenGPS.Controls;
 
 namespace AgOpenGPS
 {
@@ -16,13 +18,21 @@ namespace AgOpenGPS
             
             if (rbtnHeadingHDT.Checked)
             {
-                gboxSingle.Enabled = false;
-                gboxDual.Enabled = true;
+                if (Properties.Settings.Default.setAutoSwitchDualFixOn)
+                {
+                    rbtnHeadingFix.Enabled = false;
+                    labelGboxSingle.Enabled = true;
+                    labelGboxDual.Enabled = true;
+                } else
+                {
+                    labelGboxSingle.Enabled = false;
+                    labelGboxDual.Enabled = true;
+                }
             }
             else
             {
-                gboxSingle.Enabled = true;
-                gboxDual.Enabled = false;
+                labelGboxSingle.Enabled = true;
+                labelGboxDual.Enabled = false;
             }
 
             nudDualHeadingOffset.Value = (decimal)Properties.Settings.Default.setGPS_dualHeadingOffset;
@@ -35,7 +45,11 @@ namespace AgOpenGPS
             cboxIsRTK.Checked = Properties.Settings.Default.setGPS_isRTK;
             cboxIsRTK_KillAutoSteer.Checked = Properties.Settings.Default.setGPS_isRTK_KillAutoSteer;
 
+            nudFixJumpDistance.Value = Properties.Settings.Default.setGPS_jumpFixAlarmDistance;
+
             cboxIsReverseOn.Checked = Properties.Settings.Default.setIMU_isReverseOn;
+            cboxIsAutoSwitchDualFixOn.Checked = Properties.Settings.Default.setAutoSwitchDualFixOn;
+            nudAutoSwitchDualFixSpeed.Value = (decimal)Properties.Settings.Default.setAutoSwitchDualFixSpeed;
 
             if (Properties.Settings.Default.setF_minHeadingStepDistance == 1.0)
                 cboxMinGPSStep.Checked = true;
@@ -66,6 +80,10 @@ namespace AgOpenGPS
                 hsbarFusion.Enabled = false;
             }
 
+            if (cboxIsAutoSwitchDualFixOn.Checked) { 
+                hsbarFusion.Enabled = true;
+            }
+
             //nudMinimumFrameTime.Value = Properties.Settings.Default.SetGPS_udpWatchMsec;
 
             //nudForwardComp.Value = (decimal)(Properties.Settings.Default.setGPS_forwardComp);
@@ -79,9 +97,11 @@ namespace AgOpenGPS
             mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
 
             Properties.Settings.Default.setGPS_isRTK = mf.isRTK_AlarmOn = cboxIsRTK.Checked;
-            Properties.Settings.Default.setGPS_isRTK_KillAutoSteer = mf.isRTK_KillAutosteer = cboxIsRTK_KillAutoSteer.Checked;
 
             Properties.Settings.Default.setIMU_isReverseOn = mf.ahrs.isReverseOn = cboxIsReverseOn.Checked;
+            Properties.Settings.Default.setAutoSwitchDualFixOn = mf.ahrs.autoSwitchDualFixOn = cboxIsAutoSwitchDualFixOn.Checked;
+
+            Properties.Settings.Default.setGPS_isRTK_KillAutoSteer = mf.isRTK_KillAutosteer = cboxIsRTK_KillAutoSteer.Checked;
 
             if (cboxMinGPSStep.Checked)
             {
@@ -94,7 +114,6 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setGPS_minimumStepLimit = 0.05;
             }
 
-
             Properties.Settings.Default.Save();
         }
         private void rbtnHeadingFix_CheckedChanged(object sender, EventArgs e)
@@ -105,20 +124,28 @@ namespace AgOpenGPS
 
             if (rbtnHeadingHDT.Checked)
             {
-                gboxSingle.Enabled = false;
-                gboxDual.Enabled = true;
+                SetAutoSwitchDualFixPanelOptions();
             }
             else
             {
-                gboxSingle.Enabled = true;
-                gboxDual.Enabled= false;
+                rbtnHeadingFix.Enabled = true;
+                labelGboxSingle.Enabled = true;
+                labelGboxDual.Enabled= false;
             }
         }
 
+        private void nudFixJumpDistance_Click(object sender, EventArgs e)
+        {
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
+            {
+                Properties.Settings.Default.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
+                //mf.jumpDistanceAlarm = Properties.Settings.Default.setGPS_dualHeadingOffset;
+            }
+        }
 
         private void nudDualHeadingOffset_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.setGPS_dualHeadingOffset = ((double)nudDualHeadingOffset.Value);
                 mf.pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
@@ -127,7 +154,7 @@ namespace AgOpenGPS
 
          private void nudDualReverseDistance_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.setGPS_dualReverseDetectionDistance = ((double)nudDualReverseDistance.Value);
                 mf.dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
@@ -135,7 +162,7 @@ namespace AgOpenGPS
         }
         //private void nudMinimumFrameTime_Click(object sender, EventArgs e)
         //{
-        //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+        //    if (((NudlessNumericUpDown)sender).ShowKeypad(this))
         //    {
         //        Properties.Settings.Default.SetGPS_udpWatchMsec = ((int)nudMinimumFrameTime.Value);
         //        mf.udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
@@ -166,11 +193,43 @@ namespace AgOpenGPS
         {
             lblFusion.Text = (hsbarFusion.Value).ToString()+"%";
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString()+"%";
+
+            mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
+        }
+
+        private void cboxIsAutoSwitchDualFixOn_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAutoSwitchDualFixPanelOptions();
+        }
+
+        private void nudAutoSwitchDualFixSpeed_Click(object sender, EventArgs e)
+        {
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
+            {
+                Properties.Settings.Default.setAutoSwitchDualFixSpeed = ((double)nudAutoSwitchDualFixSpeed.Value);
+                mf.ahrs.autoSwitchDualFixSpeed = Properties.Settings.Default.setAutoSwitchDualFixSpeed;
+            }
+        }
+
+        private void SetAutoSwitchDualFixPanelOptions()
+        {
+            if (cboxIsAutoSwitchDualFixOn.Checked)
+            {
+                rbtnHeadingFix.Enabled = false;
+                labelGboxSingle.Enabled = true;
+                labelGboxDual.Enabled = true;
+            }
+            else
+            {
+                rbtnHeadingFix.Enabled = true;
+                labelGboxSingle.Enabled = false;
+                labelGboxDual.Enabled = true;
+            }
         }
 
         //private void nudForwardComp_Click(object sender, EventArgs e)
         //{
-        //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+        //    if (((NudlessNumericUpDown)sender).ShowKeypad(this))
         //    {
         //        Properties.Settings.Default.setGPS_forwardComp = (double)nudForwardComp.Value;
         //    }
@@ -178,7 +237,7 @@ namespace AgOpenGPS
 
         //private void nudReverseComp_Click(object sender, EventArgs e)
         //{
-        //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+        //    if (((NudlessNumericUpDown)sender).ShowKeypad(this))
         //    {
         //        Properties.Settings.Default.setGPS_reverseComp = (double)nudReverseComp.Value;
         //    }
@@ -186,7 +245,7 @@ namespace AgOpenGPS
 
         //private void nudAgeAlarm_Click(object sender, EventArgs e)
         //{
-        //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+        //    if (((NudlessNumericUpDown)sender).ShowKeypad(this))
         //    {
         //        Properties.Settings.Default.setGPS_ageAlarm = (int)nudAgeAlarm.Value;
         //    }
@@ -253,6 +312,7 @@ namespace AgOpenGPS
                 mf.ahrs.imuRoll += mf.ahrs.rollZero;
                 mf.ahrs.rollZero = mf.ahrs.imuRoll;
                 lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
+                Log.EventWriter("Roll Zeroed with " + mf.ahrs.rollZero.ToString());
             }
             else
             {
@@ -264,8 +324,9 @@ namespace AgOpenGPS
         {
             mf.ahrs.rollZero = 0;
             lblRollZeroOffset.Text = "0.00";
+            Log.EventWriter("Roll Zero Offset Removed");
         }
-         
+
         private void btnResetIMU_Click(object sender, EventArgs e)
         {
             mf.ahrs.imuHeading = 99999;
@@ -300,6 +361,9 @@ namespace AgOpenGPS
             cboxSectionsSound.Checked = Properties.Settings.Default.setSound_isSectionsOn;
 
             cboxAutoStartAgIO.Checked = Properties.Settings.Default.setDisplay_isAutoStartAgIO;
+            cboxAutoOffAgIO.Checked = Properties.Settings.Default.setDisplay_isAutoOffAgIO;
+            cboxShutdownWhenNoPower.Checked = Properties.Settings.Default.setDisplay_isShutdownWhenNoPower;
+            cboxHardwareMessages.Checked = Properties.Settings.Default.setDisplay_isHardwareMessages;
         }
 
         private void tabBtns_Leave(object sender, EventArgs e)
@@ -332,6 +396,12 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
             mf.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
 
+            Properties.Settings.Default.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
+
+            Properties.Settings.Default.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
+
+            Properties.Settings.Default.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;
+
             Properties.Settings.Default.Save();
         }
 
@@ -342,7 +412,6 @@ namespace AgOpenGPS
                 form.ShowDialog(mf);
             }
         }
-
 
         #endregion
     }

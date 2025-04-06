@@ -1,3 +1,6 @@
+using AgLibrary.Logging;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -25,7 +28,7 @@ namespace AgOpenGPS
             this.Text = gStr.gsStartDeleteABoundary;
 
             //Column Header
-            Boundary.Text = "Bounds";
+            labelBounds.Text = gStr.gsBoundary;
             Thru.Text = gStr.gsDriveThru;
             Area.Text = gStr.gsArea;
             btnDelete.Enabled = false;
@@ -33,7 +36,7 @@ namespace AgOpenGPS
 
         private void FormBoundary_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(600, 300);
+            this.Size = new Size(600,300);
 
             //update the list view with real data
             UpdateChart();
@@ -47,10 +50,19 @@ namespace AgOpenGPS
             panelKML.Visible = false;
             mf.CloseTopMosts();
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
+            }
+        }
+
+        private void FormBoundary_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isClosing)
+            {
+                e.Cancel = true;
+                return;
             }
         }
 
@@ -239,7 +251,7 @@ namespace AgOpenGPS
             //save new copy of kml with selected flag and view in GoogleEarth
 
             mf.FileMakeKMLFromCurrentPosition(mf.pn.latitude, mf.pn.longitude);
-            System.Diagnostics.Process.Start(mf.fieldsDirectory + mf.currentFieldDirectory + "\\CurrentPosition.KML");
+            System.Diagnostics.Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "CurrentPosition.KML"));
             isClosing = true;
             Close();
         }
@@ -273,7 +285,7 @@ namespace AgOpenGPS
             panelChoose.Visible = false;
             panelKML.Visible = false;
 
-            this.Size = new System.Drawing.Size(600, 300);
+            this.Size = new System.Drawing.Size(600,300);
             isClosing = true;
             UpdateChart();
             Close();
@@ -284,6 +296,8 @@ namespace AgOpenGPS
             if (mf.tool.width < 0.2)
             {
                 mf.TimedMessageBox(2000, "Tool Error", "Your tool is too small");
+                Log.EventWriter("Boundary, Tool is too narrow");
+
                 return;
             }
             panelMain.Visible = false;
@@ -291,16 +305,7 @@ namespace AgOpenGPS
             panelChoose.Visible = true;
             panelChoose.Dock = DockStyle.Fill;
 
-            this.Size = new Size(245, 350);
-        }
-
-        private void FormBoundary_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!isClosing)
-            {
-                e.Cancel = true;
-                return;
-            }
+            this.Size = new Size(245,350);
         }
 
         private void btnLoadBoundaryFromGE_Click(object sender, EventArgs e)
@@ -316,7 +321,7 @@ namespace AgOpenGPS
                         Filter = "KML files (*.KML)|*.KML",
 
                         //the initial directory, fields, for the open dialog
-                        InitialDirectory = mf.fieldsDirectory + mf.currentFieldDirectory
+                        InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory)
                     };
 
                     //was a file selected
@@ -396,6 +401,8 @@ namespace AgOpenGPS
                                 else
                                 {
                                     mf.TimedMessageBox(2000, gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone);
+                                    Log.EventWriter("KML Read Error to make new field");
+
                                 }
                                 if (button.Name == "btnLoadBoundaryFromGE")
                                 {
@@ -408,8 +415,9 @@ namespace AgOpenGPS
                         mf.btnABDraw.Visible = true;
                         UpdateChart();
                     }
-                    catch (Exception)
+                    catch (Exception ed)
                     {
+                        Log.EventWriter("Load Boundary from GE " + ed.ToString());
                         return;
                     }
                 }
@@ -420,7 +428,7 @@ namespace AgOpenGPS
             panelChoose.Visible = false;
             panelKML.Visible = false;
 
-            this.Size = new Size(600, 300);
+            this.Size = new Size(600,300);
 
             UpdateChart();
         }

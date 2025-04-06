@@ -1,4 +1,8 @@
-﻿using AgOpenGPS.Properties;
+﻿using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -25,7 +29,7 @@ namespace AgOpenGPS
         {
             lblInchCm2.Text = mf.unitsInCm.ToString();
 
-            if (mf.vehicle.vehicleType != 1)
+            if (mf.vehicle.VehicleConfig.Type != VehicleType.Harvester)
             {
                 pboxConfigHarvester.Visible = false;
 
@@ -76,9 +80,8 @@ namespace AgOpenGPS
         }
         private void tabTConfig_Leave(object sender, EventArgs e)
         {
-            if (mf.vehicle.vehicleType != 1)
+            if (mf.vehicle.VehicleConfig.Type != VehicleType.Harvester)
             {
-
                 if (rbtnFront.Checked)
                 {
                     Properties.Settings.Default.setTool_isToolFront = true;
@@ -137,7 +140,7 @@ namespace AgOpenGPS
 
         private void tabTHitch_Enter(object sender, EventArgs e)
         {
-            if (mf.vehicle.vehicleType != 1)
+            if (mf.vehicle.VehicleConfig.Type != VehicleType.Harvester)
             {
                 //fixed -hitch only on vehicle
                 if (Properties.Settings.Default.setTool_isToolFront)
@@ -161,7 +164,7 @@ namespace AgOpenGPS
                     picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageRear;
                 }
 
-                //trailing
+                //trailing TBT
                 else if (Properties.Settings.Default.setTool_isToolTBT)
                 {
                     nudTrailingHitchLength.Visible = true;
@@ -173,6 +176,8 @@ namespace AgOpenGPS
 
                     picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageTBT;
                 }
+
+                //normal trailing
                 else if (Properties.Settings.Default.setTool_isToolTrailing)
                 {
                     nudTrailingHitchLength.Visible = true;
@@ -210,7 +215,7 @@ namespace AgOpenGPS
 
         private void nudDrawbarLength_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.hitchLength = (double)nudDrawbarLength.Value * mf.inchOrCm2m;
                 if (!Properties.Settings.Default.setTool_isToolFront)
@@ -223,17 +228,16 @@ namespace AgOpenGPS
 
         private void nudTankHitch_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.tankTrailingHitchLength = (double)nudTankHitch.Value * -mf.inchOrCm2m;
                 Properties.Settings.Default.setVehicle_tankTrailingHitchLength = mf.tool.tankTrailingHitchLength;
-
             }
         }
 
         private void nudTrailingHitchLength_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.trailingHitchLength = (double)nudTrailingHitchLength.Value * -mf.inchOrCm2m;
                 Properties.Settings.Default.setTool_toolTrailingHitchLength = mf.tool.trailingHitchLength;
@@ -273,7 +277,7 @@ namespace AgOpenGPS
         }
         private void nudLookAhead_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if (nudLookAheadOff.Value > (nudLookAhead.Value * 0.8m))
                 {
@@ -288,7 +292,7 @@ namespace AgOpenGPS
 
         private void nudLookAheadOff_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if (nudLookAheadOff.Value > (nudLookAhead.Value * 0.8m))
                 {
@@ -312,7 +316,7 @@ namespace AgOpenGPS
 
         private void nudTurnOffDelay_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if (nudTurnOffDelay.Value > 0)
                 {
@@ -354,7 +358,7 @@ namespace AgOpenGPS
 
         private void nudOffset_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if (!rbtnToolRightPositive.Checked && !rbtnLeftNegative.Checked)
                     rbtnToolRightPositive.Checked = true;
@@ -399,7 +403,7 @@ namespace AgOpenGPS
 
         private void nudOverlap_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if (!rbtnToolOverlap.Checked && !rbtnToolGap.Checked)
                     rbtnToolOverlap.Checked = true;
@@ -456,7 +460,7 @@ namespace AgOpenGPS
             rbtnPivotBehindPos.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength > 0;
             rbtnPivotAheadNeg.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength < 0;
 
-            label177.Text = mf.unitsInCm;
+            LabelCm.Text = mf.unitsInCm;
         }
 
         private void tabToolPivot_Leave(object sender, EventArgs e)
@@ -492,7 +496,7 @@ namespace AgOpenGPS
 
         private void nudTrailingToolToPivotLength_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if (rbtnPivotBehindPos.Checked)
                     mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * mf.inchOrCm2m;
@@ -569,12 +573,12 @@ namespace AgOpenGPS
             if (cboxIsUnique.Checked)
             {
                 cboxIsUnique.BackgroundImage = Properties.Resources.ConT_Symmetric;
-                cboxNumberOfZones.Visible = lblZonesBox.Visible = true;
+                cboxNumberOfZones.Visible = labelZonesBox.Visible = true;
             }
             else
             {
                 cboxIsUnique.BackgroundImage = Properties.Resources.ConT_Asymmetric;
-                cboxNumberOfZones.Visible = lblZonesBox.Visible = false;
+                cboxNumberOfZones.Visible = labelZonesBox.Visible = false;
             }
 
             nudNumberOfSections.Maximum = FormGPS.MAXSECTIONS;
@@ -811,7 +815,7 @@ namespace AgOpenGPS
 
         private void nudZone1To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[1] = (int)nudZone1To.Value;
                 SetNudZoneVisibility(); 
@@ -820,7 +824,7 @@ namespace AgOpenGPS
 
         private void nudZone2To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[2] = (int)nudZone2To.Value;
                 SetNudZoneVisibility();
@@ -829,7 +833,7 @@ namespace AgOpenGPS
 
         private void nudZone3To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[3] = (int)nudZone3To.Value;
                 SetNudZoneVisibility();
@@ -838,7 +842,7 @@ namespace AgOpenGPS
 
         private void nudZone4To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[4] = (int)nudZone4To.Value;
                 SetNudZoneVisibility();
@@ -847,7 +851,7 @@ namespace AgOpenGPS
 
         private void nudZone5To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[5] = (int)nudZone5To.Value;
                 SetNudZoneVisibility();
@@ -856,7 +860,7 @@ namespace AgOpenGPS
 
         private void nudZone6To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[6] = (int)nudZone6To.Value;
                 SetNudZoneVisibility();
@@ -865,7 +869,7 @@ namespace AgOpenGPS
 
         private void nudZone7To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[7] = (int)nudZone7To.Value;
                 SetNudZoneVisibility();
@@ -874,7 +878,7 @@ namespace AgOpenGPS
 
         private void nudZone8To_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.zoneRanges[8] = (int)nudZone8To.Value;
                 SetNudZoneVisibility();
@@ -1099,7 +1103,7 @@ namespace AgOpenGPS
 
         private void nudNumberOfSections_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 if ((int)nudNumberOfSections.Value < mf.tool.zones)
                 {
@@ -1122,7 +1126,7 @@ namespace AgOpenGPS
 
         private void nudDefaultSectionWidth_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 defaultSectionWidth = (double)nudDefaultSectionWidth.Value * mf.inchOrCm2m;
 
@@ -1148,10 +1152,12 @@ namespace AgOpenGPS
 
                 if (mf.isMetric)
                 {
-                    if (numberOfSections * wide > 4800)
+                    if (numberOfSections * wide > 5000)
                     {
                         wide = 99;
                         mf.TimedMessageBox(3000, "Too Wide", "Max 50 Meters");
+                        Log.EventWriter("Sections, Tool Set Too Wide");
+
                     }
                 }
                 else
@@ -1160,6 +1166,7 @@ namespace AgOpenGPS
                     {
                         wide = 19;
                         mf.TimedMessageBox(3000, "Too Wide", "Max 164 Feet");
+                        Log.EventWriter("Sections, Tool Set Too Wide");
                     }
                 }
 
@@ -1197,13 +1204,13 @@ namespace AgOpenGPS
 
         private void NudSection1_Click(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
+            ((NudlessNumericUpDown)sender).ShowKeypad(this);
             UpdateSpinners();
         }
 
         private void nudCutoffSpeed_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.vehicle.slowSpeedCutoff = (double)nudCutoffSpeed.Value;
                 Properties.Settings.Default.setVehicle_slowSpeedCutoff = (double)nudCutoffSpeed.Value;
@@ -1212,7 +1219,7 @@ namespace AgOpenGPS
 
         private void nudMinCoverage_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tool.minCoverage = (int)nudMinCoverage.Value;
                 Properties.Settings.Default.setVehicle_minCoverage = mf.tool.minCoverage;
@@ -1240,6 +1247,58 @@ namespace AgOpenGPS
                             item2.Enabled = true;
                             item2.Visible = true;
                             toolWidth += item2.Value;
+
+                            if (mf.isMetric)
+                            {
+                                if (toolWidth > 5000)
+                                {
+                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 50 Meters");
+                                    Log.EventWriter("Sections, Tool Set Too Wide");
+                                    toolWidth = 0;
+                                    nudSection01.Value =  99;
+                                    nudSection02.Value =  99;
+                                    nudSection03.Value =  99;
+                                    nudSection04.Value =  99;
+                                    nudSection05.Value =  99;
+                                    nudSection06.Value =  99;
+                                    nudSection07.Value =  99;
+                                    nudSection08.Value =  99;
+                                    nudSection09.Value =  99;
+                                    nudSection10.Value =  99;
+                                    nudSection11.Value =  99;
+                                    nudSection12.Value =  99;
+                                    nudSection13.Value =  99;
+                                    nudSection14.Value =  99;
+                                    nudSection15.Value =  99;
+                                    nudSection16.Value =  99;
+                                }
+                            }
+                            else
+                            {
+                                if (toolWidth > 1900)
+                                {
+                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 164 Feet");
+                                    Log.EventWriter("Sections, Tool Set Too Wide");
+                                    toolWidth = 0;
+                                    nudSection01.Value = 99;
+                                    nudSection02.Value = 99;
+                                    nudSection03.Value = 99;
+                                    nudSection04.Value = 99;
+                                    nudSection05.Value = 99;
+                                    nudSection06.Value = 99;
+                                    nudSection07.Value = 99;
+                                    nudSection08.Value = 99;
+                                    nudSection09.Value = 99;
+                                    nudSection10.Value = 99;
+                                    nudSection11.Value = 99;
+                                    nudSection12.Value = 99;
+                                    nudSection13.Value = 99;
+                                    nudSection14.Value = 99;
+                                    nudSection15.Value = 99;
+                                    nudSection16.Value = 99;
+                                }
+                            }
+
                         }
                         else
                         {

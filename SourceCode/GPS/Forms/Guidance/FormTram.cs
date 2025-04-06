@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AgOpenGPS.Controls;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using System;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -17,8 +20,13 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            this.Text = gStr.gsTramLines;
-            label3.Text = gStr.gsPasses;
+            this.Text = gStr.gsSimpleTramLines;
+            labelPasses.Text = gStr.gsPasses;
+            labelMode.Text = gStr.gsMode;
+            labelAlpha.Text = gStr.gsAlpha; 
+            labelSeed.Text = gStr.gsWorkWidth;
+            labelSprayWidth.Text = gStr.gsTramWidth;
+            labelTrack.Text = gStr.gsTrack;
             lblTramWidth.Text = (mf.tram.tramWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
             lblSeedWidth.Text = (mf.tool.width * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
 
@@ -29,6 +37,9 @@ namespace AgOpenGPS
 
         private void FormTram_Load(object sender, EventArgs e)
         {
+            tbarTramAlpha.Value = (int)(mf.tram.alpha * 100);
+            lblAplha.Text = tbarTramAlpha.Value.ToString() + "%";
+
             if (Properties.Settings.Default.setTram_passes < 1)
             {
                 Properties.Settings.Default.setTram_passes = 1;
@@ -37,7 +48,7 @@ namespace AgOpenGPS
             nudPasses.Value = Properties.Settings.Default.setTram_passes;
             nudPasses.ValueChanged += nudPasses_ValueChanged;
 
-            lblTrack.Text = (mf.vehicle.trackWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
+            lblTrack.Text = (mf.vehicle.VehicleConfig.TrackWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
 
             mf.tool.halfWidth = (mf.tool.width - mf.tool.overlap) / 2.0;
 
@@ -85,7 +96,7 @@ namespace AgOpenGPS
                 MoveBuildTramLine(0);
             }
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -110,6 +121,9 @@ namespace AgOpenGPS
             mf.FileSaveTram();
             mf.PanelUpdateRightAndBottom();
             mf.FixTramModeButton();
+
+            Properties.Settings.Default.setTram_alpha = mf.tram.alpha;
+            Properties.Settings.Default.Save();
         }
 
         private void MoveBuildTramLine(double Dist)
@@ -146,7 +160,7 @@ namespace AgOpenGPS
 
         private void nudPasses_Click(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
+            ((NudlessNumericUpDown)sender).ShowKeypad(this);
         }
         private void btnUpTrams_Click(object sender, EventArgs e)
         {
@@ -160,7 +174,7 @@ namespace AgOpenGPS
 
         private void btnSwapAB_Click(object sender, EventArgs e)
         {
-            if (mf.trk.gArr[mf.trk.idx].mode == (int)TrackMode.AB)
+            if (mf.trk.gArr[mf.trk.idx].mode == TrackMode.AB)
             {
                 vec2 bob = mf.trk.gArr[mf.trk.idx].ptA;
                 mf.trk.gArr[mf.trk.idx].ptA = mf.trk.gArr[mf.trk.idx].ptB;
@@ -222,6 +236,7 @@ namespace AgOpenGPS
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+
             Close();
         }
 
@@ -249,6 +264,12 @@ namespace AgOpenGPS
             }
 
             MoveBuildTramLine(0);
+        }
+
+        private void tbarTramAlpha_Scroll(object sender, EventArgs e)
+        {
+            mf.tram.alpha = (double)tbarTramAlpha.Value * 0.01;
+            lblAplha.Text = tbarTramAlpha.Value.ToString() + "%";
         }
     }
 }

@@ -16,6 +16,7 @@ using System.Configuration;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using AgOpenGPS.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AgOpenGPS
 {
@@ -60,7 +61,7 @@ namespace AgOpenGPS
             webV += double.Parse(fullVers[1], CultureInfo.InvariantCulture) * 0.1;
             if (clientVersion + 0.0001 < webV)
             {
-                SaveConfig.Checked = true;
+                //ajout memprou SaveConfig.Checked = true;
                 button1.Visible = true;
                 progressBar1.Visible = true;
             }
@@ -81,9 +82,9 @@ namespace AgOpenGPS
             download_ok = true;
             Properties.Settings.Default.UP_setUpdate_MAJ = SaveConfig.Checked;
 
-                string line;
-                string fusionsettingfile = mf.baseDirectory + "\\update\\fusionsetting.txt";
-                bool fusionsetting = true;
+            string line;
+            string fusionsettingfile = RegistrySettings.baseDirectory + "\\update\\fusionsetting.txt";
+            bool fusionsetting = true;
             if (File.Exists(fusionsettingfile))
             {
                 using (StreamWriter writer = new StreamWriter(fusionsettingfile))
@@ -107,7 +108,7 @@ namespace AgOpenGPS
 
 
 
-                this.BeginInvoke((MethodInvoker)delegate {
+            this.BeginInvoke((MethodInvoker)delegate {
                 Process.Start(packageFile);
 
                 Process[] runningProcesses = Process.GetProcesses();
@@ -125,7 +126,7 @@ namespace AgOpenGPS
         {
 
 
-            updatePath = mf.baseDirectory + "\\update\\" + strWebVersion.Replace(",", ".");
+            updatePath = RegistrySettings.baseDirectory + "\\update\\" + strWebVersion.Replace(",", ".");
             // URL de la dernière version de l'application
             Uri package = new Uri("https://www.dropbox.com/s/zynr77hvlf69jpb/AOGUpdate.exe?dl=1");
 
@@ -163,7 +164,7 @@ namespace AgOpenGPS
                 }
             }
             if (download_ok == true)
-            {         
+            {
             }
         }
 
@@ -182,7 +183,7 @@ namespace AgOpenGPS
 
         private void FormUpdate_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using System;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -18,7 +20,6 @@ namespace AgOpenGPS
 
             this.bntOK.Text = gStr.gsForNow;
             this.btnSave.Text = gStr.gsToFile;
-
             this.Text = gStr.gsSmoothABCurve;
         }
 
@@ -36,7 +37,7 @@ namespace AgOpenGPS
             smoothCount = 20;
             lblSmooth.Text = "**";
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;

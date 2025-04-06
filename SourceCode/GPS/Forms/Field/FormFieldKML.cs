@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -20,14 +24,15 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = gStr.gsEnterFieldName;
+            labelFieldname.Text = gStr.gsEnterFieldName;
             this.Text = gStr.gsCreateNewField;
         }
 
         private void FormFieldDir_Load(object sender, EventArgs e)
         {
             btnSave.Enabled = false;
-            if (!mf.IsOnScreen(Location, Size, 1))
+
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -66,7 +71,7 @@ namespace AgOpenGPS
         {
             if (mf.isKeyboardOn)
             {
-                mf.KeyboardToText((TextBox)sender, this);
+                ((TextBox)sender).ShowKeyboard(this);
                 btnSerialCancel.Focus();
             }
         }
@@ -84,7 +89,7 @@ namespace AgOpenGPS
                 Filter = "KML files (*.KML)|*.KML",
 
                 //the initial directory, fields, for the open dialog
-                InitialDirectory = mf.fieldsDirectory
+                InitialDirectory = RegistrySettings.fieldsDirectory
             };
 
             //was a file selected
@@ -185,6 +190,7 @@ namespace AgOpenGPS
                             else
                             {
                                 mf.TimedMessageBox(2000, gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone);
+                                Log.EventWriter("New Field, Error Reading KML");
                             }
                             break;
                         }
@@ -197,14 +203,16 @@ namespace AgOpenGPS
                     btnSave.Enabled = true;
                     btnLoadKML.Enabled = false;
                 }
-                catch (Exception)
+                catch (Exception ee)
                 {
                     btnSave.Enabled = false;
                     btnLoadKML.Enabled = false;
+                    mf.TimedMessageBox(2000, gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone);
+                    Log.EventWriter("New Field, Error Reading KML" + ee.ToString());
                     return;
                 }
             }
-
+             
             mf.bnd.isOkToAddPoints = false;
         }
 
@@ -275,6 +283,8 @@ namespace AgOpenGPS
                             else
                             {
                                 mf.TimedMessageBox(2000, gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone);
+                                Log.EventWriter("New Field, Error Reading KML ");
+
                             }
                             //if (button.Name == "btnLoadBoundaryFromGE")
                             //{
@@ -283,9 +293,10 @@ namespace AgOpenGPS
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception et)
                 {
-                    mf.TimedMessageBox(2000, "Exception", "Catch Exception");
+                    mf.TimedMessageBox(2000, "Exception", "Error Finding Lat Lon");
+                    Log.EventWriter("Lat Lon Exception Reading KML " + et.ToString());
                     return;
                 }
             }
@@ -306,7 +317,7 @@ namespace AgOpenGPS
             mf.currentFieldDirectory = tboxFieldName.Text.Trim();
 
             //get the directory and make sure it exists, create if not
-            string dirNewField = mf.fieldsDirectory + mf.currentFieldDirectory + "\\";
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
             mf.menustripLanguage.Enabled = false;
             //if no template set just make a new file.
@@ -316,8 +327,6 @@ namespace AgOpenGPS
                 mf.JobNew();
 
                 //create it for first save
-                string directoryName = Path.GetDirectoryName(dirNewField);
-
                 if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
                 {
                     MessageBox.Show(gStr.gsChooseADifferentName, gStr.gsDirectoryExists, MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -328,18 +337,7 @@ namespace AgOpenGPS
                     mf.pn.latStart = latK;
                     mf.pn.lonStart = lonK;
 
-                    if (mf.timerSim.Enabled)
-                    {
-                        mf.sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = latK;
-                        mf.sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = lonK;
-
-                        mf.pn.latitude = latK;
-                        mf.pn.longitude = lonK;
-
-                        Properties.Settings.Default.Save();
-                    }
-
-                    mf.pn.SetLocalMetersPerDegree();
+                    mf.pn.SetLocalMetersPerDegree(true);
 
                     //make sure directory exists, or create it
                     if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))
@@ -350,22 +348,20 @@ namespace AgOpenGPS
                     //create the field file header info
                     if (!mf.isJobStarted)
                     {
-                        using (FormTimedMessage form = new FormTimedMessage(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField))
-                        { form.Show(this); }
+                        mf.TimedMessageBox(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField);
                         return;
                     }
-                    string myFileName, dirField;
+                    string myFileName;
 
                     //get the directory and make sure it exists, create if not
-                    dirField = mf.fieldsDirectory + mf.currentFieldDirectory + "\\";
-                    directoryName = Path.GetDirectoryName(dirField);
+                    directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
                     if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
                     { Directory.CreateDirectory(directoryName); }
 
                     myFileName = "Field.txt";
 
-                    using (StreamWriter writer = new StreamWriter(dirField + myFileName))
+                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
                     {
                         //Write out the date
                         writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
@@ -396,7 +392,7 @@ namespace AgOpenGPS
             }
             catch (Exception ex)
             {
-                mf.WriteErrorLog("Creating new field " + ex);
+                Log.EventWriter("Creating new kml field " + ex.ToString());
 
                 MessageBox.Show(gStr.gsError, ex.ToString());
                 mf.currentFieldDirectory = "";

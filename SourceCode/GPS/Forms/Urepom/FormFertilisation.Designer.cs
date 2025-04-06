@@ -35,9 +35,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cbox_auto = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.nudDoseFerti = new System.Windows.Forms.NumericUpDown();
+            this.nudDoseFerti = new AgOpenGPS.NudlessNumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.numTimerRincage = new System.Windows.Forms.NumericUpDown();
+            this.numTimerRincage = new AgOpenGPS.NudlessNumericUpDown();
             this.cboxRincage = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -50,7 +50,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cboxvidange = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new AgOpenGPS.NudlessNumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();

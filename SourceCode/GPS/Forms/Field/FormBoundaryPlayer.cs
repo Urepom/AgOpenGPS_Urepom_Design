@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using System;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -37,13 +41,19 @@ namespace AgOpenGPS
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + ((int)(ftInches % 12)).ToString() + '"';
             }
+
             btnPausePlay.Image = Properties.Resources.BoundaryRecord;
+
+            mf.bnd.isDrawAtPivot = Properties.Settings.Default.setBnd_isDrawPivot;
+
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
+            btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
+
             mf.bnd.createBndOffset = (mf.tool.width * 0.5);
             mf.bnd.isBndBeingMade = true;
             mf.Focus();
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -61,7 +71,7 @@ namespace AgOpenGPS
 
         private void nudOffset_Click(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
+            ((NudlessNumericUpDown)sender).ShowKeypad(this);
             btnPausePlay.Focus();
             if (mf.isMetric)
             {
@@ -98,12 +108,13 @@ namespace AgOpenGPS
             {
                 lblArea.Text = Math.Round(area * 0.000247105, 2).ToString();
             }
+
             lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show("Done?", gStr.gsBoundaryMenu,
+            DialogResult result3 = MessageBox.Show("Done?", gStr.gsBoundary,
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
@@ -128,8 +139,9 @@ namespace AgOpenGPS
                     mf.CalculateMinMax();
                     mf.FileSaveBoundary();
                     mf.bnd.BuildTurnLines();
-                    //mf.hd.BuildSingleSpaceHeadLines();
                     mf.btnABDraw.Visible = true;
+
+                    Log.EventWriter("Driven Boundary Created, Area: " + lblArea.Text);
                 }
 
                 //stop it all for adding
@@ -150,7 +162,6 @@ namespace AgOpenGPS
             {
                 mf.bnd.isOkToAddPoints = false;
                 btnPausePlay.Image = Properties.Resources.BoundaryRecord;
-                //btnPausePlay.Text = gStr.gsRecord;
                 btnAddPoint.Enabled = true;
                 btnDeleteLast.Enabled = true;
             }
@@ -158,11 +169,9 @@ namespace AgOpenGPS
             {
                 mf.bnd.isOkToAddPoints = true;
                 btnPausePlay.Image = Properties.Resources.boundaryPause;
-                //btnPausePlay.Text = gStr.gsPause;
                 btnAddPoint.Enabled = false;
                 btnDeleteLast.Enabled = false;
             }
-            mf.Focus();
         }
 
         private void btnAddPoint_Click(object sender, EventArgs e)
@@ -171,8 +180,6 @@ namespace AgOpenGPS
             mf.AddBoundaryPoint();
             mf.bnd.isOkToAddPoints = false;
             lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
-
-            mf.Focus();
         }
 
         private void btnDeleteLast_Click(object sender, EventArgs e)
@@ -181,7 +188,6 @@ namespace AgOpenGPS
             if (ptCount > 0)
                 mf.bnd.bndBeingMadePts.RemoveAt(ptCount - 1);
             lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
-            mf.Focus();
         }
 
         private void btnRestart_Click(object sender, EventArgs e)
@@ -194,15 +200,21 @@ namespace AgOpenGPS
             if (result3 == DialogResult.Yes)
             {
                 mf.bnd.bndBeingMadePts?.Clear();
-                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
             }
-            mf.Focus();
+            lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
         }
 
         private void btnLeftRight_Click(object sender, EventArgs e)
         {
             mf.bnd.isDrawRightSide = !mf.bnd.isDrawRightSide;
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
+        }
+
+        private void btnAntennaTool_Click(object sender, EventArgs e)
+        {
+            mf.bnd.isDrawAtPivot = !mf.bnd.isDrawAtPivot;
+            btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
+            Properties.Settings.Default.setBnd_isDrawPivot = mf.bnd.isDrawAtPivot;            
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -245,20 +257,9 @@ namespace AgOpenGPS
             // Call the base class
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
+        private void cboxIsRecBoundaryWhenSectionOn_Click(object sender, EventArgs e)
+        {
+            mf.bnd.isRecBoundaryWhenSectionOn = cboxIsRecBoundaryWhenSectionOn.Checked;
+        }
     }
 }
-
-/*
-
-            MessageBox.Show(gStr, gStr.gsHelp);
-
-            DialogResult result2 = MessageBox.Show(gStr, gStr.gsHelp,
-                MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (result2 == DialogResult.Yes)
-            {
-                System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=rsJMRZrcuX4");
-            }
-
-*/

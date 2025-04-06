@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -32,7 +33,7 @@ namespace AgOpenGPS
 
         private void Form_About_Load(object sender, EventArgs e)
         {
-            lblVersion.Text = "Version " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            lblVersion.Text = "Version " + Program.SemVer;
 
             // Add a link to the LinkLabel.
             LinkLabel.Link link = new LinkLabel.Link { LinkData = "https://github.com/farmerbriantee/AgOpenGPS/releases" };
@@ -52,7 +53,7 @@ namespace AgOpenGPS
             };
             linkLabelYouTube.Links.Add(youtube);
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;

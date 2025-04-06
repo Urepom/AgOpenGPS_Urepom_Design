@@ -133,6 +133,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ABPivotCircle {
+            get {
+                object obj = ResourceManager.GetObject("ABPivotCircle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ABShrinkGrow {
             get {
                 object obj = ResourceManager.GetObject("ABShrinkGrow", resourceCulture);
@@ -262,9 +272,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Antenna4WD {
+        internal static System.Drawing.Bitmap AntennaArticulated {
             get {
-                object obj = ResourceManager.GetObject("Antenna4WD", resourceCulture);
+                object obj = ResourceManager.GetObject("AntennaArticulated", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -502,66 +512,6 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Batterie100 {
-            get {
-                object obj = ResourceManager.GetObject("Batterie100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Batterie25 {
-            get {
-                object obj = ResourceManager.GetObject("Batterie25", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Batterie50 {
-            get {
-                object obj = ResourceManager.GetObject("Batterie50", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Batterie75 {
-            get {
-                object obj = ResourceManager.GetObject("Batterie75", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BatterieOnline {
-            get {
-                object obj = ResourceManager.GetObject("BatterieOnline", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BatterieWarning {
-            get {
-                object obj = ResourceManager.GetObject("BatterieWarning", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap bing1 {
             get {
                 object obj = ResourceManager.GetObject("bing1", resourceCulture);
@@ -682,6 +632,26 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BoundaryRecordPivot {
+            get {
+                object obj = ResourceManager.GetObject("BoundaryRecordPivot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BoundaryRecordTool {
+            get {
+                object obj = ResourceManager.GetObject("BoundaryRecordTool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BoundaryReduce {
             get {
                 object obj = ResourceManager.GetObject("BoundaryReduce", resourceCulture);
@@ -695,6 +665,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap BoundaryRight {
             get {
                 object obj = ResourceManager.GetObject("BoundaryRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BoundarySectionControlOnOff {
+            get {
+                object obj = ResourceManager.GetObject("BoundarySectionControlOnOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -805,6 +785,26 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap Challenger {
             get {
                 object obj = ResourceManager.GetObject("Challenger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChargeIndicator {
+            get {
+                object obj = ResourceManager.GetObject("ChargeIndicator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChargingNo {
+            get {
+                object obj = ResourceManager.GetObject("ChargingNo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1022,6 +1022,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConD_DirectionMarker {
+            get {
+                object obj = ResourceManager.GetObject("ConD_DirectionMarker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConD_ExtraGuides {
             get {
                 object obj = ResourceManager.GetObject("ConD_ExtraGuides", resourceCulture);
@@ -1092,9 +1102,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ConD_LogElevation {
+        internal static System.Drawing.Bitmap ConD_LineSmooth {
             get {
-                object obj = ResourceManager.GetObject("ConD_LogElevation", resourceCulture);
+                object obj = ResourceManager.GetObject("ConD_LineSmooth", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1102,9 +1112,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ConD_LogNMEA {
+        internal static System.Drawing.Bitmap ConD_LogElevation {
             get {
-                object obj = ResourceManager.GetObject("ConD_LogNMEA", resourceCulture);
+                object obj = ResourceManager.GetObject("ConD_LogElevation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1142,6 +1152,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConD_SectionHighlights {
+            get {
+                object obj = ResourceManager.GetObject("ConD_SectionHighlights", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConD_Sky {
             get {
                 object obj = ResourceManager.GetObject("ConD_Sky", resourceCulture);
@@ -1155,6 +1175,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap ConD_Speedometer {
             get {
                 object obj = ResourceManager.GetObject("ConD_Speedometer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConD_SteerBarBar {
+            get {
+                object obj = ResourceManager.GetObject("ConD_SteerBarBar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1742,16 +1772,6 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap displayMenu {
-            get {
-                object obj = ResourceManager.GetObject("displayMenu", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap DnArrow64 {
             get {
                 object obj = ResourceManager.GetObject("DnArrow64", resourceCulture);
@@ -2042,6 +2062,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HardwareMessage {
+            get {
+                object obj = ResourceManager.GetObject("HardwareMessage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Headache {
             get {
                 object obj = ResourceManager.GetObject("Headache", resourceCulture);
@@ -2240,9 +2270,39 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IncrementMinus {
+            get {
+                object obj = ResourceManager.GetObject("IncrementMinus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IncrementPlus {
+            get {
+                object obj = ResourceManager.GetObject("IncrementPlus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ISOXML {
             get {
                 object obj = ResourceManager.GetObject("ISOXML", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap JCB {
+            get {
+                object obj = ResourceManager.GetObject("JCB", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2580,6 +2640,26 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap QRAOG {
+            get {
+                object obj = ResourceManager.GetObject("QRAOG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QRYouTube {
+            get {
+                object obj = ResourceManager.GetObject("QRYouTube", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RadiusWheelBase {
             get {
                 object obj = ResourceManager.GetObject("RadiusWheelBase", resourceCulture);
@@ -2590,9 +2670,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap RadiusWheelBase4WD {
+        internal static System.Drawing.Bitmap RadiusWheelBaseArticulated {
             get {
-                object obj = ResourceManager.GetObject("RadiusWheelBase4WD", resourceCulture);
+                object obj = ResourceManager.GetObject("RadiusWheelBaseArticulated", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2662,6 +2742,26 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap Same {
             get {
                 object obj = ResourceManager.GetObject("Same", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screen2PNG {
+            get {
+                object obj = ResourceManager.GetObject("Screen2PNG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ScreenShot {
+            get {
+                object obj = ResourceManager.GetObject("ScreenShot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2850,6 +2950,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap Sf_SteerTab {
             get {
                 object obj = ResourceManager.GetObject("Sf_SteerTab", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SimUDP {
+            get {
+                object obj = ResourceManager.GetObject("SimUDP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3374,6 +3484,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TramMulti {
+            get {
+                object obj = ResourceManager.GetObject("TramMulti", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TramOff {
             get {
                 object obj = ResourceManager.GetObject("TramOff", resourceCulture);
@@ -3474,9 +3594,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap vehiclePage4WD {
+        internal static System.Drawing.Bitmap vehiclePageArticulated {
             get {
-                object obj = ResourceManager.GetObject("vehiclePage4WD", resourceCulture);
+                object obj = ResourceManager.GetObject("vehiclePageArticulated", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3694,9 +3814,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFront {
+        internal static System.Drawing.Bitmap z_ArticulatedFront {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFront", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFront", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3704,9 +3824,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFrontAoG {
+        internal static System.Drawing.Bitmap z_ArticulatedFrontAoG {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFrontAoG", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFrontAoG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3714,9 +3834,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFrontCase {
+        internal static System.Drawing.Bitmap z_ArticulatedFrontCase {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFrontCase", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFrontCase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3724,9 +3844,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFrontChallenger {
+        internal static System.Drawing.Bitmap z_ArticulatedFrontChallenger {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFrontChallenger", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFrontChallenger", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3734,9 +3854,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFrontHolder {
+        internal static System.Drawing.Bitmap z_ArticulatedFrontHolder {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFrontHolder", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFrontHolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3744,9 +3864,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFrontJDeere {
+        internal static System.Drawing.Bitmap z_ArticulatedFrontJDeere {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFrontJDeere", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFrontJDeere", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3754,9 +3874,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDFrontNH {
+        internal static System.Drawing.Bitmap z_ArticulatedFrontNH {
             get {
-                object obj = ResourceManager.GetObject("z_4WDFrontNH", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedFrontNH", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3764,9 +3884,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRear {
+        internal static System.Drawing.Bitmap z_ArticulatedRear {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRear", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3774,9 +3894,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRearAoG {
+        internal static System.Drawing.Bitmap z_ArticulatedRearAoG {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRearAoG", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRearAoG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3784,9 +3904,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRearCase {
+        internal static System.Drawing.Bitmap z_ArticulatedRearCase {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRearCase", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRearCase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3794,9 +3914,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRearChallenger {
+        internal static System.Drawing.Bitmap z_ArticulatedRearChallenger {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRearChallenger", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRearChallenger", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3804,9 +3924,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRearHolder {
+        internal static System.Drawing.Bitmap z_ArticulatedRearHolder {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRearHolder", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRearHolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3814,9 +3934,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRearJDeere {
+        internal static System.Drawing.Bitmap z_ArticulatedRearJDeere {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRearJDeere", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRearJDeere", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3824,9 +3944,9 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap z_4WDRearNH {
+        internal static System.Drawing.Bitmap z_ArticulatedRearNH {
             get {
-                object obj = ResourceManager.GetObject("z_4WDRearNH", resourceCulture);
+                object obj = ResourceManager.GetObject("z_ArticulatedRearNH", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3847,6 +3967,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap z_Compass {
             get {
                 object obj = ResourceManager.GetObject("z_Compass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z_crossTrackBkgnd {
+            get {
+                object obj = ResourceManager.GetObject("z_crossTrackBkgnd", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -4154,6 +4284,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap z_TractorJCB {
+            get {
+                object obj = ResourceManager.GetObject("z_TractorJCB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap z_TractorJDeere {
             get {
                 object obj = ResourceManager.GetObject("z_TractorJDeere", resourceCulture);
@@ -4287,6 +4427,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap ZoomOGL {
             get {
                 object obj = ResourceManager.GetObject("ZoomOGL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ZoomOut {
+            get {
+                object obj = ResourceManager.GetObject("ZoomOut", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

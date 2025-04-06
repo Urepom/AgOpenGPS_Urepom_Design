@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
+using AgOpenGPS.Culture;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using AgOpenGPS.Controls;
 
 namespace AgOpenGPS
 {
@@ -184,7 +188,7 @@ namespace AgOpenGPS
 
         private void nudDoseFerti_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.UP_SetDoseFerti = nudDoseFerti.Value;
                 mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFerti) >> 8));
@@ -194,7 +198,7 @@ namespace AgOpenGPS
 
         private void numTimerRincage_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.UP_SetTimerRincFerti = Convert.ToInt32(numTimerRincage.Value);
             }
@@ -275,7 +279,7 @@ namespace AgOpenGPS
 
         private void numericUpDown1_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.UP_SetDoseFVidange = (numericUpDown1.Value * 60) / 3;
                 mf.p_240.pgn[mf.p_240.DebitHi] = unchecked((byte)(((short)Properties.Settings.Default.UP_SetDoseFVidange) >> 8));

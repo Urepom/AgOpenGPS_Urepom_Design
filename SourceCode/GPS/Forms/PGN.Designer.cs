@@ -99,7 +99,7 @@ namespace AgOpenGPS
                 pgn[minPWM] = Properties.Settings.Default.setAS_minSteerPWM;
                 pgn[countsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
                 pgn[wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));;
-                pgn[wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_Kp));
+                pgn[wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
                 pgn[ackerman] = Properties.Settings.Default.setAS_ackerman;
             }
 
@@ -443,7 +443,6 @@ namespace AgOpenGPS
             //public int = 11;
             //public int  = 12;
         }
-
         //Ajout-modification MEmprou et SPailleau Fertilisation
 
         //PGN fertilisation
@@ -468,8 +467,6 @@ namespace AgOpenGPS
             }
         }
         //fin
-
-
         //pgn instances
 
         /// <summary>
@@ -507,18 +504,18 @@ namespace AgOpenGPS
         /// </summary>
         public CPGN_EB p_235 = new CPGN_EB();
 
-        /// <summary>
+        //ajout memprou
+        /// <summary> 
         /// Section dimensions PGN - 240 - F0
         /// </summary>
         public CPGN_F0 p_240 = new CPGN_F0();
-
         /// <summary>
         /// Section dimensions PGN - 228 - E4
         /// </summary>
         public CPGN_E4 p_228 = new CPGN_E4();
 
         /// <summary>
-        /// Section Symmetric PGN - 235 - EB
+        /// Section Symmetric PGN - 229 - EB
         /// </summary>
         public CPGN_E5 p_229 = new CPGN_E5();
 

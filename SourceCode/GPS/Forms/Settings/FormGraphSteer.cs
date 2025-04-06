@@ -1,4 +1,6 @@
-﻿using System;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using System;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -73,14 +75,15 @@ namespace AgOpenGPS
         {
             timer1.Interval = (int)((1 / mf.gpsHz) * 1000);
 
-            unoChart.ChartAreas[0].AxisY.Minimum = -1000;
-            unoChart.ChartAreas[0].AxisY.Maximum = 1000;
+            unoChart.ChartAreas[0].AxisY.Maximum = Double.NaN;
+            unoChart.ChartAreas[0].AxisY.Minimum = Double.NaN;
+            unoChart.ChartAreas[0].RecalculateAxesScale();
             unoChart.ResetAutoValues();
+            lblMax.Text = "Auto";
+            lblMin.Text = "";
+            isAuto = true;
 
-            lblMax.Text = ((int)(unoChart.ChartAreas[0].AxisY.Maximum * 0.01)).ToString();
-            lblMin.Text = ((int)(unoChart.ChartAreas[0].AxisY.Minimum * 0.01)).ToString();
-
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;

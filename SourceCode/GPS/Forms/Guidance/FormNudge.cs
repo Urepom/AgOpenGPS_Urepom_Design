@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -40,7 +42,7 @@ namespace AgOpenGPS
             Size = Properties.Settings.Default.setWindow_formNudgeSize;
             UpdateMoveLabel();
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -74,102 +76,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnCycleLines_Click(object sender, EventArgs e)
-        {
-
-            if (mf.ct.isContourBtnOn)
-            {
-                mf.ct.SetLockToLine();
-                return;
-            }
-
-            if (mf.trk.gArr.Count == 0) return;
-
-            //reset to generate new reference
-            mf.ABLine.isABValid = false;
-            mf.curve.isCurveValid = false;
-            mf.curve.lastHowManyPathsAway = 98888;
-
-            if (mf.isBtnAutoSteerOn) mf.btnAutoSteer.PerformClick();
-
-            if (mf.trk.gArr.Count > 0)
-            {
-                bool isVis = false;
-
-                //make sure one is visible
-                for (int i = 0; i < mf.trk.gArr.Count; i++)
-                {
-                    if (mf.trk.gArr[i].isVisible)
-                    {
-                        isVis = true;
-                        break;
-                    }
-                }
-
-                if (!isVis) return;
-
-                while (isVis)
-                {
-                    mf.trk.idx++;
-
-                    if (mf.trk.idx > (mf.trk.gArr.Count - 1)) mf.trk.idx = 0;
-
-                    if (mf.trk.gArr[mf.trk.idx].isVisible) break;
-                }
-
-                mf.yt.ResetYouTurn();
-                UpdateMoveLabel();
-            }
-        }
-
-        private void btnCycleLinesBk_Click(object sender, EventArgs e)
-        {
-            if (mf.ct.isContourBtnOn)
-            {
-                mf.ct.SetLockToLine();
-                return;
-            }
-
-            if (mf.trk.idx == -1) return;
-
-            //reset to generate new reference
-            mf.ABLine.isABValid = false;
-            mf.curve.isCurveValid = false;
-            mf.curve.lastHowManyPathsAway = 98888;
-
-            if (mf.isBtnAutoSteerOn) mf.btnAutoSteer.PerformClick();
-
-            if (mf.trk.gArr.Count > 0)
-            {
-                bool isVis = false;
-
-                //make sure one is visible
-                for (int i = 0; i < mf.trk.gArr.Count; i++)
-                {
-                    if (mf.trk.gArr[i].isVisible)
-                    {
-                        isVis = true;
-                        break;
-                    }
-                }
-
-                if (!isVis) return;
-
-                while (isVis)
-                {
-                    mf.trk.idx--;
-
-                    if (mf.trk.idx < 0) mf.trk.idx = mf.trk.gArr.Count - 1;
-
-                    if (mf.trk.gArr[mf.trk.idx].isVisible) break;
-                }
-                UpdateMoveLabel();
-
-
-                mf.yt.ResetYouTurn();
-            }
-        }
-
         private void btnZeroMove_Click(object sender, EventArgs e)
         {
             mf.trk.NudgeDistanceReset();
@@ -179,7 +85,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_Click(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
+            ((NudlessNumericUpDown)sender).ShowKeypad(this);
             snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
             Properties.Settings.Default.setAS_snapDistance = snapAdj*100;
             Properties.Settings.Default.Save();

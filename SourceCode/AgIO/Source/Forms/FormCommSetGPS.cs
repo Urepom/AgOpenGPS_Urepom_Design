@@ -1,6 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Management;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace AgIO
@@ -59,7 +58,6 @@ namespace AgIO
                 btnOpenRTCM.Enabled = false;
                 labelRtcmBaud.Text = mf.spGPS.BaudRate.ToString();
                 labelRtcmPort.Text = mf.spGPS.PortName;
-
             }
             else
             {
@@ -69,7 +67,6 @@ namespace AgIO
                 btnOpenRTCM.Enabled = true;
                 labelRtcmBaud.Text = "-";
                 labelRtcmPort.Text = "-";
-
             }
 
             //load the port box with valid port names
@@ -154,7 +151,6 @@ namespace AgIO
             //    btnCloseSerialModule3.Enabled = false;
             //    btnOpenSerialModule3.Enabled = true;
             //}
-
             //Ajout-modification MEmprou et SPailleau Fertilisation 
             if (mf.spModuleFerti.IsOpen)
             {
@@ -168,15 +164,12 @@ namespace AgIO
                 btnCloseSerialModuleFerti.Enabled = false;
                 btnOpenSerialModuleFerti.Enabled = true;
             }
-
             //load the port box with valid port names
             cboxSteerModulePort.Items.Clear();
             cboxMachineModulePort.Items.Clear();
             //cboxModule3Port.Items.Clear();
-
             //Ajout-modification MEmprou et SPailleau Fertilisation 
             cboxferti.Items.Clear();
-
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
             {
                 cboxSteerModulePort.Items.Add(s);
@@ -193,6 +186,45 @@ namespace AgIO
             //lblCurrentModule3Port.Text = mf.spModule3.PortName;
         }
 
+        private void groupBox1_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            DrawGroupBox(box, e.Graphics, Color.Black, Color.Silver);
+        }
+
+        private void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor)
+        {
+            if (box != null)
+            {
+                Brush textBrush = new SolidBrush(textColor);
+                Brush borderBrush = new SolidBrush(borderColor);
+                Pen borderPen = new Pen(borderBrush);
+                SizeF strSize = g.MeasureString(box.Text, box.Font);
+                Rectangle rect = new Rectangle(box.ClientRectangle.X,
+                                               box.ClientRectangle.Y + (int)(strSize.Height / 2),
+                                               box.ClientRectangle.Width - 1,
+                                               box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
+
+                // Clear text and border
+                g.Clear(this.BackColor);
+
+                // Draw text
+                g.DrawString(box.Text, box.Font, textBrush, box.Padding.Left, 0);
+
+                // Drawing Border
+                //Left
+                g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
+                //Right
+                g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
+                //Bottom
+                g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
+                //Top1
+                g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
+                //Top2
+                g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
+            }
+        }
+
         #region PortSettings //----------------------------------------------------------------
 
         // GPS Serial Port
@@ -201,6 +233,7 @@ namespace AgIO
             mf.spGPS.BaudRate = Convert.ToInt32(cboxBaud.Text);
             FormLoop.baudRateGPS = Convert.ToInt32(cboxBaud.Text);
         }
+
         private void cboxBaud2_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spGPS2.BaudRate = Convert.ToInt32(cboxBaud2.Text);
@@ -358,13 +391,15 @@ namespace AgIO
             lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
             //Ajout-modification MEmprou et SPailleau Fertilisation
             lblferti.Text = mf.spModuleFerti.PortName;
-
         }
-        //ajout max
+
+        private void btnSerialOK_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void btnRescan_Click(object sender, EventArgs e)
         {
-            int i = 0; //SPailleau
-
             cboxPort.Items.Clear();
             cboxRtcmPort.Items.Clear();
             cboxPort2.Items.Clear();
@@ -373,9 +408,6 @@ namespace AgIO
             cboxMachineModulePort.Items.Clear();
             cboxModule3Port.Items.Clear();
 
-            ListComPort.Clear(); //SPailleau
-
-            Waiting.Visible = true; //SPailleau
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
             {
                 cboxPort.Items.Add(s);
@@ -385,105 +417,7 @@ namespace AgIO
                 cboxSteerModulePort.Items.Add(s);
                 cboxMachineModulePort.Items.Add(s);
                 cboxModule3Port.Items.Add(s);
-
-                //----SPailleau
-                MoreInfoCOMPort(s, i);
-                i++;
-                //----
             }
-            Waiting.Visible = false; //SPailleau
-        }
-
-        //----SPailleau
-        private void MoreInfoCOMPort(string PortName, int i)
-        {
-            string Probably = "";
-            int CompteurSteerMachine = 0;
-            string[] ListeCom = new string[20];
-            int c = 0;
-            bool AddCom = true;
-            String RC = System.Environment.NewLine;
-
-            using (ManagementClass i_Entity = new ManagementClass("Win32_PnPEntity"))
-            {
-                foreach (ManagementObject i_Inst in i_Entity.GetInstances())
-                {
-                    Object o_Guid = i_Inst.GetPropertyValue("ClassGuid");
-                    if (o_Guid == null || o_Guid.ToString().ToUpper() != "{4D36E978-E325-11CE-BFC1-08002BE10318}")
-                        continue; // Skip all devices except device class "PORTS"
-
-                    String s_Caption = i_Inst.GetPropertyValue("Caption").ToString();
-                    String s_Manufact = i_Inst.GetPropertyValue("Manufacturer").ToString();
-                    String s_DeviceID = i_Inst.GetPropertyValue("PnpDeviceID").ToString();
-                    String s_RegPath = "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Enum\\" + s_DeviceID + "\\Device Parameters";
-                    String s_PortName = Registry.GetValue(s_RegPath, "PortName", "").ToString();
-
-                    int s32_Pos = s_Caption.IndexOf(" (COM");
-                    if (s32_Pos > 0) // remove COM port from description
-                        s_Caption = s_Caption.Substring(0, s32_Pos);
-
-                    if (s_PortName == PortName)
-                    {
-                        //On évite les doublons en cas de problèmee USB
-                        if (c == 0) ListeCom[c] = s_PortName; //Enregistre le nom du port com dans un tableau
-                        else
-                        {
-                            for (int j = 0; j <= c; j++)
-                            {
-                                if (s_PortName == ListeCom[j] && c != 0) AddCom = false;
-                            }
-                        }
-
-                        if (AddCom) //Ajout autorisé
-                        {
-                            ListeCom[c] = s_PortName;
-
-                            //Check Machine
-                            if (s_Manufact.Contains("FTDI") || s_Caption.Contains("CH340"))
-                            {
-                                if (!mf.spMachineModule.IsOpen) cboxMachineModulePort.SelectedIndex = i;
-                                Probably = "---> Steer / Machine probable";
-                                CompteurSteerMachine++;
-                            }
-                            //Check GPS
-                            else if (s_Manufact.Contains("Microsoft") && s_Caption.Contains("USB"))
-                            {
-                                if (!mf.spGPS.IsOpen)
-                                {
-                                    cboxPort.SelectedIndex = i;
-                                    cboxBaud.SelectedItem = "115200";
-                                }
-                                Probably = "---> GPS probable";
-                            }
-                            else if (s_Caption.Contains("CP210x"))
-                            {
-                                if (!mf.spGPS.IsOpen)
-                                {
-                                    cboxferti.SelectedIndex = i;
-                                    //cboxBaud.SelectedItem = "115200";
-                                }
-                                Probably = "---> Fertilisation localisée probable";
-                            }
-                            else if (s_Manufact.Contains("standar"))
-                            {
-                                Probably = "---> Inutile";
-                            }
-                            else Probably = "---> Inconnu";
-
-                            ListComPort.Text += s_PortName + " " + Probably + RC + s_Caption + " - " + s_Manufact + RC + RC;
-                            Probably = "";
-                        }
-
-                        c++;
-
-                    }
-                }
-            }
-        }
-        //----
-        private void btnSerialOK_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void btnClrGPS_Click(object sender, EventArgs e)
@@ -673,111 +607,13 @@ namespace AgIO
             mf.spRtcm.BaudRate = Convert.ToInt32(cboxRtcmBaud.Text);
             FormLoop.baudRateRtcm = Convert.ToInt32(cboxRtcmBaud.Text);
         }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblIMU_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFromMU_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSteer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFromSteerModule_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFromMachineModule_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblMachine_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-        //Ajout-modification MEmprou et SPailleau Fertilisation 
-        private void btnOpenSerialFerti_Click(object sender, EventArgs e)
-        {
-            mf.OpenFertiPort();
-            if (mf.spModuleFerti.IsOpen)
-            {
-                cboxferti.Enabled = false;
-                btnCloseSerialModuleFerti.Enabled = true;
-                btnOpenSerialModuleFerti.Enabled = false;
-                lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
-            }
-            else
-            {
-                cboxferti.Enabled = true;
-                btnCloseSerialModuleFerti.Enabled = false;
-                btnOpenSerialModuleFerti.Enabled = true;
-            }
-        }
-        //Ajout-modification MEmprou et SPailleau Fertilisation 
-        private void btnCloseSerialFerti_Click(object sender, EventArgs e)
-        {
-            mf.CloseFertiPort();
-            if (mf.spModuleFerti.IsOpen)
-            {
-                cboxferti.Enabled = false;
-                btnCloseSerialModuleFerti.Enabled = true;
-                btnOpenSerialModuleFerti.Enabled = false;
-            }
-            else
-            {
-                cboxferti.Enabled = true;
-                btnCloseSerialModuleFerti.Enabled = false;
-                btnOpenSerialModuleFerti.Enabled = true;
-            }
-        }
-        //Ajout-modification MEmprou et SPailleau Fertilisation 
-        private void cboxferti_SelectedIndexChanged_1(object sender, EventArgs e)
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        private void cboxferti_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spModuleFerti.PortName = cboxferti.Text;
             FormLoop.portNameModuleFerti = cboxferti.Text;
             lblCurrentModuleFertiPort.Text = cboxferti.Text;
         }
-
-        private void btnCloseSerialModuleFerti_Click(object sender, EventArgs e)
-        {
-            mf.CloseFertiPort();
-            if (mf.spModuleFerti.IsOpen)
-            {
-                cboxferti.Enabled = false;
-                btnCloseSerialModuleFerti.Enabled = true;
-                btnOpenSerialModuleFerti.Enabled = false;
-            }
-            else
-            {
-                cboxferti.Enabled = true;
-                btnCloseSerialModuleFerti.Enabled = false;
-                btnOpenSerialModuleFerti.Enabled = true;
-            }
-        }
-
         private void btnOpenSerialModuleFerti_Click(object sender, EventArgs e)
         {
             mf.OpenFertiPort();
@@ -795,6 +631,22 @@ namespace AgIO
                 btnOpenSerialModuleFerti.Enabled = true;
             }
         }
-
+        //Ajout-modification MEmprou et SPailleau Fertilisation 
+        private void btnCloseSerialModuleFerti_Click(object sender, EventArgs e)
+        {
+            mf.CloseFertiPort();
+            if (mf.spModuleFerti.IsOpen)
+            {
+                cboxferti.Enabled = false;
+                btnCloseSerialModuleFerti.Enabled = true;
+                btnOpenSerialModuleFerti.Enabled = false;
+            }
+            else
+            {
+                cboxferti.Enabled = true;
+                btnCloseSerialModuleFerti.Enabled = false;
+                btnOpenSerialModuleFerti.Enabled = true;
+            }
+        }
     } //class
 } //namespace

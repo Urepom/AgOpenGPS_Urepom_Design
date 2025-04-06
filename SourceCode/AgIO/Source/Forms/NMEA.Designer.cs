@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using AgLibrary.Logging;
 
 namespace AgIO
 {
@@ -127,7 +128,7 @@ namespace AgIO
             if (isLogMonitorOn)
             {
                 logMonitorSentence.Append(DateTime.UtcNow
-                    .ToString("mm:ss.fff ", CultureInfo.InvariantCulture) + rawBuffer);
+                    .ToString("mm:ss.fff ", CultureInfo.InvariantCulture)+rawBuffer);
             }
 
 
@@ -208,7 +209,7 @@ namespace AgIO
                     ParseTRA();
                 }
 
-                else if (words[0] == "$PSTI" && (words[1] == "032" || words[1] == "035"))
+                else if (words[0] == "$PSTI" && (words[1] == "032" || words[1] == "035") )
                 {
                     ParseSTI032(); //there is also an $PSTI,030,... wich contains different data!
                 }
@@ -715,9 +716,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim),
-                   NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim),
+                double.TryParse(words[2].Substring(0, decim), 
+                    NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                double.TryParse(words[2].Substring(decim), 
                     NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
@@ -735,9 +736,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim),
-                 NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim),
+                double.TryParse(words[4].Substring(0, decim), 
+                    NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                double.TryParse(words[4].Substring(decim), 
                     NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 
@@ -962,7 +963,6 @@ namespace AgIO
 
                 if (sentenceChars.Length - inx == 4)
                 {
-
                     for (inx = 1; ; inx++)
                     {
                         if (inx >= sentenceChars.Length) // No checksum found
@@ -986,9 +986,9 @@ namespace AgIO
                     else return false;  
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //mf.WriteErrorLog("Validate Checksum" + e);
+                Log.EventWriter("Catch - > Validate NMEA Checksum" + ex.ToString());
                 return false;
             }
         }

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO.Ports;
 using System.Collections.Generic;
 using System.Linq;
+using AgLibrary.Logging;
 
 // Declare the delegate prototype to send data back to the form
 delegate void UpdateRTCM_Data(byte[] data);
@@ -110,17 +111,17 @@ namespace AgIO
                     //watchdog for Ntrip
                     if (isNTRIP_Connecting)
                     {
-                        lblWatch.Text = gStr.gsAuthourizing;
+                        lblWatch.Text = "Authourizing";
                     }
                     else
                     {
                         if (isNTRIP_RequiredOn && NTRIP_Watchdog > 10)
                         {
-                            lblWatch.Text = gStr.gsWaiting;
+                            lblWatch.Text = "Waiting";
                         }
                         else
                         {
-                            lblWatch.Text = gStr.gsListening;
+                            lblWatch.Text = "Listening";
 
                             if (isNTRIP_RequiredOn)
                             {
@@ -149,7 +150,6 @@ namespace AgIO
                 if (ntripCounter > 59) btnStartStopNtrip.Text = (ntripCounter >> 6) + " Min";
                 else if (ntripCounter < 60 && ntripCounter > 22) btnStartStopNtrip.Text = ntripCounter + " Secs";
                 else btnStartStopNtrip.Text = "In " + (Math.Abs(ntripCounter - 22)) + " secs";
-
             }
         }
 
@@ -242,15 +242,19 @@ namespace AgIO
 
                     // Create the socket object
                     clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
                     clientSocket.NoDelay = true;
                     // Connect to server non-Blocking method
                     clientSocket.Blocking = false;
                     clientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(broadCasterIP), broadCasterPort), new AsyncCallback(OnConnect), null);
+
+                    Log.EventWriter("NTRIP - IP: " + broadCasterIP.ToString() + ":" + broadCasterPort.ToString()
+                        + " To Port: " + toUDP_Port.ToString() + " Mount: " + mount);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ReconnectRequest();
+                    Log.EventWriter("Catch - > NTRIP Reconnect Request: " + ex.ToString());
+
                     return;
                 }
 
@@ -285,6 +289,7 @@ namespace AgIO
                         isNTRIP_Connecting = false;
                         isNTRIP_Connected = false;
                         isRadio_RequiredOn = false;
+                        Log.EventWriter("Catch - > Error connecting to radio" + ex.ToString());
 
                         TimedMessageBox(2000, "Error connecting to radio", $"{ex.Message}");
                     }
@@ -325,6 +330,7 @@ namespace AgIO
                         isNTRIP_Connecting = false;
                         isNTRIP_Connected = false;
                         isSerialPass_RequiredOn = false;
+                        Log.EventWriter("Catch - > Serial Pass Radio: " + ex.ToString());
 
                         TimedMessageBox(2000, "Error connecting to Serial Pass", $"{ex.Message}");
                     }
@@ -353,7 +359,7 @@ namespace AgIO
             ntripCounter++;
 
             //Thinks is connected but not receiving anything
-            if (NTRIP_Watchdog++ > 30 && isNTRIP_Connected)
+            if (NTRIP_Watchdog++ > 30 && isNTRIP_Connected) 
                 ReconnectRequest();
 
             //Once all connected set the timer GGA to NTRIP Settings
@@ -388,7 +394,7 @@ namespace AgIO
 
                     //Build authorization string
                     string str = "GET /" + mount + " HTTP/" + htt + "\r\n";
-                    str += "User-Agent: NTRIP AgOpenGPSClient/20221020\r\n";
+                    str += "User-Agent: NTRIP AgOpenGPSClient/6.4\r\n";
                     str += "Authorization: Basic " + auth + "\r\n"; //This line can be removed if no authorization is needed
                                                                     //str += GGASentence; //this line can be removed if no position feedback is needed
                     str += "Accept: */*\r\nConnection: close\r\n";
@@ -406,9 +412,10 @@ namespace AgIO
                 isNTRIP_Starting = false;
                 isNTRIP_Connecting = false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ReconnectRequest();
+                Log.EventWriter("Catch - > NTRIP Send Authourization: " + ex.ToString());
             }
         }
 
@@ -416,8 +423,8 @@ namespace AgIO
         {
             //update gui with stats
             tripBytes += (uint)data.Length;
-
-            if (isViewAdvanced && isNTRIP_RequiredOn)
+            
+            if (isViewAdvanced && isNTRIP_RequiredOn )
             {
                 int mess = 0;
                 //lblPacketSize.Text = data.Length.ToString();
@@ -435,7 +442,7 @@ namespace AgIO
                             if (mess > 1000 && mess < 1231)
                             {
                                 rList.Add(mess);
-                                i += (data[i + 1] << 6) + (data[i + 2]) + 5;
+                                i += (data[i + 1] << 6) + (data[i + 2])+5;
                                 if (data[i + 1] != 211)
                                 {
                                     //rList.Clear();
@@ -561,8 +568,10 @@ namespace AgIO
                 Byte[] byteDateLine = Encoding.ASCII.GetBytes(str.ToCharArray());
                 clientSocket.Send(byteDateLine, byteDateLine.Length, 0);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.EventWriter("Catch - > Send GGA" + ex.ToString());
+
                 ReconnectRequest();
             }
         }
@@ -619,7 +628,7 @@ namespace AgIO
             try
             {
                 SerialPort comport = (SerialPort)sender;
-                if (comport.BytesToRead < 32)
+                if (comport.BytesToRead < 32) 
                     return;
 
                 int nBytesRec = comport.BytesToRead;
@@ -666,7 +675,7 @@ namespace AgIO
                 //Also stop the requests now
                 isNTRIP_RequiredOn = false;
             }
-            else if (spRadio != null)
+            else if(spRadio != null)
             {
                 spRadio.Close();
                 spRadio.Dispose();
@@ -786,7 +795,7 @@ namespace AgIO
 
             else sbGGA.Append("1,");
 
-            sbGGA.Append(altitudeData.ToString("#.###", CultureInfo.InvariantCulture)).Append(',');
+            sbGGA.Append(altitudeData.ToString("0.###", CultureInfo.InvariantCulture)).Append(',');
             sbGGA.Append("M,");
             sbGGA.Append("46.4,M,");  //udulation
             sbGGA.Append(ageData.ToString("0.#", CultureInfo.InvariantCulture)).Append(','); //age

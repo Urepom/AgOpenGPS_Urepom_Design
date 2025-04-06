@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using AgIO.Controls;
+using AgLibrary.Logging;
 
 namespace AgIO
 {
@@ -22,7 +25,9 @@ namespace AgIO
         private void FormUDp_Load(object sender, EventArgs e)
         {
             cboxIsUDPOn.Checked = Properties.Settings.Default.setUDP_isOn;
-            cboxIsSendNMEAToUDP.Checked = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
+            cboxIsUDPOn.Text = cboxIsUDPOn.Checked ? "UDP On" : "UDP Off";
+
+            //cboxIsSendNMEAToUDP.Checked = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
 
             //nudSub1.Value = Properties.Settings.Default.etIP_SubnetOne;
             //nudSub2.Value = Properties.Settings.Default.etIP_SubnetTwo;
@@ -38,7 +43,7 @@ namespace AgIO
 
         private void nudFirstIP_Click(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NumericUpDown)sender, this);
+            ((NumericUpDown)sender).ShowKeypad(this);
         }
 
         private void btnSerialCancel_Click(object sender, EventArgs e)
@@ -53,47 +58,21 @@ namespace AgIO
             Properties.Settings.Default.eth_loopFour = (byte)nudFourthIP.Value;
 
             Properties.Settings.Default.setUDP_isOn = cboxIsUDPOn.Checked;
-            Properties.Settings.Default.setUDP_isSendNMEAToUDP = cboxIsSendNMEAToUDP.Checked;
+            //Properties.Settings.Default.setUDP_isSendNMEAToUDP = cboxIsSendNMEAToUDP.Checked;
 
             Properties.Settings.Default.Save();
 
             mf.YesMessageBox("AgIO will Restart to Enable UDP Networking Features");
+            Log.EventWriter("Program Reset: Start Ethernet Selected");
 
-            Application.Restart();
-            Environment.Exit(0);
+            Program.Restart();
             Close();
         }
 
-        ////get the ipv4 address only
-        //public void GetIP4AddressList()
-        //{
-        //    tboxNets.Text = "";
-        //    foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
-        //    {
-        //        if (IPA.AddressFamily == AddressFamily.InterNetwork)
-        //        {
-        //            tboxNets.Text += IPA.ToString() + "\r\n";
-        //        }
-        //    }
-        //}
-
-        //public void IsValidNetworkFound()
-        //{
-        //    foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
-        //    {
-        //        if (IPA.AddressFamily == AddressFamily.InterNetwork)
-        //        {
-        //            byte[] data = IPA.GetAddressBytes();
-        //            //  Split string by ".", check that array length is 3
-        //            if (data[0] == 192 && data[1] == 168 && data[2] == 1)
-        //            {
-        //                if (data[3] < 255 && data[3] > 1)
-        //                {
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        private void cboxIsUDPOn_Click(object sender, EventArgs e)
+        {
+            cboxIsUDPOn.Text = cboxIsUDPOn.Checked ? "UDP Is On" : "UDP Is Off";
+            Log.EventWriter("UDP Turned on, Etherent Form");
+        }
     }
 }

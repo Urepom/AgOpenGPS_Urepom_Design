@@ -44,8 +44,8 @@
             // 
             // keyboard1
             // 
-            this.keyboard1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.keyboard1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.keyboard1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.keyboard1.Location = new System.Drawing.Point(5, 55);
@@ -102,7 +102,10 @@
             this.Controls.Add(this.keyboardString);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Location = new System.Drawing.Point(250, 250);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormKeyboard";
+            this.ShowInTaskbar = false;
             this.Text = "Keyboard";
             this.Load += new System.EventHandler(this.FormKeyboard_Load);
             this.ResumeLayout(false);

@@ -1,4 +1,8 @@
-﻿using OpenTK;
+﻿using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -37,6 +41,8 @@ namespace AgOpenGPS
 
         private void FormHeadLine_Load(object sender, EventArgs e)
         {
+            this.Text = "1: Set distance, 2: Tap Build, 3: Create Clip Lines";
+
             mf.hdl.idx = -1;
 
             mf.FileLoadHeadLines();
@@ -60,11 +66,16 @@ namespace AgOpenGPS
             this.Left = (area.Width - this.Width) / 2;
             FormHeadAche_ResizeEnd(this, e);
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
             }
+            //translate
+            this.Text = gStr.gsHeadlandForm;
+            btnBndLoop.Text = gStr.gsBuild;
+            btnDeleteHeadland.Text = gStr.gsReset;
+
         }
 
         private void FormHeadLine_FormClosing(object sender, FormClosingEventArgs e)
@@ -691,7 +702,7 @@ namespace AgOpenGPS
 
         private void nudSetDistance_Click(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
+            ((NudlessNumericUpDown)sender).ShowKeypad(this);
             btnExit.Focus();
         }
 
@@ -740,6 +751,8 @@ namespace AgOpenGPS
                 if (nextLine == lineNum)
                 {
                     mf.TimedMessageBox(2000, "Create Error", "Is there maybe only 1 line?");
+                    Log.EventWriter("Headache, Only 1 Line");
+
                     return;
                 }
 
@@ -777,7 +790,8 @@ namespace AgOpenGPS
 
             if (crossings.Count != mf.hdl.tracksArr.Count * 2)
             {
-                mf.TimedMessageBox(2000, "Crosings Error", "Make sure all ends cross only once");
+                mf.TimedMessageBox(2000, "Crosings Error", "Make sure all ends cross and only once");
+                Log.EventWriter("Headache, All ends cross and only once");
                 mf.bnd.bndList[0].hdLine?.Clear();
                 return;
             }
@@ -985,7 +999,7 @@ namespace AgOpenGPS
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.ClearColor(0.22f, 0.22f, 0.22f, 1.0f);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         }
     }
 }

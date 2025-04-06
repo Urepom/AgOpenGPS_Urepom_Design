@@ -45,7 +45,7 @@ namespace AgOpenGPS
 
             lblAngularVelocity.Text = mf.ahrs.imuYawRate.ToString("N2");
 
-            lbludpWatchCounts.Text = mf.udpWatchCounts.ToString();
+            lbludpWatchCounts.Text = mf.missedSentenceCount.ToString();
 
             if (mf.isMetric)
             {

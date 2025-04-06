@@ -1,5 +1,8 @@
 ﻿//Please, if you use this, share the improvements
 
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
 using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
@@ -20,10 +23,15 @@ namespace AgOpenGPS
         {
             //get copy of the calling main form
             mf = callingForm as FormGPS;
-            InitializeComponent();
+            InitializeComponent();  
 
             //Language keys
             this.Text = gStr.gsColors;
+            labelCameraBehavior.Text = gStr.gsCameraBehavior;
+            labelReset.Text = gStr.gsReset;
+            labelSmooth.Text = gStr.gsSmooth;
+            labelDirect.Text = gStr.gsDirect; 
+            
         }
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
@@ -32,7 +40,7 @@ namespace AgOpenGPS
             hsbarSmooth.Value = Properties.Settings.Default.setDisplay_camSmooth;
             lblSmoothCam.Text = hsbarSmooth.Value.ToString() + "%";
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -52,15 +60,15 @@ namespace AgOpenGPS
 
         private void btnVehicleColor_Click(object sender, EventArgs e)
         {
-            using (FormColorPicker form = new FormColorPicker(mf, mf.vehicleColor))
+            using (FormColorPicker form = new FormColorPicker(mf, (Color)mf.vehicle.VehicleConfig.Color))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.vehicleColor = form.useThisColor;
+                    mf.vehicle.VehicleConfig.Color = (ColorRgb)form.useThisColor;
                 }
             }
 
-            Properties.Settings.Default.setDisplay_colorVehicle = mf.vehicleColor;
+            Properties.Settings.Default.setDisplay_colorVehicle = (Color)mf.vehicle.VehicleConfig.Color;
             Settings.Default.Save();
         }
 

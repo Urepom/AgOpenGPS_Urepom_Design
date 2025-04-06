@@ -5,6 +5,10 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Globalization;
 using System.Diagnostics;
+using System.Xml.Linq;
+using AgOpenGPS.Culture;
+using System.Text;
+using AgLibrary.Logging;
 
 namespace AgOpenGPS
 {
@@ -22,7 +26,7 @@ namespace AgOpenGPS
 
         // Status delegate
         public double Débit_Pompe_Ferti, PWD_Pompe_Ferti, Vol_Pompe_Ferti = 0; //Ajout-modification MEmprou et SPailleau Fertilisation
-        public int udpWatchCounts = 0;
+        public int missedSentenceCount = 0;
         public int udpWatchLimit = 70;
 
         private readonly Stopwatch udpWatch = new Stopwatch();
@@ -56,10 +60,7 @@ namespace AgOpenGPS
                         {
                             if (udpWatch.ElapsedMilliseconds < udpWatchLimit)
                             {
-                                udpWatchCounts++;
-                                if (isLogNMEA) pn.logNMEASentence.Append("*** "
-                                    + DateTime.UtcNow.ToString("ss.ff -> ", CultureInfo.InvariantCulture)
-                                    + udpWatch.ElapsedMilliseconds + "\r\n");
+                                missedSentenceCount++;
                                 return;
                             }
                             udpWatch.Reset();
@@ -85,6 +86,8 @@ namespace AgOpenGPS
                                     pn.headingTrueDual = temp + pn.headingTrueDualOffset;
                                     if (pn.headingTrueDual >= 360) pn.headingTrueDual -= 360;
                                     else if (pn.headingTrueDual < 0) pn.headingTrueDual += 360;
+
+                                    if (ahrs.isDualAsIMU) ahrs.imuHeading = pn.headingTrueDual;
                                 }
 
                                 //from single antenna sentences (VTG,RMC)
@@ -105,7 +108,7 @@ namespace AgOpenGPS
                                     ahrs.imuRoll = temp - ahrs.rollZero;
                                 }
                                 if (temp == float.MinValue)
-                                    ahrs.imuRoll = 0;
+                                    ahrs.imuRoll = 0;                               
 
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
@@ -159,11 +162,6 @@ namespace AgOpenGPS
 
                                 sentenceCounter = 0;
 
-                                if (isLogNMEA)
-                                    pn.logNMEASentence.Append(
-                                        DateTime.UtcNow.ToString("mm:ss.ff", CultureInfo.InvariantCulture) + " " +
-                                        Lat.ToString("N7") + " " + Lon.ToString("N7"));
-
                                 UpdateFixPosition();
                             }
                         }
@@ -177,13 +175,13 @@ namespace AgOpenGPS
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
-
+                            
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
                             if (ahrs.isRollInvert) rollK *= -0.1;
                             else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;
+                            rollK -= ahrs.rollZero;                           
                             ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
 
                             //Angular velocity
@@ -240,12 +238,6 @@ namespace AgOpenGPS
                             //Actual PWM
                             mc.pwmDisplay = data[12];
 
-                            if (isLogNMEA)
-                                pn.logNMEASentence.Append(
-                                    DateTime.UtcNow.ToString("mm:ss.ff", CultureInfo.InvariantCulture) + " AS " +
-                                    mc.actualSteerAngleDegrees.ToString("N1") + "\r\n"
-                                    );
-
                             break;
                         }
                     //Ajout-modification MEmprou et SPailleau Fertilisation
@@ -258,7 +250,6 @@ namespace AgOpenGPS
                             break;
                         }
                     //fin
-
                     case 250:
                         {
                             if (data.Length != 14)
@@ -266,6 +257,50 @@ namespace AgOpenGPS
                             mc.sensorData = data[5];
                             break;
                         }
+
+                    case 221: // DD
+                        {                    
+                            //{ 0x80, 0x81, 0x7f, 221, number bytes, seconds to display, mystery byte, 98,99,100,101, CRC };
+                            if (data.Length < 9) break;
+
+                            if (isHardwareMessages)
+                            {
+                                lblHardwareMessage.Text = System.Text.Encoding.UTF8.GetString(data, 7, data[4] - 2);
+                                lblHardwareMessage.Visible = true;
+                                hardwareLineCounter = data[5] * 10;
+
+                                Log.EventWriter(lblHardwareMessage.Text);
+
+                                //color based on byte 6
+                                lblHardwareMessage.BackColor = data[6] == 0 ? Color.Salmon : Color.Bisque;
+                                lblHardwareMessage.ForeColor = Color.Black;
+                            }
+                            else
+                            {
+                                lblHardwareMessage.Visible = false;
+                                hardwareLineCounter = 0;
+                            }
+                            break;
+                        }
+                    case 222: // 0xDE
+                        {
+                            //{ 0x80, 0x81, 0x7f, 222, number bytes, mask, command CRC };
+                            if (data.Length < 6) break;
+                            if (((data[5] & 1) == 1)) //mask bit #0 set and command bit #0 nudge line to the 0 = left 1 = right
+                            {
+                                double dist = Properties.Settings.Default.setAS_snapDistance * 0.01;
+                                if ((data[6] & 1) != 1) { trk.NudgeTrack(-dist); }
+                                if ((data[6] & 1) == 1) { trk.NudgeTrack(dist); }
+                            }
+                            if (((data[5] & 2) == 2)) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
+                            {
+                                if ((data[6] & 1) != 1) {  btnCycleLines.PerformClick(); }
+                               //ajout memprou if ((data[6] & 1) == 1) { btnCycleLinesBk.PerformClick(); }
+                            }
+                           
+                            break;
+                        }
+
 
                     #region Remote Switches
                     case 234://MTZ8302 Feb 2020
@@ -280,7 +315,7 @@ namespace AgOpenGPS
 
                             break;
                         }
-                        #endregion
+                     #endregion
                 }
             }
         }
@@ -296,10 +331,12 @@ namespace AgOpenGPS
                 loopBackSocket.Bind(new IPEndPoint(IPAddress.Loopback, 15555));
                 loopBackSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None,
                     ref endPointLoopBack, new AsyncCallback(ReceiveAppData), null);
+                Log.EventWriter("UDP Loopback network started: " + IPAddress.Loopback.ToString() + ":" + "15555");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Load Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Log.EventWriter("Catch -> Load UDP Loopback Error: " + ex.ToString());
             }
         }
 
@@ -355,10 +392,10 @@ namespace AgOpenGPS
                     loopBackSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
                         epAgIO, new AsyncCallback(SendAsyncLoopData), null);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    //WriteErrorLog("Sending UDP Message" + e.ToString());
-                    MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //Log.EventWriter("Sending UDP Message" + e.ToString());
+                    //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -441,6 +478,7 @@ namespace AgOpenGPS
             if ((char)keyData == hotkeys[0]) //autosteer button on off
             {
                 btnAutoSteer.PerformClick();
+                if (!isBtnAutoSteerOn) TimedMessageBox(2000, gStr.gsGuidanceStopped, "Hotkey Triggered");
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -500,7 +538,7 @@ namespace AgOpenGPS
 
             if ((char)keyData == (hotkeys[9])) //open the vehicle Settings
             {
-                btnConfig.PerformClick();
+                toolStripConfig.PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -619,15 +657,17 @@ namespace AgOpenGPS
                 sim.headingTrue += Math.PI;
                 ABLine.isABValid = false;
                 curve.isCurveValid = false;
-                curve.lastHowManyPathsAway = 98888;
-                if (isBtnAutoSteerOn) btnAutoSteer.PerformClick();
+                if (isBtnAutoSteerOn)
+                {
+                    btnAutoYouTurn.PerformClick();
+                }
             }
 
             //speed up
             if (keyData == Keys.Up)
             {
                 if (sim.stepDistance < 0.4 && sim.stepDistance > -0.36) sim.stepDistance += 0.01;
-                else
+                else 
                     sim.stepDistance += 0.04;
                 if (sim.stepDistance > 4) sim.stepDistance = 4;
                 return true;
@@ -652,7 +692,7 @@ namespace AgOpenGPS
             //turn right
             if (keyData == Keys.Right)
             {
-                sim.steerAngle += 2;
+                sim.steerAngle += 1.0;
                 if (sim.steerAngle > 40) sim.steerAngle = 40;
                 if (sim.steerAngle < -40) sim.steerAngle = -40;
                 sim.steerAngleScrollBar = sim.steerAngle;
@@ -664,7 +704,7 @@ namespace AgOpenGPS
             //turn left
             if (keyData == Keys.Left)
             {
-                sim.steerAngle -= 2;
+                sim.steerAngle -= 1.0;
                 if (sim.steerAngle > 40) sim.steerAngle = 40;
                 if (sim.steerAngle < -40) sim.steerAngle = -40;
                 sim.steerAngleScrollBar = sim.steerAngle;
@@ -891,7 +931,7 @@ namespace AgOpenGPS
         //        //        bool bResult = SetGestureConfig(
         //        //            Handle, // window for which configuration is specified
         //        //            0,      // reserved, must be 0
-        //        //            1,      // count of GESTURECONFIG structures
+        //        //            1,      // countExit of GESTURECONFIG structures
         //        //            ref gc, // array of GESTURECONFIG structures, dwIDs
         //        //                    // will be processed in the order specified
         //        //                    // and repeated occurances will overwrite

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -78,11 +79,13 @@ namespace AgOpenGPS
         private void Form_Keys_Load(object sender, EventArgs e)
         {
             LoadButtonText();
-            if (!mf.IsOnScreen(Location, Size, 1))
+
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
             }
+
         }
 
         private void Form_Keys_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -18,14 +22,15 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = gStr.gsEnterFieldName;
+            labelEnterFieldName.Text = gStr.gsEnterFieldName;
             this.Text = gStr.gsCreateNewField;
         }
 
         private void FormFieldDir_Load(object sender, EventArgs e)
         {
             btnSave.Enabled = false;
-            if (!mf.IsOnScreen(Location, Size, 1))
+
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
@@ -79,7 +84,7 @@ namespace AgOpenGPS
             mf.currentFieldDirectory = tboxFieldName.Text.Trim();
 
             //get the directory and make sure it exists, create if not
-            string dirNewField = mf.fieldsDirectory + mf.currentFieldDirectory + "\\";
+            DirectoryInfo dirNewField = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory));
 
             mf.menustripLanguage.Enabled = false;
             //if no template set just make a new file.
@@ -89,22 +94,19 @@ namespace AgOpenGPS
                 mf.JobNew();
 
                 //create it for first save
-                string directoryName = Path.GetDirectoryName(dirNewField);
-
-                if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
+                if (dirNewField.Exists)
                 {
                     MessageBox.Show(gStr.gsChooseADifferentName, gStr.gsDirectoryExists, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
                 else
                 {
-                    mf.pn.latStart = mf.pn.latitude; mf.pn.lonStart = mf.pn.longitude;
+                    mf.pn.latStart = mf.pn.latitude;
+                    mf.pn.lonStart = mf.pn.longitude;
 
-                    mf.pn.SetLocalMetersPerDegree();
+                    mf.pn.SetLocalMetersPerDegree(false);
 
-                    //make sure directory exists, or create it
-                    if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))
-                    { Directory.CreateDirectory(directoryName); }
+                    dirNewField.Create();
 
                     mf.displayFieldName = mf.currentFieldDirectory;
 
@@ -123,7 +125,7 @@ namespace AgOpenGPS
             }
             catch (Exception ex)
             {
-                mf.WriteErrorLog("Creating new field " + ex);
+                Log.EventWriter("Creating new field " + ex);
 
                 MessageBox.Show(gStr.gsError, ex.ToString());
                 mf.currentFieldDirectory = "";
@@ -137,7 +139,7 @@ namespace AgOpenGPS
         {
             if (mf.isKeyboardOn)
             {
-                mf.KeyboardToText((TextBox)sender, this);
+                ((TextBox)sender).ShowKeyboard(this);
                 btnSerialCancel.Focus();
             }
         }
@@ -146,7 +148,7 @@ namespace AgOpenGPS
         {
             if (mf.isKeyboardOn)
             {
-                mf.KeyboardToText((TextBox)sender, this);
+                ((TextBox)sender).ShowKeyboard(this);
                 btnSerialCancel.Focus();
             }
         }
@@ -155,7 +157,7 @@ namespace AgOpenGPS
         {
             if (mf.isKeyboardOn)
             {
-                mf.KeyboardToText((TextBox)sender, this);
+                ((TextBox)sender).ShowKeyboard(this);
                 btnSerialCancel.Focus();
             }
         }

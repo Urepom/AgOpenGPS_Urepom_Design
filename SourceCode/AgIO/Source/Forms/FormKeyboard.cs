@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AgIO
@@ -7,9 +8,9 @@ namespace AgIO
     public partial class FormKeyboard : Form
     {
         public string ReturnString { get; set; }
+
         public FormKeyboard(string currentString)
         {
-
             InitializeComponent();
 
             this.Text = "Enter Something";
@@ -22,33 +23,9 @@ namespace AgIO
             keyboardString.SelectionLength = 0;
             keyboard1.Focus();
 
-            //opening the subkey
-            RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS");
-
-            //create default keys if not existing
-            if (regKey == null)
+            if (Thread.CurrentThread.CurrentCulture.Name == "fr")
             {
-                RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
-
-                //storing the values
-                Key.SetValue("Language", "en");
-                Key.Close();
-
-                Properties.Settings.Default.setF_culture = "en";
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.setF_culture = regKey.GetValue("Language").ToString();
-                Properties.Settings.Default.Save();
-                regKey.Close();
-            }
-
-
-            string language = Properties.Settings.Default.setF_culture;
-            if (language == "fr")
-            {
-                this.Height = 587;
+                this.Height = 575;
             }
             else
             {
@@ -58,7 +35,6 @@ namespace AgIO
 
         private void RegisterKeyboard1_ButtonPressed(object sender, KeyPressEventArgs e)
         {
-
             //if (isFirstKey)
             //{
             //    keyboardString.Text = "";
@@ -115,4 +91,3 @@ namespace AgIO
         }
     }
 }
-

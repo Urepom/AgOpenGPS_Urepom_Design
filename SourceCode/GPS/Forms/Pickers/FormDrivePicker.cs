@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -15,6 +16,10 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
+            //translate all the controls
+            this.Text = Culture.gStr.gsFieldPicker;
+            btnOpenExistingLv.Text = Culture.gStr.gsUseSelected;
+
             string[] fileList = _fileList.Split(',');
             for (int i = 0; i < fileList.Length; i++)
             {
@@ -25,6 +30,7 @@ namespace AgOpenGPS
 
         private void FormFilePicker_Load(object sender, EventArgs e)
         {
+            btnOpenExistingLv.Text = Culture.gStr.gsUseSelected;
         }
 
         private void btnOpenExistingLv_Click(object sender, EventArgs e)
@@ -32,7 +38,7 @@ namespace AgOpenGPS
             int count = lvLines.SelectedItems.Count;
             if (count > 0)
             {
-                mf.filePickerFileAndDirectory = (mf.fieldsDirectory + lvLines.SelectedItems[0].SubItems[0].Text + "\\Field.txt");
+                mf.filePickerFileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text, "Field.txt");
                 Close();
             }
         }

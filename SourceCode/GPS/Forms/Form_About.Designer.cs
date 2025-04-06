@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_About));
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -107,10 +106,10 @@
             this.linkLabelGit.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabelGit.Location = new System.Drawing.Point(337, 609);
             this.linkLabelGit.Name = "linkLabelGit";
-            this.linkLabelGit.Size = new System.Drawing.Size(345, 19);
+            this.linkLabelGit.Size = new System.Drawing.Size(383, 19);
             this.linkLabelGit.TabIndex = 11;
             this.linkLabelGit.TabStop = true;
-            this.linkLabelGit.Text = "https://github.com/farmerbriantee/AgOpenGPS";
+            this.linkLabelGit.Text = "https://github.com/AgOpenGPS-Official/AgOpenGPS";
             this.linkLabelGit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGit_LinkClicked);
             // 
             // linkLabelCombineForum
@@ -175,9 +174,8 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 11.25F);
             this.label11.Location = new System.Drawing.Point(12, 183);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(299, 360);
+            this.label11.Size = new System.Drawing.Size(0, 18);
             this.label11.TabIndex = 32;
-            this.label11.Text = resources.GetString("label11.Text");
             // 
             // label14
             // 
@@ -206,7 +204,6 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(609, 229);
             this.label12.TabIndex = 128;
-            this.label12.Text = resources.GetString("label12.Text");
             // 
             // label2
             // 
@@ -215,7 +212,6 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(271, 138);
             this.label2.TabIndex = 129;
-            this.label2.Text = resources.GetString("label2.Text");
             // 
             // label15
             // 

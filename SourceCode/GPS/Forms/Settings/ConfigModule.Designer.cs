@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AgOpenGPS.Controls;
+using AgOpenGPS.Culture;
+using System;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -27,14 +29,13 @@ namespace AgOpenGPS
 
         private void tabAMachine_Enter(object sender, EventArgs e)
         {
+            pboxSendMachine.Visible = false;
 
             int sett = Properties.Settings.Default.setArdMac_setting0;
 
-            if ((sett & 1) == 0) cboxMachInvertRelays.Checked = false;
-            else cboxMachInvertRelays.Checked = true;
+            cboxMachInvertRelays.Checked = ((sett & 1) == 1);
 
-            if ((sett & 2) == 0) cboxIsHydOn.Checked = false;
-            else cboxIsHydOn.Checked = true;
+            cboxIsHydOn.Checked = ((sett & 2) == 2);
 
             if (cboxIsHydOn.Checked)
             {
@@ -70,7 +71,7 @@ namespace AgOpenGPS
 
         private void nudHydLiftSecs_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
@@ -78,7 +79,7 @@ namespace AgOpenGPS
 
         private void nudRaiseTime_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
@@ -86,7 +87,7 @@ namespace AgOpenGPS
 
         private void nudLowerTime_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
@@ -94,7 +95,7 @@ namespace AgOpenGPS
 
         private void nudUser1_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
@@ -102,7 +103,7 @@ namespace AgOpenGPS
 
         private void nudUser2_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
@@ -110,7 +111,7 @@ namespace AgOpenGPS
 
         private void nudUser3_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
@@ -118,12 +119,12 @@ namespace AgOpenGPS
 
         private void nudUser4_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendMachine.Visible = true;
             }
         }
-        private void cboxIsHydOn_CheckStateChanged(object sender, EventArgs e)
+        private void cboxIsHydOn_Click(object sender, EventArgs e)
         {
             if (cboxIsHydOn.Checked)
             {
@@ -139,7 +140,7 @@ namespace AgOpenGPS
                 nudLowerTime.Enabled = false;
                 nudRaiseTime.Enabled = false;
             }
-            //pboxSendMachine.Visible = true;
+            pboxSendMachine.Visible = true;
         }
 
         private void SaveSettingsMachine()
@@ -188,7 +189,7 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.Save();
 
-            mf.TimedMessageBox(1000, gStr.gsMachinePort, gStr.gsSentToMachineModule);
+            mf.TimedMessageBox(2000, gStr.gsMachinePort, gStr.gsSentToMachineModule);
 
             pboxSendMachine.Visible = false;
         }
@@ -274,7 +275,7 @@ namespace AgOpenGPS
             SaveSettingsRelay();
             SendRelaySettingsToMachineModule();
 
-            mf.TimedMessageBox(1000, gStr.gsMachinePort, gStr.gsSentToMachineModule);
+            mf.TimedMessageBox(2000, gStr.gsMachinePort, gStr.gsSentToMachineModule);
 
             pboxSendRelay.Visible = false;
         }
@@ -507,7 +508,7 @@ namespace AgOpenGPS
 
         private void nudYouTurnRadius_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.yt.youTurnRadius = (double)nudYouTurnRadius.Value * mf.ftOrMtoM;
             }
@@ -515,7 +516,7 @@ namespace AgOpenGPS
 
         private void nudTurnDistanceFromBoundary_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.yt.uturnDistanceFromBoundary = (double)nudTurnDistanceFromBoundary.Value * mf.ftOrMtoM;
             }
@@ -572,7 +573,7 @@ namespace AgOpenGPS
         }
         private void nudTramWidth_Click(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 mf.tram.tramWidth = (double)nudTramWidth.Value * mf.inchOrCm2m;
                 Properties.Settings.Default.setTram_tramWidth = mf.tram.tramWidth;

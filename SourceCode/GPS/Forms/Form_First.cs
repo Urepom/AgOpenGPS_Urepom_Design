@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
+using AgOpenGPS.Culture;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
     public partial class Form_First : Form
     {
-        private readonly FormGPS mf = null;
-
         public Form_First(Form callingForm)
         {
-            mf = callingForm as FormGPS;
-
             InitializeComponent();
+            
+
+
         }
 
         private void linkLabelGit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -27,10 +27,20 @@ namespace AgOpenGPS
 
         private void Form_About_Load(object sender, EventArgs e)
         {
-            lblVersion.Text = "Version " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            
+            //translate labels
+            labelAgree.Text = gStr.gsAgree;
+            labelDisagree.Text = gStr.gsDisagree;
+            labelTermsOne.Text = gStr.gsTermsOne;
+            labelTerms2.Text = gStr.gsTermsTwo;
+            labelTerms3.Text = gStr.gsTermsThree;
+            labelTermsAndVersion.Text = gStr.gsTermsConditions + Program.SemVer;
+            labelDiscussionsAt.Text = gStr.gsDiscussions;
+            labelCheckForUpdates.Text = gStr.gsCheckForUpdates;
+
 
             // Add a link to the LinkLabel.
-            LinkLabel.Link link = new LinkLabel.Link { LinkData = "https://github.com/farmerbriantee/AgOpenGPS" };
+            LinkLabel.Link link = new LinkLabel.Link { LinkData = "https://github.com/AgOpenGPS-Official/AgOpenGPS" };
             linkLabelGit.Links.Add(link);
 
             // Add a link to the LinkLabel.
@@ -40,33 +50,33 @@ namespace AgOpenGPS
             };
             linkLabelCombineForum.Links.Add(linkCf);
 
-            if (!mf.IsOnScreen(Location, Size, 1))
+            if (!ScreenHelper.IsOnScreen(Bounds))
             {
                 Top = 0;
                 Left = 0;
             }
+
+            label1.Text = RegistrySettings.culture + " | " +
+                RegistrySettings.vehiclesDirectory + " -> " + 
+                RegistrySettings.vehicleFileName + ".xml";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mf.isTermsAccepted = true;
-            Properties.Settings.Default.setDisplay_isTermsAccepted = true;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_isTermsAccepted = false;
-            Properties.Settings.Default.Save();
-            //Close();
-            Environment.Exit(0);
+            DialogResult = DialogResult.Cancel;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.setDisplay_isTermsAccepted = true;
             Properties.Settings.Default.Save();
-            mf.isTermsAccepted = true;
+            DialogResult = DialogResult.OK;
         }
-    }
+    }   
 }
