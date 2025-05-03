@@ -2159,7 +2159,6 @@ namespace AgOpenGPS
                 {
                     round_StatusStrip1.Visible = false;
                     round_Menu1.Visible = false; //Haut gauche
-                    btn_synchro.Visible = false; //Bouton synchro
                     round_table11.Visible = false; //Haut droite
                     round_table10.Visible = false;
                     round_table7.Visible = false;
@@ -2178,7 +2177,6 @@ namespace AgOpenGPS
                 {
                     round_StatusStrip1.Visible = true;
                     round_Menu1.Visible = true; //Haut gauche
-                    btn_synchro.Visible = true; //Bouton synchro
                     round_table11.Visible = true; //Haut droite
                     round_table10.Visible = true;
                     round_table7.Visible = true;

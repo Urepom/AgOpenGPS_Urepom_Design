@@ -1368,10 +1368,6 @@ namespace AgOpenGPS
             else this.WindowState = FormWindowState.Maximized;
 
             FormGPS_ResizeEnd(this, e);
-            //Ajout-modification MEmprou et SPailleau
-            btn_synchro.Left = round_Menu1.Right - 74;
-            btn_synchro.Top = round_Menu1.Top + 4;
-            //fin
         }
         private void lblCurrentField_Click(object sender, EventArgs e)
         {
@@ -1466,10 +1462,6 @@ namespace AgOpenGPS
                 btnMinimizeMainForm.Visible = true;
                 Settings.Default.setWindow_isKioskMode = false;
             }
-            //Ajout-modification MEmprou et SPailleau
-            btn_synchro.Left = round_Menu1.Right - 74;
-            btn_synchro.Top = round_Menu1.Top + 4;
-            //fin
             Settings.Default.Save();
         }
         private void resetALLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2373,26 +2365,6 @@ namespace AgOpenGPS
         #region Urepom
 
         //ajout memprou
-
-
-        private void btn_synchro_Click(object sender, EventArgs e)
-        {
-            if (Settings.Default.UP_setF_local != "Default" & Settings.Default.UP_setF_synchro != "Default")
-            {
-                using (var form = new FormSynchro(this))
-                {
-                    form.ShowDialog(this);
-                }
-                //DirectoryCopy(Settings.Default.setF_local, Settings.Default.setF_synchro, true);
-                //DirectoryCopy(Settings.Default.setF_synchro, Settings.Default.setF_local, true);
-
-                TimedMessageBox(1000, "Synchronisation terminée !", "Synchronisation");
-            }
-            else
-            {
-                MessageBox.Show("Veuillez d'abord sélectionner un dossier local un dossier de synchronisation !");
-            }
-        }
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
@@ -2509,56 +2481,7 @@ namespace AgOpenGPS
             fd.distanceUser = 0;
             fd.workedAreaTotalUser = 0;
         }
-        private void Sync_Local_Click(object sender, EventArgs e)
-        {
-            if (isJobStarted)
-            {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                form.Show(this);
-                return;
-            }
-
-            FolderBrowserDialog fsync = new FolderBrowserDialog();
-            fsync.ShowNewFolderButton = true;
-            fsync.Description = "Currently: " + Settings.Default.UP_setF_local;
-            fsync.SelectedPath = Settings.Default.UP_setF_local;
-
-            if (fsync.ShowDialog() == DialogResult.OK)
-            {
-
-                Settings.Default.UP_setF_local = fsync.SelectedPath;
-                Settings.Default.Save();
-
-                //restart program
-                // MessageBox.Show(gStr.gsProgramWillExitPleaseRestart);
-                // Close();
-            }
-        }
-
-        private void Sync_cloud_Click(object sender, EventArgs e)
-        {
-            if (isJobStarted)
-            {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                form.Show(this);
-                return;
-            }
-
-            FolderBrowserDialog fsync = new FolderBrowserDialog();
-            fsync.ShowNewFolderButton = true;
-            fsync.Description = "Currently: " + Settings.Default.UP_setF_synchro;
-            fsync.SelectedPath = Settings.Default.UP_setF_synchro;
-
-            if (fsync.ShowDialog() == DialogResult.OK)
-            {
-                Settings.Default.UP_setF_synchro = fsync.SelectedPath;
-                Settings.Default.Save();
-
-                //restart program
-                // MessageBox.Show(gStr.gsProgramWillExitPleaseRestart);
-                // Close();
-            }
-        }
+    
         //Ajout-modification MEmprou et SPailleau update memprou
         public void CheckSettingsUpdate()
         {
@@ -2594,6 +2517,18 @@ namespace AgOpenGPS
 
                 }
             }
+        }
+        private void Connected_services_Click(object sender, EventArgs e)
+        {
+            Form f = Application.OpenForms["FormConnectedServices"];
+
+            if (f != null)
+            {
+                f.Focus();
+                f.Close();
+            }
+            Form form = new FormConnectedServices(this);
+            form.Show(this);
         }
         //fin
         #endregion

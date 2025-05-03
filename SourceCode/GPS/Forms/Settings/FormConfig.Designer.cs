@@ -2656,6 +2656,7 @@ namespace AgOpenGPS
             0,
             0,
             0});
+            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
             // 
             // nudAntennaPivot

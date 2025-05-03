@@ -1043,6 +1043,57 @@ namespace AgOpenGPS
         {
 
         }
+        //ajout memprou
+
+        private void CFG_gp_Click(object sender, EventArgs e)
+        {
+            //ajout memprou
+            Properties.Settings.Default.setVehicle_goalPointLookAheadHold = mf.vehicle.goalPointLookAheadHold;
+            Properties.Settings.Default.setVehicle_goalPointLookAheadMult = mf.vehicle.goalPointLookAheadMult;
+            Properties.Settings.Default.setVehicle_goalPointAcquireFactor = mf.vehicle.goalPointAcquireFactor;
+
+            Properties.Settings.Default.stanleyHeadingErrorGain = mf.vehicle.stanleyHeadingErrorGain;
+            Properties.Settings.Default.stanleyDistanceErrorGain = mf.vehicle.stanleyDistanceErrorGain;
+            Properties.Settings.Default.stanleyIntegralGainAB = mf.vehicle.stanleyIntegralGainAB;
+            Properties.Settings.Default.purePursuitIntegralGainAB = mf.vehicle.purePursuitIntegralGain;
+            Properties.Settings.Default.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle;
+
+            Properties.Settings.Default.setAS_countsPerDegree = mf.p_252.pgn[mf.p_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
+            Properties.Settings.Default.setAS_ackerman = mf.p_252.pgn[mf.p_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
+
+            Properties.Settings.Default.setAS_wasOffset = hsbarWasOffset.Value;
+            mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
+            mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+
+            Properties.Settings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
+            Properties.Settings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
+            Properties.Settings.Default.setAS_Kp = mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
+            Properties.Settings.Default.setAS_minSteerPWM = mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
+
+            Properties.Settings.Default.setAS_deadZoneHeading = mf.vehicle.deadZoneHeading;
+            Properties.Settings.Default.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
+
+            Properties.Settings.Default.setAS_ModeXTE = mf.vehicle.modeXTE;
+            Properties.Settings.Default.setAS_ModeTime = mf.vehicle.modeTime;
+
+            Properties.Settings.Default.setWindow_steerSettingsLocation = Location;
+
+            Properties.Settings.Default.setAS_uTurnCompensation = mf.vehicle.uturnCompensation;
+
+            //save current vehicle
+            Properties.Settings.Default.Save();
+
+            Form f = Application.OpenForms["FormMultiSettings"];
+
+            if (f != null)
+            {
+                f.Focus();
+                f.Close();
+            }
+            Form form = new FormMultiSettings(this);
+            form.Show(this);
+        }
+        //fin
 
         private void btnSteerAngleDown_MouseDown(object sender, MouseEventArgs e)
         {

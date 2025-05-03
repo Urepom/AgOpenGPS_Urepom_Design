@@ -105,9 +105,6 @@ namespace AgOpenGPS
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_btnBuildTracks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip_lblhz = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuStrip_synchro = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Sync_Local = new System.Windows.Forms.ToolStripMenuItem();
-            this.Sync_cloud = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_SnapCenterMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -174,6 +171,7 @@ namespace AgOpenGPS
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nozzleAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNavigationSettings = new System.Windows.Forms.ToolStripDropDownButton();
+            this.Connected_services = new System.Windows.Forms.ToolStripDropDownButton();
             this.round_table6 = new AgOpenGPS.Round_table();
             this.btnFlag = new System.Windows.Forms.Button();
             this.round_table4 = new AgOpenGPS.Round_table();
@@ -249,7 +247,6 @@ namespace AgOpenGPS
             this.btnResetToolHeading = new System.Windows.Forms.Button();
             this.lblHardwareMessage = new System.Windows.Forms.Label();
             this.cboxAutoSnapToPivot = new System.Windows.Forms.CheckBox();
-            this.btn_synchro = new System.Windows.Forms.Button();
             this.SnapCenterMain = new System.Windows.Forms.Button();
             this.btnAdjRightMain = new System.Windows.Forms.Button();
             this.btnAdjLeftMain = new System.Windows.Forms.Button();
@@ -258,7 +255,6 @@ namespace AgOpenGPS
             this.panelDrag.SuspendLayout();
             this.panelSim.SuspendLayout();
             this.panelNavigation.SuspendLayout();
-            this.contextMenuStrip_synchro.SuspendLayout();
             this.panel_top.SuspendLayout();
             this.round_table12.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -1376,35 +1372,6 @@ namespace AgOpenGPS
             this.contextMenuStrip_lblhz.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip_lblhz.Opening += new System.ComponentModel.CancelEventHandler(this.lblHz_Click);
             // 
-            // contextMenuStrip_synchro
-            // 
-            this.contextMenuStrip_synchro.AutoSize = false;
-            this.contextMenuStrip_synchro.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Sync_Local,
-            this.Sync_cloud});
-            this.contextMenuStrip_synchro.Name = "contextMenuStrip_headlane";
-            this.contextMenuStrip_synchro.Size = new System.Drawing.Size(330, 134);
-            // 
-            // Sync_Local
-            // 
-            this.Sync_Local.AutoSize = false;
-            this.Sync_Local.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Sync_Local.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Sync_Local.Name = "Sync_Local";
-            this.Sync_Local.Size = new System.Drawing.Size(330, 62);
-            this.Sync_Local.Text = "Dossier local";
-            this.Sync_Local.Click += new System.EventHandler(this.Sync_Local_Click);
-            // 
-            // Sync_cloud
-            // 
-            this.Sync_cloud.AutoSize = false;
-            this.Sync_cloud.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Sync_cloud.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Sync_cloud.Name = "Sync_cloud";
-            this.Sync_cloud.Size = new System.Drawing.Size(330, 62);
-            this.Sync_cloud.Text = "Dossier de synchronisation";
-            this.Sync_cloud.Click += new System.EventHandler(this.Sync_cloud_Click);
-            // 
             // contextMenuStrip_SnapCenterMain
             // 
             this.contextMenuStrip_SnapCenterMain.Name = "contextMenuStrip_headlane";
@@ -1745,17 +1712,17 @@ namespace AgOpenGPS
             this.round_table11.ColumnCount = 5;
             this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.84032F));
             this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.15434F));
-            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.00267F));
-            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.00267F));
-            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.24528F));
+            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.90566F));
+            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 157F));
             this.round_table11.Controls.Add(this.btnMaximizeMainForm, 2, 0);
             this.round_table11.Controls.Add(this.btnMinimizeMainForm, 1, 0);
             this.round_table11.Controls.Add(this.btnShutdown, 3, 0);
-            this.round_table11.Location = new System.Drawing.Point(830, 3);
+            this.round_table11.Location = new System.Drawing.Point(798, 7);
             this.round_table11.Name = "round_table11";
             this.round_table11.RowCount = 1;
             this.round_table11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.round_table11.Size = new System.Drawing.Size(291, 58);
+            this.round_table11.Size = new System.Drawing.Size(349, 58);
             this.round_table11.TabIndex = 558;
             // 
             // btnMaximizeMainForm
@@ -1771,9 +1738,9 @@ namespace AgOpenGPS
             this.btnMaximizeMainForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMaximizeMainForm.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaximizeMainForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMaximizeMainForm.Location = new System.Drawing.Point(59, 3);
+            this.btnMaximizeMainForm.Location = new System.Drawing.Point(71, 3);
             this.btnMaximizeMainForm.Name = "btnMaximizeMainForm";
-            this.btnMaximizeMainForm.Size = new System.Drawing.Size(43, 52);
+            this.btnMaximizeMainForm.Size = new System.Drawing.Size(50, 52);
             this.btnMaximizeMainForm.TabIndex = 482;
             this.btnMaximizeMainForm.UseVisualStyleBackColor = false;
             this.btnMaximizeMainForm.Click += new System.EventHandler(this.btnMaximizeMainForm_Click);
@@ -1791,9 +1758,9 @@ namespace AgOpenGPS
             this.btnMinimizeMainForm.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMinimizeMainForm.ForeColor = System.Drawing.Color.DimGray;
             this.btnMinimizeMainForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMinimizeMainForm.Location = new System.Drawing.Point(9, 3);
+            this.btnMinimizeMainForm.Location = new System.Drawing.Point(26, 3);
             this.btnMinimizeMainForm.Name = "btnMinimizeMainForm";
-            this.btnMinimizeMainForm.Size = new System.Drawing.Size(44, 52);
+            this.btnMinimizeMainForm.Size = new System.Drawing.Size(39, 52);
             this.btnMinimizeMainForm.TabIndex = 481;
             this.btnMinimizeMainForm.UseVisualStyleBackColor = false;
             this.btnMinimizeMainForm.Click += new System.EventHandler(this.btnMinimizeMainForm_Click);
@@ -1809,10 +1776,10 @@ namespace AgOpenGPS
             this.btnShutdown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnShutdown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShutdown.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnShutdown.Location = new System.Drawing.Point(106, 2);
+            this.btnShutdown.Location = new System.Drawing.Point(135, 2);
             this.btnShutdown.Margin = new System.Windows.Forms.Padding(0);
             this.btnShutdown.Name = "btnShutdown";
-            this.btnShutdown.Size = new System.Drawing.Size(49, 54);
+            this.btnShutdown.Size = new System.Drawing.Size(44, 54);
             this.btnShutdown.TabIndex = 447;
             this.btnShutdown.UseVisualStyleBackColor = false;
             this.btnShutdown.Click += new System.EventHandler(this.btnShutdown_Click);
@@ -1826,13 +1793,15 @@ namespace AgOpenGPS
             this.round_Menu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dzzdzToolStripMenuItem,
             this.fileToolStripMenuItem,
-            this.btnNavigationSettings});
-            this.round_Menu1.Location = new System.Drawing.Point(-70, 3);
+            this.btnNavigationSettings,
+            this.Connected_services});
+            this.round_Menu1.Location = new System.Drawing.Point(-70, 7);
             this.round_Menu1.Name = "round_Menu1";
             this.round_Menu1.Padding = new System.Windows.Forms.Padding(0);
-            this.round_Menu1.Size = new System.Drawing.Size(281, 58);
+            this.round_Menu1.Size = new System.Drawing.Size(263, 58);
             this.round_Menu1.TabIndex = 551;
             this.round_Menu1.Text = "round_Menu1";
+            this.round_Menu1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.round_Menu1_ItemClicked);
             // 
             // dzzdzToolStripMenuItem
             // 
@@ -2157,6 +2126,20 @@ namespace AgOpenGPS
             this.btnNavigationSettings.Size = new System.Drawing.Size(66, 66);
             this.btnNavigationSettings.Text = "toolStripDropDownButton4";
             this.btnNavigationSettings.Click += new System.EventHandler(this.btnNavigationSettings_Click);
+            // 
+            // Connected_services
+            // 
+            this.Connected_services.AutoSize = false;
+            this.Connected_services.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Connected_services.Image = global::AgOpenGPS.Properties.Resources.connexions;
+            this.Connected_services.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Connected_services.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Connected_services.Margin = new System.Windows.Forms.Padding(0);
+            this.Connected_services.Name = "Connected_services";
+            this.Connected_services.ShowDropDownArrow = false;
+            this.Connected_services.Size = new System.Drawing.Size(66, 66);
+            this.Connected_services.Text = "toolStripDropDownButton4";
+            this.Connected_services.Click += new System.EventHandler(this.Connected_services_Click);
             // 
             // round_table6
             // 
@@ -3216,27 +3199,6 @@ namespace AgOpenGPS
             this.cboxAutoSnapToPivot.CheckedChanged += new System.EventHandler(this.btnSnapToPivot_Click);
             this.cboxAutoSnapToPivot.Click += new System.EventHandler(this.cboxAutoSnapToPivot_Click);
             // 
-            // btn_synchro
-            // 
-            this.btn_synchro.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_synchro.BackColor = System.Drawing.Color.Transparent;
-            this.btn_synchro.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_synchro.ContextMenuStrip = this.contextMenuStrip_synchro;
-            this.btn_synchro.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btn_synchro.FlatAppearance.BorderSize = 0;
-            this.btn_synchro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_synchro.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_synchro.Image = global::AgOpenGPS.Properties.Resources.synchronize;
-            this.btn_synchro.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btn_synchro.Location = new System.Drawing.Point(132, 6);
-            this.btn_synchro.Margin = new System.Windows.Forms.Padding(9, 0, 0, 0);
-            this.btn_synchro.Name = "btn_synchro";
-            this.btn_synchro.Size = new System.Drawing.Size(55, 52);
-            this.btn_synchro.TabIndex = 564;
-            this.btn_synchro.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_synchro.UseVisualStyleBackColor = false;
-            this.btn_synchro.Click += new System.EventHandler(this.btn_synchro_Click);
-            // 
             // SnapCenterMain
             // 
             this.SnapCenterMain.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -3293,7 +3255,6 @@ namespace AgOpenGPS
             this.Controls.Add(this.label12);
             this.Controls.Add(this.cboxAutoSnapToPivot);
             this.Controls.Add(this.panelNavigation);
-            this.Controls.Add(this.btn_synchro);
             this.Controls.Add(this.SnapCenterMain);
             this.Controls.Add(this.btnAdjRightMain);
             this.Controls.Add(this.btnAdjLeftMain);
@@ -3363,7 +3324,6 @@ namespace AgOpenGPS
             this.panelDrag.ResumeLayout(false);
             this.panelSim.ResumeLayout(false);
             this.panelNavigation.ResumeLayout(false);
-            this.contextMenuStrip_synchro.ResumeLayout(false);
             this.panel_top.ResumeLayout(false);
             this.round_table12.ResumeLayout(false);
             this.round_table12.PerformLayout();
@@ -3574,7 +3534,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.Button SnapCenterMain;
         private System.Windows.Forms.Button btnAdjRightMain;
         private System.Windows.Forms.Button btnAdjLeftMain;
-        public System.Windows.Forms.Button btn_synchro;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_tram;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_headlane;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_btnNudge;
@@ -3600,9 +3559,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.ToolStripMenuItem toolStripHotkeys;
         private System.Windows.Forms.Button btnChargeStatus;
         public System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_synchro;
-        private System.Windows.Forms.ToolStripMenuItem Sync_Local;
-        private System.Windows.Forms.ToolStripMenuItem Sync_cloud;
         private System.Windows.Forms.ToolStripMenuItem menuLanguagePortugese;
         private System.Windows.Forms.ToolStripMenuItem menuLanguageChinese;
         private System.Windows.Forms.ToolStripMenuItem kioskModeToolStrip;
@@ -3612,5 +3568,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label lblHardwareMessage;
         private System.Windows.Forms.ToolStripMenuItem toolStripAllSettings;
         private ToolStripMenuItem tramsMultiMenuField;
+        private ToolStripDropDownButton Connected_services;
     }
 }

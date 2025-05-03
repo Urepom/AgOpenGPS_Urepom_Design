@@ -505,5 +505,9 @@ namespace AgOpenGPS
 
         }
 
+        private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

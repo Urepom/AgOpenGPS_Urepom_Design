@@ -290,6 +290,21 @@ namespace AgOpenGPS.Properties
         public decimal UP_SetDoseFVidange = 2;
         public bool UP_SetRollOFF = false;
         public int UP_SetTimerRincFerti = 30;
+        public string UP_adresse_traccar = "demo.traccar.org";
+        public string UP_port_traccar = "5055";
+        public string UP_ID_traccar = "arion410";
+        public int UP_frequence_traccar = 5;
+        public bool UP_traccar = false;
+        //Gdrive
+        public string UP_ApplicationName = "AgOpenGPS";
+        public string UP_CredentialsPath = "";
+        public string UP_LocalFolderPath = "";
+        public string UP_DriveFolderName = "";
+        //Dropbox
+        public string UP_Dropbox_AppKey = "";
+        public string UP_Dropbox_AccessToken = "";
+        public string UP_Dropbox_LocalFolderPath = "";
+        public string UP_DropboxFolderName = "";
         //fin
 
         public LoadResult Load()

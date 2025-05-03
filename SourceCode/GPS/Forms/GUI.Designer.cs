@@ -1,6 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 using AgLibrary.Logging;
+using AgOpenGPS.Core.Models;
 using AgOpenGPS.Culture;
 using AgOpenGPS.Helpers;
 using AgOpenGPS.Properties;
@@ -10,8 +11,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Windows.Forms;
-using AgOpenGPS.Core.Models;
 
 namespace AgOpenGPS
 {
@@ -60,7 +62,7 @@ namespace AgOpenGPS
         //Ajout-modification MEmprou et SPailleau
         public bool issections_buttonOn = false;
         public bool islong_touchOn = Properties.Settings.Default.UP_setDisplay_islong_touchOn;
-
+        bool work_track = false;
         //fin
         public bool isUTurnOn = true, isLateralOn = true, isNudgeOn = true;
 
@@ -90,6 +92,7 @@ namespace AgOpenGPS
         private int fileSaveCounter = 1;
         private int fileSaveAlwaysCounter = 1;
         private int fourSecondCounter = 0;
+        private int traccarSecondCounter = 0;
         public int twoSecondCounter = 0;
         private int oneSecondCounter = 0;
         private int oneHalfSecondCounter = 0;
@@ -252,19 +255,25 @@ namespace AgOpenGPS
                 }
                 /*/
                 //ajout memprou
+
                 lblHz.Text = gpsHz.ToString("N1") + "Hz " + (int)(frameTime) + "\r\n" +
                 FixQuality;
                 lblTotalAppliedArea.Text = fd.WorkedHectares;
                 lblWorkRemaining.Text = fd.WorkedAreaRemainHectares;
                 lblTimeRemaining.Text = fd.TimeTillFinished + " H";
                 lblDateTime.Text = DateTime.Now.ToString("HH:mm:ss") + "\n\r" + DateTime.Now.ToString("ddd dd MMMM yyyy");
+
+                PowerStatus status = SystemInformation.PowerStatus;
+                string NiveauBatterie = status.BatteryLifePercent.ToString("P0");
+                BatLevel.Text = NiveauBatterie;
+
                 label1.Text = RegistrySettings.vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m";
                 if (ferti_vidange == false)
                 {
                     p_240.pgn[p_240.LargeurHi] = unchecked((byte)(((short)tool.width) >> 8));
                     p_240.pgn[p_240.LargeurLo] = unchecked((byte)(((short)tool.width)));
                 }
-                
+
                 if (tram.displayMode == 0)
                     tram.isRightManualOn = tram.isLeftManualOn = false;
                 //fin
@@ -302,13 +311,13 @@ namespace AgOpenGPS
                 //general counters
                 twoSecondCounter++;
                 fourSecondCounter++;
-
                 //keeps autoTrack from changing too fast
                 trk.autoTrack3SecTimer++;
                 vehicle.deadZoneDelayCounter++;
 
                 //ajout memprou lblFix.Text = FixQuality + "Age: " + pn.age.ToString("N1");
                 //Ajout-modification MEmprou et SPailleau
+                traccarSecondCounter++;
                 lblAge.Text = "age: " + pn.age.ToString("N1");
                 lbludpWatchCounts.Text = "Miss: " + missedSentenceCount.ToString();
                 //fin
@@ -369,7 +378,7 @@ namespace AgOpenGPS
                 //the main formgps windows
 
                 //Make sure it is off when it should
-                if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn) 
+                if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn)
                 {
                     btnAutoSteer.PerformClick();
                     TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsNoGuidanceLines);
@@ -406,9 +415,43 @@ namespace AgOpenGPS
 
                 secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
             }
+            //ajout max
+            if (Settings.Default.UP_traccar == true && traccarSecondCounter >= Settings.Default.UP_frequence_traccar)
+            {
+                string Id = Settings.Default.UP_ID_traccar;
+                string IP = Settings.Default.UP_adresse_traccar;
+                string Port = Settings.Default.UP_port_traccar;
+                double totalSecond = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                string lat = pn.latitude.ToString().Replace(",", ".");
+                string lon = pn.longitude.ToString().Replace(",", ".");
+                //MessageBox.Show(SpeedKPH);
+                if ((manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))
+                {
+                     work_track = true;
+                }
+                else
+                {
+                     work_track = false;
+                }
+                var request = (HttpWebRequest)WebRequest.Create("http://" + IP + ":" + Port + "/?id=" + Id + "&timestamp=" + ((int)totalSecond).ToString() + "&speed=" + SpeedKPH.ToString().Replace(",", ".") + "&lat=" + lat + "&lon=" + lon + "&tool=" + RegistrySettings.vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m".ToString() + "&Work=" + work_track + "&Field=" + (currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha").ToString() + "&AppliedArea=" + fd.WorkedHectares.ToString());
+                var postData = "";
+                var data = Encoding.ASCII.GetBytes(postData);
 
-        }//wait till timer fires again.         
+                request.Method = "POST";
+     
+                request.ContentType = "application/json";
+                request.ContentLength = data.Length;
 
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+                traccarSecondCounter = 0;
+
+                request.Abort();
+            }//wait till timer fires again.
+             //fin
+        }
         public void LoadText()
         {
             enterSimCoordsToolStripMenuItem.Text = gStr.gsEnterSimCoords;
@@ -959,8 +1002,6 @@ namespace AgOpenGPS
 
                         /*/ //fin
             //Ajout-modification MEmprou et SPailleau
-            btn_synchro.Left = round_Menu1.Right - 74;
-            btn_synchro.Top = round_Menu1.Top + 4;
             //fin
         }
 

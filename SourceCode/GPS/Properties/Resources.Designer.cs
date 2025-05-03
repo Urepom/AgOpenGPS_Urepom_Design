@@ -1292,6 +1292,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap connexions {
+            get {
+                object obj = ResourceManager.GetObject("connexions", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConS_Brand {
             get {
                 object obj = ResourceManager.GetObject("ConS_Brand", resourceCulture);
@@ -1782,6 +1792,26 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dropbox_logo {
+            get {
+                object obj = ResourceManager.GetObject("dropbox_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dropbox_logo1 {
+            get {
+                object obj = ResourceManager.GetObject("dropbox_logo1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ExitAOG {
             get {
                 object obj = ResourceManager.GetObject("ExitAOG", resourceCulture);
@@ -2025,6 +2055,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap FlagYel {
             get {
                 object obj = ResourceManager.GetObject("FlagYel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gdrive_logo {
+            get {
+                object obj = ResourceManager.GetObject("gdrive_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3377,6 +3417,16 @@ namespace AgOpenGPS.Properties {
         internal static System.Drawing.Bitmap ToolOverlap {
             get {
                 object obj = ResourceManager.GetObject("ToolOverlap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap traccar_logo {
+            get {
+                object obj = ResourceManager.GetObject("traccar_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

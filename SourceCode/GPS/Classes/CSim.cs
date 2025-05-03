@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
@@ -82,7 +85,6 @@ namespace AgOpenGPS
 
             mf.pn.latitude = latitude;
             mf.pn.longitude = longitude;
-
             mf.pn.hdop = 0.7;
 
             temp = Math.Abs(mf.pn.latitude * 100);
