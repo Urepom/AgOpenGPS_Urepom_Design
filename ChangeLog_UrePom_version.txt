@@ -1,4 +1,7 @@
 AOG :
+- Système de connexion à TRACCAR pour envoi de données de localisation et infos de travail au champ
+- Système de synchronisation des fichiers avec API DROBPOX, GOOGLE DRIVE, Dossier local
+- Système de recopie de paramètres d'un outil dans d'autres fichiers outils (onglet auto steer)
 - Affichage du niveau de charge de la batterie (tablette) à côté de l'heure en bas
 - Affichage du nom de la ligne active en OpenGL sur le fond avec clic dessus pour changer de ligne : pratique et c'est la conséquence du fait de masquer les outils)
 - Enregistrement de la position des fenêtres (comme vu la dernière fois)

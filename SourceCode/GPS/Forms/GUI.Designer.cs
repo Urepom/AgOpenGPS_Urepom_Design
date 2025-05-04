@@ -424,34 +424,68 @@ namespace AgOpenGPS
                 double totalSecond = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
                 string lat = pn.latitude.ToString().Replace(",", ".");
                 string lon = pn.longitude.ToString().Replace(",", ".");
-                //MessageBox.Show(SpeedKPH);
+
                 if ((manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))
                 {
-                     work_track = true;
+                    work_track = true;
                 }
                 else
                 {
-                     work_track = false;
+                    work_track = false;
                 }
-                var request = (HttpWebRequest)WebRequest.Create("http://" + IP + ":" + Port + "/?id=" + Id + "&timestamp=" + ((int)totalSecond).ToString() + "&speed=" + SpeedKPH.ToString().Replace(",", ".") + "&lat=" + lat + "&lon=" + lon + "&tool=" + RegistrySettings.vehicleFileName + "\r\n" + (Math.Round(tool.width, 2)).ToString() + " m".ToString() + "&Work=" + work_track + "&Field=" + (currentFieldDirectory.Substring(0, currentFieldDirectory.Length) + "\r\n" + fd.AreaBoundaryLessInnersHectares + " ha").ToString() + "&AppliedArea=" + fd.WorkedHectares.ToString());
+
+                string url = $"http://{IP}:{Port}/?id={Id}&timestamp={((int)totalSecond).ToString()}&speed={SpeedKPH.ToString().Replace(",", ".")}&lat={lat}&lon={lon}&tool={RegistrySettings.vehicleFileName}\r\n{(Math.Round(tool.width, 2)).ToString()} m&Work={work_track}&Field={currentFieldDirectory}\r\n{fd.AreaBoundaryLessInnersHectares} ha&AppliedArea={fd.WorkedHectares.ToString()}";
                 var postData = "";
                 var data = Encoding.ASCII.GetBytes(postData);
 
-                request.Method = "POST";
-     
-                request.ContentType = "application/json";
-                request.ContentLength = data.Length;
-
-                using (var stream = request.GetRequestStream())
+                HttpWebRequest request = null;
+                try
                 {
-                    stream.Write(data, 0, data.Length);
-                }
-                traccarSecondCounter = 0;
+                    request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = "POST";
+                    request.ContentType = "application/json";
+                    request.ContentLength = data.Length;
 
-                request.Abort();
-            }//wait till timer fires again.
-             //fin
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+                    traccarSecondCounter = 0;
+                }
+                catch (WebException ex)
+                {
+                    Console.WriteLine($"Erreur de requête Web : {ex.Message}");
+
+                    if (Settings.Default.UP_traccar)
+                    {
+                        Settings.Default.UP_traccar = false; // Marquer que le message a été affiché
+                        System.Windows.Forms.MessageBox.Show($"Impossible de contacter le serveur Traccar à l'adresse {IP}:{Port}. Veuillez vérifier l'adresse IP et la connexion réseau.", "Erreur de connexion Traccar", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    }
+                    // Optionnellement, vous pouvez réinitialiser le compteur ici ou ailleurs selon votre logique.
+                    // traccarSecondCounter = 0;
+                }
+                catch (UriFormatException ex)
+                {
+                    Console.WriteLine($"Erreur de format d'URL : {ex.Message}");
+                    if (Settings.Default.UP_traccar)
+                    {
+                        Settings.Default.UP_traccar = false; // Marquer que le message a été affiché
+                        System.Windows.Forms.MessageBox.Show($"L'adresse IP ou le port du serveur Traccar semble incorrect : {IP}:{Port}. Veuillez vérifier les paramètres.", "Erreur de configuration Traccar", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                    }
+                    // Optionnellement, vous pouvez réinitialiser le compteur.
+                    // traccarSecondCounter = 0;
+                }
+                finally
+                {
+                    if (request != null)
+                    {
+                        request.Abort();
+                    }
+                }
+            }
+            //fin
         }
+        //fin
         public void LoadText()
         {
             enterSimCoordsToolStripMenuItem.Text = gStr.gsEnterSimCoords;

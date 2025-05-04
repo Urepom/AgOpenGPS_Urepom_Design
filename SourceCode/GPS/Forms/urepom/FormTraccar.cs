@@ -8,10 +8,10 @@ namespace AgOpenGPS
 {
     public partial class FormTraccar : Form
     {
-        public readonly FormGPS mf = null;
+        private readonly FormGPS mf = null;
         public FormTraccar(Form callingForm)
         {
-            mf = callingForm as FormGPS;
+            //mf = callingForm as FormGPS;
             InitializeComponent();
         }
 
