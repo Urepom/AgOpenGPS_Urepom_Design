@@ -1117,7 +1117,7 @@ namespace AgOpenGPS
             yt.isYouTurnBtnOn = false;
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
 
-            btnABDraw.Visible = false;
+            //ajout max btnABDraw.Visible = false;
 
             yt.ResetYouTurn();
             DisableYouTurnButtons();
@@ -1140,7 +1140,7 @@ namespace AgOpenGPS
             SetZoom();
             worldGrid.isGeoMap = false;
 
-            panelSim.Top = Height - 60;
+            //ajout max panelSim.Top = Height - 60;
 
             PanelUpdateRightAndBottom();
 

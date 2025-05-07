@@ -434,7 +434,7 @@ namespace AgOpenGPS
                     work_track = false;
                 }
 
-                string url = $"http://{IP}:{Port}/?id={Id}&timestamp={((int)totalSecond).ToString()}&speed={SpeedKPH.ToString().Replace(",", ".")}&lat={lat}&lon={lon}&tool={RegistrySettings.vehicleFileName}\r\n{(Math.Round(tool.width, 2)).ToString()} m&Work={work_track}&Field={currentFieldDirectory}\r\n{fd.AreaBoundaryLessInnersHectares} ha&AppliedArea={fd.WorkedHectares.ToString()}";
+                string url = $"http://{IP}:{Port}/?id={Id}&timestamp={((int)totalSecond).ToString()}&speed={(Convert.ToDouble(SpeedKPH) / 1.852).ToString().Replace(",", ".")}&lat={lat}&lon={lon}&tool={RegistrySettings.vehicleFileName}\r\n{(Math.Round(tool.width, 2)).ToString()} m&Work={work_track}&Field={currentFieldDirectory}\r\n{fd.AreaBoundaryLessInnersHectares} ha&AppliedArea={fd.WorkedHectares.ToString()}";
                 var postData = "";
                 var data = Encoding.ASCII.GetBytes(postData);
 

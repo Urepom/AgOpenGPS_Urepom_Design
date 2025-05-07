@@ -122,7 +122,7 @@ namespace AgOpenGPS
             <p>Lors de l'ajout ou de la modification de l'appareil, vous devrez spécifier les informations suivantes :</p>
             <ul>
                 <li><strong>Nom :</strong> Donnez un nom descriptif à votre appareil(par exemple, 'Tracteur Arion 410').</li>
-                <li><strong>Identifiant(Identifier) :</strong> C'est le champ le plus important. Vous devez entrer ici l'ID exact que vous utilisez dans l'application C# (celui que vous avez configuré dans le champ 'ID de l'appareil' et qui est envoyé via le paramètre <code>id</code> dans l'URL). Par exemple, <code>arion410</code>. Traccar utilise cet ID pour associer les données entrantes au bon appareil.</li>
+                <li><strong>Identifiant(Identifier) :</strong> C'est le champ le plus important. Vous devez entrer ici l'ID exact que vous utilisez dans l'application C# (celui que vous avez configuré dans le champ 'ID de l'appareil' et qui est envoyé via le paramètre <code>id</code> dans l'URL). Par exemple, <code>A29708</code>. Traccar utilise cet ID pour associer les données entrantes au bon appareil.</li>
                 <li><strong>Protocole :</strong> Sélectionnez le protocole utilisé par l'application. Dans ce cas, il s'agit du protocole<strong>'OsmAnd'</strong>.</li>
             </ul>
             <p>Les autres paramètres peuvent généralement être laissés par défaut, ou configurés selon vos besoins spécifiques(groupes, etc.).</p>
@@ -156,7 +156,7 @@ namespace AgOpenGPS
                 <strong>Port(OSMAND : 5055)</strong> : Champ de texte pour spécifier le numéro de port utilisé par le protocole Osmand sur votre serveur Traccar.Le port par défaut pour Osmand est 5055.
             </li>
             <li>
-                <strong>ID de l'appareil</strong> : Champ de texte où vous devez entrer l'identifiant unique que vous avez attribué à cet appareil dans Traccar(par exemple, <code>arion410</code>). Cet ID est utilisé par Traccar pour identifier le véhicule.
+                <strong>ID de l'appareil</strong> : Champ de texte où vous devez entrer l'identifiant unique que vous avez attribué à cet appareil dans Traccar(par exemple, <code>A29708</code>). Cet ID est utilisé par Traccar pour identifier le véhicule.
             </li>
             <li>
                 <strong>Fréquence d'actualisation de position</strong> : Contrôle numérique pour définir l'intervalle de temps en secondes entre chaque envoi de position au serveur Traccar.
