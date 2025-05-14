@@ -305,6 +305,12 @@ namespace AgOpenGPS.Properties
         public string UP_Dropbox_AccessToken = "";
         public string UP_Dropbox_LocalFolderPath = "";
         public string UP_DropboxFolderName = "";
+        public string UP_Dropbox_AppSecret = "";
+        public string UP_Dropbox_OAuthState = "";
+        public string UP_Dropbox_RefreshToken = "";
+
+        
+
         //fin
 
         public LoadResult Load()

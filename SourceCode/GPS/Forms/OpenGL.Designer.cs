@@ -2507,7 +2507,7 @@ namespace AgOpenGPS
                 int line2 = 8;
 
                 //int down = (int)((double)oglMain.Height/38);
-                int down = 58 + (int)((double)(oglMain.Height - 600) / 17);
+                int down = 85 + (int)((double)(oglMain.Height - 600) / 17); // ajout memprou 85 au lieu de 58
 
                 double textSize = (100 + (double)(oglMain.Height - 600)) * 0.0012;
                 int pointy = 24;
@@ -2640,25 +2640,25 @@ namespace AgOpenGPS
                 GL.Color4(red, green, 0.3, 1.0);
 
                 GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
-                GL.TexCoord2(0, 1); GL.Vertex2(-wide, 3); // 
-                GL.TexCoord2(1, 1); GL.Vertex2(wide, 3); // 
-                GL.TexCoord2(1, 0); GL.Vertex2(wide, 35 * (1 + textSize)); // 
-                GL.TexCoord2(0, 0); GL.Vertex2(-wide, 35 * (1 + textSize)); //
+                GL.TexCoord2(0, 1); GL.Vertex2(-wide, 42); // //ajout memprou
+                GL.TexCoord2(1, 1); GL.Vertex2(wide, 42); // //ajout memprou
+                GL.TexCoord2(1, 0); GL.Vertex2(wide, 62 * (1 + textSize)); // //ajout memprou
+                GL.TexCoord2(0, 0); GL.Vertex2(-wide, 62 * (1 + textSize)); // //ajout memprou
                 GL.End();
 
                 GL.Disable(EnableCap.Texture2D);
 
                 GL.Color4(0.12f, 0.12770f, 0.120f, 1);
 
-                font.DrawText(center, 2, hede, 1.0 + textSize);
+                font.DrawText(center, 42, hede, 1.0 + textSize); //ajout memprou 39 au lieu de 2
 
                 if (vehicle.isInDeadZone)
                 {
                     GL.Color4(0.512f, 0.9712770f, 0.5120f, 1);
                     GL.LineWidth(4);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex2(-wide, 36 * (1 + textSize));
-                    GL.Vertex2(wide, 36 * (1 + textSize));
+                    GL.Vertex2(-wide, 61 * (1 + textSize)); //ajout memprou
+                    GL.Vertex2(wide, 61 * (1 + textSize)); //ajout memprou
                     GL.End();
                 }
             }
@@ -2696,7 +2696,7 @@ namespace AgOpenGPS
             }
 
             int start = -(int)(((double)(dire.Length) * 0.45) * (20 * (1.0)));
-            int down = 75 + (int)((double)(oglMain.Height - 600) / 12);
+            int down = 87 + (int)((double)(oglMain.Height - 600) / 12); // ajout memprou
             double textSize = (100 + (double)(oglMain.Height - 600)) * 0.0012 + 1;
 
             GL.Color4(0.9, 0.9, 0.9, 0.8);
