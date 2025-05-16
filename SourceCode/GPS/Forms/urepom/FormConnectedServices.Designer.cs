@@ -36,10 +36,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.Gdrive_button = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Synchthing_button = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -126,23 +129,47 @@
             this.Gdrive_button.UseVisualStyleBackColor = true;
             this.Gdrive_button.Click += new System.EventHandler(this.Gdrive_button_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.Synchthing_button);
+            this.groupBox5.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold);
+            this.groupBox5.Location = new System.Drawing.Point(334, 189);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(220, 160);
+            this.groupBox5.TabIndex = 4;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "SYNCTHING";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
+            // 
+            // Synchthing_button
+            // 
+            this.Synchthing_button.Image = global::AgOpenGPS.Properties.Resources.syncthing_logo;
+            this.Synchthing_button.Location = new System.Drawing.Point(15, 39);
+            this.Synchthing_button.Name = "Synchthing_button";
+            this.Synchthing_button.Size = new System.Drawing.Size(162, 94);
+            this.Synchthing_button.TabIndex = 1;
+            this.Synchthing_button.UseVisualStyleBackColor = true;
+            this.Synchthing_button.Click += new System.EventHandler(this.Synchthing_button_Click);
+            // 
             // FormConnectedServices
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(627, 345);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(643, 384);
+            this.MinimumSize = new System.Drawing.Size(638, 369);
             this.Name = "FormConnectedServices";
             this.Text = "Services connectés";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -157,5 +184,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button Gdrive_button;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button Synchthing_button;
     }
 }

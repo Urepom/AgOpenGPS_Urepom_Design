@@ -70,5 +70,23 @@ namespace AgOpenGPS
             Form form = new FormGdrive_Sync(this);
             form.Show(this);
         }
+
+        private void Synchthing_button_Click(object sender, EventArgs e)
+        {
+            Form f = Application.OpenForms["FormSyncthingSync"];
+
+            if (f != null)
+            {
+                f.Focus();
+                f.Close();
+            }
+            Form form = new FormSyncthingSync(this);
+            form.Show(this);
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

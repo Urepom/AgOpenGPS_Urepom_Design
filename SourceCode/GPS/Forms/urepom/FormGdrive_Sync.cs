@@ -1,4 +1,4 @@
-﻿using AgOpenGPS; // Ajout de l'espace de noms
+﻿using AgOpenGPS.Classes.Urepom;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -94,7 +94,7 @@ namespace AgOpenGPS // Garder le namespace du formulaire si c'est ce que vous so
             }
 
             // Initialisation du synchroniseur
-            synchronizer = new AgOpenGPS.GoogleDriveSynchronizer(localFolderPath, driveFolderName, credentialsFilePath, applicationName);
+            synchronizer = new AgOpenGPS.Classes.Urepom.GoogleDriveSynchronizer(localFolderPath, driveFolderName, credentialsFilePath, applicationName);
             synchronizer.SynchronizationProgressChanged += Synchronizer_SynchronizationProgressChanged;
 
             try

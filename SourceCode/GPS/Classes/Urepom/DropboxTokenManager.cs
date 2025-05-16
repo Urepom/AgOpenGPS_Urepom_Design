@@ -7,9 +7,9 @@ using System.Web;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics; // Pour Console.WriteLine ou Debug.WriteLine
-using System.Net; // Ajouté pour HttpStatusCode si non déjà présent
+using System.Net;
 
-namespace AgOpenGPS // Assurez-vous que l'espace de noms correspond
+namespace AgOpenGPS.Classes.Urepom // Assurez-vous que l'espace de noms correspond
 {
     public class DropboxTokenManager
     {
@@ -52,12 +52,12 @@ namespace AgOpenGPS // Assurez-vous que l'espace de noms correspond
 
             // Utilisation de DropboxOAuth2Helper pour générer l'URL
             var authorizeUrl = DropboxOAuth2Helper.GetAuthorizeUri(
-                Dropbox.Api.OAuthResponseType.Code,
+                OAuthResponseType.Code,
                 _appKey,
                 redirectUri, // <-- Utilise le paramètre
                 state: state, // Passer le state
                               // *** AJOUTER LE PARAMÈTRE SUIVANT POUR DEMANDER UN JETON DE RAFRAÎCHISSEMENT ***
-                tokenAccessType: Dropbox.Api.TokenAccessType.Offline // <-- Demander l'accès hors ligne
+                tokenAccessType: TokenAccessType.Offline // <-- Demander l'accès hors ligne
             );
 
             Console.WriteLine("Authorization URL generated: " + authorizeUrl.ToString()); // Logging
@@ -183,7 +183,7 @@ namespace AgOpenGPS // Assurez-vous que l'espace de noms correspond
                     {
                         string errorResponse = await response.Content.ReadAsStringAsync();
                         Console.WriteLine($"Erreur HTTP lors du rafraîchissement du jeton : {response.StatusCode} - {errorResponse}");
-                        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        if (response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
                         {
                             Console.WriteLine("Jeton de rafraîchissement invalide ou expiré. Nécessite une ré-autorisation.");
                             UnlinkAccount();

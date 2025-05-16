@@ -9,9 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Win32; // Ajout pour la récupération du type MIME
+using Microsoft.Win32;
 
-namespace AgOpenGPS
+namespace AgOpenGPS.Classes.Urepom
 {
     public class GoogleDriveSynchronizer
     {
@@ -101,7 +101,7 @@ namespace AgOpenGPS
         {
             var fileList = new Dictionary<string, Google.Apis.Drive.v3.Data.File>();
             string pageToken = null;
-            Google.Apis.Drive.v3.Data.FileList response = null;
+            FileList response = null;
 
             var request = _driveService.Files.List();
             request.Q = $"'{parentId ?? _driveFolderId}' in parents and trashed=false";

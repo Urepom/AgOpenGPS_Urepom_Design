@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AgOpenGPS // Assurez-vous que cet espace de noms correspond à votre projet
+namespace AgOpenGPS.Classes.Urepom // Assurez-vous que cet espace de noms correspond à votre projet
 {
     public class DropboxSynchronizer
     {
@@ -139,7 +139,7 @@ namespace AgOpenGPS // Assurez-vous que cet espace de noms correspond à votre p
                     list = await _client.Files.ListFolderContinueAsync(list.Cursor);
                 }
             }
-            catch (Dropbox.Api.ApiException<ListFolderError> ex)
+            catch (ApiException<ListFolderError> ex)
             {
                 if (ex.ErrorResponse.IsPath && ex.ErrorResponse.AsPath.Value.IsNotFound)
                 {
@@ -209,7 +209,7 @@ namespace AgOpenGPS // Assurez-vous que cet espace de noms correspond à votre p
                             }
                         }
                     }
-                    catch (Dropbox.Api.ApiException<DownloadError>)
+                    catch (ApiException<DownloadError>)
                     {
                         // Handle API specific errors if needed, otherwise just catch
                     }
@@ -284,11 +284,11 @@ namespace AgOpenGPS // Assurez-vous que cet espace de noms correspond à votre p
                             SynchronizationProgressChanged?.Invoke(this, new SynchronizationProgressEventArgs { FilesProcessed = filesProcessed, TotalFiles = totalFiles, OperationType = "Upload" });
                         }
                     }
-                    catch (Dropbox.Api.ApiException<UploadError>)
+                    catch (ApiException<UploadError>)
                     {
                         // Handle API specific errors if needed
                     }
-                    catch (System.IO.IOException) // Catch IO errors (file in use etc.)
+                    catch (IOException) // Catch IO errors (file in use etc.)
                     {
                         // Handle IO errors
                     }

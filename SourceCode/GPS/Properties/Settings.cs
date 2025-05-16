@@ -308,8 +308,14 @@ namespace AgOpenGPS.Properties
         public string UP_Dropbox_AppSecret = "";
         public string UP_Dropbox_OAuthState = "";
         public string UP_Dropbox_RefreshToken = "";
+        //Syncthing
+        public string UP_Syncthing_ApiUrl = "";
+        public string UP_Syncthing_ApiKey = "";
+        public string UP_Syncthing_ExecutablePath = "";
 
-        
+
+
+
 
         //fin
 
