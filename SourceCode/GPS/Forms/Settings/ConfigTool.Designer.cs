@@ -1152,20 +1152,20 @@ namespace AgOpenGPS
 
                 if (mf.isMetric)
                 {
-                    if (numberOfSections * wide > 5000)
+                    if (numberOfSections * wide > 50000)
                     {
                         wide = 99;
-                        mf.TimedMessageBox(3000, "Too Wide", "Max 50 Meters");
+                        mf.TimedMessageBox(3000, "Too Wide", "Max 500 Meters");
                         Log.EventWriter("Sections, Tool Set Too Wide");
 
                     }
                 }
                 else
                 {
-                    if (numberOfSections * wide > 1900)
+                    if (numberOfSections * wide > 19000)
                     {
                         wide = 19;
-                        mf.TimedMessageBox(3000, "Too Wide", "Max 164 Feet");
+                        mf.TimedMessageBox(3000, "Too Wide", "Max 1640 Feet");
                         Log.EventWriter("Sections, Tool Set Too Wide");
                     }
                 }
@@ -1250,9 +1250,9 @@ namespace AgOpenGPS
 
                             if (mf.isMetric)
                             {
-                                if (toolWidth > 5000)
+                                if (toolWidth > 50000)
                                 {
-                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 50 Meters");
+                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 500 Meters");
                                     Log.EventWriter("Sections, Tool Set Too Wide");
                                     toolWidth = 0;
                                     nudSection01.Value =  99;
@@ -1275,9 +1275,9 @@ namespace AgOpenGPS
                             }
                             else
                             {
-                                if (toolWidth > 1900)
+                                if (toolWidth > 19000)
                                 {
-                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 164 Feet");
+                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 1640 Feet");
                                     Log.EventWriter("Sections, Tool Set Too Wide");
                                     toolWidth = 0;
                                     nudSection01.Value = 99;

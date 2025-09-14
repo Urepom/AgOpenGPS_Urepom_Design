@@ -283,7 +283,8 @@
             "19200",
             "38400",
             "57600",
-            "115200"});
+            "115200",
+            "460800"});
             this.cboxBaud.Location = new System.Drawing.Point(395, 37);
             this.cboxBaud.Name = "cboxBaud";
             this.cboxBaud.Size = new System.Drawing.Size(127, 37);
@@ -419,8 +420,8 @@
             "19200",
             "38400",
             "57600",
-            "115200"});
-            this.cboxBaud2.Location = new System.Drawing.Point(198, 37);
+            "115200",
+            "460800"}); this.cboxBaud2.Location = new System.Drawing.Point(198, 37);
             this.cboxBaud2.Name = "cboxBaud2";
             this.cboxBaud2.Size = new System.Drawing.Size(127, 37);
             this.cboxBaud2.TabIndex = 49;
