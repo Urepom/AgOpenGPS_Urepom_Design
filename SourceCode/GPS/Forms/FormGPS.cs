@@ -454,7 +454,7 @@ namespace AgOpenGPS
             //boundaryToolStripBtn.Enabled = false;
             FieldMenuButtonEnableDisable(false);
             //Ajout-modification MEmprou et SPailleau
-            if (Properties.Settings.Default.UP_setVineMode)
+            if (Properties.ToolSettings.Default.UP_setVineMode)
             {
                 cboxAutoSnapToPivot.Checked = true;
                 trk.isAutoSnapToPivot = cboxAutoSnapToPivot.Checked;
@@ -1083,6 +1083,16 @@ namespace AgOpenGPS
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            config_tool = true;
+
+            using (FormConfig form = new FormConfig(this))
+            {
+
+                form.ShowDialog(this);
+            }
+        }
 
         private void FormGPS_Move(object sender, EventArgs e)
         {

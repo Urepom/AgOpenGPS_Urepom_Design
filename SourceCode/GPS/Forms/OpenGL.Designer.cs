@@ -1777,7 +1777,7 @@ namespace AgOpenGPS
         private void DrawManUTurnBtn()
         {
             int bottomSide = 90;
-            int two3 = -oglMain.Width/6; //Ajout-modification MEmprou et SPailleau
+            int two3 = -oglMain.Width / 6; //Ajout-modification MEmprou et SPailleau
 
             if (!isStanleyUsed && isUTurnOn)
             {
@@ -2279,13 +2279,13 @@ namespace AgOpenGPS
                 GL.Color4(red, green, 0.3, 1.0);
 
                 // Background rectangle IDENTICAL to SteerBarText
-                XyCoord u0v0 = new XyCoord(-wide+5, 65 * (1 + textSize)); //ajout memprou 65 au lieu de 35
-                XyCoord u1v1 = new XyCoord(wide-5, 45);//ajout memprou
+                XyCoord u0v0 = new XyCoord(-wide + 5, 65 * (1 + textSize)); //ajout memprou 65 au lieu de 35
+                XyCoord u1v1 = new XyCoord(wide - 5, 45);//ajout memprou
                 ScreenTextures.CrossTrackBackground.Draw(u0v0, u1v1);
 
                 // Main text (distance + arrows)
                 GL.Color4(0.12f, 0.12770f, 0.120f, 1);
-                font.DrawText(center+5, 45, hede, 1.0 + textSize); //ajout emprou 45 = 2
+                font.DrawText(center + 5, 45, hede, 1.0 + textSize); //ajout emprou 45 = 2
 
                 // Secondary small line: long-term average (only when small)
                 if (longAvgPivDistance < 150)
@@ -2447,13 +2447,13 @@ namespace AgOpenGPS
 
                 GL.Color4(red, green, 0.3, 1.0);
 
-                XyCoord u0v0 = new XyCoord(-wide+5, 55 * (1 + textSize)); // ajout memprou
-                XyCoord u1v1 = new XyCoord(wide-5, 40); // ajout memprou
+                XyCoord u0v0 = new XyCoord(-wide + 5, 55 * (1 + textSize)); // ajout memprou
+                XyCoord u1v1 = new XyCoord(wide - 5, 40); // ajout memprou
                 ScreenTextures.CrossTrackBackground.Draw(u0v0, u1v1);
 
                 GL.Color4(0.12f, 0.12770f, 0.120f, 1);
 
-                font.DrawText(center+5, 40, hede, 0.85 + textSize); // ajout memprou
+                font.DrawText(center + 5, 40, hede, 0.85 + textSize); // ajout memprou
 
                 if (vehicle.isInDeadZone)
                 {
@@ -2750,7 +2750,7 @@ namespace AgOpenGPS
 
             // --- Positioning: centered horizontally, top offset scales with height ---
             double anchorCenterX = viewportWidth / 2;
-            double anchorTopY = (int)(70 * scale);
+            double anchorTopY = (int)(80 * scale); //ajout memprou (int)(60 * scale);
 
             // --- Metrics (all scale with s) ---
             // Estimate per-char width using the text scale so centering stays accurate.

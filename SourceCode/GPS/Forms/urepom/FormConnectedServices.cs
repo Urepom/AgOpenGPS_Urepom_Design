@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgOpenGPS.Core.AgShare;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -87,6 +88,12 @@ namespace AgOpenGPS
         private void groupBox5_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void Agshare_button_Click(object sender, EventArgs e)
+        {
+            var form = new FormAgShareSettings(mf.agShareClient);
+            form.ShowDialog(this);
         }
     }
 }

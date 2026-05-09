@@ -14,9 +14,6 @@ namespace AgOpenGPS
     public partial class FormSynchro : Form
     {
         //private readonly FormGPS mf = null;
-        int Count = 0, Count2 = 0;
-        int no = 0;
-        string sourceDirName, destDirName;
         public FormSynchro(Form callingForm)
         {
             //mf = callingForm as FormGPS;

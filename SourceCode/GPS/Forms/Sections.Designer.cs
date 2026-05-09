@@ -212,7 +212,7 @@ namespace AgOpenGPS
                     if (panelSim.Visible == true)
                     {
                         top = Height - 180; //Ajout-modification MEmprou et SPailleau
-                        panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
+                        panelSim.Top = SnapCenterMain.Top - 110; //Ajout-modification MEmprou et SPailleau
                     }
                 }
                 else //buttons exposed
@@ -221,7 +221,7 @@ namespace AgOpenGPS
                     if (panelSim.Visible == true)
                     {
                         top = Height - 180; //Ajout-modification MEmprou et SPailleau
-                        panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
+                        panelSim.Top = SnapCenterMain.Top - 110; //Ajout-modification MEmprou et SPailleau
                     }
                 }
 
@@ -241,7 +241,7 @@ namespace AgOpenGPS
                         btn.Top = top;
                         if (i == 1)
                         {
-                            //ajout max  btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                            btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
                         }
                         else
                         {
@@ -308,7 +308,7 @@ namespace AgOpenGPS
                 if (panelSim.Visible == true)
                 {
                     top = Height - 180; //Ajout-modification MEmprou et SPailleau
-                    panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
+                    panelSim.Top = SnapCenterMain.Top - 110; //Ajout-modification MEmprou et SPailleau
                 }
             }
             else //buttons exposed
@@ -317,12 +317,12 @@ namespace AgOpenGPS
                 if (panelSim.Visible == true)
                 {
                     top = Height - 180; //Ajout-modification MEmprou et SPailleau
-                    panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
+                    panelSim.Top = SnapCenterMain.Top - 110; //Ajout-modification MEmprou et SPailleau
                 }
             }
 
             //if (tool.zones == 0) return;
-            int oglButtonWidth = oglMain.Width * 3 / 4;
+            int oglButtonWidth = oglMain.Width * 3 / 5; //Ajout-modification MEmprou et SPailleau
             int buttonWidth = Math.Min(oglButtonWidth / tool.zones, buttonMaxWidth);
             Size size = new System.Drawing.Size(buttonWidth, buttonHeight);
 
@@ -342,7 +342,7 @@ namespace AgOpenGPS
                 }
                 if (i == 1)
                 {
-                    //ajout max  btn.Left = (oglCenter) - (tool.zones * btn.Size.Width) / 2;
+                    btn.Left = (oglCenter) - (tool.zones * btn.Size.Width) / 2;
                 }
                 else
                 {

@@ -570,11 +570,11 @@ namespace AgOpenGPS // Assurez-vous que l'espace de noms correspond
                 // Optionnel : Afficher un message à l'utilisateur
                 // MessageBox.Show("Syncthing a été lancé (ou une nouvelle fenêtre de l'interface web a été ouverte).", "Lancement Syncthing", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (System.ComponentModel.Win32Exception noSyncthingEx)
-            {
-                // Gère le cas où le fichier exécutable n'est pas trouvé (même après sélection, peu probable si File.Exists a réussi)
-                MessageBox.Show($"Impossible de lancer Syncthing. Le fichier exécutable n'a pas été trouvé ou l'accès est refusé : {syncthingPath}\n\nVeuillez vérifier les permissions ou relocaliser l'exécutable.", "Erreur de lancement Syncthing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //catch (System.ComponentModel.Win32Exception noSyncthingEx)
+            //{
+            // Gère le cas où le fichier exécutable n'est pas trouvé (même après sélection, peu probable si File.Exists a réussi)
+            //MessageBox.Show($"Impossible de lancer Syncthing. Le fichier exécutable n'a pas été trouvé ou l'accès est refusé : {syncthingPath}\n\nVeuillez vérifier les permissions ou relocaliser l'exécutable.", "Erreur de lancement Syncthing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
             catch (Exception ex)
             {
                 // Gère les autres erreurs potentielles lors du lancement du processus

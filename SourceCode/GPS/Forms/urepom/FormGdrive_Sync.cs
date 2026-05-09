@@ -16,7 +16,7 @@ namespace AgOpenGPS // Garder le namespace du formulaire si c'est ce que vous so
         private string driveFolderName;
         private string applicationName;
         private int totalOperations;
-        private int operationsCompleted;
+        //private int operationsCompleted;
         private GoogleDriveSynchronizer synchronizer; // Instance du synchroniseur
 
         public FormGdrive_Sync(Form callingForm)
@@ -103,7 +103,7 @@ namespace AgOpenGPS // Garder le namespace du formulaire si c'est ce que vous so
                 progressBarSync.MarqueeAnimationSpeed = 0;
                 buttonSynchronize.Enabled = false;
                 progressBarSync.Value = 0;
-                operationsCompleted = 0;
+                //operationsCompleted = 0;
 
                 await synchronizer.InitializeAsync();
 
@@ -277,4 +277,4 @@ namespace AgOpenGPS // Garder le namespace du formulaire si c'est ce que vous so
             }
         }
     }
-    }
+}

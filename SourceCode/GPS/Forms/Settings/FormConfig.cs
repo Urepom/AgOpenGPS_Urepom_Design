@@ -102,6 +102,39 @@ namespace AgOpenGPS
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
+            //Ajout-modification MEmprou et SPailleau
+            if (mf.config_tool == true)
+            {
+                btnFeatureHides.Visible = false;
+                btnTram.Visible = false;
+                btnMachineModule.Visible = false;
+                //btnSteerModule.Visible = false;
+                btnArduino.Visible = false;
+                btnUTurn.Visible = false;
+                btnDataSources.Visible = false;
+                //btnSubGuidance.Visible = false;
+                btnSubAntenna.Visible = false;
+                btnSubDimensions.Visible = false;
+                btnVehicle.Visible = false;
+                btnDisplay.Visible = false;
+                ShowSubMenu(panelToolSubMenu, btnTool);
+            }
+            else
+            {
+                btnFeatureHides.Visible = true;
+                btnTram.Visible = true;
+                btnMachineModule.Visible = true;
+                //btnSteerModule.Visible = true;
+                btnArduino.Visible = true;
+                btnUTurn.Visible = true;
+                btnDataSources.Visible = true;
+                //btnSubGuidance.Visible = true;
+                btnSubAntenna.Visible = true;
+                btnSubDimensions.Visible = true;
+                btnVehicle.Visible = true;
+                btnDisplay.Visible = true;
+            }
+            //fin
             //since we reset, save current state
             mf.SaveFormGPSWindowSettings();
 
@@ -387,7 +420,13 @@ namespace AgOpenGPS
             chkSectionLines.Checked = Properties.Settings.Default.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
             chkboxHeadlandDist.Checked = Properties.Settings.Default.isHeadlandDistanceOn;
-
+            //Ajout-modification MEmprou et SPailleau
+            cBox_sections_button.Checked = mf.issections_buttonOn;
+            cbox_long_touch.Checked = mf.islong_touchOn;
+            Timer_kml.Checked = Properties.Settings.Default.UP_setTimer_KML;
+            VineMode.Checked = Properties.ToolSettings.Default.UP_setVineMode;
+            ArrowsRL.Checked = Properties.Settings.Default.UP_SetArrowsRL;
+            //fin
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
 

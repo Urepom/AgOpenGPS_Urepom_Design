@@ -159,9 +159,7 @@ namespace AgOpenGPS.Properties
         public string UP_setF_synchro = "Default";
         public bool UP_setTimer_KML = false;
         public bool UP_setUpdate_MAJ = true;
-        public bool UP_setDisplay_issections_buttonOn = false;
         public bool UP_setDisplay_islong_touchOn = true;
-        public bool UP_setVineMode = false;
         public bool UP_SetArrowsRL = false;
         public decimal UP_SetDoseFerti = 20;
         public decimal UP_SetDoseFVidange = 2;

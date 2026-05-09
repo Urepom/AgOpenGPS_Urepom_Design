@@ -8,7 +8,7 @@ namespace AgOpenGPS
 {
     public partial class FormTraccar : Form
     {
-        private readonly FormGPS mf = null;
+        //private readonly FormGPS mf = null;
         public FormTraccar(Form callingForm)
         {
             //mf = callingForm as FormGPS;
@@ -32,8 +32,8 @@ namespace AgOpenGPS
             ID_textbox.Text = Settings.Default.UP_ID_traccar;
             frequence_numeric.Value = Settings.Default.UP_frequence_traccar;
             traccar_checkBox.Checked = Settings.Default.UP_traccar;
-    
-    }
+
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -210,22 +210,20 @@ namespace AgOpenGPS
 </body>
 </html>";
 
-        try
-        {
-            // Écrit le contenu HTML dans le fichier spécifié.
-            // Le paramètre 'false' indique d'écraser le fichier s'il existe déjà.
-            System.IO.File.WriteAllText(htmlFilePath, htmlContent);
+            try
+            {
+                // Écrit le contenu HTML dans le fichier spécifié.
+                // Le paramètre 'false' indique d'écraser le fichier s'il existe déjà.
+                System.IO.File.WriteAllText(htmlFilePath, htmlContent);
 
-            // Ouvre le fichier HTML avec l'application par défaut (navigateur web)
-            Process.Start(htmlFilePath);
+                // Ouvre le fichier HTML avec l'application par défaut (navigateur web)
+                Process.Start(htmlFilePath);
+            }
+            catch (Exception ex)
+            {
+                // Gère les exceptions potentielles (par exemple, permissions d'écriture, pas d'application associée aux fichiers .html)
+                MessageBox.Show($"Une erreur s'est produite lors de la création ou de l'ouverture du fichier : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        catch (Exception ex)
-        {
-            // Gère les exceptions potentielles (par exemple, permissions d'écriture, pas d'application associée aux fichiers .html)
-            MessageBox.Show($"Une erreur s'est produite lors de la création ou de l'ouverture du fichier : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-}
-
-    
     }
 }

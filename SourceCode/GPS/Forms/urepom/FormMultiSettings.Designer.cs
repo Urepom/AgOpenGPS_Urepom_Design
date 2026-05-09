@@ -41,7 +41,6 @@
             this.btnCopySettings = new System.Windows.Forms.Button();
             this.rtbStatus = new System.Windows.Forms.RichTextBox();
             this.btnSelectSpecificSettings = new System.Windows.Forms.Button();
-            this.btnSelectIMUSettings = new System.Windows.Forms.Button();
             this.btnSelectVehicleSettings = new System.Windows.Forms.Button();
             this.btnUnselectAll = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -111,9 +110,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(13, 249);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 13);
+            this.label3.Size = new System.Drawing.Size(96, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Dossier Cible Vehicules:";
+            this.label3.Text = "Dossier Cible outil :";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtTargetFolder
@@ -188,20 +187,9 @@
             this.btnSelectSpecificSettings.Name = "btnSelectSpecificSettings";
             this.btnSelectSpecificSettings.Size = new System.Drawing.Size(163, 34);
             this.btnSelectSpecificSettings.TabIndex = 12;
-            this.btnSelectSpecificSettings.Text = "Sélectionner tous les paramètres AutoSteer";
+            this.btnSelectSpecificSettings.Text = "Sélectionner les paramètres AutoSteer (outil)";
             this.btnSelectSpecificSettings.UseVisualStyleBackColor = true;
             this.btnSelectSpecificSettings.Click += new System.EventHandler(this.btnSelectSpecificSettings_Click);
-            // 
-            // btnSelectIMUSettings
-            // 
-            this.btnSelectIMUSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSelectIMUSettings.Location = new System.Drawing.Point(15, 121);
-            this.btnSelectIMUSettings.Name = "btnSelectIMUSettings";
-            this.btnSelectIMUSettings.Size = new System.Drawing.Size(163, 34);
-            this.btnSelectIMUSettings.TabIndex = 13;
-            this.btnSelectIMUSettings.Text = "Sélectionner les paramètres IMU";
-            this.btnSelectIMUSettings.UseVisualStyleBackColor = true;
-            this.btnSelectIMUSettings.Click += new System.EventHandler(this.btnSelectIMUSettings_Click);
             // 
             // btnSelectVehicleSettings
             // 
@@ -210,7 +198,7 @@
             this.btnSelectVehicleSettings.Name = "btnSelectVehicleSettings";
             this.btnSelectVehicleSettings.Size = new System.Drawing.Size(163, 34);
             this.btnSelectVehicleSettings.TabIndex = 14;
-            this.btnSelectVehicleSettings.Text = "Sélectionner les paramètres du vehicule";
+            this.btnSelectVehicleSettings.Text = "Sélectionner les paramètres de l\'outil";
             this.btnSelectVehicleSettings.UseVisualStyleBackColor = true;
             this.btnSelectVehicleSettings.Click += new System.EventHandler(this.btnSelectVehicleSettings_Click);
             // 
@@ -267,7 +255,6 @@
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnUnselectAll);
             this.Controls.Add(this.btnSelectVehicleSettings);
-            this.Controls.Add(this.btnSelectIMUSettings);
             this.Controls.Add(this.btnSelectSpecificSettings);
             this.Controls.Add(this.rtbStatus);
             this.Controls.Add(this.btnCopySettings);
@@ -305,7 +292,6 @@
         private System.Windows.Forms.Button btnCopySettings;
         private System.Windows.Forms.RichTextBox rtbStatus;
         private System.Windows.Forms.Button btnSelectSpecificSettings; // Déclaration ajoutée
-        private System.Windows.Forms.Button btnSelectIMUSettings;
         private System.Windows.Forms.Button btnSelectVehicleSettings;
         private System.Windows.Forms.Button btnUnselectAll;
         private System.Windows.Forms.TextBox txtSearch;

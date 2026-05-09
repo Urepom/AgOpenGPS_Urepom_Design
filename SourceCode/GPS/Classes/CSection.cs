@@ -6,6 +6,7 @@ namespace AgOpenGPS
     //the triangle list makes up the individual triangles that make the block or patch of applied (green spot)
     //the patch list is a list of the list of triangles
 
+
     public class CSection
     {
         //copy of the mainform address

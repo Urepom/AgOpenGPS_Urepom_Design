@@ -11,12 +11,16 @@ namespace AgOpenGPS
         public double easting;
         public double northing;
         public double heading;
+        public DateTime now; //ajout memprou
+
 
         public vec3(double easting, double northing, double heading)
         {
             this.easting = easting;
             this.northing = northing;
             this.heading = heading;
+            this.now = DateTime.Now; //ajout max
+
         }
 
         public vec3(vec3 v)
@@ -24,6 +28,8 @@ namespace AgOpenGPS
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
+            now = v.now; //ajout max
+
         }
 
         public vec3(GeoCoord geoCoord)
@@ -31,6 +37,8 @@ namespace AgOpenGPS
             easting = geoCoord.Easting;
             northing = geoCoord.Northing;
             heading = 0.0;
+            now = DateTime.Now; //ajout max
+
         }
 
         public GeoCoord ToGeoCoord()

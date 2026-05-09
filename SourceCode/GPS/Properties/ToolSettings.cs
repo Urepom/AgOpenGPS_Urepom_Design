@@ -42,6 +42,10 @@ namespace AgOpenGPS.Properties
         public double setTool_sectionWidthMulti = 0.5;
         public string setTool_zones = "2,10,20,0,0,0,0,0,0";
 
+        //ajout urepom
+        public bool UP_setDisplay_issections_buttonOn = true;
+        public bool UP_setVineMode = false;
+
         // Section positions
         public decimal setSection_position1 = -2;
         public decimal setSection_position2 = -1;

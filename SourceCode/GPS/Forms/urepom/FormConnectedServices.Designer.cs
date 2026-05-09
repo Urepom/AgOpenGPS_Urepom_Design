@@ -38,20 +38,25 @@
             this.Gdrive_button = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.Synchthing_button = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.Agshare_button = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.Traccar_button);
-            this.groupBox1.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(12, 23);
+            this.groupBox1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(15, 327);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(194, 160);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Size = new System.Drawing.Size(307, 272);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TRACCAR";
@@ -59,9 +64,10 @@
             // Traccar_button
             // 
             this.Traccar_button.Image = global::AgOpenGPS.Properties.Resources.traccar_logo;
-            this.Traccar_button.Location = new System.Drawing.Point(15, 39);
+            this.Traccar_button.Location = new System.Drawing.Point(30, 75);
+            this.Traccar_button.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Traccar_button.Name = "Traccar_button";
-            this.Traccar_button.Size = new System.Drawing.Size(162, 94);
+            this.Traccar_button.Size = new System.Drawing.Size(262, 181);
             this.Traccar_button.TabIndex = 1;
             this.Traccar_button.UseVisualStyleBackColor = true;
             this.Traccar_button.Click += new System.EventHandler(this.Traccar_button_Click);
@@ -69,10 +75,12 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.Dropbox_button);
-            this.groupBox2.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(220, 23);
+            this.groupBox2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(352, 43);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(194, 160);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox2.Size = new System.Drawing.Size(318, 272);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "DROPBOX";
@@ -80,9 +88,10 @@
             // Dropbox_button
             // 
             this.Dropbox_button.Image = global::AgOpenGPS.Properties.Resources.dropbox_logo;
-            this.Dropbox_button.Location = new System.Drawing.Point(15, 39);
+            this.Dropbox_button.Location = new System.Drawing.Point(30, 75);
+            this.Dropbox_button.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Dropbox_button.Name = "Dropbox_button";
-            this.Dropbox_button.Size = new System.Drawing.Size(162, 94);
+            this.Dropbox_button.Size = new System.Drawing.Size(262, 181);
             this.Dropbox_button.TabIndex = 1;
             this.Dropbox_button.UseVisualStyleBackColor = true;
             this.Dropbox_button.Click += new System.EventHandler(this.Dropbox_button_Click);
@@ -90,10 +99,12 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(12, 189);
+            this.groupBox3.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(720, 327);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(308, 160);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox3.Size = new System.Drawing.Size(585, 272);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Dossier synchronisé";
@@ -101,9 +112,10 @@
             // button1
             // 
             this.button1.Image = global::AgOpenGPS.Properties.Resources.FileExplorerWindows;
-            this.button1.Location = new System.Drawing.Point(15, 39);
+            this.button1.Location = new System.Drawing.Point(30, 75);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(272, 94);
+            this.button1.Size = new System.Drawing.Size(544, 181);
             this.button1.TabIndex = 1;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -111,10 +123,12 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.Gdrive_button);
-            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox4.Location = new System.Drawing.Point(426, 22);
+            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(682, 43);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(194, 160);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox4.Size = new System.Drawing.Size(312, 272);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "G DRIVE";
@@ -122,9 +136,10 @@
             // Gdrive_button
             // 
             this.Gdrive_button.Image = global::AgOpenGPS.Properties.Resources.gdrive_logo;
-            this.Gdrive_button.Location = new System.Drawing.Point(15, 39);
+            this.Gdrive_button.Location = new System.Drawing.Point(30, 75);
+            this.Gdrive_button.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Gdrive_button.Name = "Gdrive_button";
-            this.Gdrive_button.Size = new System.Drawing.Size(162, 94);
+            this.Gdrive_button.Size = new System.Drawing.Size(262, 181);
             this.Gdrive_button.TabIndex = 1;
             this.Gdrive_button.UseVisualStyleBackColor = true;
             this.Gdrive_button.Click += new System.EventHandler(this.Gdrive_button_Click);
@@ -132,10 +147,12 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.Synchthing_button);
-            this.groupBox5.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox5.Location = new System.Drawing.Point(334, 189);
+            this.groupBox5.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(334, 327);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(220, 160);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox5.Size = new System.Drawing.Size(374, 272);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "SYNCTHING";
@@ -144,25 +161,52 @@
             // Synchthing_button
             // 
             this.Synchthing_button.Image = global::AgOpenGPS.Properties.Resources.syncthing_logo;
-            this.Synchthing_button.Location = new System.Drawing.Point(15, 39);
+            this.Synchthing_button.Location = new System.Drawing.Point(30, 75);
+            this.Synchthing_button.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Synchthing_button.Name = "Synchthing_button";
-            this.Synchthing_button.Size = new System.Drawing.Size(162, 94);
+            this.Synchthing_button.Size = new System.Drawing.Size(324, 181);
             this.Synchthing_button.TabIndex = 1;
             this.Synchthing_button.UseVisualStyleBackColor = true;
             this.Synchthing_button.Click += new System.EventHandler(this.Synchthing_button_Click);
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.Agshare_button);
+            this.groupBox6.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(10, 43);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(6);
+            this.groupBox6.Size = new System.Drawing.Size(330, 272);
+            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "AGSHARE";
+            // 
+            // Agshare_button
+            // 
+            this.Agshare_button.Image = global::AgOpenGPS.Properties.Resources.AgShare;
+            this.Agshare_button.Location = new System.Drawing.Point(30, 75);
+            this.Agshare_button.Margin = new System.Windows.Forms.Padding(6);
+            this.Agshare_button.Name = "Agshare_button";
+            this.Agshare_button.Size = new System.Drawing.Size(267, 181);
+            this.Agshare_button.TabIndex = 1;
+            this.Agshare_button.UseVisualStyleBackColor = true;
+            this.Agshare_button.Click += new System.EventHandler(this.Agshare_button_Click);
+            // 
             // FormConnectedServices
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(627, 345);
+            this.ClientSize = new System.Drawing.Size(1322, 615);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.MinimumSize = new System.Drawing.Size(638, 369);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.MinimumSize = new System.Drawing.Size(1250, 644);
             this.Name = "FormConnectedServices";
             this.Text = "Services connectés";
             this.groupBox1.ResumeLayout(false);
@@ -170,6 +214,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -186,5 +231,7 @@
         private System.Windows.Forms.Button Gdrive_button;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button Synchthing_button;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button Agshare_button;
     }
 }

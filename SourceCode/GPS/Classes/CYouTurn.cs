@@ -1413,6 +1413,7 @@ namespace AgOpenGPS
                 pt.easting = ytList[ytList.Count - 1].easting + (Math.Sin(head) * 0.5);
                 pt.northing = ytList[ytList.Count - 1].northing + (Math.Cos(head) * 0.5);
                 pt.heading = 0;
+                pt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                 ytList.Add(pt);
             }
 
@@ -1562,6 +1563,7 @@ namespace AgOpenGPS
                     pt.easting = ytList[count - 1].easting + (Math.Sin(head) * i * 0.5);
                     pt.northing = ytList[count - 1].northing + (Math.Cos(head) * i * 0.5);
                     pt.heading = 0;
+                    pt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                     ytList.Add(pt);
                 }
 
@@ -1575,6 +1577,7 @@ namespace AgOpenGPS
                     pt.easting = ytList[0].easting + (Math.Sin(head) * 0.511);
                     pt.northing = ytList[0].northing + (Math.Cos(head) * 0.511);
                     pt.heading = ytList[0].heading;
+                    pt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                     ytList.Insert(0, pt);
                 }
 
@@ -2182,6 +2185,7 @@ namespace AgOpenGPS
                 pt.easting = ytList[0].easting - (Math.Sin(inhead) * pointSpacing);
                 pt.northing = ytList[0].northing - (Math.Cos(inhead) * pointSpacing);
                 pt.heading = inhead;
+                pt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                 ytList.Insert(0, pt);
             }
 
@@ -2192,6 +2196,7 @@ namespace AgOpenGPS
                 pt.easting = ytList[count - 1].easting - (Math.Sin(outhead) * i * pointSpacing);
                 pt.northing = ytList[count - 1].northing - (Math.Cos(outhead) * i * pointSpacing);
                 pt.heading = outhead;
+                pt.now = DateTime.Now; //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
                 ytList.Add(pt);
             }
 

@@ -209,6 +209,12 @@ namespace AgIO
             isConnectedMachine = cboxIsMachineModule.Checked;
             SetModulesOnOff();
         }
+        //Ajout-modification MEmprou et SPailleau Fertilisatio
+        private void cboxIsFertiModule_Click(object sender, EventArgs e)
+        {
+
+        }
+        //FIN
 
         private void cboxIsIMUModule_Click(object sender, EventArgs e)
         {
@@ -538,5 +544,8 @@ namespace AgIO
         private ToolStripMenuItem toolStripMenuProfiles;
         private readonly FormISOBUS isobusForm = new FormISOBUS();
         private ToolStripMenuItem isobusToolStripMenuItem;
+        private CheckBox cboxIsFertiModule;
+        private Button btnFerti;
+        private Label lblModFertiComm;
     }
 }

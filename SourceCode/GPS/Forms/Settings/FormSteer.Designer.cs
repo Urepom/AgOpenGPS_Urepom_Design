@@ -227,6 +227,7 @@
             this.pboxSendSteer = new System.Windows.Forms.PictureBox();
             this.btnSendSteerConfigPGN = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.CFG_gp = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPP.SuspendLayout();
             this.tabStan.SuspendLayout();
@@ -2652,6 +2653,7 @@
             // groupboxlabelGuidanceBar
             // 
             this.groupboxlabelGuidanceBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupboxlabelGuidanceBar.Controls.Add(this.CFG_gp);
             this.groupboxlabelGuidanceBar.Controls.Add(this.rbtnSteerBar);
             this.groupboxlabelGuidanceBar.Controls.Add(this.labelSteerBar);
             this.groupboxlabelGuidanceBar.Controls.Add(this.labelOnOff);
@@ -3057,6 +3059,18 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // CFG_gp
+            // 
+            this.CFG_gp.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CFG_gp.Location = new System.Drawing.Point(136, 0);
+            this.CFG_gp.Margin = new System.Windows.Forms.Padding(4);
+            this.CFG_gp.Name = "CFG_gp";
+            this.CFG_gp.Size = new System.Drawing.Size(330, 29);
+            this.CFG_gp.TabIndex = 530;
+            this.CFG_gp.Text = "Modification groupée";
+            this.CFG_gp.UseVisualStyleBackColor = true;
+            this.CFG_gp.Click += new System.EventHandler(this.CFG_gp_Click);
+            // 
             // FormSteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -3333,5 +3347,6 @@
         private System.Windows.Forms.Button btnSmartZeroWAS;
         private System.Windows.Forms.Label lblSmartCalConfidence;
         private System.Windows.Forms.Label lblSmartCalSamples;
+        private System.Windows.Forms.Button CFG_gp;
     }
 }

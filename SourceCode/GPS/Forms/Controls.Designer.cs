@@ -166,7 +166,7 @@ namespace AgOpenGPS
         private void btnAutoSteer_Click(object sender, EventArgs e)
         {
             //Ajout-modification MEmprou et SPailleau Fertilisation
-            if (Properties.Settings.Default.UP_setVineMode == true)
+            if (Properties.ToolSettings.Default.UP_setVineMode == true)
             {
                 SnapCenterMain.PerformClick();
             }
@@ -709,8 +709,8 @@ namespace AgOpenGPS
                 round_table7.Width = 174;
             }
             //fin
-        
-        FieldMenuButtonEnableDisable(isJobStarted);
+
+            FieldMenuButtonEnableDisable(isJobStarted);
             //ajout memprou toolStripBtnFieldTools.Enabled = isJobStarted;
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
             trk.idx = -1;
@@ -1347,6 +1347,7 @@ namespace AgOpenGPS
         }
         private void btnConfig_Click(object sender, EventArgs e)
         {
+            config_tool = false; //ajout memprou
             using (FormConfig form = new FormConfig(this))
             {
                 form.ShowDialog(this);
@@ -2491,6 +2492,17 @@ namespace AgOpenGPS
         private void button2_Click_1(object sender, EventArgs e)
         {
             config_tool = true;
+            if (isEasyDriveMode)
+            {
+                TimedMessageBox(2000, "Easy Drive", "Profiles not available in Easy Drive mode");
+                return;
+            }
+
+            using (var form = new FormLoadVehicleTool(this))
+            {
+                form.ShowDialog(this);
+            }
+
             using (FormConfig form = new FormConfig(this))
             {
 

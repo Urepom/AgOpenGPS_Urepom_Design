@@ -160,7 +160,7 @@ namespace AgOpenGPS // Utiliser votre namespace
             {
                 XDocument doc = XDocument.Load(filePath);
 
-                var settingsNode = doc.Descendants("AgOpenGPS.Properties.Settings").FirstOrDefault();
+                var settingsNode = doc.Descendants("AgOpenGPS.Properties.ToolSettings").FirstOrDefault();
 
                 if (settingsNode != null)
                 {
@@ -203,7 +203,7 @@ namespace AgOpenGPS // Utiliser votre namespace
                 }
                 else
                 {
-                    rtbStatus.AppendText($"Erreur: Le nœud <AgOpenGPS.Properties.Settings> n'a pas été trouvé dans le fichier source.\n");
+                    rtbStatus.AppendText($"Erreur: Le nœud <AgOpenGPS.Properties.ToolSettings> n'a pas été trouvé dans le fichier source.\n");
                 }
             }
             catch (Exception ex)
@@ -337,20 +337,20 @@ namespace AgOpenGPS // Utiliser votre namespace
 
                     XDocument targetDoc = XDocument.Load(targetFilePath);
 
-                    var targetSettingsNode = targetDoc.Descendants("AgOpenGPS.Properties.Settings").FirstOrDefault();
+                    var targetSettingsNode = targetDoc.Descendants("AgOpenGPS.Properties.ToolSettings").FirstOrDefault();
 
                     if (targetSettingsNode == null)
                     {
                         var userSettingsNode = targetDoc.Descendants("userSettings").FirstOrDefault();
                         if (userSettingsNode != null)
                         {
-                            targetSettingsNode = new XElement("AgOpenGPS.Properties.Settings");
+                            targetSettingsNode = new XElement("AgOpenGPS.Properties.ToolSettings");
                             userSettingsNode.Add(targetSettingsNode);
-                            rtbStatus.AppendText($"\nCréé le nœud <AgOpenGPS.Properties.Settings> dans {Path.GetFileName(targetFilePath)}.\n");
+                            rtbStatus.AppendText($"\nCréé le nœud <AgOpenGPS.Properties.ToolSettings> dans {Path.GetFileName(targetFilePath)}.\n");
                         }
                         else
                         {
-                            rtbStatus.AppendText($"\nErreur: Le nœud <AgOpenGPS.Properties.Settings> ni <userSettings> n'ont été trouvés/créés dans le fichier cible: {Path.GetFileName(targetFilePath)}. Ignoré.\n");
+                            rtbStatus.AppendText($"\nErreur: Le nœud <AgOpenGPS.Properties.ToolSettings> ni <userSettings> n'ont été trouvés/créés dans le fichier cible: {Path.GetFileName(targetFilePath)}. Ignoré.\n");
                             continue;
                         }
                     }
@@ -551,38 +551,6 @@ namespace AgOpenGPS // Utiliser votre namespace
             }
         }
 
-        // Bouton Sélectionner Paramètres IMU
-        private void btnSelectIMUSettings_Click(object sender, EventArgs e)
-        {
-            if (loadedSettings == null || loadedSettings.Count == 0)
-            {
-                MessageBox.Show("Veuillez d'abord charger un fichier source XML.", "Information", MessageBoxButtons.OK);
-                return;
-            }
-
-            string prefixToSelect = "setIMU_";
-            int selectedCount = 0;
-
-            // Parcourir la liste chargée (l'originale)
-            foreach (var setting in loadedSettings)
-            {
-                if (setting.Name != null && setting.Name.StartsWith(prefixToSelect, StringComparison.OrdinalIgnoreCase))
-                {
-                    setting.IsSelected = true;
-                    selectedCount++;
-                }
-            }
-
-            // Ré-afficher les paramètres
-            ApplyFilter(txtSearch.Text);
-
-            rtbStatus.AppendText($"\nSélection automatique terminée pour les paramètres '{prefixToSelect}*'.\n");
-            rtbStatus.AppendText($"  - {selectedCount} paramètres trouvés et sélectionnés.\n");
-            if (selectedCount == 0)
-            {
-                rtbStatus.AppendText($"  - Aucun paramètre trouvé commençant par '{prefixToSelect}'.\n");
-            }
-        }
 
         // Bouton Sélectionner Paramètres Véhicule
         private void btnSelectVehicleSettings_Click(object sender, EventArgs e)
@@ -595,6 +563,42 @@ namespace AgOpenGPS // Utiliser votre namespace
 
             string prefixToSelect = "setVehicle_";
             int selectedCount = 0;
+
+            // Parcourir la liste chargée (l'originale)
+            foreach (var setting in loadedSettings)
+            {
+                if (setting.Name != null && setting.Name.StartsWith(prefixToSelect, StringComparison.OrdinalIgnoreCase))
+                {
+                    setting.IsSelected = true;
+                    selectedCount++;
+                }
+            }
+            prefixToSelect = "setColor";
+            selectedCount = 0;
+
+            // Parcourir la liste chargée (l'originale)
+            foreach (var setting in loadedSettings)
+            {
+                if (setting.Name != null && setting.Name.StartsWith(prefixToSelect, StringComparison.OrdinalIgnoreCase))
+                {
+                    setting.IsSelected = true;
+                    selectedCount++;
+                }
+            }
+            prefixToSelect = "setSection";
+            selectedCount = 0;
+
+            // Parcourir la liste chargée (l'originale)
+            foreach (var setting in loadedSettings)
+            {
+                if (setting.Name != null && setting.Name.StartsWith(prefixToSelect, StringComparison.OrdinalIgnoreCase))
+                {
+                    setting.IsSelected = true;
+                    selectedCount++;
+                }
+            }
+            prefixToSelect = "setTool";
+            selectedCount = 0;
 
             // Parcourir la liste chargée (l'originale)
             foreach (var setting in loadedSettings)
@@ -693,17 +697,17 @@ namespace AgOpenGPS // Utiliser votre namespace
 
             if (RegistrySettings.toolProfileName != "")
             {
-                txtSourceFile.Text = Path.Combine(RegistrySettings.vehiclesDirectory, RegistrySettings.toolProfileName + ".XML").ToString();
+                txtSourceFile.Text = Path.Combine(RegistrySettings.toolsDirectory, RegistrySettings.toolProfileName + ".XML").ToString();
                 // Appeler LoadSettings qui chargera et affichera
                 LoadSettings(txtSourceFile.Text);
                 dgvSettings.Tag = txtSourceFile.Text; // Conserver pour la logique de décochage dans ListTargetFiles
             }
-            if (RegistrySettings.vehiclesDirectory != "")
+            if (RegistrySettings.toolsDirectory != "")
             {
-                txtTargetFolder.Text = RegistrySettings.vehiclesDirectory;
+                txtTargetFolder.Text = RegistrySettings.toolsDirectory;
                 // Appeler ListTargetFiles qui listera et décochera le source
-                ListTargetFiles(RegistrySettings.vehiclesDirectory);
-                clbTargetFiles.Tag = RegistrySettings.vehiclesDirectory; // Stocker le chemin chargé
+                ListTargetFiles(RegistrySettings.toolsDirectory);
+                clbTargetFiles.Tag = RegistrySettings.toolsDirectory; // Stocker le chemin chargé
             }
         }
 

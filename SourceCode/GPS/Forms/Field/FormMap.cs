@@ -237,7 +237,7 @@ namespace AgOpenGPS
                 mf.FileSaveBoundary();
                 mf.bnd.BuildTurnLines();
                 mf.fd.UpdateFieldBoundaryGUIAreas();
-                mf.btnABDraw.Visible = false;
+                //ajout memprou mf.btnABDraw.Visible = false;
             }
 
             cboxEnableLineDraw.Checked = false;

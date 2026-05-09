@@ -60,8 +60,8 @@ namespace AgIO
         //usually 256 - send ntrip to serial in chunks
         public int packetSizeNTRIP;
 
-        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU;
-        public bool isConnectedIMU, isConnectedSteer, isConnectedMachine;
+        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloFertilisation;//Ajout-modification MEmprou et SPailleau Fertilisation
+        public bool isConnectedIMU, isConnectedSteer, isConnectedMachine, isConnectedFerti;//Ajout-modification MEmprou et SPailleau Fertilisation
 
         //is the fly out displayed
         public bool isViewAdvanced = false;
@@ -79,6 +79,10 @@ namespace AgIO
         //First run
         private void FormLoop_Load(object sender, EventArgs e)
         {
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            this.WindowState = FormWindowState.Minimized;
+            Hide();
+            //fin
             if (Settings.Default.setDisplay_StartMinimized)
             {
                 this.WindowState = FormWindowState.Minimized;
@@ -136,6 +140,8 @@ namespace AgIO
             lblIMUComm.Text = "";
             lblMod1Comm.Text = "";
             lblMod2Comm.Text = "";
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            lblModFertiComm.Text = "";
 
             //set baud and port from last time run
             baudRateGPS = Settings.Default.setPort_baudRateGPS;
@@ -183,7 +189,16 @@ namespace AgIO
                 OpenMachineModulePort();
                 if (spMachineModule.IsOpen) lblMod2Comm.Text = portNameMachineModule;
             }
-
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            //same for ModuleFerti port
+            portNameModuleFerti = Settings.Default.UP_setPort_portNameModuleFerti;
+            wasModuleFertiConnectedLastRun = Settings.Default.UP_setPort_wasModuleFertiConnected;
+            if (wasModuleFertiConnectedLastRun)
+            {
+                OpenFertiPort();
+                if (spModuleFerti.IsOpen) lblModFertiComm.Text = portNameModuleFerti;
+            }
+            //fin
             ConfigureNTRIP();
 
             string[] ports = System.IO.Ports.SerialPort.GetPortNames();
@@ -203,6 +218,8 @@ namespace AgIO
             isConnectedIMU = cboxIsIMUModule.Checked = Properties.Settings.Default.setMod_isIMUConnected;
             isConnectedSteer = cboxIsSteerModule.Checked = Properties.Settings.Default.setMod_isSteerConnected;
             isConnectedMachine = cboxIsMachineModule.Checked = Properties.Settings.Default.setMod_isMachineConnected;
+            isConnectedFerti = cboxIsFertiModule.Checked = Properties.Settings.Default.UP_setMod_isFertiConnected;//Ajout-modification MEmprou et SPailleau Fertilisation            
+
 
             //On or off the module rows
             SetModulesOnOff();
@@ -304,6 +321,8 @@ namespace AgIO
             Settings.Default.setPort_wasSteerModuleConnected = wasSteerModuleConnectedLastRun;
             Settings.Default.setPort_wasMachineModuleConnected = wasMachineModuleConnectedLastRun;
             Settings.Default.setPort_wasRtcmConnected = wasRtcmConnectedLastRun;
+            Settings.Default.UP_setPort_wasModuleFertiConnected = wasModuleFertiConnectedLastRun; //Ajout-modification MEmprou et SPailleau Fertilisation
+
 
             Settings.Default.Save();
 
@@ -579,6 +598,15 @@ namespace AgIO
                         lblMod2Comm.Text = "";
                     }
                 }
+                //Ajout-modification MEmprou et SPailleau Fertilisation 
+                if (wasModuleFertiConnectedLastRun)
+                {
+                    if (!spModuleFerti.IsOpen)
+                    {
+                        wasModuleFertiConnectedLastRun = false;
+                        lblModFertiComm.Text = "---";
+                    }
+                }
 
                 #endregion Serial update
             }
@@ -608,7 +636,20 @@ namespace AgIO
                     if (Settings.Default.setDisplay_ShowOnWarning) ShowAgIO();
                 }
             }
+            //ajout max
+            if (isConnectedFerti)
+            {
+                currentHello = traffic.helloFromFertilisation < 3;
 
+                if (currentHello != lastHelloFertilisation)
+                {
+                    if (currentHello) btnFerti.BackColor = Color.LimeGreen;
+                    else btnFerti.BackColor = Color.Red;
+                    lastHelloFertilisation = currentHello;
+                    ShowAgIO();
+                }
+            }
+            //fin
             if (isConnectedSteer)
             {
                 currentHello = traffic.helloFromAutoSteer < 3;
@@ -728,15 +769,32 @@ namespace AgIO
                 lblMod1Comm.Visible = false;
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.AddNew;
             }
-
+            //Ajout-modification MEmprou et SPailleau Fertilisation
+            if (isConnectedFerti)
+            {
+                btnFerti.Visible = true;
+                lblModFertiComm.Visible = true;
+                cboxIsFertiModule.BackgroundImage = Properties.Resources.Cancel64;
+            }
+            else
+            {
+                btnFerti.Visible = false;
+                lblModFertiComm.Visible = false;
+                cboxIsFertiModule.BackgroundImage = Properties.Resources.AddNew;
+            }
+            //fin
             if (cboxIsIMUModule.Checked != Properties.Settings.Default.setMod_isIMUConnected ||
                 cboxIsSteerModule.Checked != Properties.Settings.Default.setMod_isSteerConnected ||
-                cboxIsMachineModule.Checked != Properties.Settings.Default.setMod_isMachineConnected)
+                cboxIsMachineModule.Checked != Properties.Settings.Default.setMod_isMachineConnected ||
+                cboxIsFertiModule.Checked != Properties.Settings.Default.UP_setMod_isFertiConnected) // ajpout memprou
+
             {
 
                 Properties.Settings.Default.setMod_isIMUConnected = isConnectedIMU;
                 Properties.Settings.Default.setMod_isSteerConnected = isConnectedSteer;
                 Properties.Settings.Default.setMod_isMachineConnected = isConnectedMachine;
+                Properties.Settings.Default.UP_setMod_isFertiConnected = isConnectedFerti; //Ajout-modification MEmprou et SPailleau Fertilisation
+
 
                 Properties.Settings.Default.Save();
             }
@@ -745,6 +803,7 @@ namespace AgIO
         private void DoTraffic()
         {
             traffic.helloFromMachine++;
+            traffic.helloFromFertilisation++;//Ajout-modification MEmprou et SPailleau Fertilisation
             traffic.helloFromAutoSteer++;
             traffic.helloFromIMU++;
 

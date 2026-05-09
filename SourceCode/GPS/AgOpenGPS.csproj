@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishDir>..\..\AgOpenGPS\</PublishDir>
     <ApplicationIcon>AOG.ico</ApplicationIcon>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,6 +9,10 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <EmbeddedResourceUseDependentUponConvention>true</EmbeddedResourceUseDependentUponConvention>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <AssemblyVersion>6.8.5</AssemblyVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>..\..\AgOpenGPS\</OutputPath>
+    <PackAsTool>True</PackAsTool>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">

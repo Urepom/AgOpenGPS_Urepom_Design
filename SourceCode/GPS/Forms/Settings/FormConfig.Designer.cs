@@ -484,6 +484,11 @@ namespace AgOpenGPS
             this.lblFeetMeters = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.labelUnitsBottom = new System.Windows.Forms.Label();
+            this.cbox_long_touch = new System.Windows.Forms.CheckBox();
+            this.cBox_sections_button = new System.Windows.Forms.CheckBox();
+            this.Timer_kml = new System.Windows.Forms.CheckBox();
+            this.VineMode = new System.Windows.Forms.CheckBox();
+            this.ArrowsRL = new System.Windows.Forms.CheckBox();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -7904,6 +7909,11 @@ namespace AgOpenGPS
             // tabDisplay
             // 
             this.tabDisplay.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabDisplay.Controls.Add(this.cbox_long_touch);
+            this.tabDisplay.Controls.Add(this.cBox_sections_button);
+            this.tabDisplay.Controls.Add(this.Timer_kml);
+            this.tabDisplay.Controls.Add(this.VineMode);
+            this.tabDisplay.Controls.Add(this.ArrowsRL);
             this.tabDisplay.Controls.Add(this.lblHeadlandDist);
             this.tabDisplay.Controls.Add(this.chkboxHeadlandDist);
             this.tabDisplay.Controls.Add(this.labelLineSmoothOnOff);
@@ -8502,9 +8512,9 @@ namespace AgOpenGPS
             this.labelCurrentVehicle.TabIndex = 450;
             this.labelCurrentVehicle.Text = "Current Vehicle";
             this.labelCurrentVehicle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
             // labelCurrentTool
-            //
+            // 
             this.labelCurrentTool.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCurrentTool.AutoSize = true;
             this.labelCurrentTool.BackColor = System.Drawing.Color.Transparent;
@@ -8513,11 +8523,11 @@ namespace AgOpenGPS
             this.labelCurrentTool.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelCurrentTool.Location = new System.Drawing.Point(21, 32);
             this.labelCurrentTool.Name = "labelCurrentTool";
-            this.labelCurrentTool.Size = new System.Drawing.Size(138, 23);
+            this.labelCurrentTool.Size = new System.Drawing.Size(114, 23);
             this.labelCurrentTool.TabIndex = 451;
             this.labelCurrentTool.Text = "Current Tool";
             this.labelCurrentTool.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
             // lblInchesCm
             // 
             this.lblInchesCm.AutoSize = true;
@@ -8530,14 +8540,14 @@ namespace AgOpenGPS
             this.lblInchesCm.TabIndex = 303;
             this.lblInchesCm.Text = "Inches";
             // 
-            // lblSecTotalWidthMeters
+            // lblSecTotalWidth
             // 
             this.lblSecTotalWidth.AutoSize = true;
             this.lblSecTotalWidth.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSecTotalWidth.ForeColor = System.Drawing.Color.Black;
             this.lblSecTotalWidth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblSecTotalWidth.Location = new System.Drawing.Point(632, 32);
-            this.lblSecTotalWidth.Name = "lblSecTotalWidthMeters";
+            this.lblSecTotalWidth.Name = "lblSecTotalWidth";
             this.lblSecTotalWidth.Size = new System.Drawing.Size(32, 25);
             this.lblSecTotalWidth.TabIndex = 302;
             this.lblSecTotalWidth.Text = "II";
@@ -8614,6 +8624,106 @@ namespace AgOpenGPS
             this.labelUnitsBottom.TabIndex = 454;
             this.labelUnitsBottom.Text = "Units:";
             this.labelUnitsBottom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cbox_long_touch
+            // 
+            this.cbox_long_touch.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbox_long_touch.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbox_long_touch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cbox_long_touch.FlatAppearance.BorderSize = 2;
+            this.cbox_long_touch.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.cbox_long_touch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbox_long_touch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbox_long_touch.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cbox_long_touch.Location = new System.Drawing.Point(737, 114);
+            this.cbox_long_touch.Margin = new System.Windows.Forms.Padding(12);
+            this.cbox_long_touch.Name = "cbox_long_touch";
+            this.cbox_long_touch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbox_long_touch.Size = new System.Drawing.Size(100, 69);
+            this.cbox_long_touch.TabIndex = 561;
+            this.cbox_long_touch.Text = "Long touch";
+            this.cbox_long_touch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbox_long_touch.UseVisualStyleBackColor = false;
+            // 
+            // cBox_sections_button
+            // 
+            this.cBox_sections_button.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cBox_sections_button.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cBox_sections_button.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cBox_sections_button.FlatAppearance.BorderSize = 2;
+            this.cBox_sections_button.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.cBox_sections_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cBox_sections_button.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cBox_sections_button.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cBox_sections_button.Location = new System.Drawing.Point(737, 36);
+            this.cBox_sections_button.Margin = new System.Windows.Forms.Padding(0);
+            this.cBox_sections_button.Name = "cBox_sections_button";
+            this.cBox_sections_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cBox_sections_button.Size = new System.Drawing.Size(100, 69);
+            this.cBox_sections_button.TabIndex = 560;
+            this.cBox_sections_button.Text = "Sections visibles";
+            this.cBox_sections_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cBox_sections_button.UseVisualStyleBackColor = false;
+            // 
+            // Timer_kml
+            // 
+            this.Timer_kml.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Timer_kml.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Timer_kml.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.Timer_kml.FlatAppearance.BorderSize = 2;
+            this.Timer_kml.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.Timer_kml.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Timer_kml.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Timer_kml.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Timer_kml.Location = new System.Drawing.Point(737, 270);
+            this.Timer_kml.Margin = new System.Windows.Forms.Padding(12);
+            this.Timer_kml.Name = "Timer_kml";
+            this.Timer_kml.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.Timer_kml.Size = new System.Drawing.Size(100, 69);
+            this.Timer_kml.TabIndex = 558;
+            this.Timer_kml.Text = "TimerKML";
+            this.Timer_kml.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Timer_kml.UseVisualStyleBackColor = false;
+            // 
+            // VineMode
+            // 
+            this.VineMode.Appearance = System.Windows.Forms.Appearance.Button;
+            this.VineMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.VineMode.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.VineMode.FlatAppearance.BorderSize = 2;
+            this.VineMode.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.VineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VineMode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VineMode.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.VineMode.Location = new System.Drawing.Point(737, 192);
+            this.VineMode.Margin = new System.Windows.Forms.Padding(12);
+            this.VineMode.Name = "VineMode";
+            this.VineMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.VineMode.Size = new System.Drawing.Size(100, 69);
+            this.VineMode.TabIndex = 559;
+            this.VineMode.Text = "Mode vigne";
+            this.VineMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.VineMode.UseVisualStyleBackColor = false;
+            // 
+            // ArrowsRL
+            // 
+            this.ArrowsRL.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ArrowsRL.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ArrowsRL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ArrowsRL.FlatAppearance.BorderSize = 2;
+            this.ArrowsRL.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.ArrowsRL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsRL.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ArrowsRL.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ArrowsRL.Location = new System.Drawing.Point(737, 348);
+            this.ArrowsRL.Margin = new System.Windows.Forms.Padding(12);
+            this.ArrowsRL.Name = "ArrowsRL";
+            this.ArrowsRL.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ArrowsRL.Size = new System.Drawing.Size(100, 69);
+            this.ArrowsRL.TabIndex = 557;
+            this.ArrowsRL.Text = "Flèches G/D";
+            this.ArrowsRL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ArrowsRL.UseVisualStyleBackColor = false;
             // 
             // FormConfig
             // 
@@ -9219,5 +9329,10 @@ namespace AgOpenGPS
         private System.Windows.Forms.CheckBox chkboxHeadlandDist;
         private Forms.Config.ConfigSummaryControl configSummaryControl;
         private Forms.Config.ConfigVehicleControl configVehicleControl;
+        private System.Windows.Forms.CheckBox cbox_long_touch;
+        private System.Windows.Forms.CheckBox cBox_sections_button;
+        private System.Windows.Forms.CheckBox Timer_kml;
+        private System.Windows.Forms.CheckBox VineMode;
+        private System.Windows.Forms.CheckBox ArrowsRL;
     }
 }

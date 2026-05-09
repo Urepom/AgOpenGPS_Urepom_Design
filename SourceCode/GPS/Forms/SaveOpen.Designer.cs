@@ -740,7 +740,14 @@ namespace AgOpenGPS
                             kml.WriteStartElement("Placemark");
                             kml.WriteElementString("name", "Sections_" + cntr.ToString());
                             cntr++;
-
+                            //ajout memprou
+                            if (Properties.Settings.Default.UP_setTimer_KML == true)
+                            {
+                                kml.WriteStartElement("TimeSpan"); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                kml.WriteElementString("begin", triList[1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                kml.WriteElementString("end", triList[triList.Count - 1].now.ToString("yyyy-MM-ddTHH:mm:ss")); //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                                kml.WriteEndElement();//TimeSpan //Ajout-modification MEmprou et SPailleau Fertilisation timerKML
+                            } //fin
                             string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
                                 ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
 

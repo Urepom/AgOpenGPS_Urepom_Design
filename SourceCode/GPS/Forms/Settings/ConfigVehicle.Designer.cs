@@ -37,7 +37,14 @@ namespace AgOpenGPS
             mf.isSectionlinesOn = chkSectionLines.Checked;
             mf.isLineSmooth = chkLineSmooth.Checked;
             mf.isHeadlandDistanceOn = chkboxHeadlandDist.Checked;
-
+            //Ajout-modification MEmprou et SPailleau
+            mf.issections_buttonOn = cBox_sections_button.Checked;
+            mf.islong_touchOn = cbox_long_touch.Checked;
+            Properties.ToolSettings.Default.UP_setDisplay_issections_buttonOn = mf.issections_buttonOn;
+            Properties.Settings.Default.UP_SetArrowsRL = ArrowsRL.Checked;
+            Properties.Settings.Default.UP_setTimer_KML = Timer_kml.Checked;
+            Properties.ToolSettings.Default.UP_setVineMode = VineMode.Checked;
+            //fin
             //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
 
             Properties.Settings.Default.setDisplay_isBrightnessOn = mf.isBrightnessOn;

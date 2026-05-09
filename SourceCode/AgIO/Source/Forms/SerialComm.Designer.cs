@@ -32,12 +32,18 @@ namespace AgIO
         public static string portNameMachineModule = "***";
         public static int baudRateMachineModule = 38400;
 
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public static string portNameModuleFerti = "***";
+        public static int baudRateModuleFerti = 38400;
+
         //used to decide to autoconnect section arduino this run
         public string recvGPSSentence = "GPS";
         public string recvGPS2Sentence = "GPS2";
         public string recvIMUSentence = "IMU";
         public string recvSteerModuleSentence = "Module 1";
         public string recvMachineModuleSentence = "Module 2";
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public string recvModuleFertiSentence = "Module Ferti";
 
         public bool isGPSCommOpen = false;
 
@@ -50,6 +56,8 @@ namespace AgIO
         public bool wasSteerModuleConnectedLastRun = false;
         public bool wasIMUConnectedLastRun = false;
         public bool wasRtcmConnectedLastRun = false;
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        public bool wasModuleFertiConnectedLastRun = false;
 
         //serial port gps is connected to
         public SerialPort spGPS = new SerialPort(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
@@ -69,10 +77,16 @@ namespace AgIO
         //serial port Arduino is connected to
         public SerialPort spMachineModule = new SerialPort(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
 
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        //serial port Ardiuno is connected to
+        public SerialPort spModuleFerti = new SerialPort(portNameModuleFerti, baudRateModuleFerti, Parity.None, 8, StopBits.One);
+
         //lists for parsing incoming bytes
         private byte[] pgnSteerModule = new byte[22];
         private byte[] pgnMachineModule = new byte[22];
         private byte[] pgnIMU = new byte[22];
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        private byte[] pgnModuleFerti = new byte[262];
 
         #region IMUSerialPort //--------------------------------------------------------------------
         private void ReceiveIMUPort(byte[] Data)
@@ -709,6 +723,232 @@ namespace AgIO
             }
         }
         #endregion --------------------------------------------------------------------
+        //Ajout-modification MEmprou et SPailleau Fertilisation
+        #region ModuleFertiSerialPort // --------------------------------------------------------------------
+        private void ReceiveFertiPort(byte[] Data)
+        {
+            try
+            {
+                SendToLoopBackMessageAOG(Data);
+                traffic.helloFromFertilisation = 0;
+            }
+            catch { }
+        }
+
+
+
+        //Send machine info out to machine board
+        public void SendFertiPort(byte[] items, int numItems)
+        {
+            //Tell Arduino to turn section on or off accordingly
+            if (spModuleFerti.IsOpen)
+            {
+                try
+                {
+                    spModuleFerti.Write(items, 0, numItems);
+                }
+                catch (Exception)
+                {
+                    CloseFertiPort();
+                }
+            }
+        }
+
+        //open the Arduino serial port
+        public void OpenFertiPort()
+        {
+            if (!spModuleFerti.IsOpen)
+            {
+                spModuleFerti.PortName = portNameModuleFerti;
+                spModuleFerti.BaudRate = baudRateModuleFerti;
+                spModuleFerti.DataReceived += sp_DataReceivedFerti;
+                spModuleFerti.DtrEnable = true;
+                spModuleFerti.RtsEnable = true;
+            }
+
+            try { spModuleFerti.Open(); }
+            catch (Exception e)
+            {
+                //WriteErrorLog("Opening Machine Port" + e.ToString());
+
+                MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
+
+
+                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = false;
+                Properties.Settings.Default.Save();
+                wasModuleFertiConnectedLastRun = false;
+            }
+
+            if (spModuleFerti.IsOpen)
+            {
+                //short delay for the use of mega2560, it is working in debugmode with breakpoint
+                System.Threading.Thread.Sleep(500); // 500 was not enough
+
+                spModuleFerti.DiscardOutBuffer();
+                spModuleFerti.DiscardInBuffer();
+
+                Properties.Settings.Default.UP_setPort_portNameModuleFerti = portNameModuleFerti;
+                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = true;
+                Properties.Settings.Default.Save();
+                wasModuleFertiConnectedLastRun = true;
+                lblModFertiComm.Text = portNameModuleFerti;
+            }
+        }
+
+        //close the machine port
+        public void CloseFertiPort()
+        {
+            if (spModuleFerti.IsOpen)
+            {
+                spModuleFerti.DataReceived -= sp_DataReceivedFerti;
+                try
+                {
+                    spModuleFerti.Close();
+                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7F, 0xCF, 2, 1, 0, 0xCC };
+
+                    //tell AOG ModuleFerti is disconnected
+                    SendToLoopBackMessageAOG(FertiClose);
+                }
+
+                catch (Exception e)
+                {
+                    //WriteErrorLog("Closing Machine Serial Port" + e.ToString());
+                    MessageBox.Show(e.Message, "Connection already terminated??");
+                }
+
+                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = false;
+                Properties.Settings.Default.Save();
+
+                spModuleFerti.Dispose();
+                wasModuleFertiConnectedLastRun = false;
+            }
+
+            else
+            {
+                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7F, 0xCF, 2, 1, 0, 0xCC };
+
+                //tell AOG Moldule Ferti is disconnected
+                SendToLoopBackMessageAOG(FertiClose);
+                wasModuleFertiConnectedLastRun = false;
+            }
+
+            wasModuleFertiConnectedLastRun = false;
+            lblModFertiComm.Text = "---";
+        }
+
+        private void sp_DataReceivedFerti(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            if (spModuleFerti.IsOpen)
+            {
+                byte[] ByteList;
+                ByteList = pgnModuleFerti;
+
+                try
+                {
+                    if (spModuleFerti.BytesToRead > 100)
+                    {
+                        spModuleFerti.DiscardInBuffer();
+                        return;
+                    }
+
+                    byte a;
+
+                    int aas = spModuleFerti.BytesToRead;
+
+                    for (int i = 0; i < aas; i++)
+                    {
+                        a = (byte)spModuleFerti.ReadByte();
+
+                        switch (ByteList[261])
+                        {
+                            case 0: //find 0x80
+                                {
+                                    if (a == 128) ByteList[ByteList[261]++] = a;
+                                    else ByteList[261] = 0;
+                                    break;
+                                }
+
+                            case 1:  //find 0x81   
+                                {
+                                    if (a == 129) ByteList[ByteList[261]++] = a;
+                                    else
+                                    {
+                                        if (a == 181)
+                                        {
+                                            ByteList[261] = 0;
+                                            ByteList[ByteList[261]++] = a;
+                                        }
+                                        else ByteList[261] = 0;
+                                    }
+                                    break;
+                                }
+
+                            case 2: //Source Address (7F)
+                                {
+                                    if (a < 128 && a > 120)
+                                        ByteList[ByteList[261]++] = a;
+                                    else ByteList[261] = 0;
+                                    break;
+                                }
+
+                            case 3: //PGN ID
+                                {
+                                    ByteList[ByteList[261]++] = a;
+                                    break;
+                                }
+
+                            case 4: //Num of data bytes
+                                {
+                                    ByteList[ByteList[261]++] = a;
+                                    break;
+                                }
+
+                            default: //Data load and Checksum
+                                {
+                                    if (ByteList[261] > 4)
+                                    {
+                                        int length = ByteList[4] + totalHeaderByteCount;
+                                        if ((ByteList[261]) < length)
+                                        {
+                                            ByteList[ByteList[261]++] = a;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            //crc
+                                            int CK_A = 0;
+                                            for (int j = 2; j < length; j++)
+                                            {
+                                                CK_A = CK_A + ByteList[j];
+                                            }
+
+                                            //if checksum matches finish and update main thread
+                                            if (a == (byte)(CK_A))
+                                            {
+                                                length++;
+                                                ByteList[ByteList[261]++] = (byte)CK_A;
+                                                BeginInvoke((MethodInvoker)(() => ReceiveFertiPort(ByteList.Take(length).ToArray())));
+                                            }
+
+                                            //clear out the current pgn
+                                            ByteList[261] = 0;
+                                            return;
+                                        }
+                                    }
+
+                                    break;
+                                }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    ByteList[261] = 0;
+                }
+            }
+        }
+        #endregion
+        //fin
 
         #region GPS SerialPort --------------------------------------------------------------------------
 

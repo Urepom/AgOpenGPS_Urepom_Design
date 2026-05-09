@@ -77,7 +77,11 @@ namespace AgIO.Properties
         public bool isobus_isOn = false;
         public int isobus_canAdapterIndex = 0;
         public int isobus_canChannelIndex = 0;
-
+        //ajout memprou
+        public string UP_setPort_portNameModuleFerti = "Ferti";
+        public bool UP_setPort_wasModuleFertiConnected = false;
+        public bool UP_setMod_isFertiConnected = true;
+        //fin
         public LoadResult Load()
         {
             string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");

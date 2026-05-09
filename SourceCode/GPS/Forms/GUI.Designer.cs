@@ -13,6 +13,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -60,7 +61,7 @@ namespace AgOpenGPS
         //Ajout-modification MEmprou et SPailleau
         public bool issections_buttonOn = false;
         public bool islong_touchOn = Properties.Settings.Default.UP_setDisplay_islong_touchOn;
-        bool work_track = false;
+        //bool work_track = false;
         //fin
         public bool isUTurnOn = true, isLateralOn = true, isNudgeOn = true;
 
@@ -331,7 +332,7 @@ namespace AgOpenGPS
                 //ajout memprou lblFix.Text = FixQuality + "Age: " + pn.age.ToString("N1");
                 //Ajout-modification MEmprou et SPailleau
                 traccarSecondCounter++;
-                lblAge.Text = "age: " + pn.age.ToString("N1");
+                lblAge.Text = "age: " + pn.age.ToString();
                 lbludpWatchCounts.Text = "Miss: " + missedSentenceCount.ToString();
                 //fin
 
@@ -400,12 +401,15 @@ namespace AgOpenGPS
                 {
                     lblSpeed.Text = SpeedKPH;
                     //btnContour.Text = XTE; //cross track error
+                    distanceToolBtn.Text = Math.Round(Convert.ToDecimal(fd.DistanceUserMeters), 1) + "\r\n" + fd.WorkedUserHectares; //ajout memprou
+
 
                 }
                 else  //Imperial Measurements
                 {
                     lblSpeed.Text = SpeedMPH;
                     //btnContour.Text = InchXTE; //cross track error
+                    distanceToolBtn.Text = fd.DistanceUserFeet + "\r\n" + fd.WorkedUserAcres; //ajout memprou
                 }
             } //end every 1/2 second
 
@@ -421,63 +425,55 @@ namespace AgOpenGPS
                 secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
             }
             //ajout max
-            if (Settings.Default.UP_traccar == true && traccarSecondCounter >= Settings.Default.UP_frequence_traccar)
+            if (Settings.Default.UP_traccar && traccarSecondCounter >= Settings.Default.UP_frequence_traccar)
             {
+                traccarSecondCounter = 0;
+
+                // 1. Préparation des données (Thread UI)
                 string Id = Settings.Default.UP_ID_traccar;
                 string IP = Settings.Default.UP_adresse_traccar;
                 string Port = Settings.Default.UP_port_traccar;
                 double totalSecond = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
                 string lat = AppModel.CurrentLatLon.Latitude.ToString().Replace(",", ".");
                 string lon = AppModel.CurrentLatLon.Longitude.ToString().Replace(",", ".");
-
                 bool work_track = (manualBtnState == btnStates.On || autoBtnState == btnStates.Auto);
 
-                // Build the URL with all parameters
-                string url = $"http://{IP}:{Port}/?id={Id}&timestamp={((int)totalSecond).ToString()}&speed={(Convert.ToDouble(SpeedKPH) / 1.852).ToString().Replace(",", ".")}&lat={lat}&lon={lon}&tool={RegistrySettings.toolProfileName}&workingWidth={(Math.Round(tool.width, 2)).ToString()} m&isWorking={work_track}&field={currentFieldDirectory}&field={fd.AreaBoundaryLessInnersHectares} ha&appliedArea={fd.WorkedHectares.ToString()}&accuracy=0";
-                HttpWebRequest request = null;
-                try
-                {
-                    request = (HttpWebRequest)WebRequest.Create(url);
-                    // The key change: use "GET" method
-                    request.Method = "GET";
+                string url = $"http://{IP}:{Port}/?id={Id}&timestamp={(int)totalSecond}&speed={(Convert.ToDouble(SpeedKPH) / 1.852).ToString().Replace(",", ".")}&lat={lat}&lon={lon}&tool={RegistrySettings.toolProfileName}&workingWidth={Math.Round(tool.width, 2).ToString()} m&isWorking={work_track}&field={currentFieldDirectory}&field={fd.AreaBoundaryLessInnersHectares} ha&appliedArea={fd.WorkedHectares.ToString()}&accuracy=0";
 
-                    // No need to set ContentType or ContentLength for a GET request
-                    // No need to write data to the stream
+                // 2. Envoi en arrière-plan (Ne bloque pas l'UI)
+                Task.Run(() =>
+                {
+                    HttpWebRequest request = null;
+                    try
+                    {
+                        request = (HttpWebRequest)WebRequest.Create(url);
+                        request.Method = "GET";
+                        request.Timeout = 1500; // Timeout court pour libérer le thread rapidement
+                        request.ReadWriteTimeout = 1500;
 
-                    // This is a GET request, so we get the response directly
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                    {
-                        // You can optionally read the response, but for a simple tracker
-                        // update, it's often not necessary.
+                        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                        {
+                            if (response.StatusCode == HttpStatusCode.OK)
+                            {
+                                // Success ! Internet est là.
+                                // traccarLastStatus = true; 
+                            }
+                        }
                     }
+                    catch (Exception)
+                    {
+                        // Échec (Internet coupé, serveur down, etc.)
+                        // On ne fait RIEN : pas de MessageBox, pas de crash.
+                        // Au prochain cycle (selon UP_frequence_traccar), le code réessaiera tout seul.
 
-                    traccarSecondCounter = 0;
-                }
-                catch (WebException ex)
-                {
-                    Console.WriteLine($"Erreur de requête Web : {ex.Message}");
-                    if (Settings.Default.UP_traccar)
-                    {
-                        Settings.Default.UP_traccar = false;
-                        System.Windows.Forms.MessageBox.Show($"Impossible de contacter le serveur Traccar à l'adresse {IP}:{Port}. Veuillez vérifier l'adresse IP et la connexion réseau.", "Erreur de connexion Traccar", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                        // traccarLastStatus = false;
+                        Console.WriteLine("Traccar : Serveur injoignable, nouvel essai au prochain cycle...");
                     }
-                }
-                catch (UriFormatException ex)
-                {
-                    Console.WriteLine($"Erreur de format d'URL : {ex.Message}");
-                    if (Settings.Default.UP_traccar)
+                    finally
                     {
-                        Settings.Default.UP_traccar = false;
-                        System.Windows.Forms.MessageBox.Show($"L'adresse IP ou le port du serveur Traccar semble incorrect : {IP}:{Port}. Veuillez vérifier les paramètres.", "Erreur de configuration Traccar", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                        request?.Abort();
                     }
-                }
-                finally
-                {
-                    if (request != null)
-                    {
-                        request.Abort();
-                    }
-                }
+                });
             }
         }
         //fin
@@ -534,9 +530,9 @@ namespace AgOpenGPS
             //Ajout-modification MEmprou et SPailleau
             btnAdjLeftMain.Visible = Properties.Settings.Default.UP_SetArrowsRL;
             btnAdjRightMain.Visible = Properties.Settings.Default.UP_SetArrowsRL;
-            issections_buttonOn = Settings.Default.UP_setDisplay_issections_buttonOn;
+            issections_buttonOn = Properties.ToolSettings.Default.UP_setDisplay_issections_buttonOn;
             long_touch();
-            if (Properties.Settings.Default.UP_setVineMode)
+            if (Properties.ToolSettings.Default.UP_setVineMode)
             {
                 cboxAutoSnapToPivot.Checked = true;
                 trk.isAutoSnapToPivot = cboxAutoSnapToPivot.Checked;
@@ -1544,10 +1540,10 @@ else
 
                     //++
                     if (point.Y < 182 && point.Y > 152)
-                    { 
+                    {
                         camera.ZoomIn();
-                    SetZoom();
-                    return;
+                        SetZoom();
+                        return;
                     }
                 }
                 //fin

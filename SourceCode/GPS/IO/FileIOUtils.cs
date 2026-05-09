@@ -13,7 +13,6 @@ namespace AgOpenGPS.IO
         {
             return Math.Round(value, decimals).ToString(CultureInfo.InvariantCulture);
         }
-
         // ---- Parsing helpers ----
 
         public static int ParseIntSafe(string line)

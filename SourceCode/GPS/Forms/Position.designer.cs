@@ -858,6 +858,13 @@ namespace AgOpenGPS
                 p_254.pgn[p_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
                 p_254.pgn[p_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
+                //Ajout-modification MEmprou et SPailleau Fertilisation
+                if (ferti_vidange == false)
+                {
+                    p_207.pgn[p_207.speedHi] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0) >> 8));
+                    p_207.pgn[p_207.speedLo] = unchecked((byte)((int)(Math.Abs(pn.speed) * 10.0)));
+                }
+                //fin
 
                 //save distance for display
                 lightbarDistance = guidanceLineDistanceOff;
@@ -1005,6 +1012,7 @@ namespace AgOpenGPS
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
             SendPgnToLoop(p_254.pgn);
+            SendPgnToLoop(p_207.pgn); //ajout memprou
 
             //for average cross track error
             if (guidanceLineDistanceOff < 29000)

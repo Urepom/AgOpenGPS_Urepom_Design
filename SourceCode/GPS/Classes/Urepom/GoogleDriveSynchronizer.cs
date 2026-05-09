@@ -319,7 +319,7 @@ namespace AgOpenGPS.Classes.Urepom
             }
             catch (Exception ex)
             {
-                // Console.WriteLine($"[DOWNLOAD] Erreur lors du téléchargement de '{driveFile.Name}': {ex.Message}");
+                Console.WriteLine($"[DOWNLOAD] Erreur lors du téléchargement de '{driveFile.Name}': {ex.Message}");
             }
         }
     }

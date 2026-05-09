@@ -256,9 +256,9 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonLoad.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.buttonLoad.Image = global::AgOpenGPS.Properties.Resources.OK64;
             this.buttonLoad.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonLoad.Location = new System.Drawing.Point(924, 450);
+            this.buttonLoad.Location = new System.Drawing.Point(895, 450);
             this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(80, 98);
+            this.buttonLoad.Size = new System.Drawing.Size(109, 98);
             this.buttonLoad.TabIndex = 25;
             this.buttonLoad.Text = "Load";
             this.buttonLoad.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -272,9 +272,9 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.buttonCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonCancel.Location = new System.Drawing.Point(838, 450);
+            this.buttonCancel.Location = new System.Drawing.Point(780, 450);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(80, 98);
+            this.buttonCancel.Size = new System.Drawing.Size(109, 98);
             this.buttonCancel.TabIndex = 24;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -336,9 +336,9 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonDeleteTool.TabIndex = 13;
             this.buttonDeleteTool.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonDeleteTool.Click += new System.EventHandler(this.buttonDeleteTool_Click);
-            //
+            // 
             // buttonRenameVehicle
-            //
+            // 
             this.buttonRenameVehicle.Enabled = false;
             this.buttonRenameVehicle.FlatAppearance.BorderSize = 0;
             this.buttonRenameVehicle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -351,9 +351,9 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonRenameVehicle.TabIndex = 27;
             this.buttonRenameVehicle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonRenameVehicle.Click += new System.EventHandler(this.buttonRenameVehicle_Click);
-            //
+            // 
             // buttonRenameTool
-            //
+            // 
             this.buttonRenameTool.Enabled = false;
             this.buttonRenameTool.FlatAppearance.BorderSize = 0;
             this.buttonRenameTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -366,9 +366,9 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonRenameTool.TabIndex = 28;
             this.buttonRenameTool.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonRenameTool.Click += new System.EventHandler(this.buttonRenameTool_Click);
-            //
+            // 
             // buttonResetVehicle
-            //
+            // 
             this.buttonResetVehicle.FlatAppearance.BorderSize = 0;
             this.buttonResetVehicle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonResetVehicle.Font = new System.Drawing.Font("Tahoma", 9F);
@@ -380,9 +380,9 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonResetVehicle.TabIndex = 29;
             this.buttonResetVehicle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonResetVehicle.Click += new System.EventHandler(this.buttonResetVehicle_Click);
-            //
+            // 
             // buttonResetTool
-            //
+            // 
             this.buttonResetTool.FlatAppearance.BorderSize = 0;
             this.buttonResetTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonResetTool.Font = new System.Drawing.Font("Tahoma", 9F);
@@ -394,7 +394,7 @@ namespace AgOpenGPS.Forms.Profiles
             this.buttonResetTool.TabIndex = 30;
             this.buttonResetTool.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonResetTool.Click += new System.EventHandler(this.buttonResetTool_Click);
-            //
+            // 
             // buttonConvertOld
             // 
             this.buttonConvertOld.BackColor = System.Drawing.Color.LightSalmon;

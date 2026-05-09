@@ -23,7 +23,7 @@ namespace AgOpenGPS
     public partial class FormUpdate : Form
     {
         /// <param name="settingsFilePath">Usually Documents.Drive.Folder</param>
-                //class variables
+        //class variables
         private readonly FormGPS mf = null;
 
         string strWebVersion;
@@ -70,7 +70,8 @@ namespace AgOpenGPS
 
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            this.BeginInvoke((MethodInvoker)delegate {
+            this.BeginInvoke((MethodInvoker)delegate
+            {
                 double bytesIn = double.Parse(e.BytesReceived.ToString());
                 double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
                 double percentage = bytesIn / totalBytes * 100;
@@ -82,9 +83,9 @@ namespace AgOpenGPS
             download_ok = true;
             Properties.Settings.Default.UP_setUpdate_MAJ = SaveConfig.Checked;
 
-            string line;
+            //string line;
             string fusionsettingfile = RegistrySettings.baseDirectory + "\\update\\fusionsetting.txt";
-            bool fusionsetting = true;
+            //bool fusionsetting = true;
             if (File.Exists(fusionsettingfile))
             {
                 using (StreamWriter writer = new StreamWriter(fusionsettingfile))
@@ -108,7 +109,8 @@ namespace AgOpenGPS
 
 
 
-            this.BeginInvoke((MethodInvoker)delegate {
+            this.BeginInvoke((MethodInvoker)delegate
+            {
                 Process.Start(packageFile);
 
                 Process[] runningProcesses = Process.GetProcesses();
@@ -133,7 +135,8 @@ namespace AgOpenGPS
             Directory.CreateDirectory(updatePath);
             packageFile = Path.Combine(updatePath, "update.exe");
 
-            Thread thread = new Thread(() => {
+            Thread thread = new Thread(() =>
+            {
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
                 webClient.DownloadFileAsync(package, packageFile);
@@ -171,7 +174,7 @@ namespace AgOpenGPS
         private void FormUpdate_Load(object sender, EventArgs e)
         {
 
-            currentVersionStr = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+            currentVersionStr = Program.Version;
             LblVersion.Text = currentVersionStr;
             string[] fullVers = currentVersionStr.Split('.');
             double aogV = int.Parse(fullVers[0], CultureInfo.InvariantCulture);
