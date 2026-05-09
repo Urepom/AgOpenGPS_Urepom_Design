@@ -195,7 +195,16 @@ namespace AgOpenGPS
                            DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1));
 
             mf.btnIsobusSectionControl.Visible = isAlive;
-
+            //ajout memprou
+            if (isAlive)
+            {
+                mf.round_table2.Left = mf.oglMain.Right - 152;
+            }
+            else
+            {
+                mf.round_table2.Left = mf.oglMain.Right - 84;
+            }
+            //fin
             return isAlive;
         }
 

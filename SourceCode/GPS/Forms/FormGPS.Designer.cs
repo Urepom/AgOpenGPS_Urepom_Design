@@ -134,7 +134,6 @@ namespace AgOpenGPS
             this.SnapCenterMain = new System.Windows.Forms.Button();
             this.btnAdjRightMain = new System.Windows.Forms.Button();
             this.btnAdjLeftMain = new System.Windows.Forms.Button();
-            this.btnIsobusSectionControl = new System.Windows.Forms.Button();
             this.panel_top = new AgOpenGPS.Round_panel();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.lblTotalAppliedArea = new System.Windows.Forms.Label();
@@ -189,6 +188,7 @@ namespace AgOpenGPS
             this.btnContour = new System.Windows.Forms.Button();
             this.round_table2 = new AgOpenGPS.Round_table();
             this.btnTramDisplayMode = new System.Windows.Forms.Button();
+            this.btnIsobusSectionControl = new System.Windows.Forms.Button();
             this.round_table1 = new AgOpenGPS.Round_table();
             this.btnBuildTracks = new System.Windows.Forms.Button();
             this.btnAutoTrack = new System.Windows.Forms.Button();
@@ -1599,29 +1599,6 @@ namespace AgOpenGPS
             this.btnAdjLeftMain.Visible = false;
             this.btnAdjLeftMain.Click += new System.EventHandler(this.btnAdjLeft_Click);
             // 
-            // btnIsobusSectionControl
-            // 
-            this.btnIsobusSectionControl.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnIsobusSectionControl.BackColor = System.Drawing.Color.Transparent;
-            this.btnIsobusSectionControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnIsobusSectionControl.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
-            this.btnIsobusSectionControl.FlatAppearance.BorderSize = 0;
-            this.btnIsobusSectionControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.btnIsobusSectionControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnIsobusSectionControl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnIsobusSectionControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIsobusSectionControl.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIsobusSectionControl.Image = global::AgOpenGPS.Properties.Resources.IsobusSectionControlOff;
-            this.btnIsobusSectionControl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnIsobusSectionControl.Location = new System.Drawing.Point(817, 584);
-            this.btnIsobusSectionControl.Name = "btnIsobusSectionControl";
-            this.btnIsobusSectionControl.Size = new System.Drawing.Size(64, 64);
-            this.btnIsobusSectionControl.TabIndex = 569;
-            this.btnIsobusSectionControl.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnIsobusSectionControl.UseVisualStyleBackColor = false;
-            this.btnIsobusSectionControl.Visible = false;
-            this.btnIsobusSectionControl.Click += new System.EventHandler(this.btnIsobusSC_Click);
-            // 
             // panel_top
             // 
             this.panel_top.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -1924,17 +1901,17 @@ namespace AgOpenGPS
             this.round_table11.ColumnCount = 5;
             this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3.84032F));
             this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.15434F));
-            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.24528F));
-            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.90566F));
-            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 183F));
+            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.91139F));
+            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.01266F));
+            this.round_table11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 187F));
             this.round_table11.Controls.Add(this.btnMaximizeMainForm, 2, 0);
             this.round_table11.Controls.Add(this.btnMinimizeMainForm, 1, 0);
             this.round_table11.Controls.Add(this.btnShutdown, 3, 0);
-            this.round_table11.Location = new System.Drawing.Point(798, 7);
+            this.round_table11.Location = new System.Drawing.Point(807, 7);
             this.round_table11.Name = "round_table11";
             this.round_table11.RowCount = 1;
             this.round_table11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.round_table11.Size = new System.Drawing.Size(349, 58);
+            this.round_table11.Size = new System.Drawing.Size(376, 58);
             this.round_table11.TabIndex = 558;
             // 
             // btnMaximizeMainForm
@@ -1950,9 +1927,9 @@ namespace AgOpenGPS
             this.btnMaximizeMainForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMaximizeMainForm.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaximizeMainForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMaximizeMainForm.Location = new System.Drawing.Point(62, 3);
+            this.btnMaximizeMainForm.Location = new System.Drawing.Point(72, 3);
             this.btnMaximizeMainForm.Name = "btnMaximizeMainForm";
-            this.btnMaximizeMainForm.Size = new System.Drawing.Size(42, 52);
+            this.btnMaximizeMainForm.Size = new System.Drawing.Size(52, 52);
             this.btnMaximizeMainForm.TabIndex = 482;
             this.btnMaximizeMainForm.UseVisualStyleBackColor = false;
             this.btnMaximizeMainForm.Click += new System.EventHandler(this.btnMaximizeMainForm_Click);
@@ -1970,7 +1947,7 @@ namespace AgOpenGPS
             this.btnMinimizeMainForm.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMinimizeMainForm.ForeColor = System.Drawing.Color.DimGray;
             this.btnMinimizeMainForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMinimizeMainForm.Location = new System.Drawing.Point(17, 3);
+            this.btnMinimizeMainForm.Location = new System.Drawing.Point(25, 3);
             this.btnMinimizeMainForm.Name = "btnMinimizeMainForm";
             this.btnMinimizeMainForm.Size = new System.Drawing.Size(39, 52);
             this.btnMinimizeMainForm.TabIndex = 481;
@@ -1988,7 +1965,7 @@ namespace AgOpenGPS
             this.btnShutdown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnShutdown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShutdown.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnShutdown.Location = new System.Drawing.Point(113, 2);
+            this.btnShutdown.Location = new System.Drawing.Point(136, 2);
             this.btnShutdown.Margin = new System.Windows.Forms.Padding(0);
             this.btnShutdown.Name = "btnShutdown";
             this.btnShutdown.Size = new System.Drawing.Size(44, 54);
@@ -2223,9 +2200,9 @@ namespace AgOpenGPS
             // 
             this.round_table4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.round_table4.ColumnCount = 3;
-            this.round_table4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.55245F));
-            this.round_table4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.44755F));
-            this.round_table4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.round_table4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.54546F));
+            this.round_table4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.45454F));
+            this.round_table4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.round_table4.Controls.Add(this.btnABDraw, 0, 0);
             this.round_table4.Controls.Add(this.btnNudge, 1, 0);
             this.round_table4.Location = new System.Drawing.Point(852, 310);
@@ -2247,7 +2224,7 @@ namespace AgOpenGPS
             this.btnABDraw.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnABDraw.Image = global::AgOpenGPS.Properties.Resources.ABDraw;
             this.btnABDraw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnABDraw.Location = new System.Drawing.Point(8, 3);
+            this.btnABDraw.Location = new System.Drawing.Point(16, 3);
             this.btnABDraw.Name = "btnABDraw";
             this.btnABDraw.Size = new System.Drawing.Size(57, 59);
             this.btnABDraw.TabIndex = 250;
@@ -2267,9 +2244,9 @@ namespace AgOpenGPS
             this.btnNudge.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNudge.Image = global::AgOpenGPS.Properties.Resources.ABSnapNudgeMenu;
             this.btnNudge.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnNudge.Location = new System.Drawing.Point(71, 3);
+            this.btnNudge.Location = new System.Drawing.Point(79, 3);
             this.btnNudge.Name = "btnNudge";
-            this.btnNudge.Size = new System.Drawing.Size(69, 59);
+            this.btnNudge.Size = new System.Drawing.Size(57, 59);
             this.btnNudge.TabIndex = 489;
             this.btnNudge.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnNudge.UseVisualStyleBackColor = false;
@@ -2333,20 +2310,22 @@ namespace AgOpenGPS
             // round_table2
             // 
             this.round_table2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.round_table2.ColumnCount = 2;
-            this.round_table2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.round_table2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.round_table2.ColumnCount = 3;
+            this.round_table2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.06123F));
+            this.round_table2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.93877F));
+            this.round_table2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.round_table2.Controls.Add(this.btnTramDisplayMode, 0, 0);
+            this.round_table2.Controls.Add(this.btnIsobusSectionControl, 1, 0);
             this.round_table2.Location = new System.Drawing.Point(920, 450);
             this.round_table2.Name = "round_table2";
             this.round_table2.RowCount = 1;
-            this.round_table2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.round_table2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.round_table2.Size = new System.Drawing.Size(170, 65);
             this.round_table2.TabIndex = 554;
             // 
             // btnTramDisplayMode
             // 
-            this.btnTramDisplayMode.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnTramDisplayMode.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnTramDisplayMode.BackColor = System.Drawing.Color.Transparent;
             this.btnTramDisplayMode.ContextMenuStrip = this.contextMenuStrip_tram;
             this.btnTramDisplayMode.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
@@ -2355,13 +2334,35 @@ namespace AgOpenGPS
             this.btnTramDisplayMode.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTramDisplayMode.Image = global::AgOpenGPS.Properties.Resources.TramOff;
             this.btnTramDisplayMode.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnTramDisplayMode.Location = new System.Drawing.Point(6, 4);
+            this.btnTramDisplayMode.Location = new System.Drawing.Point(13, 4);
             this.btnTramDisplayMode.Name = "btnTramDisplayMode";
-            this.btnTramDisplayMode.Size = new System.Drawing.Size(73, 56);
+            this.btnTramDisplayMode.Size = new System.Drawing.Size(62, 56);
             this.btnTramDisplayMode.TabIndex = 480;
             this.btnTramDisplayMode.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnTramDisplayMode.UseVisualStyleBackColor = false;
             this.btnTramDisplayMode.Click += new System.EventHandler(this.btnTramDisplayMode_Click);
+            // 
+            // btnIsobusSectionControl
+            // 
+            this.btnIsobusSectionControl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnIsobusSectionControl.BackColor = System.Drawing.Color.Transparent;
+            this.btnIsobusSectionControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnIsobusSectionControl.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
+            this.btnIsobusSectionControl.FlatAppearance.BorderSize = 0;
+            this.btnIsobusSectionControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.btnIsobusSectionControl.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnIsobusSectionControl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnIsobusSectionControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIsobusSectionControl.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIsobusSectionControl.Image = global::AgOpenGPS.Properties.Resources.IsobusSectionControlOff;
+            this.btnIsobusSectionControl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnIsobusSectionControl.Location = new System.Drawing.Point(81, 3);
+            this.btnIsobusSectionControl.Name = "btnIsobusSectionControl";
+            this.btnIsobusSectionControl.Size = new System.Drawing.Size(63, 59);
+            this.btnIsobusSectionControl.TabIndex = 569;
+            this.btnIsobusSectionControl.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnIsobusSectionControl.UseVisualStyleBackColor = false;
+            this.btnIsobusSectionControl.Click += new System.EventHandler(this.btnIsobusSC_Click);
             // 
             // round_table1
             // 
@@ -2719,7 +2720,7 @@ namespace AgOpenGPS
             // 
             this.toolStripConfig.Image = global::AgOpenGPS.Properties.Resources.Settings48;
             this.toolStripConfig.Name = "toolStripConfig";
-            this.toolStripConfig.Size = new System.Drawing.Size(459, 62);
+            this.toolStripConfig.Size = new System.Drawing.Size(419, 44);
             this.toolStripConfig.Text = "Configuration";
             this.toolStripConfig.Click += new System.EventHandler(this.btnConfig_Click);
             // 
@@ -2727,7 +2728,7 @@ namespace AgOpenGPS
             // 
             this.toolStripSteerSettings.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
             this.toolStripSteerSettings.Name = "toolStripSteerSettings";
-            this.toolStripSteerSettings.Size = new System.Drawing.Size(459, 62);
+            this.toolStripSteerSettings.Size = new System.Drawing.Size(419, 44);
             this.toolStripSteerSettings.Text = "Auto Steer";
             this.toolStripSteerSettings.Click += new System.EventHandler(this.btnAutoSteerConfig_Click);
             // 
@@ -2735,7 +2736,7 @@ namespace AgOpenGPS
             // 
             this.toolStripAllSettings.Image = global::AgOpenGPS.Properties.Resources.ScreenShot;
             this.toolStripAllSettings.Name = "toolStripAllSettings";
-            this.toolStripAllSettings.Size = new System.Drawing.Size(459, 62);
+            this.toolStripAllSettings.Size = new System.Drawing.Size(419, 44);
             this.toolStripAllSettings.Text = "View All Settings";
             this.toolStripAllSettings.Click += new System.EventHandler(this.allSettingsMenuItem_Click);
             // 
@@ -2743,7 +2744,7 @@ namespace AgOpenGPS
             // 
             this.toolStripWorkingDirectories.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
             this.toolStripWorkingDirectories.Name = "toolStripWorkingDirectories";
-            this.toolStripWorkingDirectories.Size = new System.Drawing.Size(459, 62);
+            this.toolStripWorkingDirectories.Size = new System.Drawing.Size(419, 44);
             this.toolStripWorkingDirectories.Text = "Directories";
             this.toolStripWorkingDirectories.Click += new System.EventHandler(this.setWorkingDirectoryToolStripMenuItem_Click);
             // 
@@ -2751,7 +2752,7 @@ namespace AgOpenGPS
             // 
             this.toolStripGPSData.Image = global::AgOpenGPS.Properties.Resources.GPSQuality;
             this.toolStripGPSData.Name = "toolStripGPSData";
-            this.toolStripGPSData.Size = new System.Drawing.Size(459, 62);
+            this.toolStripGPSData.Size = new System.Drawing.Size(419, 44);
             this.toolStripGPSData.Text = "GPS Data";
             this.toolStripGPSData.Click += new System.EventHandler(this.btnGPSData_Click);
             // 
@@ -2759,7 +2760,7 @@ namespace AgOpenGPS
             // 
             this.toolStripColors.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
             this.toolStripColors.Name = "toolStripColors";
-            this.toolStripColors.Size = new System.Drawing.Size(459, 62);
+            this.toolStripColors.Size = new System.Drawing.Size(419, 44);
             this.toolStripColors.Text = "Colors";
             this.toolStripColors.Click += new System.EventHandler(this.colorsToolStripMenuItem_Click);
             // 
@@ -2767,7 +2768,7 @@ namespace AgOpenGPS
             // 
             this.toolStripSectionColors.Image = global::AgOpenGPS.Properties.Resources.SectionMapping;
             this.toolStripSectionColors.Name = "toolStripSectionColors";
-            this.toolStripSectionColors.Size = new System.Drawing.Size(459, 62);
+            this.toolStripSectionColors.Size = new System.Drawing.Size(419, 44);
             this.toolStripSectionColors.Text = "Multi-Section Colors";
             this.toolStripSectionColors.Click += new System.EventHandler(this.colorsSectionToolStripMenuItem_Click);
             // 
@@ -2775,7 +2776,7 @@ namespace AgOpenGPS
             // 
             this.toolStripHotkeys.Image = global::AgOpenGPS.Properties.Resources.ConD_KeyBoard;
             this.toolStripHotkeys.Name = "toolStripHotkeys";
-            this.toolStripHotkeys.Size = new System.Drawing.Size(459, 62);
+            this.toolStripHotkeys.Size = new System.Drawing.Size(419, 44);
             this.toolStripHotkeys.Text = "HotKeys";
             this.toolStripHotkeys.Click += new System.EventHandler(this.hotKeysToolStripMenuItem_Click);
             // 
@@ -3215,7 +3216,6 @@ namespace AgOpenGPS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1000, 720);
-            this.Controls.Add(this.btnIsobusSectionControl);
             this.Controls.Add(this.panelDrag);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -3477,7 +3477,6 @@ namespace AgOpenGPS
         private Round_table round_table6;
         private Round_table round_table4;
         private Round_table round_table3;
-        private Round_table round_table2;
         private Round_table round_table1;
         private Round_table round_table11;
         private Round_table round_table12;
@@ -3534,5 +3533,6 @@ namespace AgOpenGPS
         private ToolStripMenuItem tramsMultiMenuField;
         private ToolStripDropDownButton Connected_services;
         public Button btnIsobusSectionControl;
+        public Round_table round_table2;
     }
 }

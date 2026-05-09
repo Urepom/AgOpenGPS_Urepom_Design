@@ -525,8 +525,8 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    btnBrightnessDn.Enabled = false;
-                    btnBrightnessUp.Enabled = false;
+                    //ajout memprou btnBrightnessDn.Enabled = false;
+                    //ajout memprou btnBrightnessUp.Enabled = false;
                 }
 
                 //display brightness
@@ -542,8 +542,8 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    btnBrightnessDn.Enabled = false;
-                    btnBrightnessUp.Enabled = false;
+                    //ajout memprou btnBrightnessDn.Enabled = false;
+                    //ajout memprou btnBrightnessUp.Enabled = false;
                 }
             }
 
