@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.deviceComboBox = new System.Windows.Forms.ComboBox();
             this.stopButton = new System.Windows.Forms.Button();
-            this.webCameraControl1 = new WebEye.Controls.WinForms.WebCameraControl.WebCameraControl();
             this.startButton = new System.Windows.Forms.Button();
+            this.videoSourcePlayer = new AgLibrary.Controls.VideoSourcePlayer();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // deviceComboBox
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(13, 234);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(196, 27);
-            this.comboBox1.TabIndex = 11;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
+            this.deviceComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.deviceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.deviceComboBox.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deviceComboBox.FormattingEnabled = true;
+            this.deviceComboBox.Location = new System.Drawing.Point(13, 234);
+            this.deviceComboBox.Name = "deviceComboBox";
+            this.deviceComboBox.Size = new System.Drawing.Size(196, 27);
+            this.deviceComboBox.TabIndex = 11;
+            this.deviceComboBox.SelectedIndexChanged += new System.EventHandler(this.deviceComboBox_SelectedIndexChanged);
             // 
             // stopButton
             // 
@@ -61,18 +61,7 @@
             this.stopButton.Size = new System.Drawing.Size(75, 37);
             this.stopButton.TabIndex = 13;
             this.stopButton.UseVisualStyleBackColor = true;
-            this.stopButton.Click += new System.EventHandler(this.stopButton_Click_1);
-            // 
-            // webCameraControl1
-            // 
-            this.webCameraControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webCameraControl1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.webCameraControl1.Location = new System.Drawing.Point(0, 0);
-            this.webCameraControl1.Name = "webCameraControl1";
-            this.webCameraControl1.Size = new System.Drawing.Size(398, 229);
-            this.webCameraControl1.TabIndex = 10;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
             // startButton
             // 
@@ -89,17 +78,31 @@
             this.startButton.Size = new System.Drawing.Size(75, 37);
             this.startButton.TabIndex = 12;
             this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click_1);
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
+            // videoSourcePlayer
+            // 
+            this.videoSourcePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.videoSourcePlayer.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.videoSourcePlayer.BorderColor = System.Drawing.Color.Transparent;
+            this.videoSourcePlayer.KeepAspectRatio = true;
+            this.videoSourcePlayer.Location = new System.Drawing.Point(0, 0);
+            this.videoSourcePlayer.Name = "videoSourcePlayer";
+            this.videoSourcePlayer.Size = new System.Drawing.Size(398, 229);
+            this.videoSourcePlayer.TabIndex = 15;
+            this.videoSourcePlayer.VideoSource = null;
             // 
             // FormWebCam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(398, 268);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.videoSourcePlayer);
+            this.Controls.Add(this.deviceComboBox);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.startButton);
-            this.Controls.Add(this.webCameraControl1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FormWebCam";
             this.ShowInTaskbar = false;
@@ -112,9 +115,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox deviceComboBox;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button startButton;
-        private WebEye.Controls.WinForms.WebCameraControl.WebCameraControl webCameraControl1;
+        private AgLibrary.Controls.VideoSourcePlayer videoSourcePlayer;
     }
 }

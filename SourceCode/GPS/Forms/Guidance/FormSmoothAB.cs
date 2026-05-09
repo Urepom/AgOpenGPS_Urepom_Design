@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 using System;
 using System.Windows.Forms;
@@ -56,6 +56,7 @@ namespace AgOpenGPS
             if (smoothCount++ > 100) smoothCount = 100;
             mf.curve.SmoothAB(smoothCount * 2);
             lblSmooth.Text = smoothCount.ToString();
+            mf.oglMain?.Refresh();
         }
 
         private void btnSouth_MouseDown(object sender, MouseEventArgs e)
@@ -64,6 +65,7 @@ namespace AgOpenGPS
             if (smoothCount < 2) smoothCount = 2;
             mf.curve.SmoothAB(smoothCount * 2);
             lblSmooth.Text = smoothCount.ToString();
+            mf.oglMain?.Refresh();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -74,6 +76,9 @@ namespace AgOpenGPS
 
             //save entire list
             mf.FileSaveTracks();
+
+            // Refresh the main view to show the updated curve
+            mf.oglMain?.Refresh();
 
             //mf.FileSaveCurveLines();
             Close();

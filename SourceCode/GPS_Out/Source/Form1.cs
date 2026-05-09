@@ -245,7 +245,14 @@ namespace GPS_Out
 
         private void btnGGA_Click(object sender, EventArgs e)
         {
-            tbGGA.Text = GGA.Sentence;
+            if (AGIOdata.Connected() || Properties.Settings.Default.Simulate)
+            {
+                tbGGA.Text = GGA.Sentence;
+            }
+            else
+            {
+                tbGGA.Text = "";
+            }
             if (tbGGA.Text != "") Clipboard.SetText(tbGGA.Text);
         }
 
@@ -256,19 +263,40 @@ namespace GPS_Out
 
         private void btnRMC_Click(object sender, EventArgs e)
         {
-            tbRMC.Text = RMC.Sentence;
+            if (AGIOdata.Connected() || Properties.Settings.Default.Simulate)
+            {
+                tbRMC.Text = RMC.Sentence;
+            }
+            else
+            {
+                tbRMC.Text = "";
+            }
             if (tbRMC.Text != "") Clipboard.SetText(tbRMC.Text);
         }
 
         private void btnVTG_Click(object sender, EventArgs e)
         {
-            tbVTG.Text = VTG.Sentence;
+            if (AGIOdata.Connected() || Properties.Settings.Default.Simulate)
+            {
+                tbVTG.Text = VTG.Sentence;
+            }
+            else
+            {
+                tbVTG.Text = "";
+            }
             if (tbVTG.Text != "") Clipboard.SetText(tbVTG.Text);
         }
 
         private void btnZDA_Click(object sender, EventArgs e)
         {
-            tbZDA.Text = ZDA.Sentence;
+            if (AGIOdata.Connected() || Properties.Settings.Default.Simulate)
+            {
+                tbZDA.Text = ZDA.Sentence;
+            }
+            else
+            {
+                tbZDA.Text = "";
+            }
             if (tbZDA.Text != "") Clipboard.SetText(tbZDA.Text);
         }
 
@@ -338,6 +366,26 @@ namespace GPS_Out
             Properties.Settings.Default.ZDA = cboZDA.SelectedIndex;
         }
 
+        private void cbPrecision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SentencePrecisionIndex = cboPrecision.SelectedIndex;
+
+            int precision = Convert.ToInt32(cboPrecision.SelectedItem);
+            string NewFormat = ".";
+            for (int i = 0; i < precision; i++)
+            {
+                NewFormat += "0";
+            }
+
+            Properties.Settings.Default.SentencePrecisionFormat = "00" + NewFormat;
+            Properties.Settings.Default.DisplayPrecisionFormat = "0" + NewFormat;
+
+            tbGGA.Text = "";
+            tbVTG.Text = "";
+            tbRMC.Text = "";
+            tbZDA.Text = "";
+        }
+
         private void ckAutoConnect_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.AutoConnect = ckAutoConnect.Checked;
@@ -359,6 +407,18 @@ namespace GPS_Out
         private void ckRoll_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.UseRollCorrected = ckRoll.Checked;
+        }
+
+        private void ckSimulate_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Simulate = ckSimulate.Checked;
+            if (!ckSimulate.Checked)
+            {
+                tbGGA.Text = "";
+                tbVTG.Text = "";
+                tbRMC.Text = "";
+                tbZDA.Text = "";
+            }
         }
 
         private void frmStart_FormClosed(object sender, FormClosedEventArgs e)
@@ -390,6 +450,9 @@ namespace GPS_Out
             cboVTG.SelectedIndex = Properties.Settings.Default.VTG;
             cboRMC.SelectedIndex = Properties.Settings.Default.RMC;
             cboZDA.SelectedIndex = Properties.Settings.Default.ZDA;
+
+            cboPrecision.SelectedIndex = Properties.Settings.Default.SentencePrecisionIndex;
+            ckSimulate.Checked = Properties.Settings.Default.Simulate;
 
             if (ckAutoHide.Checked) this.WindowState = FormWindowState.Minimized;
         }
@@ -453,8 +516,11 @@ namespace GPS_Out
             if (GGAsentence == "")
             {
                 Watchdog = 0;
-                GGAsentence = GGA.Build();
-                Send();
+                if (AGIOdata.Connected() || Properties.Settings.Default.Simulate)
+                {
+                    GGAsentence = GGA.Build();
+                    Send();
+                }
             }
             else
             {
@@ -472,7 +538,7 @@ namespace GPS_Out
             if (GSAsentence == "")
             {
                 Watchdog = 0;
-                GSAsentence = GSA.Build();
+                if (AGIOdata.Connected() || Properties.Settings.Default.Simulate) GSAsentence = GSA.Build();
             }
             else
             {
@@ -495,7 +561,7 @@ namespace GPS_Out
             if (RMCsentence == "")
             {
                 Watchdog = 0;
-                RMCsentence = RMC.Build();
+                if (AGIOdata.Connected() || Properties.Settings.Default.Simulate) RMCsentence = RMC.Build();
             }
             else
             {
@@ -513,7 +579,7 @@ namespace GPS_Out
             if (VTGsentence == "")
             {
                 Watchdog = 0;
-                VTGsentence = VTG.Build();
+                if (AGIOdata.Connected() || Properties.Settings.Default.Simulate) VTGsentence = VTG.Build();
             }
             else
             {
@@ -531,7 +597,7 @@ namespace GPS_Out
             if (ZDAsentence == "")
             {
                 Watchdog = 0;
-                ZDAsentence = ZDA.Build();
+                if (AGIOdata.Connected() || Properties.Settings.Default.Simulate) ZDAsentence = ZDA.Build();
             }
             else
             {
@@ -548,15 +614,15 @@ namespace GPS_Out
         {
             if (this.WindowState != FormWindowState.Minimized)
             {
-                if (AOGdata.Connected())
+                if (AOGdata.Connected() && (AGIOdata.Connected() || Properties.Settings.Default.Simulate))
                 {
-                    lbLon.Text = AOGdata.Longitude.ToString("N7");
-                    lbLat.Text = AOGdata.Latitude.ToString("N7");
+                    lbLon.Text = AOGdata.Longitude.ToString(Properties.Settings.Default.DisplayPrecisionFormat);
+                    lbLat.Text = AOGdata.Latitude.ToString(Properties.Settings.Default.DisplayPrecisionFormat);
                 }
                 else
                 {
-                    lbLon.Text = AGIOdata.Longitude.ToString("N7");
-                    lbLat.Text = AGIOdata.Latitude.ToString("N7");
+                    lbLon.Text = AGIOdata.Longitude.ToString(Properties.Settings.Default.DisplayPrecisionFormat);
+                    lbLat.Text = AGIOdata.Latitude.ToString(Properties.Settings.Default.DisplayPrecisionFormat);
                 }
 
                 lbAge.Text = AGIOdata.Age.ToString("N2");
@@ -576,13 +642,20 @@ namespace GPS_Out
                     lbSim.Visible = false;
                     this.Text = "GPS_Out [" + Tls.AppVersion() + "]   " + HeadingType;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     lbQuality.BackColor = SimColor;
                     label4.BackColor = SimColor;
                     lbSim.Visible = true;
                     lbSim.BackColor = SimColor;
                     this.Text = "GPS_Out [" + Tls.AppVersion() + "]  Simulated Data   " + HeadingType;
+                }
+                else
+                {
+                    lbQuality.BackColor = Color.Transparent;
+                    label4.BackColor = Color.Transparent;
+                    lbSim.Visible = false;
+                    this.Text = "GPS_Out [" + Tls.AppVersion() + "]   NO DATA";
                 }
             }
         }

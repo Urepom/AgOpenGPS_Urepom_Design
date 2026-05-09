@@ -8,6 +8,7 @@ namespace AgOpenGPS
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = turnLine.Count;
+            if (cnt < 2) return;
             vec3[] arr = new vec3[cnt];
             cnt--;
             turnLine.CopyTo(arr);
@@ -28,18 +29,18 @@ namespace AgOpenGPS
                 turnLine.Add(pt3);
             }
 
-                //first point
-                vec3 pt2 = arr[0];
-                pt2.heading = Math.Atan2(arr[1].easting - arr[0].easting, arr[1].northing - arr[0].northing);
-                if (pt2.heading < 0) pt2.heading += glm.twoPI;
-                turnLine.Insert(0, new vec3(pt2));
+            //first point
+            vec3 pt2 = arr[0];
+            pt2.heading = Math.Atan2(arr[1].easting - arr[0].easting, arr[1].northing - arr[0].northing);
+            if (pt2.heading < 0) pt2.heading += glm.twoPI;
+            turnLine.Insert(0, new vec3(pt2));
 
-                //last point
-                pt2 = arr[arr.Length - 1];
-                pt2.heading = Math.Atan2(arr[arr.Length - 1].easting - arr[arr.Length - 2].easting, 
-                    arr[arr.Length - 1].northing - arr[arr.Length - 2].northing);
-                if (pt2.heading < 0) pt2.heading += glm.twoPI;
-                turnLine.Add(new vec3(pt2));
+            //last point
+            pt2 = arr[arr.Length - 1];
+            pt2.heading = Math.Atan2(arr[arr.Length - 1].easting - arr[arr.Length - 2].easting,
+                arr[arr.Length - 1].northing - arr[arr.Length - 2].northing);
+            if (pt2.heading < 0) pt2.heading += glm.twoPI;
+            turnLine.Add(new vec3(pt2));
         }
 
         public void FixTurnLine(double totalHeadWidth, double spacing)

@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Windows.Forms;
-using AgOpenGPS.Culture;    
+using AgOpenGPS.Core.Translations;
 
 namespace AgOpenGPS
 {
     public partial class FormSaveOrNot : Form
     {
         //class variables
+        private readonly FormGPS mf;
 
         int countExit = 4;
         int countShutdown = 5;
 
-        public FormSaveOrNot(bool closing)
+        public FormSaveOrNot(FormGPS gps)
         {
             InitializeComponent();
+            mf = gps;
 
             //translations
             labelExit.Text = gStr.gsExit;
             labelShutdown.Text = gStr.gsShutdown;
             labelCancel.Text = gStr.gsCancel;
-            labelExitToWindows.Text = gStr.gsExitToWindows;
-            labelShutdownIn.Text = gStr.gsShutdownIn;
+            labelExitToWindows.Text = gStr.gsExitToWindows + ":";
+            labelShutdownIn.Text = gStr.gsShutdownIn + ":";
+
+            //Trigger a snapshot to create a temp data file for the AgShare Upload
+            if (mf.isJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
         }
 
         private void FormSaveOrNot_Load(object sender, EventArgs e)

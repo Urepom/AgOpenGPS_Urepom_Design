@@ -98,7 +98,7 @@ namespace AgIO
             {
                 //save profile in registry
                 RegistrySettings.Save(RegKeys.profileName, newProfile);
-                
+
                 //reset to Default Profile and save
                 Settings.Default.Reset();
 

@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="PresentationCore" />
+    <PackageReference Include="Accord.Imaging" Version="3.8.0" />
+    <PackageReference Include="Accord.Video.DirectShow" Version="3.8.0" />
+    <PackageReference Include="System.Memory" Version="4.6.0" />
   </ItemGroup>
 
 </Project>

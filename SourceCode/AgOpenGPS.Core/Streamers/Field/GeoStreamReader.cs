@@ -11,6 +11,10 @@ namespace AgOpenGPS.Core.Streamers
         {
         }
 
+        public GeoStreamReader(FileInfo fileInfo) : base(fileInfo.FullName)
+        {
+        }
+
         public bool ParseBool(string boolWord)
         {
             return bool.Parse(boolWord);
@@ -48,18 +52,35 @@ namespace AgOpenGPS.Core.Streamers
             return new GeoDir(ParseDouble(angleWord));
         }
 
-        // Read line and parse integer
+        public bool ReadBool()
+        {
+            return bool.Parse(ReadLine());
+        }
+
         public int ReadInt()
         {
             return int.Parse(ReadLine());
         }
 
-        public ColorRgb ReadColorRgb()
+        public double ReadDouble()
+        {
+            return double.Parse(ReadLine(), CultureInfo.InvariantCulture);
+        }
+
+        public ColorRgba ReadColorRgb()
         {
             string line = ReadLine();
             string[] words = line.Split(',');
 
-            return new ColorRgb(ParseByte(words[0]), ParseByte(words[1]), ParseByte(words[2]));
+            return new ColorRgba(ParseByte(words[0]), ParseByte(words[1]), ParseByte(words[2]));
+        }
+
+        public Wgs84 ReadWgs84()
+        {
+            string line = ReadLine();
+            string[] words = line.Split(',');
+
+            return ParseWgs84(words[0], words[1]);
         }
 
         public GeoCoord ReadGeoCoord()
@@ -76,6 +97,17 @@ namespace AgOpenGPS.Core.Streamers
             return ParseGeoCoordDir(words[1], words[0], words[2]);
         }
 
+        public GeoBoundingBox ReadGeoBoundingBox()
+        {
+            double maxEasting = ReadDouble();
+            double minEasting = ReadDouble();
+            double maxNorthing = ReadDouble();
+            double minNorthing = ReadDouble();
+            GeoCoord minCoord = new GeoCoord(minNorthing, minEasting);
+            GeoCoord maxCoord = new GeoCoord(maxNorthing, maxEasting);
+            return new GeoBoundingBox(minCoord, maxCoord);
+        }
+
         public GeoPath ReadGeoPath()
         {
             var result = new GeoPath();
@@ -85,6 +117,20 @@ namespace AgOpenGPS.Core.Streamers
                 result.Add(ReadGeoCoord());
             }
             return result;
+        }
+
+        // Returns null, (not an empty path) when the polygon has no points
+        public GeoPathWithHeading ReadGeoPathWithHeading()
+        {
+            GeoPathWithHeading path = null;
+            int count = ReadInt();
+            if (0 < count) path = new GeoPathWithHeading();
+            for (int i = 0; i < count; i++)
+            {
+                GeoCoordDir coordDir = ReadGeoCoordDir();
+                path.Add(coordDir.Coord, coordDir.Direction);
+            }
+            return path;
         }
 
         // Returns null, (not an empty GeoPolygon) when the polygon has no points

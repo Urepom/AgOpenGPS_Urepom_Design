@@ -39,11 +39,10 @@ namespace GPS_Out
         private static Hashtable HTapp;
         private static Hashtable HTfiles;
         private string cAppName = "GPS_Out";
-        private string cAppVersion = "1.2.1";
+        private string cAppVersion = "1.2.2";
         private string cPropertiesApp;
         private string cPropertiesFile;
         private string cSettingsDir;
-        private string cVersionDate = "04-Dec-2024";
         private frmStart mf;
         private int SentenceCount = 0;
 
@@ -54,46 +53,9 @@ namespace GPS_Out
             OpenFile(Properties.Settings.Default.FileName);
         }
 
-        public string PropertiesFile
-        {
-            get
-            {
-                return cPropertiesFile;
-            }
-            set
-            {
-                if (File.Exists(value))
-                {
-                    OpenFile(value);
-                }
-            }
-        }
-
         public string AppVersion()
         {
             return cAppVersion;
-        }
-
-        public byte BitClear(byte b, int pos)
-        {
-            byte msk = (byte)(1 << pos);
-            msk = (byte)~msk;
-            return (byte)(b & msk);
-        }
-
-        public bool BitRead(byte b, int pos)
-        {
-            return (b >> pos & 1) != 0;
-        }
-
-        public byte BitSet(byte b, int pos)
-        {
-            return (byte)(b | 1 << pos);
-        }
-
-        public byte BuildModSenID(byte ArdID, byte SenID)
-        {
-            return (byte)(ArdID << 4 | SenID & 0b00001111);
         }
 
         public byte CRC(byte[] Data, int Length, byte Start = 0)
@@ -105,27 +67,6 @@ namespace GPS_Out
                 for (int i = Start; i < Length; i++)
                 {
                     CK += Data[i];
-                }
-                Result = (byte)CK;
-            }
-            return Result;
-        }
-
-        public byte CRC(string[] Data, int Length, byte Start = 0)
-        {
-            byte Result = 0;
-            if (Length <= Data.Length)
-            {
-                byte tmp;
-                byte[] BD = new byte[Length];
-                for (int i = 0; i < Length; i++)
-                {
-                    if (byte.TryParse(Data[i], out tmp)) BD[i] = tmp;
-                }
-                int CK = 0;
-                for (int i = Start; i < Length; i++)
-                {
-                    CK += BD[i];
                 }
                 Result = (byte)CK;
             }
@@ -179,32 +120,12 @@ namespace GPS_Out
             }
         }
 
-        public string FilesDir()
-        {
-            return Properties.Settings.Default.FilesDir;
-        }
-
         public bool GoodCRC(byte[] Data, byte Start = 0)
         {
             bool Result = false;
             int Length = Data.Length;
             byte cr = CRC(Data, Length - 1, Start);
             Result = cr == Data[Length - 1];
-            return Result;
-        }
-
-        public bool GoodCRC(string[] Data, byte Start = 0)
-        {
-            bool Result = false;
-            byte tmp;
-            int Length = Data.Length;
-            byte[] BD = new byte[Length];
-            for (int i = 0; i < Length; i++)
-            {
-                if (byte.TryParse(Data[i], out tmp)) BD[i] = tmp;
-            }
-            byte cr = CRC(BD, Length - 1, Start);   // exclude existing crc
-            Result = cr == BD[Length - 1];
             return Result;
         }
 
@@ -252,22 +173,6 @@ namespace GPS_Out
             return Prop;
         }
 
-        public double NoisyData(double CurrentData, double ErrorPercent = 5.0)
-        {
-            try
-            {
-                // error percent is above and below current data
-                var Rand = new Random();
-                int Max = (int)(CurrentData * ErrorPercent * 2.0);
-                double Spd = CurrentData * (1.0 - ErrorPercent / 100.0) + Rand.Next(Max) / 100.0;
-                return Spd;
-            }
-            catch (Exception)
-            {
-                return CurrentData;
-            }
-        }
-
         public void OpenFile(string NewFile)
         {
             try
@@ -293,69 +198,6 @@ namespace GPS_Out
             }
         }
 
-        public byte ParseModID(byte ID)
-        {
-            // top 4 bits
-            return (byte)(ID >> 4);
-        }
-
-        public byte ParseSenID(byte ID)
-        {
-            // bottom 4 bits
-            return (byte)(ID & 0b00001111);
-        }
-
-        public bool PrevInstance()
-        {
-            string PrsName = Process.GetCurrentProcess().ProcessName;
-            Process[] All = Process.GetProcessesByName(PrsName); //Get the name of all processes having the same name as this process name
-            if (All.Length > 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public byte[] ReadByteFile(string DataName)
-        {
-            string FileName = cSettingsDir + "\\" + DataName;
-
-            if (File.Exists(FileName))
-            {
-                return File.ReadAllBytes(FileName);
-            }
-            else
-            {
-                throw new FileNotFoundException("The specified file does not exist.", FileName);
-            }
-        }
-
-        public string ReadTextFile(string FileName)
-        {
-            string Result = "";
-            string Line;
-            FileName = cSettingsDir + "\\" + FileName;
-            try
-            {
-                StreamReader sr = new StreamReader(FileName);
-                Line = sr.ReadLine();
-                while (Line != null)
-                {
-                    Result += Line + Environment.NewLine;
-                    Line = sr.ReadLine();
-                }
-                sr.Close();
-            }
-            catch (Exception)
-            {
-                //WriteErrorLog("ReadTextFile: " + ex.Message);
-            }
-            return Result;
-        }
-
         public void SaveAppProperty(string Key, string Value)
         {
             bool Changed = false;
@@ -375,28 +217,6 @@ namespace GPS_Out
             if (Changed) SaveAppProperties();
         }
 
-        public void SaveFile(string NewFile)
-        {
-            try
-            {
-                string PathName = Path.GetDirectoryName(NewFile); // only works if file name present
-                string FileName = Path.GetFileName(NewFile);
-                if (FileName == "") PathName = NewFile;     // no file name present, fix path name
-                if (Directory.Exists(PathName)) Properties.Settings.Default.FilesDir = PathName; // set the new files dir
-
-                cPropertiesFile = Properties.Settings.Default.FilesDir + "\\" + FileName;
-                if (!File.Exists(cPropertiesFile)) File.Create(cPropertiesFile).Dispose();
-
-                SaveProperties();
-                Properties.Settings.Default.FileName = FileName;
-                Properties.Settings.Default.Save();
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("clsTools: SaveFile: " + ex.Message);
-            }
-        }
-
         public void SaveFormData(Form Frm)
         {
             try
@@ -407,25 +227,6 @@ namespace GPS_Out
             catch (Exception)
             {
             }
-        }
-
-        public void SaveProperty(string Key, string Value)
-        {
-            bool Changed = false;
-            if (HTfiles.Contains(Key))
-            {
-                if (!HTfiles[Key].ToString().Equals(Value))
-                {
-                    HTfiles[Key] = Value;
-                    Changed = true;
-                }
-            }
-            else
-            {
-                HTfiles.Add(Key, Value);
-                Changed = true;
-            }
-            if (Changed) SaveProperties();
         }
 
         public string SettingsDir()
@@ -448,80 +249,6 @@ namespace GPS_Out
 
             if (LogError) WriteErrorLog(Message);
             if (PlayErrorSound) SystemSounds.Exclamation.Play();
-        }
-
-        public void StartWifi()
-        {
-            string SSID = LoadProperty("WifiSSID");
-            string Password = LoadProperty("WifiPassword");
-
-            string Start = "netsh wlan set hostednetwork mode=allow ssid=" + SSID + " key=" + Password + "\n";
-            Start += "netsh wlan stop hostednetwork\n";
-            Start += "netsh wlan start hostednetwork\n";
-
-            string FileName = SettingsDir() + "\\StartWifi.bat";
-            File.WriteAllText(FileName, Start);
-
-            var psi = new ProcessStartInfo();
-            psi.CreateNoWindow = true;
-            psi.WindowStyle = ProcessWindowStyle.Hidden;
-            psi.FileName = FileName;
-            psi.Verb = "runas";
-
-            var process = new Process();
-            process.StartInfo = psi;
-            process.Start();
-            process.WaitForExit();
-        }
-
-        public void StopWifi()
-        {
-            string Stop = "netsh wlan stop hostednetwork\n";
-
-            string FileName = SettingsDir() + "\\StopWifi.bat";
-            File.WriteAllText(FileName, Stop);
-
-            var psi = new ProcessStartInfo();
-            psi.CreateNoWindow = true;
-            psi.FileName = FileName;
-            psi.Verb = "runas";
-
-            var process = new Process();
-            process.StartInfo = psi;
-            process.Start();
-            process.WaitForExit();
-        }
-
-        public int StringToInt(string S)
-        {
-            if (decimal.TryParse(S, out decimal tmp))
-            {
-                return (int)tmp;
-            }
-            return 0;
-        }
-
-        public string VersionDate()
-        {
-            return cVersionDate;
-        }
-
-        public void WriteActivityLog(string Message, bool Newline = false, string DataName = "Activity Log.txt")
-        {
-            string Line = "";
-            try
-            {
-                string FileName = cSettingsDir + "\\" + DataName;
-                TrimFile(FileName);
-
-                if (Newline) Line = "\r\n";
-
-                File.AppendAllText(FileName, Line + DateTime.Now.ToString("MMM-dd hh:mm:ss") + "  -  " + Message + "\r\n");
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("Tools: WriteActivityLog: " + ex.Message);
-            }
         }
 
         public void WriteByteFile(byte[] Data, string DataName)

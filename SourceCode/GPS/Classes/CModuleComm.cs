@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Core.Translations;
 
 namespace AgOpenGPS
 {

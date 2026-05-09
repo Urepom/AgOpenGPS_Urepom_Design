@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using AgLibrary.Logging;
 
@@ -7,38 +8,31 @@ namespace AgOpenGPS
 {
     public partial class FormEventViewer : Form
     {
-        //class variables
-        string filename;
+        private readonly string _filename;
+        private long _filePosition = 0;
+        private int _sessionLength = 0;
+        private Timer _refreshTimer;
 
-        public FormEventViewer(string _filename)
+        public FormEventViewer(string filename)
         {
-            //get copy of the calling main form
             InitializeComponent();
-            filename = _filename;
+            _filename = filename;
         }
 
         private void FormEventViewer_Load(object sender, EventArgs e)
         {
-            try
-            {
-                using (StreamReader sr = File.OpenText(filename))
-                {
-                    //rtbLogViewer.Text = String.Empty;
-                    while (!sr.EndOfStream)
-                    {
-                        rtbLogViewer.AppendText(sr.ReadLine() + "\r");
-                    }
+            LoadLog();
 
-                }
-            }
-            catch (Exception ex) 
-            {
-                rtbLogViewer.AppendText("Catch ->  error loading logfile" + ex.ToString());
-            }
+            _refreshTimer = new Timer { Interval = 1000 };
+            _refreshTimer.Tick += (s, ev) => AppendNewContent();
+            _refreshTimer.Start();
+        }
 
-            rtbLogViewer.AppendText(" **** Current Session Below ***** \r\n\r\n");
-
-            rtbLogViewer.AppendText(Log.sbEvents.ToString());
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _refreshTimer?.Stop();
+            _refreshTimer?.Dispose();
+            base.OnFormClosed(e);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -48,29 +42,77 @@ namespace AgOpenGPS
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            rtbLogViewer.Clear();
-            rtbLogViewer.HideSelection = false;
+            LoadLog();
+        }
+
+        // Full reload — used on open and manual refresh
+        private void LoadLog()
+        {
+            string fileContent = "";
             try
             {
-                using (StreamReader sr = File.OpenText(filename))
-                {
-                    //rtbLogViewer.Text = String.Empty;
-                    while (!sr.EndOfStream)
-                    {
-                        rtbLogViewer.AppendText(sr.ReadLine() + "\r");
-                    }
-
-                }
+                fileContent = File.ReadAllText(_filename);
+                _filePosition = new FileInfo(_filename).Length;
             }
             catch (Exception ex)
             {
-                rtbLogViewer.AppendText("Catch ->  error loading logfile" + ex.ToString());
+                fileContent = "Catch -> error loading logfile: " + ex.Message;
+                _filePosition = 0;
             }
 
-            rtbLogViewer.AppendText(" **** Current Session Below ***** \r\n\r\n");
+            _sessionLength = Log.sbEvents.Length;
 
-            rtbLogViewer.AppendText(Log.sbEvents.ToString());
+            rtbLogViewer.SuspendLayout();
+            rtbLogViewer.Text = fileContent
+                + "\r\n **** Current Session Below *****\r\n\r\n"
+                + Log.sbEvents.ToString();
+            ScrollToBottom();
+            rtbLogViewer.ResumeLayout();
+        }
 
+        // Appends only new content since the last read — called by timer
+        private void AppendNewContent()
+        {
+            bool hasNew = false;
+
+            try
+            {
+                long currentSize = new FileInfo(_filename).Length;
+                if (currentSize > _filePosition)
+                {
+                    using (var fs = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        fs.Seek(_filePosition, SeekOrigin.Begin);
+                        using (var sr = new StreamReader(fs, Encoding.UTF8))
+                        {
+                            string newContent = sr.ReadToEnd();
+                            if (!string.IsNullOrEmpty(newContent))
+                            {
+                                rtbLogViewer.AppendText(newContent);
+                                hasNew = true;
+                            }
+                        }
+                        _filePosition = currentSize;
+                    }
+                }
+            }
+            catch { }
+
+            int currentSessionLength = Log.sbEvents.Length;
+            if (currentSessionLength > _sessionLength)
+            {
+                rtbLogViewer.AppendText(Log.sbEvents.ToString().Substring(_sessionLength));
+                _sessionLength = currentSessionLength;
+                hasNew = true;
+            }
+
+            if (hasNew) ScrollToBottom();
+        }
+
+        private void ScrollToBottom()
+        {
+            rtbLogViewer.SelectionStart = rtbLogViewer.Text.Length;
+            rtbLogViewer.ScrollToCaret();
         }
     }
 }

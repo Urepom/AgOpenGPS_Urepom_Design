@@ -12,7 +12,10 @@ namespace AgIO
 
         private bool isNMEAToSend = false;
 
-        public string ggaSentence, vtgSentence, hdtSentence, avrSentence, paogiSentence, 
+        private bool isSti035Available = false;
+        private bool isSti036Available = false;
+
+        public string ggaSentence, vtgSentence, hdtSentence, avrSentence, paogiSentence,
             hpdSentence, rmcSentence, pandaSentence, ksxtSentence;
 
         public float hdopData, altitude = float.MaxValue, headingTrue = float.MaxValue,
@@ -21,12 +24,12 @@ namespace AgIO
 
         public double latitudeSend = double.MaxValue, longitudeSend = double.MaxValue, latitude, longitude;
 
-        public ushort satellitesData, satellitesTracked = ushort.MaxValue, hdopX100 = ushort.MaxValue, 
+        public ushort satellitesData, satellitesTracked = ushort.MaxValue, hdopX100 = ushort.MaxValue,
             ageX100 = ushort.MaxValue;
 
         //imu data
         public ushort imuHeadingData, imuHeading = ushort.MaxValue;
-        public short imuRollData, imuRoll = short.MaxValue, imuPitchData, imuPitch = short.MaxValue, 
+        public short imuRollData, imuRoll = short.MaxValue, imuPitchData, imuPitch = short.MaxValue,
             imuYawRateData, imuYawRate = short.MaxValue;
 
         public byte fixQualityData, fixQuality = byte.MaxValue;
@@ -128,7 +131,7 @@ namespace AgIO
             if (isLogMonitorOn)
             {
                 logMonitorSentence.Append(DateTime.UtcNow
-                    .ToString("mm:ss.fff ", CultureInfo.InvariantCulture)+rawBuffer);
+                    .ToString("mm:ss.fff ", CultureInfo.InvariantCulture) + rawBuffer);
             }
 
 
@@ -204,14 +207,26 @@ namespace AgIO
                     if (isGPSSentencesOn) avrSentence = nextNMEASentence;
                 }
 
-                else if (words[0] == "$GNTRA")
+                else if (words[0] == "$GNTRA" || words[0] == "$GPTRA")
                 {
                     ParseTRA();
                 }
 
-                else if (words[0] == "$PSTI" && (words[1] == "032" || words[1] == "035") )
+                else if (words[0] == "$PSTI" && words[1] == "032" && !isSti035Available && !isSti036Available) //PSTI,032 and 035 messages are kind of outdated, but stay here for supporting older SkyTraq setups with two receivers.
                 {
-                    ParseSTI032(); //there is also an $PSTI,030,... wich contains different data!
+                    ParseSTI032STI035();
+                }
+
+                else if (words[0] == "$PSTI" && words[1] == "035" && !isSti036Available)
+                {
+                    isSti035Available = true; //set to true to avoid using PSTI,032 message
+                    ParseSTI032STI035();
+                }
+
+                else if (words[0] == "$PSTI" && words[1] == "036") //Heading, Pitch and Roll Messages from SkyTraq PX1172RH modules... only available if RTK
+                {
+                    isSti036Available = true; //set to true to avoid using PSTI,032 or PSTI,035 messages
+                    ParseSTI036(); //there are also different $PSTI,0XX,... sentences which contain compete different data!
                 }
             }// while still data
 
@@ -405,7 +420,7 @@ namespace AgIO
 
                 //age
                 float.TryParse(words[13], NumberStyles.Float, CultureInfo.InvariantCulture, out ageData);
-                ageX100 = (ushort)(ageData*100.0);
+                ageX100 = (ushort)(ageData * 100.0);
 
                 //LastUpdateUTC = UTC;
 
@@ -442,7 +457,7 @@ namespace AgIO
                 { if (words[5] == "W") longitude *= -1; }
                 longitudeSend = longitude;
 
-                isNMEAToSend = true;                
+                isNMEAToSend = true;
             }
         }
 
@@ -472,7 +487,7 @@ namespace AgIO
             }
 
             if (!string.IsNullOrEmpty(words[1]))
-            { 
+            {
                 //True heading
                 float.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
                 headingTrueData = headingTrue;
@@ -506,18 +521,9 @@ namespace AgIO
 
             if (!string.IsNullOrEmpty(words[1]))
             {
-                float.TryParse(words[8] == "Roll" ? words[7] : words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out rollK);
+                float.TryParse(words[8] == "Roll" ? words[7] : words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out rollData);
 
-                //Kalman filter
-                Pc = P + varProcess;
-                G = Pc / (Pc + varRoll);
-                P = (1 - G) * Pc;
-                Xp = XeRoll;
-                Zp = Xp;
-                XeRoll = (G * (rollK - Zp)) + Xp;
-                rollData = XeRoll;
-
-                roll = (float)(XeRoll);
+                roll = rollData;
             }
         }
 
@@ -716,9 +722,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim), 
+                double.TryParse(words[2].Substring(0, decim),
                     NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim), 
+                double.TryParse(words[2].Substring(decim),
                     NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
@@ -736,9 +742,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim), 
+                double.TryParse(words[4].Substring(0, decim),
                     NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim), 
+                double.TryParse(words[4].Substring(decim),
                     NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 
@@ -811,12 +817,12 @@ namespace AgIO
             }
         }
 
-        private void ParseSTI032() //heading and roll from SkyTraQ receiver
+        private void ParseSTI032STI035() //baseline data from SkyTraQ receiver
         {
-            #region STI0 Message
+            #region STI032 Message //STI035 is almost the same so both messages could be parsed with same code
             //$PSTI,032,033010.000,111219,A,R,‐4.968,‐10.817,‐1.849,12.046,204.67,,,,,*39
 
-            //(1) 032 Baseline Data indicator
+            //(1) 032 Baseline Data indicator || 035 Baseline Data indicator of Rover Moving Base Receiver
             //(2) UTC time hhmmss.sss
             //(3) UTC date ddmmyy
             //(4) Status:
@@ -832,7 +838,7 @@ namespace AgIO
             //(10) Baseline course: angle between baseline vector and north direction, degrees
             //(11) - (15) Reserved
             //(16) * Checksum
-            #endregion STI0 Message
+            #endregion STI032 Message
 
             if (!string.IsNullOrEmpty(words[10]))
             {
@@ -860,6 +866,72 @@ namespace AgIO
             }
         }
 
+        private void ParseSTI036()
+        {
+            #region STI036 Message
+            //$PSTI,036,hhmmss.sss,ddmmyy,x.xx,x.xx,x.xx,R*hh<CR><LF>
+            //$PSTI,036,054314.000,030521,191.69,-16.35,0.00,R*4D
+
+            //(1) 036 heading, pitch and roll message indicator
+            //(2) UTC time hhmmss.sss
+            //(3) UTC date ddmmyy
+            //(4) Heading, 0~359.99 when mode indicator is ‘R’
+            //(5) Pitch:
+            //    -90~90 degree when mode indicator is ‘R’, else null
+            //    0: when absolute value of “heading offset” > 45 && < 135; i.e.
+            //    antenna baseline toward perpendicular to vehicle centerline.
+            //    Heading offset is the angle between the baseline course from north
+            //    and vehicle centerline.
+            //(6) Roll:
+            //    -90~90 degree when mode indicator is ‘R’, else null
+            //    0: when absolute value of “heading offset” <= 45 or >= 135; i.e.
+            //    antenna baseline toward parallel to vehicle centerline.
+            //    Heading offset is the angle between the baseline course from north
+            //    and vehicle centerline.
+            //(7) Mode indicator
+            //    ‘N’ = Data not valid
+            //    ‘A’ = Autonomous mode
+            //    ‘D’ = Differential mode
+            //    ‘E’ = Estimated(dead reckoning) mode
+            //    ‘M’ = Manual input mode
+            //    ‘S’ = Simulator mode
+            //    ‘F’ = Float RTK.Satellite system used in RTK mode, floating integers
+            //    ‘R’ = Real Time Kinematic. System used in RTK mode with fixed
+            //    integers
+            //(8) * Checksum
+            #endregion STI036 Message
+
+            if (!string.IsNullOrEmpty(words[4])) //Heading Dual GPS; 0 if no RTK
+            {
+                //True heading
+                float.TryParse(words[4], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrueDual);
+                headingTrueDualData = headingTrueDual;
+            }
+
+            /*if (!string.IsNullOrEmpty(words[5])) //Pitch Dual GPS; 0 if no RTK or "heading offset" > 45 && < 135
+            {
+                //float.TryParse(words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out XXX_PITCH_XXX);
+                //NOT USED atm
+                //and not needed/possible to use when using heading
+            }*/
+
+            if (!string.IsNullOrEmpty(words[6])) //Roll Dual GPS; 0 if no RTK or “heading offset” <= 45 or >= 135
+            {
+                float.TryParse(words[6], NumberStyles.Float, CultureInfo.InvariantCulture, out rollK);
+
+                if (words[7] == "R") //MovingBase Mode Indicator
+                {
+                    roll = (float)(rollK);
+                    rollData = roll;
+                }
+                else
+                {
+                    roll = float.MinValue;
+                    rollData = 0;
+                }
+            }
+        }
+
         private void ParseTRA()  //tra contains hdt and roll for the ub482 receiver
         {
             if (!string.IsNullOrEmpty(words[1]))
@@ -867,8 +939,9 @@ namespace AgIO
                 float.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrueDual);
                 headingTrueDualData = headingTrueDual;
 
+
                 //  Console.WriteLine(HeadingForced);
-                float.TryParse(words[3], NumberStyles.Float, CultureInfo.InvariantCulture, out rollK);
+                float.TryParse(words[4], NumberStyles.Float, CultureInfo.InvariantCulture, out rollK);
                 // Console.WriteLine(nRoll);
 
                 int.TryParse(words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out int trasolution);
@@ -982,8 +1055,8 @@ namespace AgIO
                 else
                 {
                     //CRC code goes here - return true for now if $KS
-                    if(sentenceChars[0] == 36 && sentenceChars[1] == 75 && sentenceChars[2] == 83) return true;
-                    else return false;  
+                    if (sentenceChars[0] == 36 && sentenceChars[1] == 75 && sentenceChars[2] == 83) return true;
+                    else return false;
                 }
             }
             catch (Exception ex)

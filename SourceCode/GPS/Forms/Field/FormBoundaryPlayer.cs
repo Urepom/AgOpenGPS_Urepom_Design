@@ -1,8 +1,10 @@
 ﻿using AgLibrary.Logging;
 using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
 using AgOpenGPS.Helpers;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -62,6 +64,8 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Debug.WriteLine($"[BoundaryPlayer] FormClosing called — isClosing = {isClosing}");
+
             if (!isClosing)
             {
                 e.Cancel = true;
@@ -114,14 +118,16 @@ namespace AgOpenGPS
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show("Done?", gStr.gsBoundary,
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
-            if (result3 == DialogResult.Yes)
+            // Ask user if they are done with the boundary
+            DialogResult result = FormDialog.ShowQuestion(
+                gStr.gsBoundary,
+                "Done?");
+
+            if (result == DialogResult.OK)
             {
                 if (mf.bnd.bndBeingMadePts.Count > 2)
                 {
+                    // Create new boundary from drawn points
                     CBoundaryList New = new CBoundaryList();
 
                     for (int i = 0; i < mf.bnd.bndBeingMadePts.Count; i++)
@@ -131,29 +137,35 @@ namespace AgOpenGPS
 
                     New.CalculateFenceArea(mf.bnd.bndList.Count);
                     New.FixFenceLine(mf.bnd.bndList.Count);
-
                     mf.bnd.bndList.Add(New);
-                    mf.fd.UpdateFieldBoundaryGUIAreas();
 
-                    //turn lines made from boundaries
+                    // Update field GUI and boundaries
+                    mf.fd.UpdateFieldBoundaryGUIAreas();
                     mf.CalculateMinMax();
                     mf.FileSaveBoundary();
                     mf.bnd.BuildTurnLines();
+
                     mf.btnABDraw.Visible = true;
 
                     Log.EventWriter("Driven Boundary Created, Area: " + lblArea.Text);
                 }
+                else
+                {
+                    FormDialog.Show(gStr.gsNoBoundary, gStr.gsExit, DialogSeverity.Error);
+                }
 
-                //stop it all for adding
+                // Stop adding points and reset state
                 mf.bnd.isOkToAddPoints = false;
                 mf.bnd.isBndBeingMade = false;
                 mf.bnd.bndBeingMadePts.Clear();
 
-                //close window
                 isClosing = true;
                 Close();
             }
         }
+
+
+
 
         //actually the record button
         private void btnPausePlay_Click(object sender, EventArgs e)
@@ -192,12 +204,11 @@ namespace AgOpenGPS
 
         private void btnRestart_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show(gStr.gsCompletelyDeleteBoundary,
-                                    gStr.gsDeleteForSure,
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question,
-                                    MessageBoxDefaultButton.Button2);
-            if (result3 == DialogResult.Yes)
+            DialogResult result = FormDialog.ShowQuestion(
+                gStr.gsDeleteForSure,
+                gStr.gsCompletelyDeleteBoundary);
+
+            if (result == DialogResult.OK)
             {
                 mf.bnd.bndBeingMadePts?.Clear();
             }
@@ -214,49 +225,9 @@ namespace AgOpenGPS
         {
             mf.bnd.isDrawAtPivot = !mf.bnd.isDrawAtPivot;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
-            Properties.Settings.Default.setBnd_isDrawPivot = mf.bnd.isDrawAtPivot;            
+            Properties.Settings.Default.setBnd_isDrawPivot = mf.bnd.isDrawAtPivot;
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.B) //autosteer button on off
-            {
-                mf.bnd.isOkToAddPoints = true;
-                mf.AddBoundaryPoint();
-                mf.bnd.isOkToAddPoints = false;
-                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
-            }
-
-            if (keyData == Keys.D) //autosteer button on off
-            {
-                int ptCount = mf.bnd.bndBeingMadePts.Count;
-                if (ptCount > 0)
-                    mf.bnd.bndBeingMadePts.RemoveAt(ptCount - 1);
-                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
-            }
-
-            if (keyData == Keys.R) //autosteer button on off
-            {
-                if (mf.bnd.isOkToAddPoints)
-                {
-                    mf.bnd.isOkToAddPoints = false;
-                    btnPausePlay.Image = Properties.Resources.BoundaryRecord;
-                    //btnPausePlay.Text = gStr.gsRecord;
-                    btnAddPoint.Enabled = true;
-                    btnDeleteLast.Enabled = true;
-                }
-                else
-                {
-                    mf.bnd.isOkToAddPoints = true;
-                    btnPausePlay.Image = Properties.Resources.boundaryPause;
-                    //btnPausePlay.Text = gStr.gsPause;
-                    btnAddPoint.Enabled = false;
-                    btnDeleteLast.Enabled = false;
-                }
-            }
-            // Call the base class
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
         private void cboxIsRecBoundaryWhenSectionOn_Click(object sender, EventArgs e)
         {
             mf.bnd.isRecBoundaryWhenSectionOn = cboxIsRecBoundaryWhenSectionOn.Checked;

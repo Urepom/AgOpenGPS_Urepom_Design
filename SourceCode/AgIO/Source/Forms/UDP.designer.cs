@@ -16,8 +16,6 @@ namespace AgIO
         public int cntrGPSOut = 0;
 
         public uint helloFromMachine = 99, helloFromAutoSteer = 99, helloFromIMU = 99;
-        public uint helloFromFertilisation = 99; //ajout max
-
     }
 
     public class CScanReply
@@ -241,12 +239,6 @@ namespace AgIO
                             SendSteerModulePort(data, data.Length);
                             break;
                         }
-                    case 0xF0: //240 ferti config //Ajout-modification MEmprou et SPailleau Fertilisation
-                        {
-                            SendFertiPort(data, data.Length);
-                            SendFertiPort(data, data.Length);
-                            break;
-                        }
                 }
             }                            
         }
@@ -421,12 +413,6 @@ namespace AgIO
                             scanReply.isNewMachine = true;
 
                         }
-                        //ajout max
-                        else if (data[3] == 128 && data.Length == 11)
-                        {
-                            traffic.helloFromFertilisation = 0;
-                        }
-                        //fin
                         else if (data[2] == 121)   //IMU Module
                         {
                             scanReply.IMU_IP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();

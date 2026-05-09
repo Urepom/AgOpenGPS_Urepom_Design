@@ -151,38 +151,20 @@ namespace AgIO
             //    btnCloseSerialModule3.Enabled = false;
             //    btnOpenSerialModule3.Enabled = true;
             //}
-            //Ajout-modification MEmprou et SPailleau Fertilisation 
-            if (mf.spModuleFerti.IsOpen)
-            {
-                cboxferti.Enabled = false;
-                btnCloseSerialModuleFerti.Enabled = true;
-                btnOpenSerialModuleFerti.Enabled = false;
-            }
-            else
-            {
-                cboxferti.Enabled = true;
-                btnCloseSerialModuleFerti.Enabled = false;
-                btnOpenSerialModuleFerti.Enabled = true;
-            }
+
             //load the port box with valid port names
             cboxSteerModulePort.Items.Clear();
             cboxMachineModulePort.Items.Clear();
             //cboxModule3Port.Items.Clear();
-            //Ajout-modification MEmprou et SPailleau Fertilisation 
-            cboxferti.Items.Clear();
             foreach (string s in System.IO.Ports.SerialPort.GetPortNames())
             {
                 cboxSteerModulePort.Items.Add(s);
                 cboxMachineModulePort.Items.Add(s);
                 //cboxModule3Port.Items.Add(s);
-                //Ajout-modification MEmprou et SPailleau Fertilisation 
-                cboxferti.Items.Add(s);
             }
 
             lblCurrentSteerModulePort.Text = mf.spSteerModule.PortName;
             lblCurrentMachineModulePort.Text = mf.spMachineModule.PortName;
-            //Ajout-modification MEmprou et SPailleau Fertilisation 
-            lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
             //lblCurrentModule3Port.Text = mf.spModule3.PortName;
         }
 
@@ -389,8 +371,6 @@ namespace AgIO
             lblMachine.Text = mf.spMachineModule.PortName;
 
             lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
-            //Ajout-modification MEmprou et SPailleau Fertilisation
-            lblferti.Text = mf.spModuleFerti.PortName;
         }
 
         private void btnSerialOK_Click(object sender, EventArgs e)
@@ -418,14 +398,6 @@ namespace AgIO
                 cboxMachineModulePort.Items.Add(s);
                 cboxModule3Port.Items.Add(s);
             }
-        }
-
-        private void btnClrGPS_Click(object sender, EventArgs e)
-        {
-            mf.CloseGPSPort();
-            FormLoop.portNameGPS = "GPS 1";
-            Properties.Settings.Default.setPort_portNameGPS = FormLoop.portNameGPS;
-            Properties.Settings.Default.Save();
         }
 
         private void btnOpenIMU_Click(object sender, EventArgs e)
@@ -606,47 +578,6 @@ namespace AgIO
         {
             mf.spRtcm.BaudRate = Convert.ToInt32(cboxRtcmBaud.Text);
             FormLoop.baudRateRtcm = Convert.ToInt32(cboxRtcmBaud.Text);
-        }
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        private void cboxferti_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            mf.spModuleFerti.PortName = cboxferti.Text;
-            FormLoop.portNameModuleFerti = cboxferti.Text;
-            lblCurrentModuleFertiPort.Text = cboxferti.Text;
-        }
-        private void btnOpenSerialModuleFerti_Click(object sender, EventArgs e)
-        {
-            mf.OpenFertiPort();
-            if (mf.spModuleFerti.IsOpen)
-            {
-                cboxferti.Enabled = false;
-                btnCloseSerialModuleFerti.Enabled = true;
-                btnOpenSerialModuleFerti.Enabled = false;
-                lblCurrentModuleFertiPort.Text = mf.spModuleFerti.PortName;
-            }
-            else
-            {
-                cboxferti.Enabled = true;
-                btnCloseSerialModuleFerti.Enabled = false;
-                btnOpenSerialModuleFerti.Enabled = true;
-            }
-        }
-        //Ajout-modification MEmprou et SPailleau Fertilisation 
-        private void btnCloseSerialModuleFerti_Click(object sender, EventArgs e)
-        {
-            mf.CloseFertiPort();
-            if (mf.spModuleFerti.IsOpen)
-            {
-                cboxferti.Enabled = false;
-                btnCloseSerialModuleFerti.Enabled = true;
-                btnOpenSerialModuleFerti.Enabled = false;
-            }
-            else
-            {
-                cboxferti.Enabled = true;
-                btnCloseSerialModuleFerti.Enabled = false;
-                btnOpenSerialModuleFerti.Enabled = true;
-            }
         }
     } //class
 } //namespace

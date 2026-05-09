@@ -59,9 +59,13 @@ namespace GPS_Out
                 {
                     return (float)(cAgeX100 / 100.0);
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 1.8F;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -74,9 +78,13 @@ namespace GPS_Out
                 {
                     return cAltitude;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 732.0F;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -89,9 +97,13 @@ namespace GPS_Out
                 {
                     return cFixQuality;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 4;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -104,9 +116,13 @@ namespace GPS_Out
                 {
                     return (float)(cHdopX100 / 100.0);
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 7;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -119,9 +135,13 @@ namespace GPS_Out
                 {
                     return cHeadingDual;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 1000;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -134,9 +154,13 @@ namespace GPS_Out
                 {
                     return cImuHeading;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 1000;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -220,9 +244,6 @@ namespace GPS_Out
             }
         }
 
-        public float RollSource1
-        { get { return cRoll; } }
-
         public UInt16 Satellites
         {
             get
@@ -231,9 +252,13 @@ namespace GPS_Out
                 {
                     return cSatellites;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 12;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -253,9 +278,13 @@ namespace GPS_Out
                         return 0;
                     }
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 4.8F;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
@@ -268,16 +297,20 @@ namespace GPS_Out
                 {
                     return cTrueHeading;
                 }
-                else
+                else if (Properties.Settings.Default.Simulate)
                 {
                     return 1000;
+                }
+                else
+                {
+                    return 0;
                 }
             }
         }
 
         public bool Connected()
         {
-            return (DateTime.Now - ReceiveTime).TotalSeconds < 10;
+            return (DateTime.Now - ReceiveTime).TotalSeconds < 4;
         }
 
         public bool ParseByteData(byte[] Data)
@@ -303,8 +336,6 @@ namespace GPS_Out
 
                 ReceiveTime = DateTime.Now;
                 Result = true;
-
-                //mf.Tls.WriteByteFile(Data, "AGIOdata.txt");
             }
             return Result;
         }

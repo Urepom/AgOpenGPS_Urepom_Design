@@ -59,7 +59,7 @@ namespace AgIO
                     Log.EventWriter("Registry -> Culture was null and Created");
                 }
                 culture = regKey.GetValue("Language").ToString();
-                
+
                 regKey.Close();
             }
             catch (Exception ex)
@@ -71,8 +71,7 @@ namespace AgIO
             //make sure directories exist and are in right place if not default workingDir
             CreateDirectories();
 
-            //keep below 500 kb
-            Log.CheckLogSize(Path.Combine(logsDirectory, "AgIO_Events_Log.txt"), 1000000);
+            Log.CheckLogSize(Path.Combine(logsDirectory, "AgIO_Events_Log.txt"));
 
             Properties.Settings.Default.Load();
         }

@@ -61,7 +61,6 @@
             this.btnSerialCancel.Size = new System.Drawing.Size(88, 64);
             this.btnSerialCancel.TabIndex = 71;
             this.btnSerialCancel.UseVisualStyleBackColor = true;
-            this.btnSerialCancel.Click += new System.EventHandler(this.btnSerialCancel_Click);
             // 
             // btnSerialOK
             // 
@@ -132,15 +131,7 @@
             this.cboxBaud.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
             this.cboxBaud.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.cboxBaud.FormattingEnabled = true;
-            this.cboxBaud.Items.AddRange(new object[] {
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "57600",
-            "115200",
-            "128000",
-            "256000"});
+            this.cboxBaud.Items.AddRange(new object[] { "4800", "9600", "19200", "38400", "57600", "115200", "128000", "256000" });
             this.cboxBaud.Location = new System.Drawing.Point(316, 153);
             this.cboxBaud.Name = "cboxBaud";
             this.cboxBaud.Size = new System.Drawing.Size(127, 37);
@@ -252,20 +243,12 @@
             this.nudSendToUDPPort.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSendToUDPPort.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSendToUDPPort.Location = new System.Drawing.Point(517, 303);
-            this.nudSendToUDPPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
+            this.nudSendToUDPPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
             this.nudSendToUDPPort.Name = "nudSendToUDPPort";
             this.nudSendToUDPPort.Size = new System.Drawing.Size(141, 46);
             this.nudSendToUDPPort.TabIndex = 178;
             this.nudSendToUDPPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSendToUDPPort.Value = new decimal(new int[] {
-            2233,
-            0,
-            0,
-            0});
+            this.nudSendToUDPPort.Value = new decimal(new int[] { 2233, 0, 0, 0 });
             // 
             // label1
             // 
@@ -314,7 +297,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSendToUDPPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

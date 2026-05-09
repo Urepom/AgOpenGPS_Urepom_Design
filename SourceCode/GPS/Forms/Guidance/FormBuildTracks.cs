@@ -1,14 +1,16 @@
-﻿using AgLibrary.Logging;
-using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
-using AgOpenGPS.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -33,6 +35,14 @@ namespace AgOpenGPS
         //used throughout to acces the master Track list
         private int idx;
 
+        // Touch drag scrolling
+        private bool isDragging = false;
+        private int dragStartY = 0;
+        private int dragStartScrollValue = 0;
+        private const int DragThreshold = 5; // pixels to distinguish click from drag
+        private bool didDrag = false;
+        private DateTime lastDragEndTime = DateTime.MinValue;
+
         public FormBuildTracks(Form _mf)
         {
             mf = _mf as FormGPS;
@@ -43,10 +53,10 @@ namespace AgOpenGPS
             labelABLine.Text = gStr.gsABline;
             labelCurve.Text = gStr.gsCurve;
             labelAPlus.Text = gStr.gsAPlus;
-            labelABLine.Text = gStr.gsABline; 
+            labelABLine.Text = gStr.gsABline;
             labelABLine2.Text = gStr.gsABline;
             labelABCurve.Text = gStr.gsCurve;
-            labelCurve2.Text = gStr.gsCurve;  
+            labelCurve2.Text = gStr.gsCurve;
             labelEditName.Text = gStr.gsEnterName;
             labelEnterName.Text = gStr.gsEnterName;
             labelLatLon.Text = gStr.gsLatLon;
@@ -56,7 +66,7 @@ namespace AgOpenGPS
             labelPivot.Text = gStr.gsPivot;
             labelHeading.Text = gStr.gsHeading;
             labelLatitudeA.Text = gStr.gsLatitude + " A";
-            labelLongtitudeA.Text = gStr.gsLongtitude + " A";  
+            labelLongtitudeA.Text = gStr.gsLongtitude + " A";
             labelLatitudeB.Text = gStr.gsLatitude + " B";
             labelLongtitudeB.Text = gStr.gsLongtitude + "B";
             labelStatus.Text = gStr.gsStatus + ":";
@@ -102,7 +112,8 @@ namespace AgOpenGPS
 
             originalLine = mf.trk.idx;
 
-            selectedItem = -1;
+            // Set the currently active track as selected
+            selectedItem = originalLine;
             Location = Properties.Settings.Default.setWindow_buildTracksLocation;
 
             nudLatitudeA.Controls[0].Enabled = false;
@@ -112,16 +123,22 @@ namespace AgOpenGPS
             nudHeading.Controls[0].Enabled = false;
             nudLatitudePlus.Controls[0].Enabled = false;
             nudLongitudePlus.Controls[0].Enabled = false;
-            nudHeadingLatLonPlus.Controls[0].Enabled = false;   
+            nudHeadingLatLonPlus.Controls[0].Enabled = false;
 
-            nudLatitudeA.Value = (decimal)mf.pn.latitude;
-            nudLatitudeB.Value = (decimal)mf.pn.latitude + 0.000005m;
-            nudLongitudeA.Value = (decimal)mf.pn.longitude;
-            nudLongitudeB.Value = (decimal)mf.pn.longitude + 0.000005m;
-            nudLatitudePlus.Value = (decimal)mf.pn.latitude;
-            nudLongitudePlus.Value = (decimal)mf.pn.longitude;
+            nudLatitudeA.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLatitudeB.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude + 0.000005m;
+            nudLongitudeA.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
+            nudLongitudeB.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude + 0.000005m;
+            nudLatitudePlus.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudePlus.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
             nudHeading.Value = 0;
             nudHeadingLatLonPlus.Value = 0;
+
+            // Touch drag scrolling for flp
+            flp.MouseDown += Flp_MouseDown;
+            flp.MouseMove += Flp_MouseMove;
+            flp.MouseUp += Flp_MouseUp;
+            flp.MouseLeave += Flp_MouseLeave;
 
             UpdateTable();
 
@@ -147,7 +164,7 @@ namespace AgOpenGPS
 
             mf.PanelUpdateRightAndBottom();
         }
-        
+
         private void btnCancelMain_Click(object sender, EventArgs e)
         {
             //reload what was
@@ -187,7 +204,7 @@ namespace AgOpenGPS
             mf.curve.desList?.Clear();
 
             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
-            
+
             mf.FileSaveTracks();
 
             if (selectedItem > -1 && mf.trk.gArr.Count > 0 && mf.trk.gArr[selectedItem].isVisible)
@@ -199,7 +216,7 @@ namespace AgOpenGPS
             }
 
             else if (mf.trk.gArr.Count > 0)
-            {               
+            {
                 bool isOneVis = false;
                 int trac = -1;
 
@@ -209,7 +226,7 @@ namespace AgOpenGPS
                     if (item.isVisible)
                     {
                         isOneVis = true;
-                        break;                        
+                        break;
                     }
                 }
 
@@ -250,7 +267,7 @@ namespace AgOpenGPS
         {
             int scrollPixels = flp.VerticalScroll.Value;
 
-            Font backupfont = new Font(Font.FontFamily, 18F, FontStyle.Regular);
+            System.Drawing.Font backupfont = new System.Drawing.Font(base.Font.FontFamily, 18F, FontStyle.Regular);
             flp.Controls.Clear();
 
 
@@ -265,6 +282,9 @@ namespace AgOpenGPS
                     TextAlign = ContentAlignment.MiddleCenter,
                 };
                 a.Click += A_Click;
+                a.MouseDown += StartDrag;
+                a.MouseMove += DoDrag;
+                a.MouseUp += Flp_MouseUp;
 
                 if (mf.trk.gArr[i].isVisible)
                     a.BackColor = System.Drawing.Color.Green;
@@ -278,7 +298,7 @@ namespace AgOpenGPS
                     Name = i.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     FlatStyle = FlatStyle.Flat,
-            };
+                };
 
                 if (mf.trk.gArr[i].mode == TrackMode.AB)
                     b.Image = Properties.Resources.TrackLine;
@@ -288,18 +308,27 @@ namespace AgOpenGPS
                     b.Image = Properties.Resources.TrackCurve;
 
                 b.FlatAppearance.BorderSize = 0;
+                b.MouseDown += StartDrag;
+                b.MouseMove += DoDrag;
+                b.MouseUp += Flp_MouseUp;
 
-                TextBox t = new TextBox
+                // Use Button instead of TextBox - no cursor, no editing possible
+                Button t = new Button
                 {
                     Margin = new Padding(3),
-                    Size = new Size(330, 35),
+                    Size = new Size(330, 40),
                     Text = mf.trk.gArr[i].name,
                     Name = i.ToString(),
                     Font = backupfont,
-                    ReadOnly = true                    
+                    FlatStyle = FlatStyle.Flat,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Cursor = Cursors.Default
                 };
                 t.Click += LineSelected_Click;
-                t.Cursor = System.Windows.Forms.Cursors.Default;
+                t.FlatAppearance.BorderSize = 0;
+                t.MouseDown += StartDrag;
+                t.MouseMove += DoDrag;
+                t.MouseUp += Flp_MouseUp;
 
                 if (mf.trk.gArr[i].isVisible)
                     t.ForeColor = System.Drawing.Color.Black;
@@ -346,7 +375,13 @@ namespace AgOpenGPS
 
         private void LineSelected_Click(object sender, EventArgs e)
         {
-            if (sender is TextBox t)
+            // Ignore click if we just finished dragging (within 200ms)
+            if ((DateTime.Now - lastDragEndTime).TotalMilliseconds < 200)
+            {
+                return;
+            }
+
+            if (sender is Button t)
             {
                 int line = Convert.ToInt32(t.Name);
                 int numLines = mf.trk.gArr.Count;
@@ -426,6 +461,68 @@ namespace AgOpenGPS
             UpdateTable();
         }
 
+        // Touch drag scrolling
+        private void StartDrag(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                didDrag = false;
+                dragStartY = e.Y;
+                dragStartScrollValue = flp.VerticalScroll.Value;
+            }
+        }
+
+        private void DoDrag(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                int deltaY = dragStartY - e.Y;
+
+                // Only start actual dragging if moved beyond threshold
+                if (Math.Abs(deltaY) > DragThreshold)
+                {
+                    didDrag = true;
+                    int newScrollValue = dragStartScrollValue + deltaY;
+
+                    // Clamp to valid scroll range
+                    if (newScrollValue < flp.VerticalScroll.Minimum)
+                        newScrollValue = flp.VerticalScroll.Minimum;
+                    if (newScrollValue > flp.VerticalScroll.Maximum)
+                        newScrollValue = flp.VerticalScroll.Maximum;
+
+                    flp.VerticalScroll.Value = newScrollValue;
+                    flp.PerformLayout();
+                }
+            }
+        }
+
+        private void Flp_MouseDown(object sender, MouseEventArgs e)
+        {
+            StartDrag(sender, e);
+        }
+
+        private void Flp_MouseMove(object sender, MouseEventArgs e)
+        {
+            DoDrag(sender, e);
+        }
+
+        private void Flp_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (didDrag)
+            {
+                lastDragEndTime = DateTime.Now;
+            }
+            isDragging = false;
+            didDrag = false;
+        }
+
+        private void Flp_MouseLeave(object sender, EventArgs e)
+        {
+            isDragging = false;
+            didDrag = false;
+        }
+
         private void btnSwapAB_Click(object sender, EventArgs e)
         {
             if (selectedItem > -1)
@@ -477,20 +574,20 @@ namespace AgOpenGPS
                 UpdateTable();
                 flp.Focus();
 
-                mf.TimedMessageBox(1500, "A B Swapped", "Curve is Reversed");
+                FormDialog.Show("A B Swapped", "Curve is Reversed", DialogSeverity.Info);
             }
         }
 
         private void btnHideShow_Click(object sender, EventArgs e)
         {
-                for (int i = 0; i < mf.trk.gArr.Count; i++)
-                {
-                    mf.trk.gArr[i].isVisible = isOn;
-                }
+            for (int i = 0; i < mf.trk.gArr.Count; i++)
+            {
+                mf.trk.gArr[i].isVisible = isOn;
+            }
 
-                isOn = !isOn;
+            isOn = !isOn;
 
-                UpdateTable();
+            UpdateTable();
         }
 
         private void btnNewTrack_Click(object sender, EventArgs e)
@@ -531,7 +628,7 @@ namespace AgOpenGPS
                 panelName.Visible = true;
                 this.Size = new System.Drawing.Size(270, 360);
 
-                mf.trk.gArr.Add(new CTrk (mf.trk.gArr[idx]));
+                mf.trk.gArr.Add(new CTrk(mf.trk.gArr[idx]));
 
                 idx = mf.trk.gArr.Count - 1;
 
@@ -596,6 +693,7 @@ namespace AgOpenGPS
 
             btnALine.Enabled = true;
             btnBLine.Enabled = false;
+            btnEnter_AB.Enabled = false;
             mf.curve.desList?.Clear();
 
             this.Size = new System.Drawing.Size(270, 360);
@@ -608,8 +706,8 @@ namespace AgOpenGPS
             panelLatLonPlus.Visible = true;
             this.Size = new System.Drawing.Size(370, 460);
 
-            nudLatitudePlus.Value = (decimal)mf.pn.latitude;
-            nudLongitudePlus.Value = (decimal)mf.pn.longitude;
+            nudLatitudePlus.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudePlus.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
             mf.Activate();
         }
 
@@ -625,10 +723,10 @@ namespace AgOpenGPS
 
             panelChoose.Visible = false;
             panelPivot.Visible = true;
-            this.Size = new System.Drawing.Size(370,360);
+            this.Size = new System.Drawing.Size(370, 360);
 
-            nudLatitudePivot.Value = (decimal)mf.pn.latitude;
-            nudLongitudePivot.Value = (decimal)mf.pn.longitude;
+            nudLatitudePivot.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudePivot.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
             mf.Activate();
         }
 
@@ -724,8 +822,8 @@ namespace AgOpenGPS
             else if (cnt > 2)
             {
                 //make sure point distance isn't too big 
-                mf.curve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
-                mf.curve.CalculateHeadings(ref mf.curve.desList);
+                CABCurve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
+                CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                 mf.trk.gArr.Add(new CTrk());
                 //array number is 1 less since it starts at zero
@@ -753,7 +851,7 @@ namespace AgOpenGPS
                 //build the tail extensions
                 mf.curve.AddFirstLastPoints(ref mf.curve.desList);
                 SmoothAB(4);
-                mf.curve.CalculateHeadings(ref mf.curve.desList);
+                CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                 //write out the Curve Points
                 foreach (vec3 item in mf.curve.desList)
@@ -839,6 +937,7 @@ namespace AgOpenGPS
         {
             mf.ABLine.isMakingABLine = true;
             btnALine.Enabled = false;
+            btnEnter_AB.Enabled = false;
 
             mf.ABLine.desPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
@@ -852,8 +951,6 @@ namespace AgOpenGPS
             btnBLine.Enabled = true;
             btnALine.Enabled = false;
 
-            btnEnter_AB.Enabled = true;
-
             timer1.Enabled = true;
             mf.Activate();
         }
@@ -861,6 +958,7 @@ namespace AgOpenGPS
         private void btnBLine_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            btnEnter_AB.Enabled = true;
 
             mf.ABLine.desPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
@@ -895,7 +993,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
+                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -951,7 +1049,7 @@ namespace AgOpenGPS
 
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
-           
+
             nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
 
             timer1.Enabled = true;
@@ -997,7 +1095,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+" +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
+                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -1104,10 +1202,8 @@ namespace AgOpenGPS
                             double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double lonK);
                             double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double latK);
 
-                            mf.pn.ConvertWGS84ToLocal(latK, lonK, out double norting, out double easting);
-
-                            vec3 bndPt = new vec3(easting, norting, 0);
-                            mf.curve.desList.Add(new vec3(bndPt));
+                            GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
+                            mf.curve.desList.Add(new vec3(geoCoord));
                         }
                     }
 
@@ -1151,8 +1247,8 @@ namespace AgOpenGPS
                     else if (mf.curve.desList.Count > 2)
                     {
                         //make sure point distance isn't too big 
-                        mf.curve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
-                        mf.curve.CalculateHeadings(ref mf.curve.desList);
+                        CABCurve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
+                        CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                         mf.trk.gArr.Add(new CTrk());
 
@@ -1184,7 +1280,7 @@ namespace AgOpenGPS
                         //build the tail extensions
                         mf.curve.AddFirstLastPoints(ref mf.curve.desList);
                         //SmoothAB(4);
-                        mf.curve.CalculateHeadings(ref mf.curve.desList);
+                        CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                         //write out the Curve Points
                         foreach (vec3 item in mf.curve.desList)
@@ -1205,7 +1301,7 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        mf.TimedMessageBox(2000, gStr.gsErrorreadingKML, gStr.gsMissingABLinesFile);
+                        FormDialog.Show(gStr.gsErrorreadingKML, gStr.gsMissingABLinesFile, DialogSeverity.Error);
                     }
                 }
             }
@@ -1279,14 +1375,12 @@ namespace AgOpenGPS
 
         public void CalcHeadingAB()
         {
-            mf.pn.ConvertWGS84ToLocal((double)nudLatitudeA.Value, (double)nudLongitudeA.Value, out double nort, out double east);
+            GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudeA.Value, (double)nudLongitudeA.Value));
 
-            mf.ABLine.desPtA.easting = east;
-            mf.ABLine.desPtA.northing = nort;
+            mf.ABLine.desPtA = new vec2(geoCoord);
 
-            mf.pn.ConvertWGS84ToLocal((double)nudLatitudeB.Value, (double)nudLongitudeB.Value, out nort, out east);
-            mf.ABLine.desPtB.easting = east;
-            mf.ABLine.desPtB.northing = nort;
+            geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudeB.Value, (double)nudLongitudeB.Value));
+            mf.ABLine.desPtB = new vec2(geoCoord);
 
             // heading based on AB points
             mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
@@ -1296,14 +1390,14 @@ namespace AgOpenGPS
 
         private void btnFillLatLonLatLonA_Click(object sender, EventArgs e)
         {
-            nudLatitudeA.Value = (decimal)mf.pn.latitude;
-            nudLongitudeA.Value = (decimal)mf.pn.longitude;
+            nudLatitudeA.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudeA.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
         }
 
         private void btnFillLatLonLatLonB_Click(object sender, EventArgs e)
         {
-            nudLatitudeB.Value = (decimal)mf.pn.latitude;
-            nudLongitudeB.Value = (decimal)mf.pn.longitude;
+            nudLatitudeB.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudeB.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
         }
 
         #endregion
@@ -1357,17 +1451,16 @@ namespace AgOpenGPS
 
         private void btnFillLatLonPlus_Click(object sender, EventArgs e)
         {
-            nudLatitudePlus.Value = (decimal)mf.pn.latitude;
-            nudLongitudePlus.Value = (decimal)mf.pn.longitude;
+            nudLatitudePlus.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudePlus.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
         }
 
         public void CalcHeadingAPlus()
         {
-            mf.pn.ConvertWGS84ToLocal((double)nudLatitudePlus.Value, (double)nudLongitudePlus.Value, out double nort, out double east);
+            GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudePlus.Value, (double)nudLongitudePlus.Value));
 
             mf.ABLine.desHeading = glm.toRadians((double)nudHeadingLatLonPlus.Value);
-                mf.ABLine.desPtA.easting = east;
-                mf.ABLine.desPtA.northing = nort;            
+            mf.ABLine.desPtA = new vec2(geoCoord);
         }
 
         #endregion
@@ -1386,14 +1479,13 @@ namespace AgOpenGPS
 
         private void btnEnter_Pivot_Click(object sender, EventArgs e)
         {
-            mf.pn.ConvertWGS84ToLocal((double)nudLatitudePivot.Value, (double)nudLongitudePivot.Value, out double nort, out double east);
+            GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudePivot.Value, (double)nudLongitudePivot.Value));
 
             mf.trk.gArr.Add(new CTrk());
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA.easting = east;
-            mf.trk.gArr[idx].ptA.northing = nort;
+            mf.trk.gArr[idx].ptA = new vec2(geoCoord);
             mf.trk.gArr[idx].mode = TrackMode.waterPivot;
 
             mf.ABLine.desName = "Piv";
@@ -1422,8 +1514,8 @@ namespace AgOpenGPS
 
         private void btnFillLAtLonPivot_Click(object sender, EventArgs e)
         {
-            nudLatitudePivot.Value = (decimal)mf.pn.latitude;
-            nudLongitudePivot.Value = (decimal)mf.pn.longitude;
+            nudLatitudePivot.Value = (decimal)mf.AppModel.CurrentLatLon.Latitude;
+            nudLongitudePivot.Value = (decimal)mf.AppModel.CurrentLatLon.Longitude;
         }
 
         #endregion

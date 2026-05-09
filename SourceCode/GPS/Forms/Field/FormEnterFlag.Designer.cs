@@ -32,13 +32,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.nudLatitude = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudLongitude = new AgOpenGPS.NudlessNumericUpDown();
             this.labelPoint = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnYellow = new System.Windows.Forms.Button();
             this.btnRed = new System.Windows.Forms.Button();
             this.btnGreen = new System.Windows.Forms.Button();
+            this.btnImportFlags = new System.Windows.Forms.Button();
+            this.btnExportFlags = new System.Windows.Forms.Button();
+            this.nudLatitude = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudLongitude = new AgOpenGPS.NudlessNumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).BeginInit();
             this.SuspendLayout();
@@ -86,6 +88,109 @@
             this.label18.TabIndex = 199;
             this.label18.Text = "Latitude";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelPoint
+            // 
+            this.labelPoint.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPoint.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelPoint.Location = new System.Drawing.Point(22, 76);
+            this.labelPoint.Name = "labelPoint";
+            this.labelPoint.Size = new System.Drawing.Size(125, 34);
+            this.labelPoint.TabIndex = 205;
+            this.labelPoint.Text = "Point A";
+            this.labelPoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnCancel.Location = new System.Drawing.Point(413, 188);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(87, 58);
+            this.btnCancel.TabIndex = 430;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnYellow
+            // 
+            this.btnYellow.BackColor = System.Drawing.Color.Transparent;
+            this.btnYellow.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnYellow.FlatAppearance.BorderSize = 0;
+            this.btnYellow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnYellow.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnYellow.Image = global::AgOpenGPS.Properties.Resources.FlagYel;
+            this.btnYellow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnYellow.Location = new System.Drawing.Point(515, 192);
+            this.btnYellow.Name = "btnYellow";
+            this.btnYellow.Size = new System.Drawing.Size(87, 58);
+            this.btnYellow.TabIndex = 431;
+            this.btnYellow.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnYellow.UseVisualStyleBackColor = false;
+            this.btnYellow.Click += new System.EventHandler(this.btnRed_Click);
+            // 
+            // btnRed
+            // 
+            this.btnRed.BackColor = System.Drawing.Color.Transparent;
+            this.btnRed.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnRed.FlatAppearance.BorderSize = 0;
+            this.btnRed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRed.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRed.Image = global::AgOpenGPS.Properties.Resources.FlagRed;
+            this.btnRed.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnRed.Location = new System.Drawing.Point(672, 193);
+            this.btnRed.Name = "btnRed";
+            this.btnRed.Size = new System.Drawing.Size(87, 58);
+            this.btnRed.TabIndex = 432;
+            this.btnRed.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRed.UseVisualStyleBackColor = false;
+            this.btnRed.Click += new System.EventHandler(this.btnRed_Click);
+            // 
+            // btnGreen
+            // 
+            this.btnGreen.BackColor = System.Drawing.Color.Transparent;
+            this.btnGreen.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnGreen.FlatAppearance.BorderSize = 0;
+            this.btnGreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGreen.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGreen.Image = global::AgOpenGPS.Properties.Resources.FlagGrn;
+            this.btnGreen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnGreen.Location = new System.Drawing.Point(597, 192);
+            this.btnGreen.Name = "btnGreen";
+            this.btnGreen.Size = new System.Drawing.Size(87, 58);
+            this.btnGreen.TabIndex = 433;
+            this.btnGreen.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnGreen.UseVisualStyleBackColor = false;
+            this.btnGreen.Click += new System.EventHandler(this.btnRed_Click);
+            // 
+            // btnImportFlags
+            // 
+            this.btnImportFlags.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            this.btnImportFlags.Location = new System.Drawing.Point(13, 179);
+            this.btnImportFlags.Margin = new System.Windows.Forms.Padding(4);
+            this.btnImportFlags.Name = "btnImportFlags";
+            this.btnImportFlags.Size = new System.Drawing.Size(177, 71);
+            this.btnImportFlags.TabIndex = 434;
+            this.btnImportFlags.Text = "Import Flags";
+            this.btnImportFlags.UseVisualStyleBackColor = true;
+            this.btnImportFlags.Click += new System.EventHandler(this.btnImportFlags_Click);
+            // 
+            // btnExportFlags
+            // 
+            this.btnExportFlags.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            this.btnExportFlags.Location = new System.Drawing.Point(211, 180);
+            this.btnExportFlags.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExportFlags.Name = "btnExportFlags";
+            this.btnExportFlags.Size = new System.Drawing.Size(171, 71);
+            this.btnExportFlags.TabIndex = 435;
+            this.btnExportFlags.Text = "Export Flags";
+            this.btnExportFlags.UseVisualStyleBackColor = true;
+            this.btnExportFlags.Click += new System.EventHandler(this.btnExportFlags_Click);
             // 
             // nudLatitude
             // 
@@ -141,85 +246,6 @@
             0});
             this.nudLongitude.Click += new System.EventHandler(this.nudLongitude_Click);
             // 
-            // labelPoint
-            // 
-            this.labelPoint.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPoint.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelPoint.Location = new System.Drawing.Point(22, 76);
-            this.labelPoint.Name = "labelPoint";
-            this.labelPoint.Size = new System.Drawing.Size(125, 34);
-            this.labelPoint.TabIndex = 205;
-            this.labelPoint.Text = "Point A";
-            this.labelPoint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCancel.Location = new System.Drawing.Point(275, 193);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(87, 58);
-            this.btnCancel.TabIndex = 430;
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnYellow
-            // 
-            this.btnYellow.BackColor = System.Drawing.Color.Transparent;
-            this.btnYellow.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnYellow.FlatAppearance.BorderSize = 0;
-            this.btnYellow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnYellow.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnYellow.Image = global::AgOpenGPS.Properties.Resources.FlagYel;
-            this.btnYellow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnYellow.Location = new System.Drawing.Point(441, 193);
-            this.btnYellow.Name = "btnYellow";
-            this.btnYellow.Size = new System.Drawing.Size(87, 58);
-            this.btnYellow.TabIndex = 431;
-            this.btnYellow.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnYellow.UseVisualStyleBackColor = false;
-            this.btnYellow.Click += new System.EventHandler(this.btnRed_Click);
-            // 
-            // btnRed
-            // 
-            this.btnRed.BackColor = System.Drawing.Color.Transparent;
-            this.btnRed.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnRed.FlatAppearance.BorderSize = 0;
-            this.btnRed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRed.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRed.Image = global::AgOpenGPS.Properties.Resources.FlagRed;
-            this.btnRed.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnRed.Location = new System.Drawing.Point(672, 193);
-            this.btnRed.Name = "btnRed";
-            this.btnRed.Size = new System.Drawing.Size(87, 58);
-            this.btnRed.TabIndex = 432;
-            this.btnRed.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnRed.UseVisualStyleBackColor = false;
-            this.btnRed.Click += new System.EventHandler(this.btnRed_Click);
-            // 
-            // btnGreen
-            // 
-            this.btnGreen.BackColor = System.Drawing.Color.Transparent;
-            this.btnGreen.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnGreen.FlatAppearance.BorderSize = 0;
-            this.btnGreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGreen.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGreen.Image = global::AgOpenGPS.Properties.Resources.FlagGrn;
-            this.btnGreen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnGreen.Location = new System.Drawing.Point(556, 193);
-            this.btnGreen.Name = "btnGreen";
-            this.btnGreen.Size = new System.Drawing.Size(87, 58);
-            this.btnGreen.TabIndex = 433;
-            this.btnGreen.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnGreen.UseVisualStyleBackColor = false;
-            this.btnGreen.Click += new System.EventHandler(this.btnRed_Click);
-            // 
             // FormEnterFlag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,6 +253,8 @@
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(771, 266);
             this.ControlBox = false;
+            this.Controls.Add(this.btnExportFlags);
+            this.Controls.Add(this.btnImportFlags);
             this.Controls.Add(this.btnGreen);
             this.Controls.Add(this.btnRed);
             this.Controls.Add(this.btnYellow);
@@ -263,5 +291,7 @@
         private System.Windows.Forms.Button btnYellow;
         private System.Windows.Forms.Button btnRed;
         private System.Windows.Forms.Button btnGreen;
+        private System.Windows.Forms.Button btnImportFlags;
+        private System.Windows.Forms.Button btnExportFlags;
     }
 }

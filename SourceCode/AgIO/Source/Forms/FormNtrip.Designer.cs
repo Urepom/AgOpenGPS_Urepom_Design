@@ -265,7 +265,6 @@
             this.tboxMount.Name = "tboxMount";
             this.tboxMount.Size = new System.Drawing.Size(341, 33);
             this.tboxMount.TabIndex = 104;
-            this.tboxMount.Text = "NEAR";
             this.tboxMount.Click += new System.EventHandler(this.tboxMount_Click);
             // 
             // nudGGAInterval
@@ -307,7 +306,7 @@
             this.tboxEnterURL.Name = "tboxEnterURL";
             this.tboxEnterURL.Size = new System.Drawing.Size(341, 33);
             this.tboxEnterURL.TabIndex = 108;
-            this.tboxEnterURL.Text = "crtk.net";
+            this.tboxEnterURL.Text = "RTK2Go.com";
             this.tboxEnterURL.Click += new System.EventHandler(this.tboxEnterURL_Click);
             // 
             // btnGetIP

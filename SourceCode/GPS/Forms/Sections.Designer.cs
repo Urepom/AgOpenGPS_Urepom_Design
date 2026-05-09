@@ -18,11 +18,30 @@ namespace AgOpenGPS
         public btnStates manualBtnState = btnStates.Off;
         public btnStates autoBtnState = btnStates.Off;
 
+        private void MarkAsWorkedTrack()
+        {
+            // return if there was a track selected
+            if (this.trk.idx < 0) return;
+
+            var track = this.trk.gArr[this.trk.idx];
+
+            if (track.mode == TrackMode.AB)
+            {
+                track.workedTracks.Add(this.ABLine.howManyPathsAway);
+            }
+            else if (track.mode == TrackMode.Curve)
+            {
+                track.workedTracks.Add(this.curve.howManyPathsAway);
+            }
+        }
+
+
         //Section Manual and Auto buttons on right side
         private void btnSectionMasterManual_Click(object sender, EventArgs e)
         {
             //System.Media.SystemSounds.Asterisk.Play();
-            if (sounds.isSectionsSoundOn) sounds.sndSectionOff.Play();
+            if (sounds.isSectionsSoundOn && (!mc.isSteerWorkSwitchEnabled || !mc.isSteerWorkSwitchManualSections))
+                sounds.sndSectionOff.Play();
 
             //if Auto is on, turn it off
             autoBtnState = btnStates.Off;
@@ -33,6 +52,10 @@ namespace AgOpenGPS
                 case btnStates.Off:
                     manualBtnState = btnStates.On;
                     btnSectionMasterManual.Image = Properties.Resources.ManualOn;
+
+                    //add current track when it doesn't exist in the worked track list
+                    MarkAsWorkedTrack();
+
                     break;
 
                 case btnStates.On:
@@ -60,14 +83,20 @@ namespace AgOpenGPS
 
                     autoBtnState = btnStates.Auto;
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOn;
-                    if (sounds.isSectionsSoundOn) sounds.sndSectionOn.Play();
+                    if (sounds.isSectionsSoundOn && (!mc.isSteerWorkSwitchEnabled || !mc.isSteerWorkSwitchManualSections))
+                        sounds.sndSectionOn.Play();
+
+                    //add current track when it doesn't exist in the worked track list
+                    MarkAsWorkedTrack();
+
                     break;
 
                 case btnStates.Auto:
 
                     autoBtnState = btnStates.Off;
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-                    if (sounds.isSectionsSoundOn) sounds.sndSectionOn.Play();
+                    if (sounds.isSectionsSoundOn && (!mc.isSteerWorkSwitchEnabled || !mc.isSteerWorkSwitchManualSections))
+                        sounds.sndSectionOn.Play();
                     break;
             }
 
@@ -111,7 +140,6 @@ namespace AgOpenGPS
             IndividualSectionAndButonToState(state, sectionX - 1, (Button)sender);
         }
 
-
         //Section buttons************************8
         public void AllSectionsAndButtonsToState(btnStates state)
         {
@@ -121,51 +149,28 @@ namespace AgOpenGPS
             }
         }
 
-        private void IndividualSectionAndButonToState(btnStates state, int sectNumber, Button btn)
+        private void SetColors(Button button, btnStates state)
         {
-            section[sectNumber].sectionBtnState = state;
-
-            switch (section[sectNumber].sectionBtnState)
+            switch (state)
             {
                 case btnStates.Off:
-                    if (isDay)
-                    {
-                        btn.ForeColor = Color.Black;
-                        btn.BackColor = Color.Red;
-                    }
-                    else
-                    {
-                        btn.BackColor = Color.Crimson;
-                        btn.ForeColor = Color.White;
-                    }
+                    button.BackColor = isDay ? Color.Red : Color.Crimson;
                     break;
-
                 case btnStates.Auto:
-                    if (isDay)
-                    {
-                        btn.BackColor = Color.Lime;
-                        btn.ForeColor = Color.Black;
-                    }
-                    else
-                    {
-                        btn.BackColor = Color.ForestGreen;
-                        btn.ForeColor = Color.White;
-                    }
+                    button.BackColor = isDay ? Color.Lime : Color.ForestGreen;
                     break;
 
                 case btnStates.On:
-                    if (isDay)
-                    {
-                        btn.BackColor = Color.Yellow;
-                        btn.ForeColor = Color.Black;
-                    }
-                    else
-                    {
-                        btn.BackColor = Color.DarkGoldenrod;
-                        btn.ForeColor = Color.White;
-                    }
+                    button.BackColor = isDay ? Color.Yellow : Color.DarkGoldenrod;
                     break;
             }
+            button.ForeColor = isDay ? Color.Black : Color.White;
+        }
+
+        private void IndividualSectionAndButonToState(btnStates state, int sectNumber, Button btn)
+        {
+            section[sectNumber].sectionBtnState = state;
+            SetColors(btn, state);
         }
 
         public void HideSections()
@@ -173,6 +178,7 @@ namespace AgOpenGPS
             for (int i = 1; i <= 16; i++)
                 (this.Controls.Find("btnSection" + i.ToString() + "Man", true).First() as Button).Visible = false;
         }
+
         public void HideZones()
         {
             for (int i = 1; i <= 8; i++)
@@ -191,12 +197,15 @@ namespace AgOpenGPS
             panelSim.Top = SnapCenterMain.Top - 100; //Ajout-modification MEmprou et SPailleau
             if (issections_buttonOn) //Ajout-modification MEmprou et SPailleau
             {
+
+                //ajout max int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
                 // ajout max
                 int oglCenter = oglMain.Width / 2;
                 //fin
                 int top = 140;
 
                 int buttonMaxWidth = 360, buttonHeight = 35;
+
                 if ((Height - oglMain.Height) < 80) //max size - buttons hid
                 {
                     top = Height - 180; //Ajout-modification MEmprou et SPailleau
@@ -232,7 +241,7 @@ namespace AgOpenGPS
                         btn.Top = top;
                         if (i == 1)
                         {
-                            btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                            //ajout max  btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
                         }
                         else
                         {
@@ -245,6 +254,7 @@ namespace AgOpenGPS
                 }
             }
         }
+
         //Zone buttons ************************************
         public void AllZonesAndButtonsToState(btnStates state)
         {
@@ -270,50 +280,7 @@ namespace AgOpenGPS
             {
                 section[i].sectionBtnState = state;
             }
-
-            //update zone buttons
-            switch (state)
-            {
-                case btnStates.Auto:
-                    if (isDay)
-                    {
-                        btn.BackColor = Color.Lime;
-                        btn.ForeColor = Color.Black;
-                    }
-                    else
-                    {
-                        btn.BackColor = Color.ForestGreen;
-                        btn.ForeColor = Color.White;
-                    }
-                    break;
-
-
-                case btnStates.On:
-                    if (isDay)
-                    {
-                        btn.BackColor = Color.Yellow;
-                        btn.ForeColor = Color.Black;
-                    }
-                    else
-                    {
-                        btn.BackColor = Color.DarkGoldenrod;
-                        btn.ForeColor = Color.White;
-                    }
-                    break;
-
-                case btnStates.Off:
-                    if (isDay)
-                    {
-                        btn.ForeColor = Color.Black;
-                        btn.BackColor = Color.Red;
-                    }
-                    else
-                    {
-                        btn.BackColor = Color.Crimson;
-                        btn.ForeColor = Color.White;
-                    }
-                    break;
-            }
+            SetColors(btn, state);
         }
 
         public void LineUpAllZoneButtons()
@@ -325,12 +292,13 @@ namespace AgOpenGPS
                 return;
             }
 
-            //ajout max int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
+            //ajout max1 int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
 
             int top = 130;
             //ajout emprou
             int oglCenter = oglMain.Width / 2;
             //fin
+
             int buttonMaxWidth = 400, buttonHeight = 30;
 
 
@@ -354,8 +322,8 @@ namespace AgOpenGPS
             }
 
             //if (tool.zones == 0) return;
-            int oglButtonWidth = oglMain.Width * 3 / 5; //Ajout-modification MEmprou et SPailleau
-            int buttonWidth = Math.Min(oglButtonWidth / tool.zones,buttonMaxWidth);
+            int oglButtonWidth = oglMain.Width * 3 / 4;
+            int buttonWidth = Math.Min(oglButtonWidth / tool.zones, buttonMaxWidth);
             Size size = new System.Drawing.Size(buttonWidth, buttonHeight);
 
             for (int i = 1; i <= 8; i++)
@@ -367,13 +335,14 @@ namespace AgOpenGPS
                 if (isJobStarted)
                 {
                     btn.BackColor = Color.Red;
-                } else
+                }
+                else
                 {
                     btn.BackColor = Color.Silver;
                 }
                 if (i == 1)
                 {
-                    btn.Left = (oglCenter) - (tool.zones * btn.Size.Width) / 2;
+                    //ajout max  btn.Left = (oglCenter) - (tool.zones * btn.Size.Width) / 2;
                 }
                 else
                 {
@@ -387,53 +356,53 @@ namespace AgOpenGPS
         {
             if (tool.isSectionsNotZones)
             {
-                section[0].positionLeft = (double)Settings.Default.setSection_position1 + Settings.Default.setVehicle_toolOffset;
-                section[0].positionRight = (double)Settings.Default.setSection_position2 + Settings.Default.setVehicle_toolOffset;
+                section[0].positionLeft = (double)Properties.ToolSettings.Default.setSection_position1 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[0].positionRight = (double)Properties.ToolSettings.Default.setSection_position2 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[1].positionLeft = (double)Settings.Default.setSection_position2 + Settings.Default.setVehicle_toolOffset;
-                section[1].positionRight = (double)Settings.Default.setSection_position3 + Settings.Default.setVehicle_toolOffset;
+                section[1].positionLeft = (double)Properties.ToolSettings.Default.setSection_position2 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[1].positionRight = (double)Properties.ToolSettings.Default.setSection_position3 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[2].positionLeft = (double)Settings.Default.setSection_position3 + Settings.Default.setVehicle_toolOffset;
-                section[2].positionRight = (double)Settings.Default.setSection_position4 + Settings.Default.setVehicle_toolOffset;
+                section[2].positionLeft = (double)Properties.ToolSettings.Default.setSection_position3 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[2].positionRight = (double)Properties.ToolSettings.Default.setSection_position4 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[3].positionLeft = (double)Settings.Default.setSection_position4 + Settings.Default.setVehicle_toolOffset;
-                section[3].positionRight = (double)Settings.Default.setSection_position5 + Settings.Default.setVehicle_toolOffset;
+                section[3].positionLeft = (double)Properties.ToolSettings.Default.setSection_position4 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[3].positionRight = (double)Properties.ToolSettings.Default.setSection_position5 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[4].positionLeft = (double)Settings.Default.setSection_position5 + Settings.Default.setVehicle_toolOffset;
-                section[4].positionRight = (double)Settings.Default.setSection_position6 + Settings.Default.setVehicle_toolOffset;
+                section[4].positionLeft = (double)Properties.ToolSettings.Default.setSection_position5 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[4].positionRight = (double)Properties.ToolSettings.Default.setSection_position6 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[5].positionLeft = (double)Settings.Default.setSection_position6 + Settings.Default.setVehicle_toolOffset;
-                section[5].positionRight = (double)Settings.Default.setSection_position7 + Settings.Default.setVehicle_toolOffset;
+                section[5].positionLeft = (double)Properties.ToolSettings.Default.setSection_position6 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[5].positionRight = (double)Properties.ToolSettings.Default.setSection_position7 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[6].positionLeft = (double)Settings.Default.setSection_position7 + Settings.Default.setVehicle_toolOffset;
-                section[6].positionRight = (double)Settings.Default.setSection_position8 + Settings.Default.setVehicle_toolOffset;
+                section[6].positionLeft = (double)Properties.ToolSettings.Default.setSection_position7 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[6].positionRight = (double)Properties.ToolSettings.Default.setSection_position8 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[7].positionLeft = (double)Settings.Default.setSection_position8 + Settings.Default.setVehicle_toolOffset;
-                section[7].positionRight = (double)Settings.Default.setSection_position9 + Settings.Default.setVehicle_toolOffset;
+                section[7].positionLeft = (double)Properties.ToolSettings.Default.setSection_position8 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[7].positionRight = (double)Properties.ToolSettings.Default.setSection_position9 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[8].positionLeft = (double)Settings.Default.setSection_position9 + Settings.Default.setVehicle_toolOffset;
-                section[8].positionRight = (double)Settings.Default.setSection_position10 + Settings.Default.setVehicle_toolOffset;
+                section[8].positionLeft = (double)Properties.ToolSettings.Default.setSection_position9 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[8].positionRight = (double)Properties.ToolSettings.Default.setSection_position10 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[9].positionLeft = (double)Settings.Default.setSection_position10 + Settings.Default.setVehicle_toolOffset;
-                section[9].positionRight = (double)Settings.Default.setSection_position11 + Settings.Default.setVehicle_toolOffset;
+                section[9].positionLeft = (double)Properties.ToolSettings.Default.setSection_position10 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[9].positionRight = (double)Properties.ToolSettings.Default.setSection_position11 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[10].positionLeft = (double)Settings.Default.setSection_position11 + Settings.Default.setVehicle_toolOffset;
-                section[10].positionRight = (double)Settings.Default.setSection_position12 + Settings.Default.setVehicle_toolOffset;
+                section[10].positionLeft = (double)Properties.ToolSettings.Default.setSection_position11 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[10].positionRight = (double)Properties.ToolSettings.Default.setSection_position12 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[11].positionLeft = (double)Settings.Default.setSection_position12 + Settings.Default.setVehicle_toolOffset;
-                section[11].positionRight = (double)Settings.Default.setSection_position13 + Settings.Default.setVehicle_toolOffset;
+                section[11].positionLeft = (double)Properties.ToolSettings.Default.setSection_position12 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[11].positionRight = (double)Properties.ToolSettings.Default.setSection_position13 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[12].positionLeft = (double)Settings.Default.setSection_position13 + Settings.Default.setVehicle_toolOffset;
-                section[12].positionRight = (double)Settings.Default.setSection_position14 + Settings.Default.setVehicle_toolOffset;
+                section[12].positionLeft = (double)Properties.ToolSettings.Default.setSection_position13 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[12].positionRight = (double)Properties.ToolSettings.Default.setSection_position14 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[13].positionLeft = (double)Settings.Default.setSection_position14 + Settings.Default.setVehicle_toolOffset;
-                section[13].positionRight = (double)Settings.Default.setSection_position15 + Settings.Default.setVehicle_toolOffset;
+                section[13].positionLeft = (double)Properties.ToolSettings.Default.setSection_position14 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[13].positionRight = (double)Properties.ToolSettings.Default.setSection_position15 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[14].positionLeft = (double)Settings.Default.setSection_position15 + Settings.Default.setVehicle_toolOffset;
-                section[14].positionRight = (double)Settings.Default.setSection_position16 + Settings.Default.setVehicle_toolOffset;
+                section[14].positionLeft = (double)Properties.ToolSettings.Default.setSection_position15 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[14].positionRight = (double)Properties.ToolSettings.Default.setSection_position16 + Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-                section[15].positionLeft = (double)Settings.Default.setSection_position16 + Settings.Default.setVehicle_toolOffset;
-                section[15].positionRight = (double)Settings.Default.setSection_position17 + Settings.Default.setVehicle_toolOffset;
+                section[15].positionLeft = (double)Properties.ToolSettings.Default.setSection_position16 + Properties.ToolSettings.Default.setVehicle_toolOffset;
+                section[15].positionRight = (double)Properties.ToolSettings.Default.setSection_position17 + Properties.ToolSettings.Default.setVehicle_toolOffset;
             }
         }
 
@@ -465,8 +434,8 @@ namespace AgOpenGPS
         public void SectionCalcMulti()
         {
             double leftside = tool.width / -2.0;
-            double defaultSectionWidth = Properties.Settings.Default.setTool_sectionWidthMulti;
-            double offset = Settings.Default.setVehicle_toolOffset;
+            double defaultSectionWidth = Properties.ToolSettings.Default.setTool_sectionWidthMulti;
+            double offset = Properties.ToolSettings.Default.setVehicle_toolOffset;
             section[0].positionLeft = leftside + offset;
 
             for (int i = 0; i < tool.numOfSections - 1; i++)

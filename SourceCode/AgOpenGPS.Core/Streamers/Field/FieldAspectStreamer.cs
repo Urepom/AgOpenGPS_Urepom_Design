@@ -5,35 +5,30 @@ namespace AgOpenGPS.Core.Streamers
 {
     public abstract class FieldAspectStreamer
     {
-        protected readonly ILogger _logger;
         protected readonly string _defaultFileName;
-
         protected IFieldStreamerPresenter _presenter;
 
         public FieldAspectStreamer(
-            ILogger logger,
-            string defaultFileName)
+            string defaultFileName,
+            IFieldStreamerPresenter presenter)
         {
-            _logger = logger;
             _defaultFileName = defaultFileName;
-        }
-
-        public void SetPresenter(IFieldStreamerPresenter presenter)
-        {
             _presenter = presenter;
         }
 
-        public string FullPath(string fieldPath, string fileName = null)
+        public FileInfo GetFileInfo(DirectoryInfo fieldDirectory, string fileName = null)
         {
-            return Path.Combine(fieldPath, fileName ?? _defaultFileName);
+            return new FileInfo(Path.Combine(fieldDirectory.FullName, fileName ?? _defaultFileName));
         }
 
-        public void CreateDirectory(string fieldPath)
+        public void DeleteFile(DirectoryInfo fieldDirectory)
         {
-            if (0 < fieldPath.Length && !Directory.Exists(fieldPath))
+            FileInfo fileInfo = GetFileInfo(fieldDirectory);
+            if (fileInfo.Exists)
             {
-                Directory.CreateDirectory(fieldPath);
+                fileInfo.Delete();
             }
         }
+
     }
 }

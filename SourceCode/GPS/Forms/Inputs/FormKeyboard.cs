@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Core.Translations;
 using System;
 using System.Threading;
 using System.Windows.Forms;

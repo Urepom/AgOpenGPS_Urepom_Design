@@ -44,8 +44,6 @@ namespace AgOpenGPS
         public double positionRight = 4;
         public double sectionWidth = 0;
 
-        public double foreDistance = 0;
-
         //used by readpixel to determine color in pixel array
         public int rpSectionWidth = 0;
 
@@ -62,11 +60,10 @@ namespace AgOpenGPS
         public vec2 lastRightPoint;
 
         //whether or not this section is in boundary, headland
-        public bool isInBoundary = true, isHydLiftInWorkArea = true;
+        public bool isInBoundary = true;
 
         public bool isInHeadlandArea = true;
         public bool isLookOnInHeadland = true;
-        public int numTriangles = 0;
 
         //used to determine state of Manual section button - Off Auto On
         public btnStates sectionBtnState = btnStates.Off;

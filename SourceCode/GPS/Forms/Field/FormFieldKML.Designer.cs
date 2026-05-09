@@ -81,7 +81,6 @@
             // 
             this.btnLoadKML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoadKML.BackColor = System.Drawing.Color.Transparent;
-            this.btnLoadKML.Enabled = false;
             this.btnLoadKML.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnLoadKML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadKML.ForeColor = System.Drawing.SystemColors.ButtonFace;

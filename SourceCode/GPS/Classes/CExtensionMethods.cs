@@ -163,7 +163,6 @@ namespace AgOpenGPS
     }
 
     //fin
-
     public class NudlessNumericUpDown : NumericUpDown
     {
         public NudlessNumericUpDown()

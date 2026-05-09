@@ -1,10 +1,11 @@
-﻿using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
-using AgOpenGPS.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -14,7 +15,6 @@ namespace AgOpenGPS
         private readonly FormGPS mf;
 
         private double aveLineHeading;
-        public List<CTrk> gTemp = new List<CTrk>();
 
         private vec2 ptAa = new vec2();
         private vec2 ptBb = new vec2();
@@ -76,7 +76,7 @@ namespace AgOpenGPS
 
             mf.PanelUpdateRightAndBottom();
         }
-        
+
         #region Pick
         private void btnzABCurve_Click(object sender, EventArgs e)
         {
@@ -105,6 +105,7 @@ namespace AgOpenGPS
         {
             panelChoose.Visible = false;
             panelABLine.Visible = true;
+            btnEnter_AB.Enabled = false;
 
             btnALine.Enabled = true;
             btnBLine.Enabled = false;
@@ -166,8 +167,8 @@ namespace AgOpenGPS
             if (cnt > 3)
             {
                 //make sure point distance isn't too big 
-                mf.curve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
-                mf.curve.CalculateHeadings(ref mf.curve.desList);
+                CABCurve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
+                CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                 mf.trk.gArr.Add(new CTrk());
                 //array number is 1 less since it starts at zero
@@ -195,7 +196,7 @@ namespace AgOpenGPS
                 //build the tail extensions
                 mf.curve.AddFirstLastPoints(ref mf.curve.desList);
                 SmoothAB(4);
-                mf.curve.CalculateHeadings(ref mf.curve.desList);
+                CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                 //write out the Curve Points
                 foreach (vec3 item in mf.curve.desList)
@@ -274,13 +275,14 @@ namespace AgOpenGPS
         {
             mf.ABLine.isMakingABLine = true;
             btnALine.Enabled = false;
+            btnEnter_AB.Enabled = false;
 
             mf.ABLine.desPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
             mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1);
             mf.ABLine.desPtB.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1);
 
-            mf.ABLine.desLineEndA.easting =  mf.ABLine.desPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
+            mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
             mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1000);
 
             mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1000);
@@ -290,8 +292,6 @@ namespace AgOpenGPS
 
             btnBLine.Enabled = true;
             btnALine.Enabled = false;
-
-            btnEnter_AB.Enabled = true;
             mf.Activate();
         }
 
@@ -300,6 +300,7 @@ namespace AgOpenGPS
             timer1.Enabled = false;
             mf.ABLine.desPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
             btnBLine.BackColor = System.Drawing.Color.Teal;
+            btnEnter_AB.Enabled = true;
 
             mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
                mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
@@ -329,8 +330,8 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
-            
+                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+
             textBox1.Text = mf.ABLine.desName;
             mf.trk.gArr[idx].name = mf.ABLine.desName;
 
@@ -398,7 +399,7 @@ namespace AgOpenGPS
 
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
-           
+
             nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
             timer1.Enabled = true;
             mf.Activate();
@@ -423,7 +424,7 @@ namespace AgOpenGPS
                 mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 1000);
                 mf.ABLine.desLineEndB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 1000);
             }
-        mf.Activate();
+            mf.Activate();
         }
 
         private void btnEnter_APlus_Click(object sender, EventArgs e)
@@ -443,7 +444,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+" +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 " ;
+                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -505,12 +506,12 @@ namespace AgOpenGPS
 
             mf.curve.desList?.Clear();
 
-            mf.FileSaveTracks();
+            if (!mf.isEasyDriveMode) mf.FileSaveTracks();
 
             if (mf.isBtnAutoSteerOn)
             {
                 mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, "Return From Editing");
+                FormDialog.Show(gStr.gsGuidanceStopped, "Return From Editing", DialogSeverity.Info);
 
             }
             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();

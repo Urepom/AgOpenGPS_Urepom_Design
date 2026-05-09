@@ -1,4 +1,5 @@
-﻿using AgIO.Properties;
+using AgIO.Forms;
+using AgIO.Properties;
 using AgLibrary.Logging;
 using System;
 using System.Diagnostics;
@@ -78,7 +79,7 @@ namespace AgIO
                     isRadio_RequiredOn = Properties.Settings.Default.setRadio_isOn;
                     lblWatch.Text = "Waiting";
                     lblNTRIP_IP.Text = "--";
-                    lblMount.Text= "--";
+                    lblMount.Text = "--";
                 }
             }
             else
@@ -145,7 +146,15 @@ namespace AgIO
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Close();
+            using (var dlg = new FormYes("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true))
+            {
+                var result = dlg.ShowDialog(this);
+
+                if (result == DialogResult.OK)
+                {
+                    Close();
+                }
+            }
         }
 
         private void btnRadio_Click(object sender, EventArgs e)
@@ -189,12 +198,6 @@ namespace AgIO
         #endregion
 
         #region CheckBoxes
-        private void cboxAutoRunGPS_Out_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
-            Properties.Settings.Default.Save();
-        }
-
         private void cboxIsSteerModule_Click(object sender, EventArgs e)
         {
             isConnectedSteer = cboxIsSteerModule.Checked;
@@ -206,14 +209,6 @@ namespace AgIO
             isConnectedMachine = cboxIsMachineModule.Checked;
             SetModulesOnOff();
         }
-
-        //Ajout-modification MEmprou et SPailleau Fertilisatio
-        private void cboxIsFertiModule_Click(object sender, EventArgs e)
-        {
-            isConnectedFerti = cboxIsFertiModule.Checked;
-            SetModulesOnOff();
-        }
-        //FIN
 
         private void cboxIsIMUModule_Click(object sender, EventArgs e)
         {
@@ -242,9 +237,44 @@ namespace AgIO
             ShowSerialMonitor();
         }
 
+        private void toolStripAgDiag_Click(object sender, EventArgs e)
+        {
+            Process[] processName = Process.GetProcessesByName("AgDiag");
+            if (processName.Length == 0)
+            {
+                //Start application here
+                string strPath = Path.Combine(Application.StartupPath, "AgDiag.exe");
+
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strPath;
+                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    Process proc = Process.Start(processInfo);
+                }
+                catch
+                {
+                    TimedMessageBox(2000, "No File Found", "Can't Find AgDiag");
+                    Log.EventWriter("Catch -> Failed to load AgDiag - Not Found");
+                }
+            }
+            else
+            {
+                //Set foreground window
+                ShowWindow(processName[0].MainWindowHandle, 9);
+                SetForegroundWindow(processName[0].MainWindowHandle);
+            }
+        }
+
         private void deviceManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("devmgmt.msc");
+        }
+
+
+        private void isobusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowISOBUS();
         }
 
         private void serialPassThroughToolStripMenuItem_Click(object sender, EventArgs e)
@@ -274,10 +304,17 @@ namespace AgIO
                     ////Clicked Save
                     //Application.Restart();
                     //Environment.Exit(0);
+                    Settings.Default.Save();
                 }
             }
         }
-
+        private void toolStripSettings_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormAdvancedSettings())
+            {
+                form.ShowDialog(this);
+            }
+        }
         private void toolStripMenuProfiles_Click(object sender, EventArgs e)
         {
             if (RegistrySettings.profileName == "")
@@ -291,11 +328,11 @@ namespace AgIO
                 if (form.DialogResult == DialogResult.Yes)
                 {
                     Log.EventWriter("Program Reset: Saving or Selecting Profile");
-                    
+
                     Program.Restart();
                 }
             }
-            this.Text = "AgIO  v" + Program.Version + "   Using Profile: " 
+            this.Text = "AgIO  v" + Program.Version + "   Using Profile: "
                 + RegistrySettings.profileName;
         }
 
@@ -334,24 +371,6 @@ namespace AgIO
             SettingsEthernet();
         }
 
-        private void toolStripGPSData_Click(object sender, EventArgs e)
-        {
-            Form f = Application.OpenForms["FormGPSData"];
-
-            if (f != null)
-            {
-                f.Focus();
-                f.Close();
-                isGPSSentencesOn = false;
-                return;
-            }
-
-            isGPSSentencesOn = true;
-
-            Form form = new FormGPSData(this);
-            form.Show(this);
-        }
-
         #endregion
 
         public void ShowUDPMonitor()
@@ -364,6 +383,11 @@ namespace AgIO
         {
             var form = new FormSerialMonitor(this);
             form.Show(this);
+        }
+
+        public void ShowISOBUS()
+        {
+            isobusForm.Show(this);
         }
 
         private void SettingsCommunicationGPS()
@@ -408,6 +432,7 @@ namespace AgIO
                     {
                         SettingsShutDownNTRIP();
                     }
+                    Settings.Default.Save();
                 }
             }
         }
@@ -436,7 +461,10 @@ namespace AgIO
 
             using (var form = new FormRadio(this))
             {
-                form.ShowDialog(this);
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Settings.Default.Save();
+                }
             }
         }
 
@@ -508,8 +536,7 @@ namespace AgIO
 
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem toolStripMenuProfiles;
-        private ToolStripMenuItem deviceManagerToolStripMenuItem;
-        private CheckBox cboxIsFertiModule;
-        private Button btnFerti;
+        private readonly FormISOBUS isobusForm = new FormISOBUS();
+        private ToolStripMenuItem isobusToolStripMenuItem;
     }
 }

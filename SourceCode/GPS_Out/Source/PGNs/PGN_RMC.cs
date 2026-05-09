@@ -58,7 +58,7 @@ namespace GPS_Out
             lat = Math.Abs(lat);
             cSentence += "," + ((int)lat).ToString("D2");
             double Mins = (double)(lat - (int)lat) * 60.0;
-            cSentence += Mins.ToString("00.0000000", CultureInfo.InvariantCulture);
+            cSentence += Mins.ToString(Properties.Settings.Default.SentencePrecisionFormat, CultureInfo.InvariantCulture);
             cSentence += NS;
 
             string EW = ",E";
@@ -66,7 +66,7 @@ namespace GPS_Out
             lon = Math.Abs(lon);
             cSentence += "," + ((int)lon).ToString("D3");
             Mins = (double)(lon - (int)lon) * 60.0;
-            cSentence += Mins.ToString("00.0000000", CultureInfo.InvariantCulture);
+            cSentence += Mins.ToString(Properties.Settings.Default.SentencePrecisionFormat, CultureInfo.InvariantCulture);
             cSentence += EW;
 
             double knots = mf.AGIOdata.Speed * 0.5399568;

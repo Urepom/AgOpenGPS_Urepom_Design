@@ -32,8 +32,8 @@
             this.lblMax = new System.Windows.Forms.Label();
             this.lblMin = new System.Windows.Forms.Label();
             this.keypad1 = new Keypad.NumKeypad();
-            this.btnDistanceUp = new ProXoft.WinForms.RepeatButton();
-            this.btnDistanceDn = new ProXoft.WinForms.RepeatButton();
+            this.btnDistanceUp = new AgLibrary.Controls.RepeatButton();
+            this.btnDistanceDn = new AgLibrary.Controls.RepeatButton();
             this.SuspendLayout();
             // 
             // tboxNumber
@@ -125,6 +125,7 @@
             this.Controls.Add(this.lblMin);
             this.Controls.Add(this.lblMax);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormNumeric";
@@ -142,7 +143,7 @@
         private Keypad.NumKeypad keypad1;
         private System.Windows.Forms.Label lblMax;
         private System.Windows.Forms.Label lblMin;
-        private ProXoft.WinForms.RepeatButton btnDistanceUp;
-        private ProXoft.WinForms.RepeatButton btnDistanceDn;
+        private AgLibrary.Controls.RepeatButton btnDistanceUp;
+        private AgLibrary.Controls.RepeatButton btnDistanceDn;
     }
 }

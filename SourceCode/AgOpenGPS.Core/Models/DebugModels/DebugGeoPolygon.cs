@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public  class DebugGeoPolygon : GeoPolygon
+    public class DebugGeoPolygon : GeoPolygon
     {
         private readonly GeoPolygon _goldenPolygon;
         private DebugGeoPolygon()

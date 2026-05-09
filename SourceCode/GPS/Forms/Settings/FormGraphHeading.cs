@@ -102,64 +102,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnAuto_Click(object sender, EventArgs e)
-        {
-            unoChart.ChartAreas[0].AxisY.Maximum = Double.NaN;
-            unoChart.ChartAreas[0].AxisY.Minimum = Double.NaN;
-            unoChart.ChartAreas[0].RecalculateAxesScale();
-            unoChart.ResetAutoValues();
-        }
-
-        private void btnPlus_Click(object sender, EventArgs e)
-        {
-            if (Math.Abs(unoChart.ChartAreas[0].AxisY.Minimum) > Math.Abs(unoChart.ChartAreas[0].AxisY.Maximum))
-                unoChart.ChartAreas[0].AxisY.Maximum = Math.Abs(unoChart.ChartAreas[0].AxisY.Minimum);
-            else unoChart.ChartAreas[0].AxisY.Minimum = Math.Abs(unoChart.ChartAreas[0].AxisY.Maximum) * -1;
-            unoChart.ChartAreas[0].AxisY.Minimum *= 1.5;
-            unoChart.ChartAreas[0].AxisY.Maximum *= 1.5;
-
-            unoChart.ChartAreas[0].AxisY.Minimum = (int)unoChart.ChartAreas[0].AxisY.Minimum;
-            unoChart.ChartAreas[0].AxisY.Maximum = (int)unoChart.ChartAreas[0].AxisY.Maximum;
-
-            unoChart.ResetAutoValues();
-        }
-
-        private void btnMinus_Click(object sender, EventArgs e)
-        {
-            if (Math.Abs(unoChart.ChartAreas[0].AxisY.Minimum) > Math.Abs(unoChart.ChartAreas[0].AxisY.Maximum))
-                unoChart.ChartAreas[0].AxisY.Maximum = Math.Abs(unoChart.ChartAreas[0].AxisY.Minimum);
-            else unoChart.ChartAreas[0].AxisY.Minimum = Math.Abs(unoChart.ChartAreas[0].AxisY.Maximum) * -1;
-
-            unoChart.ChartAreas[0].AxisY.Minimum *= 0.75;
-            unoChart.ChartAreas[0].AxisY.Maximum *= 0.75;
-
-            if (unoChart.ChartAreas[0].AxisY.Maximum <= 10)
-            {
-                unoChart.ChartAreas[0].AxisY.Maximum = 10;
-                unoChart.ChartAreas[0].AxisY.Minimum = -10;
-            }
-
-            unoChart.ChartAreas[0].AxisY.Minimum = (int)unoChart.ChartAreas[0].AxisY.Minimum;
-            unoChart.ChartAreas[0].AxisY.Maximum = (int)unoChart.ChartAreas[0].AxisY.Maximum;
-
-            unoChart.ResetAutoValues();
-        }
-
-        private void btnScroll_Click(object sender, EventArgs e)
-        {
-            isScroll = !isScroll;
-        }
-
-        private void btnZero_Click(object sender, EventArgs e)
-        {
-            //roond = (int)(mf.fixedEasting);
-        }
-
         private void label1_Click(object sender, EventArgs e)
         {
         }

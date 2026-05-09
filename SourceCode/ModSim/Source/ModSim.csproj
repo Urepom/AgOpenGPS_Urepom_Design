@@ -1,19 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <OutputPath>..\..\..\AgOpenGPS\</OutputPath>
+    <PublishDir>..\..\..\AgOpenGPS\</PublishDir>
     <ApplicationIcon>ModSim_ico.ico</ApplicationIcon>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <EmbeddedResourceUseDependentUponConvention>true</EmbeddedResourceUseDependentUponConvention>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
   </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.6.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Forms\Controls.Designer.cs">
+      <DependentUpon>FormSim.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Forms\UDP.Designer.cs">
+      <DependentUpon>FormSim.cs</DependentUpon>
+    </Compile>
     <Compile Update="gStr.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -46,4 +59,5 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+
 </Project>

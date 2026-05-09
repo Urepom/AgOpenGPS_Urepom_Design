@@ -1,14 +1,14 @@
-﻿using System;
+using AgLibrary.Logging;
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
+using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Globalization;
-using System.Diagnostics;
-using System.Xml.Linq;
-using AgOpenGPS.Culture;
-using System.Text;
-using AgLibrary.Logging;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -71,13 +71,13 @@ namespace AgOpenGPS
 
                             if (Lon != double.MaxValue && Lat != double.MaxValue)
                             {
-                                if (timerSim.Enabled)
-                                    DisableSim();
+                                if (timerSim.Enabled) DisableSim();
 
-                                pn.longitude = Lon;
-                                pn.latitude = Lat;
+                                AppModel.CurrentLatLon = new Wgs84(Lat, Lon);
 
-                                pn.ConvertWGS84ToLocal(Lat, Lon, out pn.fix.northing, out pn.fix.easting);
+                                GeoCoord fixCoord = AppModel.LocalPlane.ConvertWgs84ToGeoCoord(AppModel.CurrentLatLon);
+                                pn.fix.northing = fixCoord.Northing;
+                                pn.fix.easting = fixCoord.Easting;
 
                                 //From dual antenna heading sentences
                                 float temp = BitConverter.ToSingle(data, 21);
@@ -108,7 +108,7 @@ namespace AgOpenGPS
                                     ahrs.imuRoll = temp - ahrs.rollZero;
                                 }
                                 if (temp == float.MinValue)
-                                    ahrs.imuRoll = 0;                               
+                                    ahrs.imuRoll = 0;
 
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
@@ -175,13 +175,13 @@ namespace AgOpenGPS
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
-                            
+
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
                             if (ahrs.isRollInvert) rollK *= -0.1;
                             else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;                           
+                            rollK -= ahrs.rollZero;
                             ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
 
                             //Angular velocity
@@ -240,8 +240,17 @@ namespace AgOpenGPS
 
                             break;
                         }
+
+                    case 0xF0: // ISOBUS heartbeat
+                        {
+                            int length = data[4];
+                            byte[] pgnData = new byte[length];
+                            Array.Copy(data, 5, pgnData, 0, length);
+                            isobus.DeserializeHeartbeat(pgnData);
+                            break;
+                        }
                     //Ajout-modification MEmprou et SPailleau Fertilisation
-                    case 0xF0: //ferti
+                    case 0xCF: //ferti
                         {
 
                             Débit_Pompe_Ferti = (Int16)((data[6] << 8) + data[5]);
@@ -259,7 +268,7 @@ namespace AgOpenGPS
                         }
 
                     case 221: // DD
-                        {                    
+                        {
                             //{ 0x80, 0x81, 0x7f, 221, number bytes, seconds to display, mystery byte, 98,99,100,101, CRC };
                             if (data.Length < 9) break;
 
@@ -288,16 +297,16 @@ namespace AgOpenGPS
                             if (data.Length < 6) break;
                             if (((data[5] & 1) == 1)) //mask bit #0 set and command bit #0 nudge line to the 0 = left 1 = right
                             {
-                                double dist = Properties.Settings.Default.setAS_snapDistance * 0.01;
+                                double dist = Properties.ToolSettings.Default.setAS_snapDistance * 0.01;
                                 if ((data[6] & 1) != 1) { trk.NudgeTrack(-dist); }
                                 if ((data[6] & 1) == 1) { trk.NudgeTrack(dist); }
                             }
                             if (((data[5] & 2) == 2)) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
                             {
-                                if ((data[6] & 1) != 1) {  btnCycleLines.PerformClick(); }
-                               //ajout memprou if ((data[6] & 1) == 1) { btnCycleLinesBk.PerformClick(); }
+                                if ((data[6] & 1) != 1) { btnCycleLines.PerformClick(); }
+                                //ajout max if ((data[6] & 1) == 1) { btnCycleLinesBk.PerformClick(); }
                             }
-                           
+
                             break;
                         }
 
@@ -315,7 +324,7 @@ namespace AgOpenGPS
 
                             break;
                         }
-                     #endregion
+                        #endregion
                 }
             }
         }
@@ -335,7 +344,10 @@ namespace AgOpenGPS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Load Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormDialog.Show(
+                    "UDP Server",
+                    "Load Error: " + ex.Message,
+                    DialogSeverity.Error);
                 Log.EventWriter("Catch -> Load UDP Loopback Error: " + ex.ToString());
             }
         }
@@ -472,208 +484,255 @@ namespace AgOpenGPS
         }
 
         #region keystrokes
-        //keystrokes for easy and quick startup
+
+        private HotkeyMessageFilter _hotkeyFilter;
+        private bool _uiReady = false; // becomes true once FormGPS UI is fully shown/ready
+
+        /// <summary>
+        /// Called by the app-wide message filter to forward keystrokes to the existing mapping logic.
+        /// We strip modifiers to keep your (char)keyData comparisons working, and ignore keys until UI is ready.
+        /// </summary>
+        public bool HandleAppWideKey(Keys key, Keys mods)
+        {
+            if (!_uiReady) return false; // ignore while Terms&Conditions or before FormGPS is ready
+
+            // Use only the key code (drop modifiers) so your mappings still match
+            var keyData = (key & Keys.KeyCode);
+
+            // ProcessCmdKey reads only keyData; the Message payload is irrelevant here
+            var msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);
+            return ProcessCmdKey(ref msg, keyData);
+        }
+
+        /// <summary>
+        /// Register the message filter once when the handle exists. Keep it disabled until the UI is ready.
+        /// </summary>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            if (_hotkeyFilter == null)
+            {
+                _hotkeyFilter = new HotkeyMessageFilter(this)
+                {
+                    // Keep the filter disabled until FormGPS is fully shown,
+                    // to avoid calling ProcessCmdKey before controls are initialized.
+                    Enabled = false
+                };
+                Application.AddMessageFilter(_hotkeyFilter);
+            }
+        }
+
+        /// <summary>
+        /// Mark UI as ready and enable the filter once the form is shown (after Load/InitializeComponent).
+        /// </summary>
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            _uiReady = true;
+            if (_hotkeyFilter != null) _hotkeyFilter.Enabled = true;
+        }
+
+        /// <summary>
+        /// Clean up the message filter when closing the form.
+        /// </summary>
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (_hotkeyFilter != null)
+            {
+                Application.RemoveMessageFilter(_hotkeyFilter);
+                _hotkeyFilter.Dispose();
+                _hotkeyFilter = null;
+            }
+            base.OnFormClosed(e);
+        }
+
+        /// <summary>
+        /// Existing key mapping logic. Now guarded so it only runs when UI is ready and hotkeys exist.
+        /// </summary>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if ((char)keyData == hotkeys[0]) //autosteer button on off
+            // Guard clauses: do not handle until initialized / prevent NREs during early dialogs
+            if (!_uiReady || hotkeys == null || hotkeys.Length < 19)
+                return base.ProcessCmdKey(ref msg, keyData);
+
+            if ((char)keyData == hotkeys[0]) // autosteer button on/off
             {
                 btnAutoSteer.PerformClick();
                 if (!isBtnAutoSteerOn) TimedMessageBox(2000, gStr.gsGuidanceStopped, "Hotkey Triggered");
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == hotkeys[1]) //open the steer chart
+            if ((char)keyData == hotkeys[1]) // cycle lines
             {
                 btnCycleLines.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == hotkeys[2])
+            if ((char)keyData == hotkeys[2]) // save & close field
             {
-                FileSaveEverythingBeforeClosingField();
-                return true;    // indicate that you handled this keystroke
+                _ = FileSaveEverythingBeforeClosingField();
+                return true;
             }
 
-            if ((char)keyData == hotkeys[3]) // Flag click
+            if ((char)keyData == hotkeys[3]) // new flag
             {
                 btnFlag.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == hotkeys[4]) //auto section on off
+            if ((char)keyData == hotkeys[4]) // section master manual
             {
                 btnSectionMasterManual.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == hotkeys[5]) //auto section on off
+            if ((char)keyData == hotkeys[5]) // section master auto
             {
                 btnSectionMasterAuto.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == hotkeys[6]) // Snap/Prioritu click
+            if ((char)keyData == hotkeys[6]) // snap to pivot
             {
                 trk.SnapToPivot();
-                return true;    // indicate that you handled this keystroke
-            }
-
-            if ((char)keyData == hotkeys[7])
-            {
-                if (trk.idx > -1) //
-                {
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * -0.01);
-                }
                 return true;
             }
 
-            if ((char)keyData == hotkeys[8])
+            if ((char)keyData == hotkeys[7]) // nudge track left
             {
                 if (trk.idx > -1)
-                {
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * 0.01);
-                }
+                    trk.NudgeTrack((double)Properties.ToolSettings.Default.setAS_snapDistance * -0.01);
                 return true;
             }
 
-            if ((char)keyData == (hotkeys[9])) //open the vehicle Settings
+            if ((char)keyData == hotkeys[8]) // nudge track right
             {
-                toolStripConfig.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                if (trk.idx > -1)
+                    trk.NudgeTrack((double)Properties.ToolSettings.Default.setAS_snapDistance * 0.01);
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[10])) // Wizard
+            if ((char)keyData == hotkeys[9]) // vehicle settings
+            {
+                toolStripConfig.PerformClick();
+                return true;
+            }
+
+            if ((char)keyData == hotkeys[10]) // steer wizard
             {
                 Form fcs = Application.OpenForms["FormSteer"];
+                if (fcs != null) { fcs.Focus(); fcs.Close(); }
 
-                if (fcs != null)
-                {
-                    fcs.Focus();
-                    fcs.Close();
-                }
-
-                //check if window already exists
                 Form fc = Application.OpenForms["FormSteerWiz"];
+                if (fc != null) { fc.Focus(); return true; }
 
-                if (fc != null)
-                {
-                    fc.Focus();
-                    //fc.Close();
-                    return true;
-                }
-
-                //
                 Form form = new FormSteerWiz(this);
                 form.Show(this);
             }
 
-            if ((char)keyData == (hotkeys[11])) //section or zone button
+            if ((char)keyData == hotkeys[11]) // section/zone 1
             {
                 if (tool.isSectionsNotZones) btnSection1Man.PerformClick();
                 else btnZone1.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[12])) //section or zone button
+            if ((char)keyData == hotkeys[12]) // section/zone 2
             {
                 if (tool.isSectionsNotZones) btnSection2Man.PerformClick();
                 else btnZone2.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[13])) //section or zone button
+            if ((char)keyData == hotkeys[13]) // section/zone 3
             {
                 if (tool.isSectionsNotZones) btnSection3Man.PerformClick();
                 else btnZone3.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[14])) //section or zone button
+            if ((char)keyData == hotkeys[14]) // section/zone 4
             {
                 if (tool.isSectionsNotZones) btnSection4Man.PerformClick();
                 else btnZone4.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[15])) //section or zone button
+            if ((char)keyData == hotkeys[15]) // section/zone 5
             {
                 if (tool.isSectionsNotZones) btnSection5Man.PerformClick();
                 else btnZone5.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[16])) //section or zone button
+            if ((char)keyData == hotkeys[16]) // section/zone 6
             {
                 if (tool.isSectionsNotZones) btnSection6Man.PerformClick();
                 else btnZone6.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[17])) //section or zone button
+            if ((char)keyData == hotkeys[17]) // section/zone 7
             {
                 if (tool.isSectionsNotZones) btnSection7Man.PerformClick();
                 else btnZone7.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if ((char)keyData == (hotkeys[18])) //section or zone button
+            if ((char)keyData == hotkeys[18]) // section/zone 8
             {
                 if (tool.isSectionsNotZones) btnSection8Man.PerformClick();
                 else btnZone8.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
             //////////////////////////////////////////////
 
-            if (keyData == (Keys.NumPad1)) //auto section on off
+            if (keyData == Keys.NumPad1) // section master auto
             {
                 btnSectionMasterAuto.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if (keyData == (Keys.NumPad0)) //auto section on off
+            if (keyData == Keys.NumPad0) // section master manual
             {
                 btnSectionMasterManual.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            if (keyData == (Keys.F11)) // Full Screen click
+            if (keyData == Keys.F11) // fullscreen
             {
                 btnMaximizeMainForm.PerformClick();
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-
-            //reset Sim
+            // reset sim
             if (keyData == Keys.R)
             {
                 btnResetSim.PerformClick();
                 return true;
             }
 
-            //UTurn
+            // U-Turn
             if (keyData == Keys.U)
             {
                 sim.headingTrue += Math.PI;
                 ABLine.isABValid = false;
                 curve.isCurveValid = false;
-                if (isBtnAutoSteerOn)
-                {
-                    btnAutoYouTurn.PerformClick();
-                }
+                if (isBtnAutoSteerOn) btnAutoYouTurn.PerformClick();
             }
 
-            //speed up
+            // speed up
             if (keyData == Keys.Up)
             {
                 if (sim.stepDistance < 0.4 && sim.stepDistance > -0.36) sim.stepDistance += 0.01;
-                else 
-                    sim.stepDistance += 0.04;
+                else sim.stepDistance += 0.04;
                 if (sim.stepDistance > 4) sim.stepDistance = 4;
                 return true;
             }
 
-            //slow down
+            // slow down
             if (keyData == Keys.Down)
             {
                 if (sim.stepDistance < 0.2 && sim.stepDistance > -0.04) sim.stepDistance -= 0.01;
@@ -682,14 +741,14 @@ namespace AgOpenGPS
                 return true;
             }
 
-            //Stop
+            // stop
             if (keyData == Keys.OemPeriod)
             {
                 sim.stepDistance = 0;
                 return true;
             }
 
-            //turn right
+            // turn right
             if (keyData == Keys.Right)
             {
                 sim.steerAngle += 1.0;
@@ -701,7 +760,7 @@ namespace AgOpenGPS
                 return true;
             }
 
-            //turn left
+            // turn left
             if (keyData == Keys.Left)
             {
                 sim.steerAngle -= 1.0;
@@ -713,7 +772,7 @@ namespace AgOpenGPS
                 return true;
             }
 
-            //zero steering
+            // zero steering
             if (keyData == Keys.OemQuestion)
             {
                 sim.steerAngle = 0.0;
@@ -741,21 +800,21 @@ namespace AgOpenGPS
                 return true;
             }
 
-            if (keyData == (Keys.F6)) // Fast/Normal Sim
+            if (keyData == Keys.F6) // toggle fast/normal sim
             {
                 if (timerSim.Enabled)
                 {
                     if (timerSim.Interval < 20) timerSim.Interval = 93;
                     else timerSim.Interval = 15;
                 }
-
-                return true;    // indicate that you handled this keystroke
+                return true;
             }
 
-            // Call the base class
+            // Fallback: let base handle anything else
             return base.ProcessCmdKey(ref msg, keyData);
         }
         #endregion
+
 
         #region Gesture
 

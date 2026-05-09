@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Core.Translations;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -52,56 +52,15 @@ namespace AgOpenGPS
             else
             {
                 tab1.SelectedTab = tabSummary;
-                if (mf.config_tool == false) //Ajout-modification MEmprou et SPailleau
-                {
-                    subMenu.Visible = false;
-                } //fin
+                subMenu.Visible = false;
             }
         }
 
         private void UpdateSummary()
         {
-            lblSumWheelbase.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_wheelbase * mf.m2InchOrCm).ToString("N0") :
-                (Properties.Settings.Default.setVehicle_wheelbase * mf.m2InchOrCm).ToString("N0"))
-                + mf.unitsInCm;
-
-            lblSumNumSections.Text = mf.tool.numOfSections.ToString();
-
-            string snapDist = mf.isMetric ?
-                Properties.Settings.Default.setAS_snapDistance.ToString() :
-                (Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn).ToString("N1");
-
-            lblNudgeDistance.Text = snapDist + mf.unitsInCm.ToString();
-            lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
-
-            labelCurrentVehicle.Text = gStr.gsCurrent + ": "+ RegistrySettings.vehicleFileName;
-            lblSummaryVehicleName.Text = labelCurrentVehicle.Text;
-
-            lblTramWidth.Text = mf.isMetric ?
-                ((Properties.Settings.Default.setTram_tramWidth).ToString() + " m") :
-                ConvertMeterToFeet(Properties.Settings.Default.setTram_tramWidth);
-
-            lblToolOffset.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_toolOffset * mf.m2InchOrCm).ToString() :
-                (Properties.Settings.Default.setVehicle_toolOffset * mf.m2InchOrCm).ToString("N1")) +
-                mf.unitsInCm;
-
-            lblOverlap.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_toolOverlap * mf.m2InchOrCm).ToString() :
-                (Properties.Settings.Default.setVehicle_toolOverlap * mf.m2InchOrCm).ToString("N1")) +
-                mf.unitsInCm;
-
-            lblLookahead.Text = Properties.Settings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
-        }
-
-        public string ConvertMeterToFeet(double meter)
-        {
-            double toFeet = meter * 3.28;
-            string feetInch = Convert.ToString((int)toFeet) + "' ";
-            double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
-            feetInch += Convert.ToString(temp) + '"';
-            return feetInch;
+            configSummaryControl.UpdateSummary(mf);
+            labelCurrentVehicle.Text = "Vehicle: " + RegistrySettings.vehicleProfileName;
+            labelCurrentTool.Text = "Tool: " + RegistrySettings.toolProfileName;
         }
 
         #region No Sub menu Buttons
@@ -181,7 +140,6 @@ namespace AgOpenGPS
             ShowSubMenu(panelVehicleSubMenu, btnVehicle);
             btnSubVehicleType.BackColor = SystemColors.GradientActiveCaption;
             UpdateSummary();
-            UpdateVehicleListView();
         }
 
         private void ClearVehicleSubBackgrounds()
@@ -225,8 +183,7 @@ namespace AgOpenGPS
         private void btnTool_Click(object sender, EventArgs e)
         {
             ShowSubMenu(panelToolSubMenu, btnTool);
-            btnSubToolType.BackColor=SystemColors.GradientActiveCaption;
-            UpdateVehicleListView();
+            btnSubToolType.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void ClearToolSubBackgrounds()
@@ -251,7 +208,7 @@ namespace AgOpenGPS
         {
             ClearToolSubBackgrounds();
             tab1.SelectedTab = tabTHitch;
-            btnSubHitch.BackColor= SystemColors.GradientActiveCaption;
+            btnSubHitch.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void btnSubToolOffset_Click
@@ -273,14 +230,14 @@ namespace AgOpenGPS
         {
             ClearToolSubBackgrounds();
             tab1.SelectedTab = tabTSections;
-            btnSubSections.BackColor= SystemColors.GradientActiveCaption;
+            btnSubSections.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void btnSubSwitches_Click(object sender, EventArgs e)
         {
             ClearToolSubBackgrounds();
             tab1.SelectedTab = tabTSwitches;
-            btnSubSwitches .BackColor = SystemColors.GradientActiveCaption;
+            btnSubSwitches.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void btnSubToolSettings_Click(object sender, EventArgs e)
@@ -301,22 +258,21 @@ namespace AgOpenGPS
         private void btnDataSources_Click(object sender, EventArgs e)
         {
             ShowSubMenu(panelDataSourcesSubMenu, btnDataSources);
-            btnSubHeading.BackColor=SystemColors.GradientActiveCaption;
-            UpdateVehicleListView();
+            btnSubHeading.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void btnSubHeading_Click(object sender, EventArgs e)
         {
             ClearDataSubBackgrounds();
             tab1.SelectedTab = tabDHeading;
-            btnSubHeading.BackColor=SystemColors.GradientActiveCaption;
+            btnSubHeading.BackColor = SystemColors.GradientActiveCaption;
         }
 
         private void btnSubRoll_Click(object sender, EventArgs e)
         {
             ClearDataSubBackgrounds();
             tab1.SelectedTab = tabDRoll;
-            btnSubRoll.BackColor=SystemColors.GradientActiveCaption;
+            btnSubRoll.BackColor = SystemColors.GradientActiveCaption;
         }
 
         #endregion
@@ -332,7 +288,6 @@ namespace AgOpenGPS
         {
             ShowSubMenu(panelArduinoSubMenu, btnArduino);
             btnMachineModule.BackColor = SystemColors.GradientActiveCaption;
-            UpdateVehicleListView();
         }
 
         private void btnMachineModule_Click(object sender, EventArgs e)
@@ -346,7 +301,7 @@ namespace AgOpenGPS
         {
             ClearMachineSubBackgrounds();
             tab1.SelectedTab = tabRelay;
-            btnMachineRelay.BackColor= SystemColors.GradientActiveCaption;
+            btnMachineRelay.BackColor = SystemColors.GradientActiveCaption;
         }
         #endregion
     }

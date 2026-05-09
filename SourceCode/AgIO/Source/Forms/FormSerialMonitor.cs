@@ -16,7 +16,6 @@ namespace AgIO
         public static string portName = "***";
         public static int baudRate = 115200;
 
-        public string recvSentence = "GPS";
         public SerialPort sp = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
         private readonly Dispatcher _dispatcher;
 

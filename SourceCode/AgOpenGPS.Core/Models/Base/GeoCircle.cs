@@ -31,7 +31,7 @@ namespace AgOpenGPS.Core.Models
             GeoDir startDir = new GeoDir(startPos - Center);
             GeoDir goalDir = new GeoDir(goalPos - Center);
 
-            double theta = goalDir.Angle - startDir.Angle;
+            double theta = goalDir.AngleInRadians - startDir.AngleInRadians;
 
             if (TurnType.Right == turnType)
             {

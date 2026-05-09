@@ -1,7 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 using AgOpenGPS.Core.Models;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 using AgOpenGPS.Properties;
 using System;
@@ -23,15 +23,14 @@ namespace AgOpenGPS
         {
             //get copy of the calling main form
             mf = callingForm as FormGPS;
-            InitializeComponent();  
+            InitializeComponent();
 
             //Language keys
             this.Text = gStr.gsColors;
             labelCameraBehavior.Text = gStr.gsCameraBehavior;
             labelReset.Text = gStr.gsReset;
             labelSmooth.Text = gStr.gsSmooth;
-            labelDirect.Text = gStr.gsDirect; 
-            
+            labelDirect.Text = gStr.gsDirect;
         }
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
@@ -52,24 +51,10 @@ namespace AgOpenGPS
             if (daySet != mf.isDay) mf.SwapDayNightMode();
             Properties.Settings.Default.setDisplay_camSmooth = hsbarSmooth.Value;
 
-            mf.camera.camSmoothFactor = ((double)(hsbarSmooth.Value) * 0.004) + 0.15;
+            mf.camSmoothFactor = ((double)(hsbarSmooth.Value) * 0.004) + 0.15;
 
             Settings.Default.Save();
             Close();
-        }
-
-        private void btnVehicleColor_Click(object sender, EventArgs e)
-        {
-            using (FormColorPicker form = new FormColorPicker(mf, (Color)mf.vehicle.VehicleConfig.Color))
-            {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    mf.vehicle.VehicleConfig.Color = (ColorRgb)form.useThisColor;
-                }
-            }
-
-            Properties.Settings.Default.setDisplay_colorVehicle = (Color)mf.vehicle.VehicleConfig.Color;
-            Settings.Default.Save();
         }
 
         private void btnFrameDay_Click(object sender, EventArgs e)
@@ -206,15 +191,15 @@ namespace AgOpenGPS
             mf.fieldColorDay = Color.FromArgb(100, 100, 125);
             mf.fieldColorNight = Color.FromArgb(60, 60, 60);
 
-            Properties.Settings.Default.setDisplay_colorDayFrame =   mf.frameDayColor;
+            Properties.Settings.Default.setDisplay_colorDayFrame = mf.frameDayColor;
             Properties.Settings.Default.setDisplay_colorNightFrame = mf.frameNightColor;
-            Properties.Settings.Default.setDisplay_colorSectionsDay =mf.sectionColorDay;
-            Properties.Settings.Default.setDisplay_colorFieldDay =   mf.fieldColorDay;
+            Properties.Settings.Default.setDisplay_colorSectionsDay = mf.sectionColorDay;
+            Properties.Settings.Default.setDisplay_colorFieldDay = mf.fieldColorDay;
             Properties.Settings.Default.setDisplay_colorFieldNight = mf.fieldColorNight;
 
             mf.textColorNight = Color.FromArgb(230, 230, 230);
             mf.textColorDay = Color.FromArgb(10, 10, 20);
- 
+
             Settings.Default.setDisplay_colorTextDay = mf.textColorDay;
             Settings.Default.setDisplay_colorTextNight = mf.textColorNight;
 

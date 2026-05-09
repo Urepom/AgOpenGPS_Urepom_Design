@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Core.Interfaces;
+﻿using AgLibrary.Logging;
+using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
 using System;
 using System.IO;
@@ -8,17 +9,17 @@ namespace AgOpenGPS.Core.Streamers
     public class BoundaryStreamer : FieldAspectStreamer
     {
         public BoundaryStreamer(
-            ILogger logger
+            IFieldStreamerPresenter presenter
         ) :
-            base(logger, "Boundary.txt")
+            base("Boundary.txt", presenter)
         {
         }
 
-        public Boundary TryRead(string fieldPath)
+        public Boundary TryRead(DirectoryInfo fieldDirectory)
         {
             Boundary boundary = new Boundary();
-            string fullPath = FullPath(fieldPath);
-            if (!File.Exists(fullPath))
+            FileInfo fileInfo = GetFileInfo(fieldDirectory);
+            if (!fileInfo.Exists)
             {
                 _presenter.PresentBoundaryFileMissing();
             }
@@ -26,22 +27,22 @@ namespace AgOpenGPS.Core.Streamers
             {
                 try
                 {
-                    boundary = Read(fieldPath);
+                    boundary = Read(fieldDirectory);
                 }
 
                 catch (Exception e)
                 {
                     _presenter.PresentBoundaryFileCorrupt();
-                    _logger.LogError("FieldOpen, Loading Flags, Corrupt Flag File" + e.ToString());
+                    Log.EventWriter("FieldOpen, Loading Boundary, Corrupt Boundary File" + e.ToString());
                 }
             }
             return boundary;
         }
 
-        public Boundary Read(string fieldPath)
+        public Boundary Read(DirectoryInfo fieldDirectory)
         {
             Boundary boundary = new Boundary();
-            using (GeoStreamReader reader = new GeoStreamReader(FullPath(fieldPath)))
+            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
             {
                 reader.ReadLine(); // skip header Boundary
                 boundary.OuterBoundary = ReadBoundaryPolygon(reader);
@@ -75,10 +76,10 @@ namespace AgOpenGPS.Core.Streamers
             writer.WriteGeoPolygonWithHeading(polygon);
         }
 
-        public void Write(Boundary boundary, string fieldPath)
+        public void Write(Boundary boundary, DirectoryInfo fieldDirectory)
         {
-            CreateDirectory(fieldPath);
-            using (GeoStreamWriter writer = new GeoStreamWriter(FullPath(fieldPath)))
+            fieldDirectory.Create();
+            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory)))
             {
                 writer.WriteLine("$Boundary");
                 if (boundary.OuterBoundary != null)
@@ -92,10 +93,10 @@ namespace AgOpenGPS.Core.Streamers
             }
         }
 
-        public void CreateFile(string fieldPath)
+        public void CreateFile(DirectoryInfo fieldDirectory)
         {
-            CreateDirectory(fieldPath);
-            File.Create(FullPath(fieldPath));
+            fieldDirectory.Create();
+            GetFileInfo(fieldDirectory).Create();
         }
     }
 }

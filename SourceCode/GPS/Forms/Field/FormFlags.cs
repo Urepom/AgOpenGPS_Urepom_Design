@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Helpers;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 
 namespace AgOpenGPS
 {
@@ -25,7 +25,7 @@ namespace AgOpenGPS
         {
             if (mf.flagNumberPicked > mf.flagPts.Count)
             {
-                mf.flagNumberPicked = mf.flagPts.Count-1;
+                mf.flagNumberPicked = mf.flagPts.Count;
             }
             lblLatStart.Text = mf.flagPts[mf.flagNumberPicked - 1].latitude.ToString();
             lblLonStart.Text = mf.flagPts[mf.flagNumberPicked - 1].longitude.ToString();

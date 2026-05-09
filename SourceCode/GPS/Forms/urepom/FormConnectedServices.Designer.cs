@@ -79,7 +79,7 @@
             // 
             // Dropbox_button
             // 
-            this.Dropbox_button.Image = global::AgOpenGPS.Properties.Resources.dropbox_logo1;
+            this.Dropbox_button.Image = global::AgOpenGPS.Properties.Resources.dropbox_logo;
             this.Dropbox_button.Location = new System.Drawing.Point(15, 39);
             this.Dropbox_button.Name = "Dropbox_button";
             this.Dropbox_button.Size = new System.Drawing.Size(162, 94);

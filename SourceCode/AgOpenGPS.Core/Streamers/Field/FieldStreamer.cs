@@ -1,86 +1,108 @@
 ﻿using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
+using System.IO;
 
 namespace AgOpenGPS.Core.Streamers
 {
     public class FieldStreamer
     {
-        private readonly Field _field;
-
+        private readonly BingMapStreamer _bingMapStreamer;
         private readonly BoundaryStreamer _boundaryStreamer;
+        private readonly ContourStreamer _contourStreamer;
         private readonly FlagListStreamer _flagsStreamer;
         private readonly RecordedPathStreamer _recordedPathStreamer;
         private readonly TramLinesStreamer _tramLinesStreamer;
+        private readonly WorkedAreaStreamer _workedAreaStreamer;
 
-        private IFieldStreamerPresenter _presenter;
-
-        public FieldStreamer(Field field, ILogger logger)
+        public FieldStreamer(IFieldStreamerPresenter fieldStreamerPresenter)
         {
-            _field = field;
-            _boundaryStreamer = new BoundaryStreamer(logger);
-            _flagsStreamer = new FlagListStreamer(logger);
-            _recordedPathStreamer = new RecordedPathStreamer(logger);
-            _tramLinesStreamer = new TramLinesStreamer(logger);
+            _bingMapStreamer = new BingMapStreamer();
+            _boundaryStreamer = new BoundaryStreamer(fieldStreamerPresenter);
+            _contourStreamer = new ContourStreamer(fieldStreamerPresenter);
+            _flagsStreamer = new FlagListStreamer(fieldStreamerPresenter);
+            _recordedPathStreamer = new RecordedPathStreamer(fieldStreamerPresenter);
+            _tramLinesStreamer = new TramLinesStreamer(fieldStreamerPresenter);
+            _workedAreaStreamer = new WorkedAreaStreamer(fieldStreamerPresenter);
         }
 
-        public void SetPresenter(IFieldStreamerPresenter presenter)
+        public void ReadBingMap(Field field)
         {
-            _presenter = presenter;
-            _flagsStreamer.SetPresenter(presenter);
-            _recordedPathStreamer.SetPresenter(presenter);
-            _tramLinesStreamer.SetPresenter(presenter);
+            field.BingMap = _bingMapStreamer.TryRead(field.FieldDirectory);
         }
 
-        public string CurrentFieldPath { get; set; }
-
-        public Boundary ReadBoundary(string fieldPath)
+        public void WriteBingMap(Field field)
         {
-            return _boundaryStreamer.Read(fieldPath);
+            _bingMapStreamer.TryWrite(field.BingMap, field.FieldDirectory);
         }
 
-        public void ReadBoundary()
+        public Boundary ReadBoundary(DirectoryInfo fieldDirectory)
         {
-            _field.Boundary = _boundaryStreamer.Read(CurrentFieldPath);
+            return _boundaryStreamer.Read(fieldDirectory);
         }
 
-        public void WriteBoundary()
+        public void ReadBoundary(Field field)
         {
-            _boundaryStreamer.Write(_field.Boundary, CurrentFieldPath);
+            field.Boundary = _boundaryStreamer.Read(field.FieldDirectory);
         }
 
-        public void ReadFlagList()
+        public void WriteBoundary(Field field)
         {
-            _field.Flags = _flagsStreamer.TryRead(CurrentFieldPath);
+            _boundaryStreamer.Write(field.Boundary, field.FieldDirectory);
         }
 
-        public void WriteFlagList()
+        public void ReadFlagList(Field field)
         {
-            _flagsStreamer.TryWrite(_field.Flags, CurrentFieldPath);
+            field.Flags = _flagsStreamer.TryRead(field.FieldDirectory);
         }
 
-        public void ReadRecordedPath(string fileName = null)
+        public void WriteFlagList(Field field)
         {
-            _field.RecordedPath = _recordedPathStreamer.TryRead(CurrentFieldPath, fileName);
+            _flagsStreamer.TryWrite(field.Flags, field.FieldDirectory);
         }
 
-        public void WriteRecordedPath(string fileName = null)
+        public void ReadContour(Field field)
         {
-            _recordedPathStreamer.Write(_field.RecordedPath, CurrentFieldPath, fileName);
+            field.Contour = _contourStreamer.TryRead(field.FieldDirectory);
         }
 
-        public void CreateRecordedPathFile()
+        public void ContourAppendUnsavedWork(Field field)
         {
-            _recordedPathStreamer.CreateFile(CurrentFieldPath);
+            _contourStreamer.AppendUnsavedWork(field.Contour, field.FieldDirectory);
         }
 
-        public void ReadTramLines()
+        public void ReadRecordedPath(Field field, string fileName = null)
         {
-            _field.TramLines = _tramLinesStreamer.TryRead(CurrentFieldPath);
+            field.RecordedPath = _recordedPathStreamer.TryRead(field.FieldDirectory, fileName);
         }
 
-        public void WriteTramLines()
+        public void WriteRecordedPath(Field field, string fileName = null)
         {
-            _tramLinesStreamer.Write(_field.TramLines, CurrentFieldPath);
+            _recordedPathStreamer.Write(field.RecordedPath, field.FieldDirectory, fileName);
+        }
+
+        public void CreateRecordedPathFile(Field field)
+        {
+            _recordedPathStreamer.CreateFile(field.FieldDirectory);
+        }
+
+        public void ReadTramLines(Field field)
+        {
+            field.TramLines = _tramLinesStreamer.TryRead(field.FieldDirectory);
+        }
+
+        public void WriteTramLines(Field field)
+        {
+            _tramLinesStreamer.Write(field.TramLines, field.FieldDirectory);
+        }
+
+        public void ReadWorkedAera(Field field)
+        {
+            field.WorkedArea = _workedAreaStreamer.Read(field.FieldDirectory);
+        }
+
+        public void WorkedAreaAppendUnsaveWork(Field field)
+        {
+            _workedAreaStreamer.AppendUnsavedWork(field.WorkedArea, field.FieldDirectory);
         }
     }
 }

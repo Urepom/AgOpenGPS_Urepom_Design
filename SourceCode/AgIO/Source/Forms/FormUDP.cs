@@ -154,15 +154,15 @@ namespace AgIO
                                 {
                                     var properties = nic.GetIPStatistics();
                                     tboxNets.Text +=
-                                            info.Address + "  - " + nic.OperationalStatus + "\r\n";                                            
+                                            info.Address + "  - " + nic.OperationalStatus + "\r\n";
 
                                     tboxNets.Text += info.IPv4Mask.ToString() + "  " + nic.Name.ToString() + "\r\n";
-                                    tboxNets.Text += 
-                                        "->" + (properties.NonUnicastPacketsSent 
+                                    tboxNets.Text +=
+                                        "->" + (properties.NonUnicastPacketsSent
                                         + properties.UnicastPacketsSent).ToString()
 
                                         + "  <-" + (properties.NonUnicastPacketsReceived
-                                        + properties.UnicastPacketsReceived).ToString() + "\r\n"                                 
+                                        + properties.UnicastPacketsReceived).ToString() + "\r\n"
                                         + "\r\n";
                                 }
 
@@ -315,11 +315,6 @@ namespace AgIO
         private void btnNetworkCPL_Click(object sender, EventArgs e)
         {
             Process.Start("ncpa.cpl");
-        }
-
-        private void btnHelp_Click(object sender, EventArgs e)
-        {
-            //System.Diagnostics.Process.Start(gStr.gsEthernetHelp);
         }
 
         private void btnSerialCancel_Click(object sender, EventArgs e)

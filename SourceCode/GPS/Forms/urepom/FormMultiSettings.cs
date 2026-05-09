@@ -1,5 +1,4 @@
-﻿using Amazon.Runtime.Telemetry.Metrics; // Conserver l'using de votre code
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -692,9 +691,9 @@ namespace AgOpenGPS // Utiliser votre namespace
         private void FormMultiSettings_Load(object sender, EventArgs e)
         {
 
-            if (RegistrySettings.vehicleFileName != "")
+            if (RegistrySettings.toolProfileName != "")
             {
-                txtSourceFile.Text = Path.Combine(RegistrySettings.vehiclesDirectory, RegistrySettings.vehicleFileName + ".XML").ToString();
+                txtSourceFile.Text = Path.Combine(RegistrySettings.vehiclesDirectory, RegistrySettings.toolProfileName + ".XML").ToString();
                 // Appeler LoadSettings qui chargera et affichera
                 LoadSettings(txtSourceFile.Text);
                 dgvSettings.Tag = txtSourceFile.Text; // Conserver pour la logique de décochage dans ListTargetFiles

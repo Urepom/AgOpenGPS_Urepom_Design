@@ -1,13 +1,16 @@
-﻿using AgLibrary.Logging;
-using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
-using AgOpenGPS.Helpers;
-using OpenTK;
-using OpenTK.Graphics.OpenGL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using AgLibrary.Logging;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Core.Visuals;
+using AgOpenGPS.Forms;
+using AgOpenGPS.Helpers;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 
 namespace AgOpenGPS
 {
@@ -47,7 +50,7 @@ namespace AgOpenGPS
             mf.hdl.idx = -1;
             //label3.Text = mf.unitsFtM +"       Tool: ";
 
-            lblToolWidth.Text = "( "+ mf.unitsFtM + " )           Tool: " + ((mf.tool.width - mf.tool.overlap) * mf.m2FtOrM).ToString("N1") + " " + mf.unitsFtM;
+            lblToolWidth.Text = "( " + mf.unitsFtM + " )           Tool: " + ((mf.tool.width - mf.tool.overlap) * mf.m2FtOrM).ToString("N1") + " " + mf.unitsFtM;
 
             start = 99999; end = 99999;
             isA = true;
@@ -72,11 +75,11 @@ namespace AgOpenGPS
             else
             {
                 //make sure point distance isn't too big 
-                mf.curve.MakePointMinimumSpacing(ref mf.bnd.bndList[0].hdLine, 1.2);
-                mf.curve.CalculateHeadings(ref mf.bnd.bndList[0].hdLine);
+                CABCurve.MakePointMinimumSpacing(ref mf.bnd.bndList[0].hdLine, 1.2);
+                CABCurve.CalculateHeadings(ref mf.bnd.bndList[0].hdLine);
             }
 
-            cboxIsSectionControlled.Checked = Properties.Settings.Default.setHeadland_isSectionControlled;
+            cboxIsSectionControlled.Checked = Properties.ToolSettings.Default.setHeadland_isSectionControlled;
             if (cboxIsSectionControlled.Checked) cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
             else cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOff;
 
@@ -153,7 +156,7 @@ namespace AgOpenGPS
 
             if (nudSetDistance.Value == 0 && rbtnCurve.Checked)
             {
-                mf.TimedMessageBox(3000, "Distance Error", "Distance Set to 0, Nothing to Move");
+                FormDialog.Show("Distance Error", "Distance Set to 0, Nothing to Move", DialogSeverity.Error);
                 Log.EventWriter("Headland, Distance=0, Can't Move");
                 return;
             }
@@ -310,7 +313,7 @@ namespace AgOpenGPS
                     if (ptCnt > 0)
                     {
                         //who knows which way it actually goes
-                        mf.curve.CalculateHeadings(ref sliceArr);
+                        CABCurve.CalculateHeadings(ref sliceArr);
 
                         for (int i = 1; i < 30; i++)
                         {
@@ -448,14 +451,7 @@ namespace AgOpenGPS
                 }
                 GL.End();
             }
-
-            //the vehicle
-            GL.PointSize(16.0f);
-            GL.Begin(PrimitiveType.Points);
-            GL.Color3(0.95f, 0.190f, 0.20f);
-            GL.Vertex3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, 0.0);
-            GL.End();
-
+            VehicleDotVisual.DrawVehicleDot(mf.pivotAxlePos.ToGeoCoord());
             //draw the line building graphics
             if (start != 99999 || end != 99999) DrawABTouchLine();
 
@@ -551,7 +547,7 @@ namespace AgOpenGPS
             oglSelf.MakeCurrent();
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
-            GL.ClearColor(0.1f, 0.1f, 0.1f ,1.0f);
+            GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         }
         private void oglSelf_Resize(object sender, EventArgs e)
@@ -606,8 +602,8 @@ namespace AgOpenGPS
 
                 //does headland control sections
                 mf.bnd.isSectionControlledByHeadland = cboxIsSectionControlled.Checked;
-                Properties.Settings.Default.setHeadland_isSectionControlled = cboxIsSectionControlled.Checked;
-                Properties.Settings.Default.Save();
+                Properties.ToolSettings.Default.setHeadland_isSectionControlled = cboxIsSectionControlled.Checked;
+                Properties.ToolSettings.Default.Save();
 
                 //middle points
                 for (int i = 1; i < hdArr.Length; i++)
@@ -706,8 +702,6 @@ namespace AgOpenGPS
         // Returns 1 if the lines intersect, otherwis
         public double iE = 0, iN = 0;
 
-        public List<int> crossings = new List<int>(1);
-
         private void btnBndLoop_Click(object sender, EventArgs e)
         {
             int ptCount = mf.bnd.bndList[0].fenceLine.Count;
@@ -786,8 +780,8 @@ namespace AgOpenGPS
                     mf.hdl.desList.Add(pt3);
 
                     //make sure point distance isn't too big 
-                    mf.curve.MakePointMinimumSpacing(ref mf.hdl.desList, 1.2);
-                    mf.curve.CalculateHeadings(ref mf.hdl.desList);
+                    CABCurve.MakePointMinimumSpacing(ref mf.hdl.desList, 1.2);
+                    CABCurve.CalculateHeadings(ref mf.hdl.desList);
 
                     mf.bnd.bndList[0].hdLine.Clear();
 
@@ -820,18 +814,11 @@ namespace AgOpenGPS
             {
                 for (int k = 0; k < mf.bnd.bndList[0].hdLine.Count - 2; k++)
                 {
-                    int res = GetLineIntersection(
-                    sliceArr[i].easting,
-                    sliceArr[i].northing,
-                    sliceArr[i + 1].easting,
-                    sliceArr[i + 1].northing,
+                    GeoLineSegment sliceSegment = GeoRefactorHelper.GetLineSegment(sliceArr, i);
+                    GeoLineSegment headLineSegment = mf.bnd.bndList[0].GetHeadLineSegment(k);
+                    GeoCoord? intersectionPoint = sliceSegment.IntersectionPoint(headLineSegment);
 
-                    mf.bnd.bndList[0].hdLine[k].easting,
-                    mf.bnd.bndList[0].hdLine[k].northing,
-                    mf.bnd.bndList[0].hdLine[k + 1].easting,
-                    mf.bnd.bndList[0].hdLine[k + 1].northing,
-                    ref iE, ref iN);
-                    if (res == 1)
+                    if (intersectionPoint.HasValue)
                     {
                         if (isStart == 0)
                         {
@@ -850,7 +837,7 @@ namespace AgOpenGPS
 
             if (isStart < 2)
             {
-                mf.TimedMessageBox(2000, "Error", "Crossings not Found");
+                FormDialog.Show("Error", "Crossings not Found", DialogSeverity.Error);
                 Log.EventWriter("Headland, Crossings Not Found");
 
                 return;
@@ -993,8 +980,8 @@ namespace AgOpenGPS
 
         private void btnBShrink_Click(object sender, EventArgs e)
         {
-                if (sliceArr.Count > 8)
-                    sliceArr.RemoveRange(sliceArr.Count - 5, 5);
+            if (sliceArr.Count > 8)
+                sliceArr.RemoveRange(sliceArr.Count - 5, 5);
         }
 
         private void btnAShrink_Click(object sender, EventArgs e)
@@ -1021,35 +1008,6 @@ namespace AgOpenGPS
             mf.bnd.isHeadlandOn = false;
             mf.vehicle.isHydLiftOn = false;
             Close();
-        }
-
-        public int GetLineIntersection(double p0x, double p0y, double p1x, double p1y,
-        double p2x, double p2y, double p3x, double p3y, ref double iEast, ref double iNorth)
-        {
-            double s1x, s1y, s2x, s2y;
-            s1x = p1x - p0x;
-            s1y = p1y - p0y;
-
-            s2x = p3x - p2x;
-            s2y = p3y - p2y;
-
-            double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
-
-            if (s >= 0 && s <= 1)
-            {
-                //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
-                if (t >= 0 && t <= 1)
-                {
-                    // Collision detected
-                    iEast = p0x + (t * s1x);
-                    iNorth = p0y + (t * s1y);
-                    return 1;
-                }
-            }
-
-            return 0; // No collision
         }
 
     }

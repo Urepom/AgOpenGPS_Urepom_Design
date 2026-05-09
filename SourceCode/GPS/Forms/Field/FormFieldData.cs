@@ -1,7 +1,7 @@
 //Please, if you use this give me some credit
 //Copyright BrianTee, copy right out of it.
 
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using System;
 using System.Windows.Forms;
 
@@ -55,7 +55,7 @@ namespace AgOpenGPS
                 lblWorkRate.Text = mf.fd.WorkRateAcres;
                 lblApplied.Text = mf.fd.WorkedAcres;
                 lblActualLessOverlap.Text = mf.fd.ActualAreaWorkedAcres;
-                labelAreaValue.Text = mf.fd.WorkedUserAcres +" ac";
+                labelAreaValue.Text = mf.fd.WorkedUserAcres + " ac";
                 labelDistanceDriven.Text = mf.fd.DistanceUserFeet + " ft";
             }
 
@@ -76,14 +76,12 @@ namespace AgOpenGPS
                     lblTotalArea.Text = mf.fd.AreaBoundaryLessInnersHectares;
                     lblAreaRemain.Text = mf.fd.WorkedAreaRemainHectares;
                     lblActualRemain.Text = mf.fd.ActualRemainHectares;
-                    
                 }
                 else
                 {
                     lblTotalArea.Text = mf.fd.AreaBoundaryLessInnersAcres;
                     lblAreaRemain.Text = mf.fd.WorkedAreaRemainAcres;
                     lblActualRemain.Text = mf.fd.ActualRemainAcres;
-                    
                 }
             }
             else
@@ -95,7 +93,6 @@ namespace AgOpenGPS
                 lblActualRemain.Visible = false;
                 labelRemain2.Visible = false;
                 labelRemain.Visible = false;
-                
 
                 //if (mf.isMetric) lblActualLessOverlap.Text = 
                 //        ((100-mf.fd.overlapPercent) * 0.01 * mf.fd.workedAreaTotal * glm.m2ha).ToString("N2");
@@ -112,14 +109,3 @@ namespace AgOpenGPS
         }
     }
 }
-
-//lblLookOnLeft.Text = mf.tool.lookAheadDistanceOnPixelsLeft.ToString("N0");
-//lblLookOnRight.Text = mf.tool.lookAheadDistanceOnPixelsRight.ToString("N0");
-//lblLookOffLeft.Text = mf.tool.lookAheadDistanceOffPixelsLeft.ToString("N0");
-//lblLookOffRight.Text = mf.tool.lookAheadDistanceOffPixelsRight.ToString("N0");
-
-//lblLeftToolSpd.Text = (mf.tool.toolFarLeftSpeed*3.6).ToString("N1");
-//lblRightToolSpd.Text = (mf.tool.toolFarRightSpeed*3.6).ToString("N1");
-
-//lblSectSpdLeft.Text = (mf.section[0].speedPixels*0.36).ToString("N1");
-//lblSectSpdRight.Text = (mf.section[mf.tool.numOfSections-1].speedPixels*0.36).ToString("N1");

@@ -1,3 +1,6 @@
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.ResourcesBrands;
+
 namespace AgOpenGPS
 {
     partial class FormConfig
@@ -28,7 +31,6 @@ namespace AgOpenGPS
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panelLeftSideMenu = new System.Windows.Forms.Panel();
             this.btnFeatureHides = new System.Windows.Forms.Button();
             this.btnDisplay = new System.Windows.Forms.Button();
@@ -59,78 +61,9 @@ namespace AgOpenGPS
             this.btnVehicle = new System.Windows.Forms.Button();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabSummary = new System.Windows.Forms.TabPage();
-            this.btnVehicleNewSave = new System.Windows.Forms.Button();
-            this.tboxCreateNewVehicle = new System.Windows.Forms.TextBox();
-            this.labelNew = new System.Windows.Forms.Label();
-            this.lvVehicles = new System.Windows.Forms.ListView();
-            this.chVehicle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnVehicleSave = new System.Windows.Forms.Button();
-            this.labelWidth = new System.Windows.Forms.Label();
-            this.labelOverlap = new System.Windows.Forms.Label();
-            this.lblOverlap = new System.Windows.Forms.Label();
-            this.labelLookAhead = new System.Windows.Forms.Label();
-            this.lblLookahead = new System.Windows.Forms.Label();
-            this.labelOffset = new System.Windows.Forms.Label();
-            this.lblToolOffset = new System.Windows.Forms.Label();
-            this.labelWheelBase = new System.Windows.Forms.Label();
-            this.labelTramW = new System.Windows.Forms.Label();
-            this.lblUnits = new System.Windows.Forms.Label();
-            this.lblTramWidth = new System.Windows.Forms.Label();
-            this.lblNudgeDistance = new System.Windows.Forms.Label();
-            this.lblSumNumSections = new System.Windows.Forms.Label();
-            this.labelUnits = new System.Windows.Forms.Label();
-            this.labelNudge = new System.Windows.Forms.Label();
-            this.labelSections = new System.Windows.Forms.Label();
-            this.lblSummaryVehicleName = new System.Windows.Forms.Label();
-            this.labelDelete = new System.Windows.Forms.Label();
-            this.labelOpen = new System.Windows.Forms.Label();
-            this.btnVehicleLoad = new System.Windows.Forms.Button();
-            this.btnVehicleDelete = new System.Windows.Forms.Button();
-            this.tboxVehicleNameSave = new System.Windows.Forms.TextBox();
-            this.labelSaveAs = new System.Windows.Forms.Label();
-            this.lblSummaryWidth = new System.Windows.Forms.Label();
-            this.lblSumWheelbase = new System.Windows.Forms.Label();
+            this.configSummaryControl = new AgOpenGPS.Forms.Config.ConfigSummaryControl();
             this.tabVConfig = new System.Windows.Forms.TabPage();
-            this.lblOpacityPercent = new System.Windows.Forms.Label();
-            this.labelVehicleGroupBox = new System.Windows.Forms.GroupBox();
-            this.rbtnHarvester = new System.Windows.Forms.RadioButton();
-            this.rbtnArticulated = new System.Windows.Forms.RadioButton();
-            this.rbtnTractor = new System.Windows.Forms.RadioButton();
-            this.panelArticulatedBrands = new System.Windows.Forms.Panel();
-            this.rbtnBrandAHolder = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandAAgOpenGPS = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandAChallenger = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandACase = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandANH = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandAJDeere = new System.Windows.Forms.RadioButton();
-            this.labelOpacity = new System.Windows.Forms.Label();
-            this.panelHarvesterBrands = new System.Windows.Forms.Panel();
-            this.rbtnBrandHAgOpenGPS = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandHCase = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandHClaas = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandHJDeere = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandHNH = new System.Windows.Forms.RadioButton();
-            this.panelTractorBrands = new System.Windows.Forms.Panel();
-            this.rbtnBrandTJCB = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTAgOpenGPS = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTCase = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTClaas = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTDeutz = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTFendt = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTJDeere = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTKubota = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTMassey = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTNH = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTSame = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTSteyr = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTValtra = new System.Windows.Forms.RadioButton();
-            this.rbtnBrandTUrsus = new System.Windows.Forms.RadioButton();
-            this.labelImage = new System.Windows.Forms.Label();
-            this.btnOpacityDn = new System.Windows.Forms.Button();
-            this.panelOpacity = new System.Windows.Forms.Panel();
-            this.pboxAlpha = new System.Windows.Forms.PictureBox();
-            this.btnOpacityUp = new System.Windows.Forms.Button();
-            this.cboxIsImage = new System.Windows.Forms.CheckBox();
+            this.configVehicleControl = new AgOpenGPS.Forms.Config.ConfigVehicleControl();
             this.tabVAntenna = new System.Windows.Forms.TabPage();
             this.labelPivotDistance = new System.Windows.Forms.Label();
             this.labelAntHeight = new System.Windows.Forms.Label();
@@ -339,8 +272,8 @@ namespace AgOpenGPS
             this.cboxIsRTK_KillAutoSteer = new System.Windows.Forms.CheckBox();
             this.cboxIsRTK = new System.Windows.Forms.CheckBox();
             this.tabDRoll = new System.Windows.Forms.TabPage();
-            this.btnRollOffsetUp = new ProXoft.WinForms.RepeatButton();
-            this.btnRollOffsetDown = new ProXoft.WinForms.RepeatButton();
+            this.btnRollOffsetUp = new AgLibrary.Controls.RepeatButton();
+            this.btnRollOffsetDown = new AgLibrary.Controls.RepeatButton();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.labelInvertRoll = new System.Windows.Forms.Label();
             this.labelZeroRoll = new System.Windows.Forms.Label();
@@ -365,13 +298,13 @@ namespace AgOpenGPS
             this.nudYouTurnRadius = new AgOpenGPS.NudlessNumericUpDown();
             this.nudTurnDistanceFromBoundary = new AgOpenGPS.NudlessNumericUpDown();
             this.label64 = new System.Windows.Forms.Label();
-            this.btnTurnSmoothingUp = new ProXoft.WinForms.RepeatButton();
-            this.btnTurnSmoothingDown = new ProXoft.WinForms.RepeatButton();
+            this.btnTurnSmoothingUp = new AgLibrary.Controls.RepeatButton();
+            this.btnTurnSmoothingDown = new AgLibrary.Controls.RepeatButton();
             this.label59 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.lblWhenTrig = new System.Windows.Forms.Label();
-            this.btnDistanceUp = new ProXoft.WinForms.RepeatButton();
-            this.btnDistanceDn = new ProXoft.WinForms.RepeatButton();
+            this.btnDistanceUp = new AgLibrary.Controls.RepeatButton();
+            this.btnDistanceDn = new AgLibrary.Controls.RepeatButton();
             this.tabRelay = new System.Windows.Forms.TabPage();
             this.cboxPin23 = new System.Windows.Forms.ComboBox();
             this.cboxPin22 = new System.Windows.Forms.ComboBox();
@@ -510,11 +443,8 @@ namespace AgOpenGPS
             this.cboxFeatureHeadland = new System.Windows.Forms.CheckBox();
             this.cboxFeatureTram = new System.Windows.Forms.CheckBox();
             this.tabDisplay = new System.Windows.Forms.TabPage();
-            this.cbox_long_touch = new System.Windows.Forms.CheckBox();
-            this.cBox_sections_button = new System.Windows.Forms.CheckBox();
-            this.Timer_kml = new System.Windows.Forms.CheckBox();
-            this.VineMode = new System.Windows.Forms.CheckBox();
-            this.ArrowsRL = new System.Windows.Forms.CheckBox();
+            this.lblHeadlandDist = new System.Windows.Forms.Label();
+            this.chkboxHeadlandDist = new System.Windows.Forms.CheckBox();
             this.labelLineSmoothOnOff = new System.Windows.Forms.Label();
             this.labelSectionLinesOnOff = new System.Windows.Forms.Label();
             this.labelDirectionMarkOnOff = new System.Windows.Forms.Label();
@@ -546,16 +476,14 @@ namespace AgOpenGPS
             this.chkDisplaySpeedo = new System.Windows.Forms.CheckBox();
             this.chkDisplayExtraGuides = new System.Windows.Forms.CheckBox();
             this.labelCurrentVehicle = new System.Windows.Forms.Label();
+            this.labelCurrentTool = new System.Windows.Forms.Label();
             this.lblInchesCm = new System.Windows.Forms.Label();
-            this.lblSecTotalWidthMeters = new System.Windows.Forms.Label();
+            this.lblSecTotalWidth = new System.Windows.Forms.Label();
             this.labelToolWidthBottom = new System.Windows.Forms.Label();
-            this.lblSecTotalWidthFeet = new System.Windows.Forms.Label();
-            this.lblSecTotalWidthInches = new System.Windows.Forms.Label();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.lblFeetMeters = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.labelUnitsBottom = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -564,12 +492,6 @@ namespace AgOpenGPS
             this.tab1.SuspendLayout();
             this.tabSummary.SuspendLayout();
             this.tabVConfig.SuspendLayout();
-            this.labelVehicleGroupBox.SuspendLayout();
-            this.panelArticulatedBrands.SuspendLayout();
-            this.panelHarvesterBrands.SuspendLayout();
-            this.panelTractorBrands.SuspendLayout();
-            this.panelOpacity.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxAlpha)).BeginInit();
             this.tabVAntenna.SuspendLayout();
             this.labelAntOffset.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAntennaOffset)).BeginInit();
@@ -1247,36 +1169,7 @@ namespace AgOpenGPS
             // tabSummary
             // 
             this.tabSummary.BackColor = System.Drawing.Color.Gainsboro;
-            this.tabSummary.Controls.Add(this.btnVehicleNewSave);
-            this.tabSummary.Controls.Add(this.tboxCreateNewVehicle);
-            this.tabSummary.Controls.Add(this.labelNew);
-            this.tabSummary.Controls.Add(this.lvVehicles);
-            this.tabSummary.Controls.Add(this.btnVehicleSave);
-            this.tabSummary.Controls.Add(this.labelWidth);
-            this.tabSummary.Controls.Add(this.labelOverlap);
-            this.tabSummary.Controls.Add(this.lblOverlap);
-            this.tabSummary.Controls.Add(this.labelLookAhead);
-            this.tabSummary.Controls.Add(this.lblLookahead);
-            this.tabSummary.Controls.Add(this.labelOffset);
-            this.tabSummary.Controls.Add(this.lblToolOffset);
-            this.tabSummary.Controls.Add(this.labelWheelBase);
-            this.tabSummary.Controls.Add(this.labelTramW);
-            this.tabSummary.Controls.Add(this.lblUnits);
-            this.tabSummary.Controls.Add(this.lblTramWidth);
-            this.tabSummary.Controls.Add(this.lblNudgeDistance);
-            this.tabSummary.Controls.Add(this.lblSumNumSections);
-            this.tabSummary.Controls.Add(this.labelUnits);
-            this.tabSummary.Controls.Add(this.labelNudge);
-            this.tabSummary.Controls.Add(this.labelSections);
-            this.tabSummary.Controls.Add(this.lblSummaryVehicleName);
-            this.tabSummary.Controls.Add(this.labelDelete);
-            this.tabSummary.Controls.Add(this.labelOpen);
-            this.tabSummary.Controls.Add(this.btnVehicleLoad);
-            this.tabSummary.Controls.Add(this.btnVehicleDelete);
-            this.tabSummary.Controls.Add(this.tboxVehicleNameSave);
-            this.tabSummary.Controls.Add(this.labelSaveAs);
-            this.tabSummary.Controls.Add(this.lblSummaryWidth);
-            this.tabSummary.Controls.Add(this.lblSumWheelbase);
+            this.tabSummary.Controls.Add(this.configSummaryControl);
             this.tabSummary.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.tabSummary.Location = new System.Drawing.Point(4, 44);
             this.tabSummary.Name = "tabSummary";
@@ -1287,460 +1180,24 @@ namespace AgOpenGPS
             this.tabSummary.Enter += new System.EventHandler(this.tabSummary_Enter);
             this.tabSummary.Leave += new System.EventHandler(this.tabSummary_Leave);
             // 
-            // btnVehicleNewSave
+            // configSummaryControl
             // 
-            this.btnVehicleNewSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnVehicleNewSave.Enabled = false;
-            this.btnVehicleNewSave.FlatAppearance.BorderSize = 0;
-            this.btnVehicleNewSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.btnVehicleNewSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVehicleNewSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleNewSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
-            this.btnVehicleNewSave.Location = new System.Drawing.Point(753, 83);
-            this.btnVehicleNewSave.Name = "btnVehicleNewSave";
-            this.btnVehicleNewSave.Size = new System.Drawing.Size(93, 52);
-            this.btnVehicleNewSave.TabIndex = 522;
-            this.btnVehicleNewSave.UseVisualStyleBackColor = false;
-            this.btnVehicleNewSave.Click += new System.EventHandler(this.btnVehicleNewSave_Click);
-            // 
-            // tboxCreateNewVehicle
-            // 
-            this.tboxCreateNewVehicle.BackColor = System.Drawing.Color.White;
-            this.tboxCreateNewVehicle.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxCreateNewVehicle.Location = new System.Drawing.Point(335, 103);
-            this.tboxCreateNewVehicle.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.tboxCreateNewVehicle.Name = "tboxCreateNewVehicle";
-            this.tboxCreateNewVehicle.Size = new System.Drawing.Size(415, 33);
-            this.tboxCreateNewVehicle.TabIndex = 520;
-            this.tboxCreateNewVehicle.Click += new System.EventHandler(this.tboxCreateNewVehicle_Click);
-            this.tboxCreateNewVehicle.TextChanged += new System.EventHandler(this.tboxCreateNewVehicle_TextChanged);
-            // 
-            // labelNew
-            // 
-            this.labelNew.BackColor = System.Drawing.Color.Transparent;
-            this.labelNew.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNew.ForeColor = System.Drawing.Color.Black;
-            this.labelNew.Location = new System.Drawing.Point(9, 108);
-            this.labelNew.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelNew.Name = "labelNew";
-            this.labelNew.Size = new System.Drawing.Size(322, 23);
-            this.labelNew.TabIndex = 521;
-            this.labelNew.Text = "New From Default:";
-            this.labelNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lvVehicles
-            // 
-            this.lvVehicles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.configSummaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvVehicles.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lvVehicles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chVehicle});
-            this.lvVehicles.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvVehicles.FullRowSelect = true;
-            this.lvVehicles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvVehicles.HideSelection = false;
-            this.lvVehicles.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.lvVehicles.LabelWrap = false;
-            this.lvVehicles.Location = new System.Drawing.Point(240, 146);
-            this.lvVehicles.Margin = new System.Windows.Forms.Padding(0);
-            this.lvVehicles.MultiSelect = false;
-            this.lvVehicles.Name = "lvVehicles";
-            this.lvVehicles.Size = new System.Drawing.Size(510, 438);
-            this.lvVehicles.TabIndex = 454;
-            this.lvVehicles.TileSize = new System.Drawing.Size(490, 35);
-            this.lvVehicles.UseCompatibleStateImageBehavior = false;
-            this.lvVehicles.View = System.Windows.Forms.View.Tile;
-            // 
-            // chVehicle
-            // 
-            this.chVehicle.Text = "Vehicles";
-            this.chVehicle.Width = 490;
-            // 
-            // btnVehicleSave
-            // 
-            this.btnVehicleSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnVehicleSave.Enabled = false;
-            this.btnVehicleSave.FlatAppearance.BorderSize = 0;
-            this.btnVehicleSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.btnVehicleSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVehicleSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleSave.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
-            this.btnVehicleSave.Location = new System.Drawing.Point(753, 9);
-            this.btnVehicleSave.Name = "btnVehicleSave";
-            this.btnVehicleSave.Size = new System.Drawing.Size(93, 52);
-            this.btnVehicleSave.TabIndex = 457;
-            this.btnVehicleSave.UseVisualStyleBackColor = false;
-            this.btnVehicleSave.Click += new System.EventHandler(this.btnVehicleSave_Click);
-            // 
-            // labelWidth
-            // 
-            this.labelWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelWidth.BackColor = System.Drawing.Color.Transparent;
-            this.labelWidth.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWidth.ForeColor = System.Drawing.Color.DimGray;
-            this.labelWidth.Location = new System.Drawing.Point(0, 233);
-            this.labelWidth.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelWidth.Name = "labelWidth";
-            this.labelWidth.Size = new System.Drawing.Size(111, 23);
-            this.labelWidth.TabIndex = 518;
-            this.labelWidth.Text = "Width:";
-            this.labelWidth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelOverlap
-            // 
-            this.labelOverlap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelOverlap.BackColor = System.Drawing.Color.Transparent;
-            this.labelOverlap.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOverlap.ForeColor = System.Drawing.Color.DimGray;
-            this.labelOverlap.Location = new System.Drawing.Point(-9, 335);
-            this.labelOverlap.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelOverlap.Name = "labelOverlap";
-            this.labelOverlap.Size = new System.Drawing.Size(120, 32);
-            this.labelOverlap.TabIndex = 517;
-            this.labelOverlap.Text = "Overlap:";
-            this.labelOverlap.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblOverlap
-            // 
-            this.lblOverlap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblOverlap.BackColor = System.Drawing.Color.Transparent;
-            this.lblOverlap.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOverlap.ForeColor = System.Drawing.Color.Black;
-            this.lblOverlap.Location = new System.Drawing.Point(128, 341);
-            this.lblOverlap.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblOverlap.Name = "lblOverlap";
-            this.lblOverlap.Size = new System.Drawing.Size(91, 23);
-            this.lblOverlap.TabIndex = 516;
-            this.lblOverlap.Text = "3 cm";
-            this.lblOverlap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelLookAhead
-            // 
-            this.labelLookAhead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelLookAhead.BackColor = System.Drawing.Color.Transparent;
-            this.labelLookAhead.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLookAhead.ForeColor = System.Drawing.Color.DimGray;
-            this.labelLookAhead.Location = new System.Drawing.Point(-9, 375);
-            this.labelLookAhead.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelLookAhead.Name = "labelLookAhead";
-            this.labelLookAhead.Size = new System.Drawing.Size(120, 32);
-            this.labelLookAhead.TabIndex = 515;
-            this.labelLookAhead.Text = "Lookahead:";
-            this.labelLookAhead.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblLookahead
-            // 
-            this.lblLookahead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblLookahead.BackColor = System.Drawing.Color.Transparent;
-            this.lblLookahead.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLookahead.ForeColor = System.Drawing.Color.Black;
-            this.lblLookahead.Location = new System.Drawing.Point(128, 380);
-            this.lblLookahead.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblLookahead.Name = "lblLookahead";
-            this.lblLookahead.Size = new System.Drawing.Size(91, 23);
-            this.lblLookahead.TabIndex = 514;
-            this.lblLookahead.Text = "1 sec";
-            this.lblLookahead.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelOffset
-            // 
-            this.labelOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelOffset.BackColor = System.Drawing.Color.Transparent;
-            this.labelOffset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOffset.ForeColor = System.Drawing.Color.DimGray;
-            this.labelOffset.Location = new System.Drawing.Point(-9, 297);
-            this.labelOffset.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelOffset.Name = "labelOffset";
-            this.labelOffset.Size = new System.Drawing.Size(120, 32);
-            this.labelOffset.TabIndex = 513;
-            this.labelOffset.Text = "Offset:";
-            this.labelOffset.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblToolOffset
-            // 
-            this.lblToolOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblToolOffset.BackColor = System.Drawing.Color.Transparent;
-            this.lblToolOffset.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblToolOffset.ForeColor = System.Drawing.Color.Black;
-            this.lblToolOffset.Location = new System.Drawing.Point(128, 303);
-            this.lblToolOffset.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblToolOffset.Name = "lblToolOffset";
-            this.lblToolOffset.Size = new System.Drawing.Size(91, 23);
-            this.lblToolOffset.TabIndex = 512;
-            this.lblToolOffset.Text = "5";
-            this.lblToolOffset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelWheelBase
-            // 
-            this.labelWheelBase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelWheelBase.BackColor = System.Drawing.Color.Transparent;
-            this.labelWheelBase.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWheelBase.ForeColor = System.Drawing.Color.DimGray;
-            this.labelWheelBase.Location = new System.Drawing.Point(-9, 484);
-            this.labelWheelBase.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelWheelBase.Name = "labelWheelBase";
-            this.labelWheelBase.Size = new System.Drawing.Size(120, 32);
-            this.labelWheelBase.TabIndex = 511;
-            this.labelWheelBase.Text = "Wheelbase:";
-            this.labelWheelBase.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelTramW
-            // 
-            this.labelTramW.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelTramW.BackColor = System.Drawing.Color.Transparent;
-            this.labelTramW.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTramW.ForeColor = System.Drawing.Color.DimGray;
-            this.labelTramW.Location = new System.Drawing.Point(-9, 446);
-            this.labelTramW.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelTramW.Name = "labelTramW";
-            this.labelTramW.Size = new System.Drawing.Size(120, 32);
-            this.labelTramW.TabIndex = 511;
-            this.labelTramW.Text = "Tram Width:";
-            this.labelTramW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblUnits
-            // 
-            this.lblUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblUnits.BackColor = System.Drawing.Color.Transparent;
-            this.lblUnits.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnits.ForeColor = System.Drawing.Color.Black;
-            this.lblUnits.Location = new System.Drawing.Point(128, 189);
-            this.lblUnits.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblUnits.Name = "lblUnits";
-            this.lblUnits.Size = new System.Drawing.Size(91, 23);
-            this.lblUnits.TabIndex = 510;
-            this.lblUnits.Text = "Metric";
-            this.lblUnits.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTramWidth
-            // 
-            this.lblTramWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblTramWidth.BackColor = System.Drawing.Color.Transparent;
-            this.lblTramWidth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTramWidth.ForeColor = System.Drawing.Color.Black;
-            this.lblTramWidth.Location = new System.Drawing.Point(128, 452);
-            this.lblTramWidth.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblTramWidth.Name = "lblTramWidth";
-            this.lblTramWidth.Size = new System.Drawing.Size(99, 23);
-            this.lblTramWidth.TabIndex = 509;
-            this.lblTramWidth.Text = "2400 cm";
-            this.lblTramWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblNudgeDistance
-            // 
-            this.lblNudgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblNudgeDistance.BackColor = System.Drawing.Color.Transparent;
-            this.lblNudgeDistance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNudgeDistance.ForeColor = System.Drawing.Color.Black;
-            this.lblNudgeDistance.Location = new System.Drawing.Point(128, 416);
-            this.lblNudgeDistance.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblNudgeDistance.Name = "lblNudgeDistance";
-            this.lblNudgeDistance.Size = new System.Drawing.Size(91, 23);
-            this.lblNudgeDistance.TabIndex = 509;
-            this.lblNudgeDistance.Text = "5";
-            this.lblNudgeDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblSumNumSections
-            // 
-            this.lblSumNumSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSumNumSections.BackColor = System.Drawing.Color.Transparent;
-            this.lblSumNumSections.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSumNumSections.ForeColor = System.Drawing.Color.Black;
-            this.lblSumNumSections.Location = new System.Drawing.Point(128, 267);
-            this.lblSumNumSections.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblSumNumSections.Name = "lblSumNumSections";
-            this.lblSumNumSections.Size = new System.Drawing.Size(91, 23);
-            this.lblSumNumSections.TabIndex = 508;
-            this.lblSumNumSections.Text = "5";
-            this.lblSumNumSections.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelUnits
-            // 
-            this.labelUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelUnits.BackColor = System.Drawing.Color.Transparent;
-            this.labelUnits.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUnits.ForeColor = System.Drawing.Color.DimGray;
-            this.labelUnits.Location = new System.Drawing.Point(0, 188);
-            this.labelUnits.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelUnits.Name = "labelUnits";
-            this.labelUnits.Size = new System.Drawing.Size(114, 23);
-            this.labelUnits.TabIndex = 507;
-            this.labelUnits.Text = "Units:";
-            this.labelUnits.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelNudge
-            // 
-            this.labelNudge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelNudge.BackColor = System.Drawing.Color.Transparent;
-            this.labelNudge.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNudge.ForeColor = System.Drawing.Color.DimGray;
-            this.labelNudge.Location = new System.Drawing.Point(0, 415);
-            this.labelNudge.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelNudge.Name = "labelNudge";
-            this.labelNudge.Size = new System.Drawing.Size(111, 23);
-            this.labelNudge.TabIndex = 506;
-            this.labelNudge.Text = "Line Shift:";
-            this.labelNudge.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelSections
-            // 
-            this.labelSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelSections.BackColor = System.Drawing.Color.Transparent;
-            this.labelSections.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSections.ForeColor = System.Drawing.Color.DimGray;
-            this.labelSections.Location = new System.Drawing.Point(0, 266);
-            this.labelSections.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelSections.Name = "labelSections";
-            this.labelSections.Size = new System.Drawing.Size(111, 23);
-            this.labelSections.TabIndex = 505;
-            this.labelSections.Text = "Sections:";
-            this.labelSections.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblSummaryVehicleName
-            // 
-            this.lblSummaryVehicleName.BackColor = System.Drawing.Color.Transparent;
-            this.lblSummaryVehicleName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummaryVehicleName.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryVehicleName.Location = new System.Drawing.Point(243, 3);
-            this.lblSummaryVehicleName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblSummaryVehicleName.Name = "lblSummaryVehicleName";
-            this.lblSummaryVehicleName.Size = new System.Drawing.Size(507, 23);
-            this.lblSummaryVehicleName.TabIndex = 503;
-            this.lblSummaryVehicleName.Text = "Vehicle Name";
-            this.lblSummaryVehicleName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelDelete
-            // 
-            this.labelDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelDelete.AutoSize = true;
-            this.labelDelete.BackColor = System.Drawing.Color.Transparent;
-            this.labelDelete.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDelete.ForeColor = System.Drawing.Color.Black;
-            this.labelDelete.Location = new System.Drawing.Point(777, 377);
-            this.labelDelete.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelDelete.Name = "labelDelete";
-            this.labelDelete.Size = new System.Drawing.Size(57, 18);
-            this.labelDelete.TabIndex = 488;
-            this.labelDelete.Text = "Delete";
-            this.labelDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelOpen
-            // 
-            this.labelOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelOpen.AutoSize = true;
-            this.labelOpen.BackColor = System.Drawing.Color.Transparent;
-            this.labelOpen.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOpen.ForeColor = System.Drawing.Color.Black;
-            this.labelOpen.Location = new System.Drawing.Point(783, 275);
-            this.labelOpen.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelOpen.Name = "labelOpen";
-            this.labelOpen.Size = new System.Drawing.Size(47, 18);
-            this.labelOpen.TabIndex = 486;
-            this.labelOpen.Text = "Open";
-            this.labelOpen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnVehicleLoad
-            // 
-            this.btnVehicleLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnVehicleLoad.BackColor = System.Drawing.Color.Transparent;
-            this.btnVehicleLoad.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnVehicleLoad.FlatAppearance.BorderSize = 0;
-            this.btnVehicleLoad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.btnVehicleLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVehicleLoad.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleLoad.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
-            this.btnVehicleLoad.Location = new System.Drawing.Point(764, 222);
-            this.btnVehicleLoad.Name = "btnVehicleLoad";
-            this.btnVehicleLoad.Size = new System.Drawing.Size(81, 49);
-            this.btnVehicleLoad.TabIndex = 456;
-            this.btnVehicleLoad.UseVisualStyleBackColor = false;
-            this.btnVehicleLoad.Click += new System.EventHandler(this.btnVehicleLoad_Click);
-            // 
-            // btnVehicleDelete
-            // 
-            this.btnVehicleDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnVehicleDelete.BackColor = System.Drawing.Color.Transparent;
-            this.btnVehicleDelete.FlatAppearance.BorderSize = 0;
-            this.btnVehicleDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.btnVehicleDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVehicleDelete.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleDelete.Image = global::AgOpenGPS.Properties.Resources.Trash;
-            this.btnVehicleDelete.Location = new System.Drawing.Point(764, 325);
-            this.btnVehicleDelete.Name = "btnVehicleDelete";
-            this.btnVehicleDelete.Size = new System.Drawing.Size(81, 49);
-            this.btnVehicleDelete.TabIndex = 455;
-            this.btnVehicleDelete.UseVisualStyleBackColor = false;
-            this.btnVehicleDelete.Click += new System.EventHandler(this.btnVehicleDelete_Click);
-            // 
-            // tboxVehicleNameSave
-            // 
-            this.tboxVehicleNameSave.BackColor = System.Drawing.Color.White;
-            this.tboxVehicleNameSave.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxVehicleNameSave.Location = new System.Drawing.Point(335, 31);
-            this.tboxVehicleNameSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.tboxVehicleNameSave.Name = "tboxVehicleNameSave";
-            this.tboxVehicleNameSave.Size = new System.Drawing.Size(415, 33);
-            this.tboxVehicleNameSave.TabIndex = 451;
-            this.tboxVehicleNameSave.Click += new System.EventHandler(this.tboxVehicleNameSave_Click);
-            this.tboxVehicleNameSave.TextChanged += new System.EventHandler(this.tboxVehicleNameSave_TextChanged);
-            this.tboxVehicleNameSave.Enter += new System.EventHandler(this.tboxVehicleNameSave_Enter);
-            // 
-            // labelSaveAs
-            // 
-            this.labelSaveAs.BackColor = System.Drawing.Color.Transparent;
-            this.labelSaveAs.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSaveAs.ForeColor = System.Drawing.Color.Black;
-            this.labelSaveAs.Location = new System.Drawing.Point(139, 36);
-            this.labelSaveAs.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelSaveAs.Name = "labelSaveAs";
-            this.labelSaveAs.Size = new System.Drawing.Size(192, 23);
-            this.labelSaveAs.TabIndex = 497;
-            this.labelSaveAs.Text = "Save As:";
-            this.labelSaveAs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblSummaryWidth
-            // 
-            this.lblSummaryWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSummaryWidth.BackColor = System.Drawing.Color.Transparent;
-            this.lblSummaryWidth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummaryWidth.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryWidth.Location = new System.Drawing.Point(128, 234);
-            this.lblSummaryWidth.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblSummaryWidth.Name = "lblSummaryWidth";
-            this.lblSummaryWidth.Size = new System.Drawing.Size(99, 23);
-            this.lblSummaryWidth.TabIndex = 519;
-            this.lblSummaryWidth.Text = "7.2 m";
-            this.lblSummaryWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblSumWheelbase
-            // 
-            this.lblSumWheelbase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSumWheelbase.BackColor = System.Drawing.Color.Transparent;
-            this.lblSumWheelbase.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSumWheelbase.ForeColor = System.Drawing.Color.Black;
-            this.lblSumWheelbase.Location = new System.Drawing.Point(128, 490);
-            this.lblSumWheelbase.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblSumWheelbase.Name = "lblSumWheelbase";
-            this.lblSumWheelbase.Size = new System.Drawing.Size(106, 23);
-            this.lblSumWheelbase.TabIndex = 509;
-            this.lblSumWheelbase.Text = "2.4m";
-            this.lblSumWheelbase.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.configSummaryControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.configSummaryControl.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.configSummaryControl.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.configSummaryControl.Location = new System.Drawing.Point(0, 0);
+            this.configSummaryControl.Name = "configSummaryControl";
+            this.configSummaryControl.Padding = new System.Windows.Forms.Padding(3);
+            this.configSummaryControl.Size = new System.Drawing.Size(859, 583);
+            this.configSummaryControl.TabIndex = 521;
             // 
             // tabVConfig
             // 
             this.tabVConfig.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabVConfig.Controls.Add(this.lblOpacityPercent);
-            this.tabVConfig.Controls.Add(this.labelVehicleGroupBox);
-            this.tabVConfig.Controls.Add(this.panelArticulatedBrands);
-            this.tabVConfig.Controls.Add(this.labelOpacity);
-            this.tabVConfig.Controls.Add(this.panelHarvesterBrands);
-            this.tabVConfig.Controls.Add(this.panelTractorBrands);
-            this.tabVConfig.Controls.Add(this.labelImage);
-            this.tabVConfig.Controls.Add(this.btnOpacityDn);
-            this.tabVConfig.Controls.Add(this.panelOpacity);
-            this.tabVConfig.Controls.Add(this.btnOpacityUp);
-            this.tabVConfig.Controls.Add(this.cboxIsImage);
+            this.tabVConfig.Controls.Add(this.configVehicleControl);
             this.tabVConfig.Location = new System.Drawing.Point(4, 44);
             this.tabVConfig.Name = "tabVConfig";
             this.tabVConfig.Size = new System.Drawing.Size(859, 584);
@@ -1749,673 +1206,17 @@ namespace AgOpenGPS
             this.tabVConfig.Enter += new System.EventHandler(this.tabVConfig_Enter);
             this.tabVConfig.Leave += new System.EventHandler(this.tabVConfig_Leave);
             // 
-            // lblOpacityPercent
-            // 
-            this.lblOpacityPercent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblOpacityPercent.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOpacityPercent.ForeColor = System.Drawing.Color.Black;
-            this.lblOpacityPercent.Location = new System.Drawing.Point(631, 453);
-            this.lblOpacityPercent.Name = "lblOpacityPercent";
-            this.lblOpacityPercent.Size = new System.Drawing.Size(139, 45);
-            this.lblOpacityPercent.TabIndex = 479;
-            this.lblOpacityPercent.Text = "100%";
-            this.lblOpacityPercent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelVehicleGroupBox
-            // 
-            this.labelVehicleGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelVehicleGroupBox.BackColor = System.Drawing.Color.Transparent;
-            this.labelVehicleGroupBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.labelVehicleGroupBox.Controls.Add(this.rbtnHarvester);
-            this.labelVehicleGroupBox.Controls.Add(this.rbtnArticulated);
-            this.labelVehicleGroupBox.Controls.Add(this.rbtnTractor);
-            this.labelVehicleGroupBox.ForeColor = System.Drawing.Color.Black;
-            this.labelVehicleGroupBox.Location = new System.Drawing.Point(24, -9);
-            this.labelVehicleGroupBox.Name = "labelVehicleGroupBox";
-            this.labelVehicleGroupBox.Size = new System.Drawing.Size(516, 122);
-            this.labelVehicleGroupBox.TabIndex = 112;
-            this.labelVehicleGroupBox.TabStop = false;
-            this.labelVehicleGroupBox.Text = "Choose Vehicle Type";
-            // 
-            // rbtnHarvester
-            // 
-            this.rbtnHarvester.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnHarvester.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePageHarvester;
-            this.rbtnHarvester.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.rbtnHarvester.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnHarvester.FlatAppearance.BorderSize = 0;
-            this.rbtnHarvester.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnHarvester.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnHarvester.Location = new System.Drawing.Point(16, 27);
-            this.rbtnHarvester.Name = "rbtnHarvester";
-            this.rbtnHarvester.Size = new System.Drawing.Size(127, 83);
-            this.rbtnHarvester.TabIndex = 253;
-            this.rbtnHarvester.UseVisualStyleBackColor = true;
-            this.rbtnHarvester.Click += new System.EventHandler(this.rbtnVehicleType_Click);
-            // 
-            // rbtnArticulated
-            // 
-            this.rbtnArticulated.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnArticulated.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePageArticulated;
-            this.rbtnArticulated.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.rbtnArticulated.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnArticulated.FlatAppearance.BorderSize = 0;
-            this.rbtnArticulated.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnArticulated.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnArticulated.Location = new System.Drawing.Point(366, 27);
-            this.rbtnArticulated.Name = "rbtnArticulated";
-            this.rbtnArticulated.Size = new System.Drawing.Size(127, 83);
-            this.rbtnArticulated.TabIndex = 252;
-            this.rbtnArticulated.UseVisualStyleBackColor = true;
-            this.rbtnArticulated.Click += new System.EventHandler(this.rbtnVehicleType_Click);
-            // 
-            // rbtnTractor
-            // 
-            this.rbtnTractor.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnTractor.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePageTractor;
-            this.rbtnTractor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.rbtnTractor.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnTractor.Checked = true;
-            this.rbtnTractor.FlatAppearance.BorderSize = 0;
-            this.rbtnTractor.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnTractor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnTractor.Location = new System.Drawing.Point(192, 27);
-            this.rbtnTractor.Name = "rbtnTractor";
-            this.rbtnTractor.Size = new System.Drawing.Size(127, 83);
-            this.rbtnTractor.TabIndex = 112;
-            this.rbtnTractor.TabStop = true;
-            this.rbtnTractor.UseVisualStyleBackColor = true;
-            this.rbtnTractor.Click += new System.EventHandler(this.rbtnVehicleType_Click);
-            // 
-            // panelArticulatedBrands
-            // 
-            this.panelArticulatedBrands.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelArticulatedBrands.Controls.Add(this.rbtnBrandAHolder);
-            this.panelArticulatedBrands.Controls.Add(this.rbtnBrandAAgOpenGPS);
-            this.panelArticulatedBrands.Controls.Add(this.rbtnBrandAChallenger);
-            this.panelArticulatedBrands.Controls.Add(this.rbtnBrandACase);
-            this.panelArticulatedBrands.Controls.Add(this.rbtnBrandANH);
-            this.panelArticulatedBrands.Controls.Add(this.rbtnBrandAJDeere);
-            this.panelArticulatedBrands.Location = new System.Drawing.Point(412, 115);
-            this.panelArticulatedBrands.Name = "panelArticulatedBrands";
-            this.panelArticulatedBrands.Size = new System.Drawing.Size(80, 467);
-            this.panelArticulatedBrands.TabIndex = 144;
-            // 
-            // rbtnBrandAHolder
-            // 
-            this.rbtnBrandAHolder.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandAHolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandAHolder.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandAHolder.Checked = true;
-            this.rbtnBrandAHolder.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandAHolder.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandAHolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandAHolder.Image = global::AgOpenGPS.Properties.Resources.Holder;
-            this.rbtnBrandAHolder.Location = new System.Drawing.Point(8, 395);
-            this.rbtnBrandAHolder.Name = "rbtnBrandAHolder";
-            this.rbtnBrandAHolder.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandAHolder.TabIndex = 136;
-            this.rbtnBrandAHolder.TabStop = true;
-            this.rbtnBrandAHolder.Tag = AgOpenGPS.ArticulatedBrand.Holder;
-            this.rbtnBrandAHolder.UseVisualStyleBackColor = true;
-            this.rbtnBrandAHolder.CheckedChanged += new System.EventHandler(this.ArticulatedBrandCheckedChanged);
-            // 
-            // rbtnBrandAAgOpenGPS
-            // 
-            this.rbtnBrandAAgOpenGPS.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandAAgOpenGPS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandAAgOpenGPS.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandAAgOpenGPS.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandAAgOpenGPS.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandAAgOpenGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandAAgOpenGPS.Image = global::AgOpenGPS.Properties.Resources.AoG;
-            this.rbtnBrandAAgOpenGPS.Location = new System.Drawing.Point(8, 6);
-            this.rbtnBrandAAgOpenGPS.Name = "rbtnBrandAAgOpenGPS";
-            this.rbtnBrandAAgOpenGPS.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandAAgOpenGPS.TabIndex = 131;
-            this.rbtnBrandAAgOpenGPS.Tag = AgOpenGPS.ArticulatedBrand.AgOpenGPS;
-            this.rbtnBrandAAgOpenGPS.UseVisualStyleBackColor = true;
-            this.rbtnBrandAAgOpenGPS.CheckedChanged += new System.EventHandler(this.ArticulatedBrandCheckedChanged);
-            // 
-            // rbtnBrandAChallenger
-            // 
-            this.rbtnBrandAChallenger.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandAChallenger.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandAChallenger.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandAChallenger.Checked = true;
-            this.rbtnBrandAChallenger.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandAChallenger.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandAChallenger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandAChallenger.Image = global::AgOpenGPS.Properties.Resources.Challenger;
-            this.rbtnBrandAChallenger.Location = new System.Drawing.Point(8, 84);
-            this.rbtnBrandAChallenger.Name = "rbtnBrandAChallenger";
-            this.rbtnBrandAChallenger.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandAChallenger.TabIndex = 132;
-            this.rbtnBrandAChallenger.TabStop = true;
-            this.rbtnBrandAChallenger.Tag = AgOpenGPS.ArticulatedBrand.Challenger;
-            this.rbtnBrandAChallenger.UseVisualStyleBackColor = true;
-            this.rbtnBrandAChallenger.CheckedChanged += new System.EventHandler(this.ArticulatedBrandCheckedChanged);
-            // 
-            // rbtnBrandACase
-            // 
-            this.rbtnBrandACase.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandACase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandACase.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandACase.Checked = true;
-            this.rbtnBrandACase.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandACase.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandACase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandACase.Image = global::AgOpenGPS.Properties.Resources.Case;
-            this.rbtnBrandACase.Location = new System.Drawing.Point(8, 162);
-            this.rbtnBrandACase.Name = "rbtnBrandACase";
-            this.rbtnBrandACase.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandACase.TabIndex = 133;
-            this.rbtnBrandACase.TabStop = true;
-            this.rbtnBrandACase.Tag = AgOpenGPS.ArticulatedBrand.Case;
-            this.rbtnBrandACase.UseVisualStyleBackColor = true;
-            this.rbtnBrandACase.CheckedChanged += new System.EventHandler(this.ArticulatedBrandCheckedChanged);
-            // 
-            // rbtnBrandANH
-            // 
-            this.rbtnBrandANH.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandANH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandANH.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandANH.Checked = true;
-            this.rbtnBrandANH.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandANH.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandANH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandANH.Image = global::AgOpenGPS.Properties.Resources.NewHolland;
-            this.rbtnBrandANH.Location = new System.Drawing.Point(8, 318);
-            this.rbtnBrandANH.Name = "rbtnBrandANH";
-            this.rbtnBrandANH.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandANH.TabIndex = 135;
-            this.rbtnBrandANH.TabStop = true;
-            this.rbtnBrandANH.Tag = AgOpenGPS.ArticulatedBrand.NewHolland;
-            this.rbtnBrandANH.UseVisualStyleBackColor = true;
-            this.rbtnBrandANH.CheckedChanged += new System.EventHandler(this.ArticulatedBrandCheckedChanged);
-            // 
-            // rbtnBrandAJDeere
-            // 
-            this.rbtnBrandAJDeere.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandAJDeere.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandAJDeere.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandAJDeere.Checked = true;
-            this.rbtnBrandAJDeere.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandAJDeere.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandAJDeere.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandAJDeere.Image = global::AgOpenGPS.Properties.Resources.JohnDeere;
-            this.rbtnBrandAJDeere.Location = new System.Drawing.Point(8, 240);
-            this.rbtnBrandAJDeere.Name = "rbtnBrandAJDeere";
-            this.rbtnBrandAJDeere.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandAJDeere.TabIndex = 134;
-            this.rbtnBrandAJDeere.TabStop = true;
-            this.rbtnBrandAJDeere.Tag = AgOpenGPS.ArticulatedBrand.JDeere;
-            this.rbtnBrandAJDeere.UseVisualStyleBackColor = true;
-            this.rbtnBrandAJDeere.CheckedChanged += new System.EventHandler(this.ArticulatedBrandCheckedChanged);
-            // 
-            // labelOpacity
-            // 
-            this.labelOpacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelOpacity.AutoSize = true;
-            this.labelOpacity.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOpacity.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.labelOpacity.Location = new System.Drawing.Point(665, 422);
-            this.labelOpacity.Name = "labelOpacity";
-            this.labelOpacity.Size = new System.Drawing.Size(70, 19);
-            this.labelOpacity.TabIndex = 478;
-            this.labelOpacity.Text = "Opacity";
-            // 
-            // panelHarvesterBrands
-            // 
-            this.panelHarvesterBrands.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelHarvesterBrands.Controls.Add(this.rbtnBrandHAgOpenGPS);
-            this.panelHarvesterBrands.Controls.Add(this.rbtnBrandHCase);
-            this.panelHarvesterBrands.Controls.Add(this.rbtnBrandHClaas);
-            this.panelHarvesterBrands.Controls.Add(this.rbtnBrandHJDeere);
-            this.panelHarvesterBrands.Controls.Add(this.rbtnBrandHNH);
-            this.panelHarvesterBrands.Location = new System.Drawing.Point(59, 115);
-            this.panelHarvesterBrands.Name = "panelHarvesterBrands";
-            this.panelHarvesterBrands.Size = new System.Drawing.Size(80, 467);
-            this.panelHarvesterBrands.TabIndex = 143;
-            // 
-            // rbtnBrandHAgOpenGPS
-            // 
-            this.rbtnBrandHAgOpenGPS.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandHAgOpenGPS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandHAgOpenGPS.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandHAgOpenGPS.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandHAgOpenGPS.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandHAgOpenGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHAgOpenGPS.Image = global::AgOpenGPS.Properties.Resources.AoG;
-            this.rbtnBrandHAgOpenGPS.Location = new System.Drawing.Point(8, 6);
-            this.rbtnBrandHAgOpenGPS.Name = "rbtnBrandHAgOpenGPS";
-            this.rbtnBrandHAgOpenGPS.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandHAgOpenGPS.TabIndex = 127;
-            this.rbtnBrandHAgOpenGPS.Tag = AgOpenGPS.HarvesterBrand.AgOpenGPS;
-            this.rbtnBrandHAgOpenGPS.UseVisualStyleBackColor = true;
-            this.rbtnBrandHAgOpenGPS.CheckedChanged += new System.EventHandler(this.HarvesterBrandCheckedChanged);
-            // 
-            // rbtnBrandHCase
-            // 
-            this.rbtnBrandHCase.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandHCase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandHCase.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandHCase.Checked = true;
-            this.rbtnBrandHCase.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandHCase.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandHCase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHCase.Image = global::AgOpenGPS.Properties.Resources.Case;
-            this.rbtnBrandHCase.Location = new System.Drawing.Point(8, 102);
-            this.rbtnBrandHCase.Name = "rbtnBrandHCase";
-            this.rbtnBrandHCase.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandHCase.TabIndex = 114;
-            this.rbtnBrandHCase.TabStop = true;
-            this.rbtnBrandHCase.Tag = AgOpenGPS.HarvesterBrand.Case;
-            this.rbtnBrandHCase.UseVisualStyleBackColor = true;
-            this.rbtnBrandHCase.CheckedChanged += new System.EventHandler(this.HarvesterBrandCheckedChanged);
-            // 
-            // rbtnBrandHClaas
-            // 
-            this.rbtnBrandHClaas.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandHClaas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandHClaas.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandHClaas.Checked = true;
-            this.rbtnBrandHClaas.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandHClaas.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandHClaas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHClaas.Image = global::AgOpenGPS.Properties.Resources.Claas;
-            this.rbtnBrandHClaas.Location = new System.Drawing.Point(8, 198);
-            this.rbtnBrandHClaas.Name = "rbtnBrandHClaas";
-            this.rbtnBrandHClaas.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandHClaas.TabIndex = 116;
-            this.rbtnBrandHClaas.TabStop = true;
-            this.rbtnBrandHClaas.Tag = AgOpenGPS.HarvesterBrand.Claas;
-            this.rbtnBrandHClaas.UseVisualStyleBackColor = true;
-            this.rbtnBrandHClaas.CheckedChanged += new System.EventHandler(this.HarvesterBrandCheckedChanged);
-            // 
-            // rbtnBrandHJDeere
-            // 
-            this.rbtnBrandHJDeere.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandHJDeere.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandHJDeere.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandHJDeere.Checked = true;
-            this.rbtnBrandHJDeere.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandHJDeere.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandHJDeere.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHJDeere.Image = global::AgOpenGPS.Properties.Resources.JohnDeere;
-            this.rbtnBrandHJDeere.Location = new System.Drawing.Point(8, 294);
-            this.rbtnBrandHJDeere.Name = "rbtnBrandHJDeere";
-            this.rbtnBrandHJDeere.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandHJDeere.TabIndex = 129;
-            this.rbtnBrandHJDeere.TabStop = true;
-            this.rbtnBrandHJDeere.Tag = AgOpenGPS.HarvesterBrand.JDeere;
-            this.rbtnBrandHJDeere.UseVisualStyleBackColor = true;
-            this.rbtnBrandHJDeere.CheckedChanged += new System.EventHandler(this.HarvesterBrandCheckedChanged);
-            // 
-            // rbtnBrandHNH
-            // 
-            this.rbtnBrandHNH.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandHNH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandHNH.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandHNH.Checked = true;
-            this.rbtnBrandHNH.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandHNH.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandHNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHNH.Image = global::AgOpenGPS.Properties.Resources.NewHolland;
-            this.rbtnBrandHNH.Location = new System.Drawing.Point(8, 390);
-            this.rbtnBrandHNH.Name = "rbtnBrandHNH";
-            this.rbtnBrandHNH.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandHNH.TabIndex = 130;
-            this.rbtnBrandHNH.TabStop = true;
-            this.rbtnBrandHNH.Tag = AgOpenGPS.HarvesterBrand.NewHolland;
-            this.rbtnBrandHNH.UseVisualStyleBackColor = true;
-            this.rbtnBrandHNH.CheckedChanged += new System.EventHandler(this.HarvesterBrandCheckedChanged);
-            // 
-            // panelTractorBrands
-            // 
-            this.panelTractorBrands.AccessibleName = "";
-            this.panelTractorBrands.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTJCB);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTAgOpenGPS);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTCase);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTClaas);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTDeutz);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTFendt);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTJDeere);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTKubota);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTMassey);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTNH);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTSame);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTSteyr);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTValtra);
-            this.panelTractorBrands.Controls.Add(this.rbtnBrandTUrsus);
-            this.panelTractorBrands.Location = new System.Drawing.Point(131, 115);
-            this.panelTractorBrands.Name = "panelTractorBrands";
-            this.panelTractorBrands.Size = new System.Drawing.Size(289, 467);
-            this.panelTractorBrands.TabIndex = 142;
-            // 
-            // rbtnBrandTJCB
-            // 
-            this.rbtnBrandTJCB.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTJCB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTJCB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTJCB.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTJCB.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTJCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTJCB.Image = global::AgOpenGPS.Properties.Resources.JCB;
-            this.rbtnBrandTJCB.Location = new System.Drawing.Point(13, 6);
-            this.rbtnBrandTJCB.Name = "rbtnBrandTJCB";
-            this.rbtnBrandTJCB.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTJCB.TabIndex = 127;
-            this.rbtnBrandTJCB.Tag = AgOpenGPS.TractorBrand.JCB;
-            this.rbtnBrandTJCB.UseVisualStyleBackColor = true;
-            this.rbtnBrandTJCB.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTAgOpenGPS
-            // 
-            this.rbtnBrandTAgOpenGPS.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTAgOpenGPS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTAgOpenGPS.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTAgOpenGPS.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTAgOpenGPS.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTAgOpenGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTAgOpenGPS.Image = global::AgOpenGPS.Properties.Resources.AoG;
-            this.rbtnBrandTAgOpenGPS.Location = new System.Drawing.Point(112, 6);
-            this.rbtnBrandTAgOpenGPS.Name = "rbtnBrandTAgOpenGPS";
-            this.rbtnBrandTAgOpenGPS.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTAgOpenGPS.TabIndex = 126;
-            this.rbtnBrandTAgOpenGPS.Tag = AgOpenGPS.TractorBrand.AGOpenGPS;
-            this.rbtnBrandTAgOpenGPS.UseVisualStyleBackColor = true;
-            this.rbtnBrandTAgOpenGPS.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTCase
-            // 
-            this.rbtnBrandTCase.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTCase.BackgroundImage = global::AgOpenGPS.Properties.Resources.Case;
-            this.rbtnBrandTCase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTCase.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTCase.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTCase.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTCase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTCase.Location = new System.Drawing.Point(13, 102);
-            this.rbtnBrandTCase.Name = "rbtnBrandTCase";
-            this.rbtnBrandTCase.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTCase.TabIndex = 114;
-            this.rbtnBrandTCase.Tag = AgOpenGPS.TractorBrand.Case;
-            this.rbtnBrandTCase.UseVisualStyleBackColor = true;
-            this.rbtnBrandTCase.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTClaas
-            // 
-            this.rbtnBrandTClaas.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTClaas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTClaas.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTClaas.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTClaas.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTClaas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTClaas.Image = global::AgOpenGPS.Properties.Resources.Claas;
-            this.rbtnBrandTClaas.Location = new System.Drawing.Point(112, 102);
-            this.rbtnBrandTClaas.Name = "rbtnBrandTClaas";
-            this.rbtnBrandTClaas.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTClaas.TabIndex = 115;
-            this.rbtnBrandTClaas.Tag = AgOpenGPS.TractorBrand.Claas;
-            this.rbtnBrandTClaas.UseVisualStyleBackColor = true;
-            this.rbtnBrandTClaas.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTDeutz
-            // 
-            this.rbtnBrandTDeutz.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTDeutz.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTDeutz.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTDeutz.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTDeutz.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTDeutz.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTDeutz.Image = global::AgOpenGPS.Properties.Resources.Deutz;
-            this.rbtnBrandTDeutz.Location = new System.Drawing.Point(211, 102);
-            this.rbtnBrandTDeutz.Name = "rbtnBrandTDeutz";
-            this.rbtnBrandTDeutz.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTDeutz.TabIndex = 116;
-            this.rbtnBrandTDeutz.Tag = AgOpenGPS.TractorBrand.Deutz;
-            this.rbtnBrandTDeutz.UseVisualStyleBackColor = true;
-            this.rbtnBrandTDeutz.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTFendt
-            // 
-            this.rbtnBrandTFendt.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTFendt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTFendt.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTFendt.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTFendt.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTFendt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTFendt.Image = global::AgOpenGPS.Properties.Resources.Fendt;
-            this.rbtnBrandTFendt.Location = new System.Drawing.Point(13, 390);
-            this.rbtnBrandTFendt.Name = "rbtnBrandTFendt";
-            this.rbtnBrandTFendt.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTFendt.TabIndex = 117;
-            this.rbtnBrandTFendt.Tag = AgOpenGPS.TractorBrand.Fendt;
-            this.rbtnBrandTFendt.UseVisualStyleBackColor = true;
-            this.rbtnBrandTFendt.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTJDeere
-            // 
-            this.rbtnBrandTJDeere.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTJDeere.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTJDeere.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTJDeere.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTJDeere.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTJDeere.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTJDeere.Image = global::AgOpenGPS.Properties.Resources.JohnDeere;
-            this.rbtnBrandTJDeere.Location = new System.Drawing.Point(211, 294);
-            this.rbtnBrandTJDeere.Name = "rbtnBrandTJDeere";
-            this.rbtnBrandTJDeere.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTJDeere.TabIndex = 118;
-            this.rbtnBrandTJDeere.Tag = AgOpenGPS.TractorBrand.JDeere;
-            this.rbtnBrandTJDeere.UseVisualStyleBackColor = true;
-            this.rbtnBrandTJDeere.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTKubota
-            // 
-            this.rbtnBrandTKubota.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTKubota.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTKubota.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTKubota.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTKubota.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTKubota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTKubota.Image = global::AgOpenGPS.Properties.Resources.Kubota;
-            this.rbtnBrandTKubota.Location = new System.Drawing.Point(211, 390);
-            this.rbtnBrandTKubota.Name = "rbtnBrandTKubota";
-            this.rbtnBrandTKubota.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTKubota.TabIndex = 119;
-            this.rbtnBrandTKubota.Tag = AgOpenGPS.TractorBrand.Kubota;
-            this.rbtnBrandTKubota.UseVisualStyleBackColor = true;
-            this.rbtnBrandTKubota.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTMassey
-            // 
-            this.rbtnBrandTMassey.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTMassey.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTMassey.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTMassey.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTMassey.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTMassey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTMassey.Image = global::AgOpenGPS.Properties.Resources.Massey;
-            this.rbtnBrandTMassey.Location = new System.Drawing.Point(13, 198);
-            this.rbtnBrandTMassey.Name = "rbtnBrandTMassey";
-            this.rbtnBrandTMassey.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTMassey.TabIndex = 120;
-            this.rbtnBrandTMassey.Tag = AgOpenGPS.TractorBrand.Massey;
-            this.rbtnBrandTMassey.UseVisualStyleBackColor = true;
-            this.rbtnBrandTMassey.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTNH
-            // 
-            this.rbtnBrandTNH.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTNH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTNH.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTNH.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTNH.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTNH.Image = global::AgOpenGPS.Properties.Resources.NewHolland;
-            this.rbtnBrandTNH.Location = new System.Drawing.Point(112, 198);
-            this.rbtnBrandTNH.Name = "rbtnBrandTNH";
-            this.rbtnBrandTNH.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTNH.TabIndex = 121;
-            this.rbtnBrandTNH.Tag = AgOpenGPS.TractorBrand.NewHolland;
-            this.rbtnBrandTNH.UseVisualStyleBackColor = true;
-            this.rbtnBrandTNH.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTSame
-            // 
-            this.rbtnBrandTSame.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTSame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTSame.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTSame.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTSame.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTSame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTSame.Image = global::AgOpenGPS.Properties.Resources.Same;
-            this.rbtnBrandTSame.Location = new System.Drawing.Point(211, 198);
-            this.rbtnBrandTSame.Name = "rbtnBrandTSame";
-            this.rbtnBrandTSame.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTSame.TabIndex = 122;
-            this.rbtnBrandTSame.Tag = AgOpenGPS.TractorBrand.Same;
-            this.rbtnBrandTSame.UseVisualStyleBackColor = true;
-            this.rbtnBrandTSame.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTSteyr
-            // 
-            this.rbtnBrandTSteyr.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTSteyr.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTSteyr.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTSteyr.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTSteyr.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTSteyr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTSteyr.Image = global::AgOpenGPS.Properties.Resources.Steyr;
-            this.rbtnBrandTSteyr.Location = new System.Drawing.Point(112, 390);
-            this.rbtnBrandTSteyr.Name = "rbtnBrandTSteyr";
-            this.rbtnBrandTSteyr.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTSteyr.TabIndex = 123;
-            this.rbtnBrandTSteyr.Tag = AgOpenGPS.TractorBrand.Steyr;
-            this.rbtnBrandTSteyr.UseVisualStyleBackColor = true;
-            this.rbtnBrandTSteyr.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTValtra
-            // 
-            this.rbtnBrandTValtra.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTValtra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTValtra.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTValtra.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTValtra.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTValtra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTValtra.Image = global::AgOpenGPS.Properties.Resources.Valtra;
-            this.rbtnBrandTValtra.Location = new System.Drawing.Point(112, 294);
-            this.rbtnBrandTValtra.Name = "rbtnBrandTValtra";
-            this.rbtnBrandTValtra.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTValtra.TabIndex = 125;
-            this.rbtnBrandTValtra.Tag = AgOpenGPS.TractorBrand.Valtra;
-            this.rbtnBrandTValtra.UseVisualStyleBackColor = true;
-            this.rbtnBrandTValtra.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // rbtnBrandTUrsus
-            // 
-            this.rbtnBrandTUrsus.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTUrsus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.rbtnBrandTUrsus.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtnBrandTUrsus.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.rbtnBrandTUrsus.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.rbtnBrandTUrsus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTUrsus.Image = global::AgOpenGPS.Properties.Resources.Ursus;
-            this.rbtnBrandTUrsus.Location = new System.Drawing.Point(13, 294);
-            this.rbtnBrandTUrsus.Name = "rbtnBrandTUrsus";
-            this.rbtnBrandTUrsus.Size = new System.Drawing.Size(64, 64);
-            this.rbtnBrandTUrsus.TabIndex = 124;
-            this.rbtnBrandTUrsus.Tag = AgOpenGPS.TractorBrand.Ursus;
-            this.rbtnBrandTUrsus.UseVisualStyleBackColor = true;
-            this.rbtnBrandTUrsus.CheckedChanged += new System.EventHandler(this.TractorBrandCheckedChanged);
-            // 
-            // labelImage
-            // 
-            this.labelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelImage.AutoSize = true;
-            this.labelImage.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelImage.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.labelImage.Location = new System.Drawing.Point(653, -9);
-            this.labelImage.Name = "labelImage";
-            this.labelImage.Size = new System.Drawing.Size(88, 19);
-            this.labelImage.TabIndex = 485;
-            this.labelImage.Text = "No Image";
-            // 
-            // btnOpacityDn
-            // 
-            this.btnOpacityDn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpacityDn.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpacityDn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnOpacityDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpacityDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
-            this.btnOpacityDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOpacityDn.Location = new System.Drawing.Point(555, 438);
-            this.btnOpacityDn.Name = "btnOpacityDn";
-            this.btnOpacityDn.Size = new System.Drawing.Size(73, 72);
-            this.btnOpacityDn.TabIndex = 534;
-            this.btnOpacityDn.UseVisualStyleBackColor = false;
-            this.btnOpacityDn.Click += new System.EventHandler(this.btnOpacityDn_Click);
-            // 
-            // panelOpacity
-            // 
-            this.panelOpacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelOpacity.BackColor = System.Drawing.Color.MistyRose;
-            this.panelOpacity.BackgroundImage = global::AgOpenGPS.Properties.Resources.VehicleOpacity;
-            this.panelOpacity.Controls.Add(this.pboxAlpha);
-            this.panelOpacity.Location = new System.Drawing.Point(571, 144);
-            this.panelOpacity.Name = "panelOpacity";
-            this.panelOpacity.Size = new System.Drawing.Size(256, 256);
-            this.panelOpacity.TabIndex = 535;
-            // 
-            // pboxAlpha
-            // 
-            this.pboxAlpha.BackColor = System.Drawing.Color.Transparent;
-            this.pboxAlpha.BackgroundImage = global::AgOpenGPS.Properties.Resources.z_TractorDeutz;
-            this.pboxAlpha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pboxAlpha.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pboxAlpha.Location = new System.Drawing.Point(0, 0);
-            this.pboxAlpha.Name = "pboxAlpha";
-            this.pboxAlpha.Size = new System.Drawing.Size(256, 256);
-            this.pboxAlpha.TabIndex = 484;
-            this.pboxAlpha.TabStop = false;
-            // 
-            // btnOpacityUp
-            // 
-            this.btnOpacityUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpacityUp.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpacityUp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnOpacityUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpacityUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
-            this.btnOpacityUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOpacityUp.Location = new System.Drawing.Point(773, 438);
-            this.btnOpacityUp.Name = "btnOpacityUp";
-            this.btnOpacityUp.Size = new System.Drawing.Size(73, 72);
-            this.btnOpacityUp.TabIndex = 533;
-            this.btnOpacityUp.UseVisualStyleBackColor = false;
-            this.btnOpacityUp.Click += new System.EventHandler(this.btnOpacityUp_Click);
-            // 
-            // cboxIsImage
-            // 
-            this.cboxIsImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxIsImage.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxIsImage.BackColor = System.Drawing.Color.Transparent;
-            this.cboxIsImage.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.cboxIsImage.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxIsImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxIsImage.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIsImage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxIsImage.Image = global::AgOpenGPS.Properties.Resources.TriangleVehicle;
-            this.cboxIsImage.Location = new System.Drawing.Point(651, 17);
-            this.cboxIsImage.Name = "cboxIsImage";
-            this.cboxIsImage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboxIsImage.Size = new System.Drawing.Size(96, 96);
-            this.cboxIsImage.TabIndex = 483;
-            this.cboxIsImage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxIsImage.UseVisualStyleBackColor = false;
-            this.cboxIsImage.Click += new System.EventHandler(this.cboxIsImage_Click);
+            // configVehicleControl
+            // 
+            this.configVehicleControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.configVehicleControl.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.configVehicleControl.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.configVehicleControl.Location = new System.Drawing.Point(0, 0);
+            this.configVehicleControl.Name = "configVehicleControl";
+            this.configVehicleControl.Size = new System.Drawing.Size(859, 584);
+            this.configVehicleControl.TabIndex = 536;
             // 
             // tabVAntenna
             // 
@@ -2656,7 +1457,6 @@ namespace AgOpenGPS
             0,
             0,
             0});
-            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
             // 
             // nudAntennaPivot
@@ -5555,11 +4355,11 @@ namespace AgOpenGPS
             this.labelAutoSwitchDualFixSpeed.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.labelAutoSwitchDualFixSpeed.ForeColor = System.Drawing.Color.Black;
             this.labelAutoSwitchDualFixSpeed.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelAutoSwitchDualFixSpeed.Location = new System.Drawing.Point(15, 270);
+            this.labelAutoSwitchDualFixSpeed.Location = new System.Drawing.Point(15, 265);
             this.labelAutoSwitchDualFixSpeed.Name = "labelAutoSwitchDualFixSpeed";
-            this.labelAutoSwitchDualFixSpeed.Size = new System.Drawing.Size(184, 23);
+            this.labelAutoSwitchDualFixSpeed.Size = new System.Drawing.Size(121, 23);
             this.labelAutoSwitchDualFixSpeed.TabIndex = 485;
-            this.labelAutoSwitchDualFixSpeed.Text = "Switch speed (km/h)";
+            this.labelAutoSwitchDualFixSpeed.Text = "Switch speed";
             this.labelAutoSwitchDualFixSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudAutoSwitchDualFixSpeed
@@ -5595,11 +4395,11 @@ namespace AgOpenGPS
             // cboxIsAutoSwitchDualFixOn
             // 
             this.cboxIsAutoSwitchDualFixOn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxIsAutoSwitchDualFixOn.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxIsAutoSwitchDualFixOn.BackColor = System.Drawing.SystemColors.Control;
             this.cboxIsAutoSwitchDualFixOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.cboxIsAutoSwitchDualFixOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsAutoSwitchDualFixOn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIsAutoSwitchDualFixOn.ForeColor = System.Drawing.Color.Black;
+            this.cboxIsAutoSwitchDualFixOn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cboxIsAutoSwitchDualFixOn.Location = new System.Drawing.Point(15, 215);
             this.cboxIsAutoSwitchDualFixOn.Name = "cboxIsAutoSwitchDualFixOn";
             this.cboxIsAutoSwitchDualFixOn.Size = new System.Drawing.Size(326, 33);
@@ -5757,7 +4557,7 @@ namespace AgOpenGPS
             this.cboxMinGPSStep.Text = "10 cm";
             this.cboxMinGPSStep.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxMinGPSStep.UseVisualStyleBackColor = false;
-            this.cboxMinGPSStep.Click += new System.EventHandler(this.cboxMinGPSStep_Click);
+            this.cboxMinGPSStep.CheckedChanged += new System.EventHandler(this.cboxMinGPSStep_CheckedChanged);
             // 
             // labelDefault70
             // 
@@ -8217,7 +7017,7 @@ namespace AgOpenGPS
             this.nudTramWidth.InterceptArrowKeys = false;
             this.nudTramWidth.Location = new System.Drawing.Point(291, 105);
             this.nudTramWidth.Maximum = new decimal(new int[] {
-            5000,
+            10000,
             0,
             0,
             0});
@@ -9104,11 +7904,8 @@ namespace AgOpenGPS
             // tabDisplay
             // 
             this.tabDisplay.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabDisplay.Controls.Add(this.cbox_long_touch);
-            this.tabDisplay.Controls.Add(this.cBox_sections_button);
-            this.tabDisplay.Controls.Add(this.Timer_kml);
-            this.tabDisplay.Controls.Add(this.VineMode);
-            this.tabDisplay.Controls.Add(this.ArrowsRL);
+            this.tabDisplay.Controls.Add(this.lblHeadlandDist);
+            this.tabDisplay.Controls.Add(this.chkboxHeadlandDist);
             this.tabDisplay.Controls.Add(this.labelLineSmoothOnOff);
             this.tabDisplay.Controls.Add(this.labelSectionLinesOnOff);
             this.tabDisplay.Controls.Add(this.labelDirectionMarkOnOff);
@@ -9146,105 +7943,37 @@ namespace AgOpenGPS
             this.tabDisplay.Enter += new System.EventHandler(this.tabDisplay_Enter);
             this.tabDisplay.Leave += new System.EventHandler(this.tabDisplay_Leave);
             // 
-            // cbox_long_touch
+            // lblHeadlandDist
             // 
-            this.cbox_long_touch.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbox_long_touch.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cbox_long_touch.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cbox_long_touch.FlatAppearance.BorderSize = 2;
-            this.cbox_long_touch.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.cbox_long_touch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbox_long_touch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbox_long_touch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbox_long_touch.Location = new System.Drawing.Point(666, 112);
-            this.cbox_long_touch.Margin = new System.Windows.Forms.Padding(6);
-            this.cbox_long_touch.Name = "cbox_long_touch";
-            this.cbox_long_touch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cbox_long_touch.Size = new System.Drawing.Size(111, 66);
-            this.cbox_long_touch.TabIndex = 556;
-            this.cbox_long_touch.Text = "Long touch";
-            this.cbox_long_touch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbox_long_touch.UseVisualStyleBackColor = false;
+            this.lblHeadlandDist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblHeadlandDist.BackColor = System.Drawing.Color.Transparent;
+            this.lblHeadlandDist.ForeColor = System.Drawing.Color.Black;
+            this.lblHeadlandDist.Location = new System.Drawing.Point(609, 108);
+            this.lblHeadlandDist.Name = "lblHeadlandDist";
+            this.lblHeadlandDist.Size = new System.Drawing.Size(100, 16);
+            this.lblHeadlandDist.TabIndex = 541;
+            this.lblHeadlandDist.Text = "Headland Dist.";
+            this.lblHeadlandDist.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // cBox_sections_button
+            // chkboxHeadlandDist
             // 
-            this.cBox_sections_button.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cBox_sections_button.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cBox_sections_button.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cBox_sections_button.FlatAppearance.BorderSize = 2;
-            this.cBox_sections_button.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.cBox_sections_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cBox_sections_button.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cBox_sections_button.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cBox_sections_button.Location = new System.Drawing.Point(666, 36);
-            this.cBox_sections_button.Margin = new System.Windows.Forms.Padding(0);
-            this.cBox_sections_button.Name = "cBox_sections_button";
-            this.cBox_sections_button.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cBox_sections_button.Size = new System.Drawing.Size(111, 66);
-            this.cBox_sections_button.TabIndex = 555;
-            this.cBox_sections_button.Text = "Sections visibles";
-            this.cBox_sections_button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cBox_sections_button.UseVisualStyleBackColor = false;
-            // 
-            // Timer_kml
-            // 
-            this.Timer_kml.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Timer_kml.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Timer_kml.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.Timer_kml.FlatAppearance.BorderSize = 2;
-            this.Timer_kml.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.Timer_kml.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Timer_kml.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Timer_kml.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Timer_kml.Location = new System.Drawing.Point(666, 350);
-            this.Timer_kml.Margin = new System.Windows.Forms.Padding(6);
-            this.Timer_kml.Name = "Timer_kml";
-            this.Timer_kml.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Timer_kml.Size = new System.Drawing.Size(111, 70);
-            this.Timer_kml.TabIndex = 553;
-            this.Timer_kml.Text = "TimerKML";
-            this.Timer_kml.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Timer_kml.UseVisualStyleBackColor = false;
-            // 
-            // VineMode
-            // 
-            this.VineMode.Appearance = System.Windows.Forms.Appearance.Button;
-            this.VineMode.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.VineMode.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.VineMode.FlatAppearance.BorderSize = 2;
-            this.VineMode.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.VineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VineMode.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VineMode.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.VineMode.Location = new System.Drawing.Point(666, 190);
-            this.VineMode.Margin = new System.Windows.Forms.Padding(6);
-            this.VineMode.Name = "VineMode";
-            this.VineMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.VineMode.Size = new System.Drawing.Size(111, 70);
-            this.VineMode.TabIndex = 554;
-            this.VineMode.Text = "Mode vigne";
-            this.VineMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.VineMode.UseVisualStyleBackColor = false;
-            // 
-            // ArrowsRL
-            // 
-            this.ArrowsRL.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ArrowsRL.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ArrowsRL.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.ArrowsRL.FlatAppearance.BorderSize = 2;
-            this.ArrowsRL.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.ArrowsRL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArrowsRL.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ArrowsRL.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ArrowsRL.Location = new System.Drawing.Point(666, 272);
-            this.ArrowsRL.Margin = new System.Windows.Forms.Padding(6);
-            this.ArrowsRL.Name = "ArrowsRL";
-            this.ArrowsRL.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ArrowsRL.Size = new System.Drawing.Size(111, 70);
-            this.ArrowsRL.TabIndex = 552;
-            this.ArrowsRL.Text = "Flèches G/D";
-            this.ArrowsRL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ArrowsRL.UseVisualStyleBackColor = false;
+            this.chkboxHeadlandDist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkboxHeadlandDist.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkboxHeadlandDist.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.chkboxHeadlandDist.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.chkboxHeadlandDist.FlatAppearance.BorderSize = 2;
+            this.chkboxHeadlandDist.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.chkboxHeadlandDist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkboxHeadlandDist.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkboxHeadlandDist.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkboxHeadlandDist.Image = global::AgOpenGPS.Properties.Resources.HeadlandDistance;
+            this.chkboxHeadlandDist.Location = new System.Drawing.Point(609, 36);
+            this.chkboxHeadlandDist.Name = "chkboxHeadlandDist";
+            this.chkboxHeadlandDist.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkboxHeadlandDist.Size = new System.Drawing.Size(100, 69);
+            this.chkboxHeadlandDist.TabIndex = 540;
+            this.chkboxHeadlandDist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkboxHeadlandDist.UseVisualStyleBackColor = false;
             // 
             // labelLineSmoothOnOff
             // 
@@ -9287,7 +8016,7 @@ namespace AgOpenGPS
             this.labelElevationOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelElevationOnOff.BackColor = System.Drawing.Color.Transparent;
             this.labelElevationOnOff.ForeColor = System.Drawing.Color.Black;
-            this.labelElevationOnOff.Location = new System.Drawing.Point(531, 112);
+            this.labelElevationOnOff.Location = new System.Drawing.Point(612, 232);
             this.labelElevationOnOff.Name = "labelElevationOnOff";
             this.labelElevationOnOff.Size = new System.Drawing.Size(100, 16);
             this.labelElevationOnOff.TabIndex = 531;
@@ -9375,7 +8104,7 @@ namespace AgOpenGPS
             // 
             // labelFieldTextureOnOff
             // 
-            this.labelFieldTextureOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelFieldTextureOnOff.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labelFieldTextureOnOff.BackColor = System.Drawing.Color.Transparent;
             this.labelFieldTextureOnOff.ForeColor = System.Drawing.Color.Black;
             this.labelFieldTextureOnOff.Location = new System.Drawing.Point(37, 354);
@@ -9564,7 +8293,7 @@ namespace AgOpenGPS
             this.chkDisplayLogElevation.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayLogElevation.ForeColor = System.Drawing.SystemColors.ControlText;
             this.chkDisplayLogElevation.Image = global::AgOpenGPS.Properties.Resources.ConD_LogElevation;
-            this.chkDisplayLogElevation.Location = new System.Drawing.Point(531, 39);
+            this.chkDisplayLogElevation.Location = new System.Drawing.Point(612, 160);
             this.chkDisplayLogElevation.Name = "chkDisplayLogElevation";
             this.chkDisplayLogElevation.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkDisplayLogElevation.Size = new System.Drawing.Size(100, 69);
@@ -9772,8 +8501,23 @@ namespace AgOpenGPS
             this.labelCurrentVehicle.Size = new System.Drawing.Size(138, 23);
             this.labelCurrentVehicle.TabIndex = 450;
             this.labelCurrentVehicle.Text = "Current Vehicle";
-            this.labelCurrentVehicle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            this.labelCurrentVehicle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
+            // labelCurrentTool
+            //
+            this.labelCurrentTool.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCurrentTool.AutoSize = true;
+            this.labelCurrentTool.BackColor = System.Drawing.Color.Transparent;
+            this.labelCurrentTool.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.labelCurrentTool.ForeColor = System.Drawing.Color.Black;
+            this.labelCurrentTool.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelCurrentTool.Location = new System.Drawing.Point(21, 32);
+            this.labelCurrentTool.Name = "labelCurrentTool";
+            this.labelCurrentTool.Size = new System.Drawing.Size(138, 23);
+            this.labelCurrentTool.TabIndex = 451;
+            this.labelCurrentTool.Text = "Current Tool";
+            this.labelCurrentTool.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
             // lblInchesCm
             // 
             this.lblInchesCm.AutoSize = true;
@@ -9788,15 +8532,15 @@ namespace AgOpenGPS
             // 
             // lblSecTotalWidthMeters
             // 
-            this.lblSecTotalWidthMeters.AutoSize = true;
-            this.lblSecTotalWidthMeters.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSecTotalWidthMeters.ForeColor = System.Drawing.Color.Black;
-            this.lblSecTotalWidthMeters.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSecTotalWidthMeters.Location = new System.Drawing.Point(632, 32);
-            this.lblSecTotalWidthMeters.Name = "lblSecTotalWidthMeters";
-            this.lblSecTotalWidthMeters.Size = new System.Drawing.Size(32, 25);
-            this.lblSecTotalWidthMeters.TabIndex = 302;
-            this.lblSecTotalWidthMeters.Text = "II";
+            this.lblSecTotalWidth.AutoSize = true;
+            this.lblSecTotalWidth.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSecTotalWidth.ForeColor = System.Drawing.Color.Black;
+            this.lblSecTotalWidth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblSecTotalWidth.Location = new System.Drawing.Point(632, 32);
+            this.lblSecTotalWidth.Name = "lblSecTotalWidthMeters";
+            this.lblSecTotalWidth.Size = new System.Drawing.Size(32, 25);
+            this.lblSecTotalWidth.TabIndex = 302;
+            this.lblSecTotalWidth.Text = "II";
             // 
             // labelToolWidthBottom
             // 
@@ -9810,41 +8554,16 @@ namespace AgOpenGPS
             this.labelToolWidthBottom.Text = "Tool Width:";
             this.labelToolWidthBottom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblSecTotalWidthFeet
-            // 
-            this.lblSecTotalWidthFeet.AutoSize = true;
-            this.lblSecTotalWidthFeet.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSecTotalWidthFeet.ForeColor = System.Drawing.Color.Black;
-            this.lblSecTotalWidthFeet.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSecTotalWidthFeet.Location = new System.Drawing.Point(620, 32);
-            this.lblSecTotalWidthFeet.Name = "lblSecTotalWidthFeet";
-            this.lblSecTotalWidthFeet.Size = new System.Drawing.Size(36, 25);
-            this.lblSecTotalWidthFeet.TabIndex = 298;
-            this.lblSecTotalWidthFeet.Text = "FF";
-            // 
-            // lblSecTotalWidthInches
-            // 
-            this.lblSecTotalWidthInches.AutoSize = true;
-            this.lblSecTotalWidthInches.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSecTotalWidthInches.ForeColor = System.Drawing.Color.Black;
-            this.lblSecTotalWidthInches.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSecTotalWidthInches.Location = new System.Drawing.Point(679, 32);
-            this.lblSecTotalWidthInches.Name = "lblSecTotalWidthInches";
-            this.lblSecTotalWidthInches.Size = new System.Drawing.Size(32, 25);
-            this.lblSecTotalWidthInches.TabIndex = 300;
-            this.lblSecTotalWidthInches.Text = "II";
-            // 
             // panelBottom
             // 
             this.panelBottom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panelBottom.Controls.Add(this.lblFeetMeters);
             this.panelBottom.Controls.Add(this.labelToolWidthBottom);
-            this.panelBottom.Controls.Add(this.lblSecTotalWidthInches);
-            this.panelBottom.Controls.Add(this.lblSecTotalWidthFeet);
             this.panelBottom.Controls.Add(this.btnOK);
             this.panelBottom.Controls.Add(this.lblInchesCm);
-            this.panelBottom.Controls.Add(this.lblSecTotalWidthMeters);
+            this.panelBottom.Controls.Add(this.lblSecTotalWidth);
             this.panelBottom.Controls.Add(this.labelCurrentVehicle);
+            this.panelBottom.Controls.Add(this.labelCurrentTool);
             this.panelBottom.Controls.Add(this.labelUnitsBottom);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.ForeColor = System.Drawing.Color.Lime;
@@ -9896,12 +8615,6 @@ namespace AgOpenGPS
             this.labelUnitsBottom.Text = "Units:";
             this.labelUnitsBottom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // FormConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -9931,15 +8644,7 @@ namespace AgOpenGPS
             this.panelVehicleSubMenu.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
             this.tabSummary.ResumeLayout(false);
-            this.tabSummary.PerformLayout();
             this.tabVConfig.ResumeLayout(false);
-            this.tabVConfig.PerformLayout();
-            this.labelVehicleGroupBox.ResumeLayout(false);
-            this.panelArticulatedBrands.ResumeLayout(false);
-            this.panelHarvesterBrands.ResumeLayout(false);
-            this.panelTractorBrands.ResumeLayout(false);
-            this.panelOpacity.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pboxAlpha)).EndInit();
             this.tabVAntenna.ResumeLayout(false);
             this.tabVAntenna.PerformLayout();
             this.labelAntOffset.ResumeLayout(false);
@@ -10111,10 +8816,6 @@ namespace AgOpenGPS
         private NudlessNumericUpDown nudAntennaHeight;
         private NudlessNumericUpDown nudAntennaPivot;
         private System.Windows.Forms.PictureBox pboxAntenna;
-        private System.Windows.Forms.GroupBox labelVehicleGroupBox;
-        private System.Windows.Forms.RadioButton rbtnHarvester;
-        private System.Windows.Forms.RadioButton rbtnArticulated;
-        private System.Windows.Forms.RadioButton rbtnTractor;
         private System.Windows.Forms.PictureBox picboxToolHitch;
         private NudlessNumericUpDown nudTrailingHitchLength;
         private NudlessNumericUpDown nudDrawbarLength;
@@ -10125,13 +8826,8 @@ namespace AgOpenGPS
         private NudlessNumericUpDown nudLookAheadOff;
         private NudlessNumericUpDown nudTurnOffDelay;
         private NudlessNumericUpDown nudLookAhead;
-        private System.Windows.Forms.Button btnVehicleSave;
-        private System.Windows.Forms.Button btnVehicleLoad;
-        private System.Windows.Forms.Button btnVehicleDelete;
-        private System.Windows.Forms.ListView lvVehicles;
-        private System.Windows.Forms.ColumnHeader chVehicle;
-        private System.Windows.Forms.TextBox tboxVehicleNameSave;
         private System.Windows.Forms.Label labelCurrentVehicle;
+        private System.Windows.Forms.Label labelCurrentTool;
         private System.Windows.Forms.GroupBox labelBoxAttachmentStyle;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label1;
@@ -10173,10 +8869,8 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label labelCoverage;
         private NudlessNumericUpDown nudMinCoverage;
         private System.Windows.Forms.Label labelNumOfSections;
-        private System.Windows.Forms.Label lblSecTotalWidthMeters;
+        private System.Windows.Forms.Label lblSecTotalWidth;
         private System.Windows.Forms.Label labelToolWidthBottom;
-        private System.Windows.Forms.Label lblSecTotalWidthFeet;
-        private System.Windows.Forms.Label lblSecTotalWidthInches;
         private System.Windows.Forms.Label lblInchesCm;
         private System.Windows.Forms.Button btnRemoveZeroOffset;
         private System.Windows.Forms.Label lblRollZeroOffset;
@@ -10192,12 +8886,12 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label labelMachineMod;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label58;
-        private ProXoft.WinForms.RepeatButton btnDistanceUp;
-        private ProXoft.WinForms.RepeatButton btnDistanceDn;
+        private AgLibrary.Controls.RepeatButton btnDistanceUp;
+        private AgLibrary.Controls.RepeatButton btnDistanceDn;
         private System.Windows.Forms.Label lblWhenTrig;
         private System.Windows.Forms.Label lblDistance;
-        private ProXoft.WinForms.RepeatButton btnTurnSmoothingUp;
-        private ProXoft.WinForms.RepeatButton btnTurnSmoothingDown;
+        private AgLibrary.Controls.RepeatButton btnTurnSmoothingUp;
+        private AgLibrary.Controls.RepeatButton btnTurnSmoothingDown;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label lblSmoothing;
         private NudlessNumericUpDown nudLowerTime;
@@ -10238,8 +8932,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label labelEnable;
         private System.Windows.Forms.GroupBox labelGboxSingle;
         private System.Windows.Forms.CheckBox cboxIsRTK;
-        private System.Windows.Forms.Label labelDelete;
-        private System.Windows.Forms.Label labelOpen;
         private System.Windows.Forms.PictureBox pboxSendMachine;
         private System.Windows.Forms.GroupBox labelGroupHyd;
         private System.Windows.Forms.Button btnFeatureHides;
@@ -10274,29 +8966,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.HScrollBar hsbarFusion;
         private System.Windows.Forms.Label lblFusion;
         private System.Windows.Forms.Label labelIMUFusion;
-        private System.Windows.Forms.Panel panelTractorBrands;
-        private System.Windows.Forms.RadioButton rbtnBrandTCase;
-        private System.Windows.Forms.RadioButton rbtnBrandTClaas;
-        private System.Windows.Forms.RadioButton rbtnBrandTDeutz;
-        private System.Windows.Forms.RadioButton rbtnBrandTFendt;
-        private System.Windows.Forms.RadioButton rbtnBrandTJDeere;
-        private System.Windows.Forms.RadioButton rbtnBrandTKubota;
-        private System.Windows.Forms.RadioButton rbtnBrandTMassey;
-        private System.Windows.Forms.RadioButton rbtnBrandTNH;
-        private System.Windows.Forms.RadioButton rbtnBrandTSame;
-        private System.Windows.Forms.RadioButton rbtnBrandTSteyr;
-        private System.Windows.Forms.RadioButton rbtnBrandTValtra;
-        private System.Windows.Forms.RadioButton rbtnBrandTUrsus;
-        private System.Windows.Forms.Panel panelArticulatedBrands;
-        private System.Windows.Forms.RadioButton rbtnBrandAChallenger;
-        private System.Windows.Forms.RadioButton rbtnBrandACase;
-        private System.Windows.Forms.RadioButton rbtnBrandANH;
-        private System.Windows.Forms.RadioButton rbtnBrandAJDeere;
-        private System.Windows.Forms.Panel panelHarvesterBrands;
-        private System.Windows.Forms.RadioButton rbtnBrandHCase;
-        private System.Windows.Forms.RadioButton rbtnBrandHClaas;
-        private System.Windows.Forms.RadioButton rbtnBrandHJDeere;
-        private System.Windows.Forms.RadioButton rbtnBrandHNH;
         private System.Windows.Forms.Label labelSounds;
         private System.Windows.Forms.CheckBox cboxTurnSound;
         private System.Windows.Forms.CheckBox cboxSteerSound;
@@ -10381,14 +9050,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label labelUturnSmooth;
         private System.Windows.Forms.Label labelUturnExtend;
-        private System.Windows.Forms.Label lblOpacityPercent;
-        private System.Windows.Forms.Label labelOpacity;
-        private System.Windows.Forms.CheckBox cboxIsImage;
-        private System.Windows.Forms.PictureBox pboxAlpha;
-        private System.Windows.Forms.Label labelImage;
-        private System.Windows.Forms.Button btnOpacityDn;
-        private System.Windows.Forms.Button btnOpacityUp;
-        private System.Windows.Forms.Panel panelOpacity;
         private System.Windows.Forms.GroupBox labelGboxDual;
         private System.Windows.Forms.Label labelFixAlarm;
         private System.Windows.Forms.PictureBox pictureBox13;
@@ -10431,24 +9092,17 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label lblZoneStart7;
         private System.Windows.Forms.Label labelZone7;
         private System.Windows.Forms.Label label155;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox cboxSectionBoundaryControl;
         private System.Windows.Forms.Label labelBoundary;
         private System.Windows.Forms.Label labelGpsStep;
-        private ProXoft.WinForms.RepeatButton btnRollOffsetUp;
-        private ProXoft.WinForms.RepeatButton btnRollOffsetDown;
-        private System.Windows.Forms.RadioButton rbtnBrandTAgOpenGPS;
-        private System.Windows.Forms.RadioButton rbtnBrandAAgOpenGPS;
-        private System.Windows.Forms.RadioButton rbtnBrandHAgOpenGPS;
+        private AgLibrary.Controls.RepeatButton btnRollOffsetUp;
+        private AgLibrary.Controls.RepeatButton btnRollOffsetDown;
         private System.Windows.Forms.Label labelDefault70;
         private System.Windows.Forms.CheckBox cboxMinGPSStep;
         private System.Windows.Forms.Label labelFix2Fix;
         private System.Windows.Forms.Label lblHeadingDistance;
         private System.Windows.Forms.Label labelOverride;
         private System.Windows.Forms.CheckBox chkBoxOverrideTramControlPos;
-        private System.Windows.Forms.Label lblSummaryVehicleName;
-        private System.Windows.Forms.Label labelSaveAs;
-        private System.Windows.Forms.RadioButton rbtnBrandAHolder;
         private System.Windows.Forms.TabPage tabDisplay;
         private System.Windows.Forms.Label labelSvenArrowOnOff;
         private System.Windows.Forms.CheckBox chkSvennArrow;
@@ -10472,24 +9126,6 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label labelGuideLinesOnOff;
         private System.Windows.Forms.Label labelGridOnOff;
         private System.Windows.Forms.Button btnDisplay;
-        private System.Windows.Forms.Label labelSections;
-        private System.Windows.Forms.Label labelUnits;
-        private System.Windows.Forms.Label labelNudge;
-        private System.Windows.Forms.Label lblUnits;
-        private System.Windows.Forms.Label lblNudgeDistance;
-        private System.Windows.Forms.Label lblSumNumSections;
-        private System.Windows.Forms.Label lblTramWidth;
-        private System.Windows.Forms.Label labelTramW;
-        private System.Windows.Forms.Label labelOffset;
-        private System.Windows.Forms.Label lblToolOffset;
-        private System.Windows.Forms.Label labelLookAhead;
-        private System.Windows.Forms.Label lblLookahead;
-        private System.Windows.Forms.Label labelOverlap;
-        private System.Windows.Forms.Label lblOverlap;
-        private System.Windows.Forms.Label lblSummaryWidth;
-        private System.Windows.Forms.Label labelWidth;
-        private System.Windows.Forms.Label labelWheelBase;
-        private System.Windows.Forms.Label lblSumWheelbase;
         private System.Windows.Forms.Button btnSubToolOffset;
         private System.Windows.Forms.TabPage tabToolOffset;
         private System.Windows.Forms.Label labelToolLeft;
@@ -10576,17 +9212,12 @@ namespace AgOpenGPS
         private System.Windows.Forms.CheckBox cboxIsAutoSwitchDualFixOn;
         private System.Windows.Forms.Label labelAutoSwitchDualFixSpeed;
         private NudlessNumericUpDown nudAutoSwitchDualFixSpeed;
-        private System.Windows.Forms.RadioButton rbtnBrandTJCB;
         private System.Windows.Forms.Label labelUser1;
         private System.Windows.Forms.Label labelABSmoothOnOff;
         private System.Windows.Forms.PictureBox HitchLengthBlindBox;
-        private System.Windows.Forms.TextBox tboxCreateNewVehicle;
-        private System.Windows.Forms.Label labelNew;
-        private System.Windows.Forms.Button btnVehicleNewSave;
-        private System.Windows.Forms.CheckBox cbox_long_touch;
-        private System.Windows.Forms.CheckBox cBox_sections_button;
-        private System.Windows.Forms.CheckBox Timer_kml;
-        private System.Windows.Forms.CheckBox VineMode;
-        private System.Windows.Forms.CheckBox ArrowsRL;
+        private System.Windows.Forms.Label lblHeadlandDist;
+        private System.Windows.Forms.CheckBox chkboxHeadlandDist;
+        private Forms.Config.ConfigSummaryControl configSummaryControl;
+        private Forms.Config.ConfigVehicleControl configVehicleControl;
     }
 }

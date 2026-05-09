@@ -54,30 +54,6 @@ namespace GPS_Out
             }
         }
 
-        //sends byte array
-        public void SendUDPMessage(byte[] byteData)
-        {
-            if (IsUDPSendConnected)
-            {
-                try
-                {
-                    int PGN = byteData[0] | byteData[1] << 8;
-                    AddToLog("               > " + PGN.ToString());
-
-                    if (byteData.Length != 0)
-                    {
-                        // network
-                        IPEndPoint EndPt = new IPEndPoint(cNetworkEP, cSendToPort);
-                        sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, EndPt, new AsyncCallback(SendData), null);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    mf.Tls.WriteErrorLog("UDPcomm/SendUDPMessage " + ex.Message);
-                }
-            }
-        }
-
         public void StartUDPServer()
         {
             try

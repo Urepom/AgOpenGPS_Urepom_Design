@@ -24,8 +24,8 @@ namespace AgOpenGPS.Core.Models
 
         public static void AreEqual(GeoDir a, GeoDir b)
         {
-            AreEqual(Math.Cos(a.Angle), Math.Cos(b.Angle));
-            AreEqual(Math.Sin(a.Angle), Math.Sin(b.Angle));
+            AreEqual(Math.Cos(a.AngleInRadians), Math.Cos(b.AngleInRadians));
+            AreEqual(Math.Sin(a.AngleInRadians), Math.Sin(b.AngleInRadians));
         }
 
         public static void AreEqual(GeoPath a, GeoPath b)

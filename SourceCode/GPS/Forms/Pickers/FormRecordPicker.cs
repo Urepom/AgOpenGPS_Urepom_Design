@@ -1,5 +1,5 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -59,8 +59,11 @@ namespace AgOpenGPS.Forms.Pickers
 
             if (lvLines.Items.Count == 0)
             {
-                MessageBox.Show("No Recorded Paths", "Create A Path First",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormDialog.Show(
+                    "No Recorded Paths",
+                    "Create A Path First",
+                    DialogSeverity.Error);
+
                 Close();
             }
         }
@@ -110,7 +113,7 @@ namespace AgOpenGPS.Forms.Pickers
                         }
                         catch (Exception ex)
                         {
-                            mf.TimedMessageBox(2000, gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded);
+                            FormDialog.Show(gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded, DialogSeverity.Error);
                             Log.EventWriter("Load Recorded Path" + ex.ToString());
                         }
                     }
@@ -127,17 +130,17 @@ namespace AgOpenGPS.Forms.Pickers
                 string selectedRecord = lvLines.SelectedItems[0].SubItems[0].Text;
                 dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, selectedRecord + ".rec");
 
-                DialogResult result3 = MessageBox.Show(
-                    dir2Delete,
+                // Ask confirmation before deleting the file
+                DialogResult result = FormDialog.ShowQuestion(
                     gStr.gsDeleteForSure,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
-                if (result3 == DialogResult.Yes)
+                    dir2Delete);
+
+                if (result == DialogResult.OK)
                 {
                     System.IO.File.Delete(dir2Delete);
                 }
                 else return;
+
             }
             else return;
 

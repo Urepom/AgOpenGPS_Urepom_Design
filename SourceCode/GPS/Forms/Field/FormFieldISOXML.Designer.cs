@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS
 {
-    partial class FormFieldISOXML
+    partial class FormFieldIsoXml
     {
         /// <summary>
         /// Required designer variable.
@@ -207,7 +207,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create New Field From ISO-XML";
-            this.Load += new System.EventHandler(this.FormFieldISOXML_Load);
+            this.Load += new System.EventHandler(this.FormFieldIsoXml_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

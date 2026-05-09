@@ -154,7 +154,6 @@ namespace AgLibrary.Settings
             {
                 try
                 {
-                    
                     if (reader.NodeType == XmlNodeType.Element && !reader.IsEmptyElement)
                     {
                         string innerXml = reader.ReadOuterXml().Trim();
@@ -167,14 +166,12 @@ namespace AgLibrary.Settings
                                 var serializer = new XmlSerializer(fieldType);
                                 object nestedObj = serializer.Deserialize(stringReader);
                                 pinfo.SetValue(obj, nestedObj);
-                               
                             }
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    
                 }
             }
 

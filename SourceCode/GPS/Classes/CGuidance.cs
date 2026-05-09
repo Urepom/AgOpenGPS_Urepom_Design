@@ -16,11 +16,11 @@ namespace AgOpenGPS
         public double steerAngleGu, rEastSteer, rNorthSteer, rEastPivot, rNorthPivot;
 
         public double inty, xTrackSteerCorrection = 0;
-        public double steerHeadingError, steerHeadingErrorDegrees;
+        public double steerHeadingError;
 
         public double distSteerError, lastDistSteerError, derivativeDistError;
 
-        public double pivotDistanceError, stanleyModeMultiplier;
+        public double pivotDistanceError;
 
         //public int modeTimeCounter = 0;
 
@@ -34,7 +34,7 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
-            sideHillCompFactor = Properties.Settings.Default.setAS_sideHillComp;
+            sideHillCompFactor = Properties.VehicleSettings.Default.setAS_sideHillComp;
         }
 
         #region Stanley

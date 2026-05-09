@@ -9,9 +9,12 @@ namespace AgOpenGPS
         public bool isToolInHeadland,
             isToolOuterPointsInHeadland, isSectionControlledByHeadland;
 
+        public vec2? HeadlandNearestPoint { get; private set; } = null;
+        public double? HeadlandDistance { get; private set; } = null;
+
         public void SetHydPosition()
         {
-            if (mf.vehicle.isHydLiftOn && mf.avgSpeed > 0.2 && mf.autoBtnState == btnStates.Auto && !mf.isReverse)
+            if (mf.vehicle.isHydLiftOn && mf.avgSpeed > 0.2 && !mf.isReverse)
             {
                 if (isToolInHeadland)
                 {
@@ -102,7 +105,6 @@ namespace AgOpenGPS
                 {
                     if (bndList[i].hdLine.IsPointInPolygon(pt))
                     {
-                        //point is in an inner turn area but inside outer
                         return false;
                     }
                 }
@@ -110,5 +112,57 @@ namespace AgOpenGPS
             }
             return false;
         }
+        public void CheckHeadlandProximity()
+        {
+            if (!isHeadlandOn || bndList.Count == 0 || bndList[0].hdLine.Count < 2)
+            {
+                HeadlandNearestPoint = null;
+                HeadlandDistance = null;
+                return;
+            }
+
+            vec3 vehiclePos = mf.toolPivotPos;
+
+            vec2? nearest = glm.RaycastToPolygon(vehiclePos, bndList[0].hdLine);
+            if (!nearest.HasValue)
+            {
+                HeadlandNearestPoint = null;
+                HeadlandDistance = null;
+                return;
+            }
+
+            vec2 nearestVal = nearest.Value;
+            double distance = glm.Distance(vehiclePos.ToVec2(), nearestVal);
+
+            HeadlandNearestPoint = nearestVal;
+            HeadlandDistance = distance;
+
+            bool isInside = bndList[0].hdLine.IsPointInPolygon(vehiclePos.ToVec2());
+
+            double dx = nearestVal.easting - vehiclePos.easting;
+            double dy = nearestVal.northing - vehiclePos.northing;
+            double angleToPolygon = Math.Atan2(dx, dy);
+            double headingDiff = glm.AngleDiff(vehiclePos.heading, angleToPolygon);
+            bool headingOk = headingDiff < glm.toRadians(60); // eventueel verwijderen: zit al in GetClosestPointInFront
+
+            // Warning Logic
+            bool shouldPlay =
+                (isInside && headingOk && distance < 20.0) ||
+                (!isInside && headingOk && distance < 5.0);
+
+            if (shouldPlay && mf.isHeadlandDistanceOn)
+            {
+                if (!mf.sounds.isBoundAlarming)
+                {
+                    mf.sounds.sndHeadland.Play();
+                    mf.sounds.isBoundAlarming = true;
+                }
+            }
+            else
+            {
+                mf.sounds.isBoundAlarming = false;
+            }
+        }
+
     }
 }

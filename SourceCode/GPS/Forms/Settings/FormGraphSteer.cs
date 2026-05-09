@@ -1,4 +1,4 @@
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 using System;
 using System.Globalization;
@@ -88,11 +88,6 @@ namespace AgOpenGPS
                 Top = 0;
                 Left = 0;
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void btnGainUp_Click(object sender, EventArgs e)

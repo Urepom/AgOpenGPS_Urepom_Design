@@ -1,8 +1,9 @@
 ﻿//Please, if you use this, share the improvements
 
+using Accord.Math.Distances;
 using AgLibrary.Logging;
 using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 using Microsoft.Win32;
 using System;
@@ -101,78 +102,24 @@ namespace AgOpenGPS
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
-            //Ajout-modification MEmprou et SPailleau
-            if (mf.config_tool == true)
-            {
-                btnFeatureHides.Visible = false;
-                btnTram.Visible = false;
-                btnMachineModule.Visible = false;
-                //btnSteerModule.Visible = false;
-                btnArduino.Visible = false;
-                btnUTurn.Visible = false;
-                btnDataSources.Visible = false;
-                //btnSubGuidance.Visible = false;
-                btnSubAntenna.Visible = false;
-                btnSubDimensions.Visible = false;
-                btnVehicle.Visible = false;
-                btnDisplay.Visible = false;
-                ShowSubMenu(panelToolSubMenu, btnTool);
-            }
-            else
-            {
-                btnFeatureHides.Visible = true;
-                btnTram.Visible = true;
-                btnMachineModule.Visible = true;
-                //btnSteerModule.Visible = true;
-                btnArduino.Visible = true;
-                btnUTurn.Visible = true;
-                btnDataSources.Visible = true;
-                //btnSubGuidance.Visible = true;
-                btnSubAntenna.Visible = true;
-                btnSubDimensions.Visible = true;
-                btnVehicle.Visible = true;
-                btnDisplay.Visible = true;
-            }
-            //fin
-
             //since we reset, save current state
             mf.SaveFormGPSWindowSettings();
 
             //metric or imp on spinners min/maxes
             if (!mf.isMetric) FixMinMaxSpinners();
 
-            //the pick a saved vehicle box
-            UpdateVehicleListView();
-
             //tabTSections_Enter(this, e);
             lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * 100 * mf.cm2CmOrIn));
-            SectionFeetInchesTotalWidthLabelUpdate();
+            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
 
             tab1.SelectedTab = tabSummary;
-            tboxVehicleNameSave.Focus();
             //Label translations
             //configload-save
-            labelSaveAs.Text = gStr.gsSaveAs;
-            labelNew.Text = gStr.gsNew;
-            labelUnits.Text = gStr.gsUnit;
-            labelWidth.Text = gStr.gsWidth;
-            labelSections.Text = gStr.gsSections;
-            labelOffset.Text = gStr.gsOffset;
-            labelOverlap.Text = gStr.gsOverlap;
-            labelLookAhead.Text = gStr.gsLookAhead;
-            labelNudge.Text = gStr.gsNudge;
-            labelTramW.Text = gStr.gsTramWidth;
-            labelUnitsBottom.Text = gStr.gsUnit;
-            labelToolWidthBottom.Text = gStr.gsWidth;
-            labelOpen.Text = gStr.gsOpen;
-            labelDelete.Text = gStr.gsDelete;
+            labelUnitsBottom.Text = gStr.gsUnits + ":";
+            labelToolWidthBottom.Text = gStr.gsWidth + ":";
             //tractorconfig
-            labelWheelBase.Text = gStr.gsWheelbase;
-            labelVehicleGroupBox.Text = gStr.gsVehiclegroupbox;
-            labelImage.Text = gStr.gsImage;
-            labelOpacity.Text = gStr.gsOpacity;
             labelBoxAttachmentStyle.Text = gStr.gsAttachmentStyle;
-            labelTractorUnits.Text = gStr.gsUnit;
+            labelTractorUnits.Text = gStr.gsUnits + ":";
             labelHitchLength.Text = gStr.gsHitchLength;
             labelWheelBase2.Text = gStr.gsWheelbase;
             labelTrack.Text = gStr.gsTrack;
@@ -186,8 +133,8 @@ namespace AgOpenGPS
             labelDualPositionOnRight.Text = gStr.gsDualpositionAntennaRight;
             //toolconfig
             labelToolOffset.Text = gStr.gsToolOffset;
-            labelOverlapGap.Text = gStr.gsOverlapGap;   
-            labelToolLeft.Text = gStr.gsToolLeft;   
+            labelOverlapGap.Text = $"{gStr.gsOverlap} / {gStr.gsGap}";
+            labelToolLeft.Text = gStr.gsToolLeft;
             labelToolRight.Text = gStr.gsToolRight;
             labelOverlap2.Text = gStr.gsOverlap;
             labelGap.Text = gStr.gsGap;
@@ -205,16 +152,16 @@ namespace AgOpenGPS
             labelNumOfSections.Text = gStr.gsSections;
             labelChoose.Text = gStr.gsChoose;
             labelBoundary.Text = gStr.gsBoundary;
-            labelCoverage.Text = gStr.gsCoverage;
+            labelCoverage.Text = $"% {gStr.gsCoverage}";
             //sectionswitches
             labelGroupWorkSwitch.Text = gStr.gsWorkSwitch;
             labelGroupSteerSwitch.Text = gStr.gsSteerSwitch;
             chkSelectWorkSwitch.Text = gStr.gsActive;
             chkSelectSteerSwitch.Text = gStr.gsActive;
-            chkSetManualSections.Text = gStr.gsManual + gStr.gsSections;
-            chkSetManualSectionsSteer.Text = gStr.gsManual + gStr.gsSections;
-            chkSetAutoSections.Text = gStr.gsAuto + gStr.gsSections;
-            chkSetAutoSectionsSteer.Text = gStr.gsAuto + gStr.gsSections;
+            chkSetManualSections.Text = $"{gStr.gsSections}: {gStr.gsManual}";
+            chkSetManualSectionsSteer.Text = $"{gStr.gsSections}: {gStr.gsManual}";
+            chkSetAutoSections.Text = $"{gStr.gsSections}: {gStr.gsAuto}";
+            chkSetAutoSectionsSteer.Text = $"{gStr.gsSections}: {gStr.gsAuto}";
             //sectiontiming
             labelLookAheadTiming.Text = gStr.gsLookAheadTiming;
             labelOnTime.Text = gStr.gsOn + "(secs)";
@@ -223,7 +170,7 @@ namespace AgOpenGPS
             //antenna-imu configuration
             labelGboxDual.Text = gStr.gsDualAntennaSetting;
             labelGboxSingle.Text = gStr.gsSingleAntennaSetting;
-            labelHeadingOffset.Text = gStr.gsHeadingOffset;
+            labelHeadingOffset.Text = $"{gStr.gsHeadingOffset} ({gStr.gsDegree})";
             labelReverseDistance.Text = gStr.gsReverseDistance;
             labelGpsStep.Text = gStr.gsGpsStep;
             labelFixAlarm.Text = gStr.gsFixAlarm;
@@ -249,10 +196,10 @@ namespace AgOpenGPS
             labelLowTime.Text = gStr.gsLowerTime;
             labelPlantPop.Text = gStr.gsPlantPop;
             labelHydLiftSec.Text = gStr.gsHydraulicLiftLookAhead;
-            labelUser1.Text = gStr.gsUser1;
-            labelUser2.Text = gStr.gsUser2;
-            labelUser3.Text = gStr.gsUser3;
-            labelUser4.Text = gStr.gsUser4;
+            labelUser1.Text = gStr.gsUserNo + " " + 1;
+            labelUser2.Text = gStr.gsUserNo + " " + 2;
+            labelUser3.Text = gStr.gsUserNo + " " + 3;
+            labelUser4.Text = gStr.gsUserNo + " " + 4;
             labelHydLiftInvert.Text = gStr.gsInvertHydraulicRelays;
             labelSendSaveHydraulicLift.Text = gStr.gsSendAndSave;
             //tramsconfig
@@ -299,6 +246,7 @@ namespace AgOpenGPS
             labelGuideLinesOnOff.Text = gStr.gsExtraGuideLines;
             labelSectionLinesOnOff.Text = gStr.gsSectionLines;
             labelElevationOnOff.Text = gStr.gsElevationlog;
+            labelElevationOnOff.Text = gStr.gsElevationlog;
             unitsGroupBox.Text = gStr.gsUnits;
             cboxIsAutoSwitchDualFixOn.Text = gStr.gsAutoSwitchDualFix;
             labelAutoSwitchDualFixSpeed.Text = gStr.gsAutoSwitchDualFixSpeed;
@@ -324,6 +272,8 @@ namespace AgOpenGPS
             mf.LoadSettings();
 
             //save current vehicle
+            Properties.VehicleSettings.Default.Save();
+            Properties.ToolSettings.Default.Save();
             Properties.Settings.Default.Save();
         }
 
@@ -413,29 +363,12 @@ namespace AgOpenGPS
 
         private void tabSummary_Enter(object sender, EventArgs e)
         {
-            SectionFeetInchesTotalWidthLabelUpdate();
-            lblSummaryVehicleName.Text = RegistrySettings.vehicleFileName;
+            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
             UpdateSummary();
         }
 
         private void tabSummary_Leave(object sender, EventArgs e)
         {
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (lvVehicles.SelectedItems.Count > 0)
-            {
-                //btnVehicleSaveAs.Enabled = true;
-                btnVehicleLoad.Enabled = true;
-                btnVehicleDelete.Enabled = true;
-            }
-            else
-            {
-                //btnVehicleSaveAs.Enabled = false;
-                btnVehicleLoad.Enabled = false;
-                btnVehicleDelete.Enabled = false;
-            }
         }
 
         private void tabDisplay_Enter(object sender, EventArgs e)
@@ -450,17 +383,10 @@ namespace AgOpenGPS
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             chkDisplayLogElevation.Checked = mf.isLogElevation;
-            chkDirectionMarkers.Checked = Properties.Settings.Default.setTool_isDirectionMarkers;
+            chkDirectionMarkers.Checked = Properties.ToolSettings.Default.setTool_isDirectionMarkers;
             chkSectionLines.Checked = Properties.Settings.Default.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
-
-            //Ajout-modification MEmprou et SPailleau
-            cBox_sections_button.Checked = mf.issections_buttonOn;
-            cbox_long_touch.Checked = mf.islong_touchOn;
-            Timer_kml.Checked = Properties.Settings.Default.UP_setTimer_KML;
-            VineMode.Checked = Properties.Settings.Default.UP_setVineMode;
-            ArrowsRL.Checked = Properties.Settings.Default.UP_SetArrowsRL;
-            //fin
+            chkboxHeadlandDist.Checked = Properties.Settings.Default.isHeadlandDistanceOn;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
@@ -475,7 +401,6 @@ namespace AgOpenGPS
 
         private void rbtnDisplayImperial_Click(object sender, EventArgs e)
         {
-            mf.TimedMessageBox(2000, "Units Set", "Imperial");
             Log.EventWriter("Units To Imperial");
 
             mf.isMetric = false;
@@ -486,7 +411,6 @@ namespace AgOpenGPS
 
         private void rbtnDisplayMetric_Click(object sender, EventArgs e)
         {
-            mf.TimedMessageBox(2000, "Units Set", "Metric");
             Log.EventWriter("Units to Metric");
 
             mf.isMetric = true;
@@ -502,11 +426,6 @@ namespace AgOpenGPS
             {
                 mf.ABLine.numGuideLines = (int)nudNumGuideLines.Value;
             }
-
-        }
-
-        private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
-        {
 
         }
     }

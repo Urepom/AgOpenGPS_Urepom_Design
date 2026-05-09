@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
@@ -22,7 +22,7 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            this.Text = Culture.gStr.gsNudgeRefTrack;
+            this.Text = gStr.gsNudgeRefTrack;
         }
 
         private void FormEditTrack_Load(object sender, EventArgs e)
@@ -30,15 +30,15 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistanceRef);
+                nudSnapDistance.Value = (int)((double)Properties.ToolSettings.Default.setAS_snapDistanceRef);
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn), 1);
+                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.ToolSettings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn), 1);
             }
 
-            snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
+            snapAdj = Properties.ToolSettings.Default.setAS_snapDistanceRef * 0.01;
 
             foreach (var item in mf.trk.gArr)
             {
@@ -59,22 +59,22 @@ namespace AgOpenGPS
 
         private void FormEditTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //ajout memprou mf.panelRight.Visible = true;
+            //ajout max mf.panelRight.Visible = true;
         }
 
         private void nudSnapDistance_Click(object sender, EventArgs e)
         {
             ((NudlessNumericUpDown)sender).ShowKeypad(this);
             snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
-            Properties.Settings.Default.setAS_snapDistanceRef = snapAdj*100;
-            Properties.Settings.Default.Save();
+            Properties.ToolSettings.Default.setAS_snapDistanceRef = snapAdj * 100;
+            Properties.ToolSettings.Default.Save();
             mf.Activate();
         }
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
             mf.trk.NudgeRefTrack(snapAdj);
-            distanceMoved += snapAdj;            
+            distanceMoved += snapAdj;
             DistanceMovedLabel();
             mf.Activate();
         }
@@ -89,7 +89,7 @@ namespace AgOpenGPS
 
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((mf.tool.width-mf.tool.overlap) * 0.5);
+            mf.trk.NudgeRefTrack((mf.tool.width - mf.tool.overlap) * 0.5);
             distanceMoved += (mf.tool.width - mf.tool.overlap) * 0.5;
             DistanceMovedLabel();
             mf.Activate();
@@ -105,7 +105,7 @@ namespace AgOpenGPS
 
         private void DistanceMovedLabel()
         {
-            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() +  " " + mf.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() + " " + mf.unitsInCm;
             mf.Focus();
         }
 

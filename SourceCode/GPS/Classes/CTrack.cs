@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public enum TrackMode { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32, waterPivot = 64};//, Heading, Circle, Spiral
+    public enum TrackMode { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32, waterPivot = 64 };//, Heading, Circle, Spiral
 
     public class CTrack
     {
@@ -20,7 +20,7 @@ namespace AgOpenGPS
 
         public int idx, autoTrack3SecTimer;
 
-        public bool isLine, isAutoTrack = false, isAutoSnapToPivot = false, isAutoSnapped;
+        public bool isAutoTrack = false, isAutoSnapToPivot = false, isAutoSnapped;
 
         public CTrack(FormGPS _f)
         {
@@ -109,7 +109,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    for (int j = 0; j < gArr[i].curvePts.Count; j ++)
+                    for (int j = 0; j < gArr[i].curvePts.Count; j++)
                     {
 
                         dist = glm.DistanceSquared(gArr[i].curvePts[j], pivot);
@@ -142,6 +142,9 @@ namespace AgOpenGPS
 
                 }
 
+                // Rebuild uturn after nudge to reflect new track position
+                mf.yt.RebuildAfterNudge();
+
                 //if (gArr[idx].nudgeDistance > 0.5 * mf.tool.width) gArr[idx].nudgeDistance -= mf.tool.width;
                 //else if (gArr[idx].nudgeDistance < -0.5 * mf.tool.width) gArr[idx].nudgeDistance += mf.tool.width;
             }
@@ -161,6 +164,9 @@ namespace AgOpenGPS
                 }
 
                 gArr[idx].nudgeDistance = 0;
+
+                // Rebuild uturn after reset to reflect new track position
+                mf.yt.RebuildAfterNudge();
             }
         }
 
@@ -179,12 +185,12 @@ namespace AgOpenGPS
                 if (gArr[idx].mode == TrackMode.AB)
                 {
                     mf.ABLine.isABValid = false;
-                    NudgeRefABLine( mf.ABLine.isHeadingSameWay ? dist : -dist);
+                    NudgeRefABLine(mf.ABLine.isHeadingSameWay ? dist : -dist);
                 }
                 else
                 {
                     mf.curve.isCurveValid = false;
-                    NudgeRefCurve( mf.curve.isHeadingSameWay ? dist : -dist);
+                    NudgeRefCurve(mf.curve.isHeadingSameWay ? dist : -dist);
                 }
             }
         }
@@ -193,7 +199,7 @@ namespace AgOpenGPS
         {
             double head = gArr[idx].heading;
 
-            gArr[idx].ptA.easting += (Math.Sin(head+glm.PIBy2) * (dist));
+            gArr[idx].ptA.easting += (Math.Sin(head + glm.PIBy2) * (dist));
             gArr[idx].ptA.northing += (Math.Cos(head + glm.PIBy2) * (dist));
 
             gArr[idx].ptB.easting += (Math.Sin(head + glm.PIBy2) * (dist));
@@ -244,6 +250,10 @@ namespace AgOpenGPS
             int cnt = curList.Count;
             if (cnt > 6)
             {
+                // Set ptA and ptB from the shifted raw points before Catmull-Rom extension
+                gArr[idx].ptA = new vec2(curList[0].easting, curList[0].northing);
+                gArr[idx].ptB = new vec2(curList[cnt - 1].easting, curList[cnt - 1].northing);
+
                 vec3[] arr = new vec3[cnt];
                 curList.CopyTo(arr);
 
@@ -287,7 +297,7 @@ namespace AgOpenGPS
                 curList.Add(arr[cnt - 2]);
                 curList.Add(arr[cnt - 1]);
 
-                mf.curve.CalculateHeadings(ref curList);
+                CABCurve.CalculateHeadings(ref curList);
 
                 gArr[idx].curvePts.Clear();
 
@@ -318,6 +328,7 @@ namespace AgOpenGPS
         public vec2 endPtB;
         public TrackMode mode;
         public double nudgeDistance;
+        public HashSet<int> workedTracks = new HashSet<int>();
 
         public CTrk()
         {
@@ -348,7 +359,3 @@ namespace AgOpenGPS
         }
     }
 }
-
-        
-
-

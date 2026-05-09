@@ -4,8 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using AgLibrary.Logging;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
 using AgOpenGPS.Helpers;
-using AgOpenGPS.Culture;
 
 namespace AgOpenGPS
 {
@@ -24,7 +25,7 @@ namespace AgOpenGPS
             //translate all the controls
             this.Text = gStr.gsButtonPicker;
             groupBoxSelectButtons.Text = gStr.gsSelectButtons;
-            groupBoxAOGMenu.Text = gStr.gsAOGMenu; 
+            groupBoxAOGMenu.Text = gStr.gsRightMenu;
             labelButtonArrangeOne.Text = gStr.gsArrangeText;
             buttonLabelDefault.Text = gStr.gsDefault;
             buttonLabelReset.Text = gStr.gsReset;
@@ -170,7 +171,7 @@ namespace AgOpenGPS
         {
             if (mf.buttonOrder.Count < 2)
             {
-                mf.TimedMessageBox(2000, "Button Error", "Not Enough Buttons Added");
+                FormDialog.Show("Button Error", "Not Enough Buttons Added", DialogSeverity.Error);
                 Log.EventWriter("Button Picker, Not Enough Buttons");
                 return;
             }
@@ -218,23 +219,6 @@ namespace AgOpenGPS
 
             mf.PanelBuildRightMenu();
             mf.PanelUpdateRightAndBottom();
-        }
-
-        private void btnVideoHelp_Click(object sender, EventArgs e)
-
-        {
-            Process[] processName = Process.GetProcessesByName("BobsYourUncle");
-            //Start application here
-            string strPath = Path.Combine(Application.StartupPath, "Buttons.mp4");
-
-            try
-            {
-                Process.Start(strPath);
-            }
-            catch
-            {
-                mf.TimedMessageBox(2000, "Playback Error", "Can't Find Media Player");
-            }
         }
     }
 }

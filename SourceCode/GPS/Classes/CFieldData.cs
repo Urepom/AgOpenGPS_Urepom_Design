@@ -34,7 +34,7 @@ namespace AgOpenGPS
         public double userSquareMetersAlarm;
 
         //Area inside Boundary less inside boundary areas
-        public string AreaBoundaryLessInnersHectares=>(areaBoundaryOuterLessInner * glm.m2ha).ToString("N2");
+        public string AreaBoundaryLessInnersHectares => (areaBoundaryOuterLessInner * glm.m2ha).ToString("N2");
 
         public string AreaBoundaryLessInnersAcres => (areaBoundaryOuterLessInner * glm.m2ac).ToString("N2");
 
@@ -55,7 +55,7 @@ namespace AgOpenGPS
         public string DistanceUserFeet => Convert.ToString(Math.Round((distanceUser * glm.m2ft), 1));
 
         //remaining area to be worked
-        public string WorkedAreaRemainHectares => ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha).ToString("N2") ;
+        public string WorkedAreaRemainHectares => ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha).ToString("N2");
 
         public string WorkedAreaRemainAcres => ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ac).ToString("N2");
 

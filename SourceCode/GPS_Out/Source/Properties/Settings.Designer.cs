@@ -12,7 +12,7 @@ namespace GPS_Out.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -224,6 +224,54 @@ namespace GPS_Out.Properties {
             }
             set {
                 this["SentenceStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00.0000000")]
+        public string SentencePrecisionFormat {
+            get {
+                return ((string)(this["SentencePrecisionFormat"]));
+            }
+            set {
+                this["SentencePrecisionFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int SentencePrecisionIndex {
+            get {
+                return ((int)(this["SentencePrecisionIndex"]));
+            }
+            set {
+                this["SentencePrecisionIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Simulate {
+            get {
+                return ((bool)(this["Simulate"]));
+            }
+            set {
+                this["Simulate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.0000000")]
+        public string DisplayPrecisionFormat {
+            get {
+                return ((string)(this["DisplayPrecisionFormat"]));
+            }
+            set {
+                this["DisplayPrecisionFormat"] = value;
             }
         }
     }

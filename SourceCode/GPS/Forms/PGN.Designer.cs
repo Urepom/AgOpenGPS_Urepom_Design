@@ -17,7 +17,6 @@ namespace AgOpenGPS
 
             public void LoadLatitudeLongitude(double lat, double lon)
             {
-                
                 int encodedAngle = (int)(lat * (0x7FFFFFFF / 90.0));
                 //double angle = (encodedAngle / (0x7FFFFFFF / 90.0));
 
@@ -44,7 +43,7 @@ namespace AgOpenGPS
             public int status = 7;
             public int steerAngleLo = 8;
             public int steerAngleHi = 9;
-            public int lineDistance  = 10;
+            public int lineDistance = 10;
             public int sc1to8 = 11;
             public int sc9to16 = 12;
 
@@ -93,14 +92,14 @@ namespace AgOpenGPS
 
             public CPGN_FC()
             {
-                pgn[gainProportional] = Properties.Settings.Default.setAS_Kp;
-                pgn[highPWM] = Properties.Settings.Default.setAS_highSteerPWM;
-                pgn[lowPWM] = Properties.Settings.Default.setAS_lowSteerPWM;
-                pgn[minPWM] = Properties.Settings.Default.setAS_minSteerPWM;
-                pgn[countsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
-                pgn[wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));;
-                pgn[wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
-                pgn[ackerman] = Properties.Settings.Default.setAS_ackerman;
+                pgn[gainProportional] = Properties.VehicleSettings.Default.setAS_Kp;
+                pgn[highPWM] = Properties.VehicleSettings.Default.setAS_highSteerPWM;
+                pgn[lowPWM] = Properties.VehicleSettings.Default.setAS_lowSteerPWM;
+                pgn[minPWM] = Properties.VehicleSettings.Default.setAS_minSteerPWM;
+                pgn[countsPerDegree] = Properties.VehicleSettings.Default.setAS_countsPerDegree;
+                pgn[wasOffsetHi] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset >> 8));
+                pgn[wasOffsetLo] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset));
+                pgn[ackerman] = Properties.VehicleSettings.Default.setAS_ackerman;
             }
 
             public void Reset()
@@ -121,7 +120,7 @@ namespace AgOpenGPS
             public int maxPulse = 6;
             public int minSpeed = 7;
             public int set1 = 8;
-            public int angVel  = 9;
+            public int angVel = 9;
             //public int  = 10;
             //public int  = 11;
             //public int  = 12;
@@ -175,7 +174,7 @@ namespace AgOpenGPS
             public int sc9to16 = 6;
             public int sc17to24 = 7;
             public int sc25to32 = 8;
-            public int sc33to40 = 9; 
+            public int sc33to40 = 9;
             public int sc41to48 = 10;
             public int sc49to56 = 11;
             public int sc57to64 = 12;
@@ -206,22 +205,22 @@ namespace AgOpenGPS
             public int user1 = 9;
             public int user2 = 10;
             public int user3 = 11;
-            public int user4  = 12;
+            public int user4 = 12;
 
             // PGN  - 127.239 0x7FEF
             int crc = 0;
 
             public CPGN_EE()
             {
-                pgn[raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                pgn[lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
-                pgn[enableHyd] = Properties.Settings.Default.setArdMac_isHydEnabled;
-                pgn[set0] = Properties.Settings.Default.setArdMac_setting0;
+                pgn[raiseTime] = Properties.ToolSettings.Default.setArdMac_hydRaiseTime;
+                pgn[lowerTime] = Properties.ToolSettings.Default.setArdMac_hydLowerTime;
+                pgn[enableHyd] = Properties.ToolSettings.Default.setArdMac_isHydEnabled;
+                pgn[set0] = Properties.ToolSettings.Default.setArdMac_setting0;
 
-                pgn[user1] = Properties.Settings.Default.setArdMac_user1;
-                pgn[user2] = Properties.Settings.Default.setArdMac_user2;
-                pgn[user3] = Properties.Settings.Default.setArdMac_user3;
-                pgn[user4] = Properties.Settings.Default.setArdMac_user4;
+                pgn[user1] = Properties.ToolSettings.Default.setArdMac_user1;
+                pgn[user2] = Properties.ToolSettings.Default.setArdMac_user2;
+                pgn[user3] = Properties.ToolSettings.Default.setArdMac_user3;
+                pgn[user4] = Properties.ToolSettings.Default.setArdMac_user4;
             }
 
             public void MakeCRC()
@@ -286,7 +285,7 @@ namespace AgOpenGPS
             {
                 string[] words;
 
-                words = Properties.Settings.Default.setRelay_pinConfig.Split(',');
+                words = Properties.ToolSettings.Default.setRelay_pinConfig.Split(',');
 
                 pgn[pin0] = (byte)int.Parse(words[0]);
                 pgn[pin1] = (byte)int.Parse(words[1]);
@@ -346,16 +345,16 @@ namespace AgOpenGPS
                                         0, 0xCC };
 
             //where in the pgn is which pin
-            public int sec0Lo  = 5;
-            public int sec1Lo  = 7;
-            public int sec2Lo  = 9;
-            public int sec3Lo  = 11;
-            public int sec4Lo  = 13;
-            public int sec5Lo  = 15;
-            public int sec6Lo  = 17;
-            public int sec7Lo  = 19;
-            public int sec8Lo  = 21;
-            public int sec9Lo  = 23;
+            public int sec0Lo = 5;
+            public int sec1Lo = 7;
+            public int sec2Lo = 9;
+            public int sec3Lo = 11;
+            public int sec4Lo = 13;
+            public int sec5Lo = 15;
+            public int sec6Lo = 17;
+            public int sec7Lo = 19;
+            public int sec8Lo = 21;
+            public int sec9Lo = 23;
             public int sec10Lo = 25;
             public int sec11Lo = 27;
             public int sec12Lo = 29;
@@ -363,16 +362,16 @@ namespace AgOpenGPS
             public int sec14Lo = 33;
             public int sec15Lo = 35;
 
-            public int sec0Hi  = 6;
-            public int sec1Hi  = 8;
-            public int sec2Hi  = 10;
-            public int sec3Hi  = 12;
-            public int sec4Hi  = 14;
-            public int sec5Hi  = 16;
-            public int sec6Hi  = 18;
-            public int sec7Hi  = 20;
-            public int sec8Hi  = 22;
-            public int sec9Hi  = 24;
+            public int sec0Hi = 6;
+            public int sec1Hi = 8;
+            public int sec2Hi = 10;
+            public int sec3Hi = 12;
+            public int sec4Hi = 14;
+            public int sec5Hi = 16;
+            public int sec6Hi = 18;
+            public int sec7Hi = 20;
+            public int sec8Hi = 22;
+            public int sec9Hi = 24;
             public int sec10Hi = 26;
             public int sec11Hi = 28;
             public int sec12Hi = 30;
@@ -406,7 +405,7 @@ namespace AgOpenGPS
                 pgn[sec2Hi] = 0;
                 pgn[sec3Hi] = 0;
                 pgn[sec4Hi] = 0;
-                pgn[sec5Hi] = 0; 
+                pgn[sec5Hi] = 0;
                 pgn[sec6Hi] = 0;
                 pgn[sec7Hi] = 0;
                 pgn[sec8Hi] = 0;
@@ -418,7 +417,7 @@ namespace AgOpenGPS
                 pgn[sec14Hi] = 0;
                 pgn[sec15Hi] = 0;
 
-                pgn[numSections] = 0;   
+                pgn[numSections] = 0;
             }
 
             public void Reset()
@@ -446,13 +445,13 @@ namespace AgOpenGPS
         //Ajout-modification MEmprou et SPailleau Fertilisation
 
         //PGN fertilisation
-        public class CPGN_F0
+        public class CPGN_CF
         {
             /// <summary>
-            /// PGN - 240 - F0
+            /// PGN - 207 - CF
             /// speed=5-6  on/off=7  débit = 8-9 largeur 10-11
             /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7F, 0xF0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7F, 0xCF, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
             public int speedLo = 5;
             public int speedHi = 6;
             public int Ferti_On = 7;
@@ -467,6 +466,7 @@ namespace AgOpenGPS
             }
         }
         //fin
+
         //pgn instances
 
         /// <summary>
@@ -506,9 +506,10 @@ namespace AgOpenGPS
 
         //ajout memprou
         /// <summary> 
-        /// Section dimensions PGN - 240 - F0
+        /// Section dimensions PGN - 207 - CF
         /// </summary>
-        public CPGN_F0 p_240 = new CPGN_F0();
+        public CPGN_CF p_207 = new CPGN_CF();
+
         /// <summary>
         /// Section dimensions PGN - 228 - E4
         /// </summary>
@@ -526,4 +527,3 @@ namespace AgOpenGPS
 
     }
 }
-    

@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Core.Translations;
 using MechanikaDesign.WinForms.UI.ColorPicker;
 using System;
 using System.Drawing;

@@ -6,7 +6,7 @@ namespace AgOpenGPS
     public partial class CBoundary
     {
 
-        public int turnSelected, closestTurnNum;
+        public int turnSelected;
         public double iE = 0, iN = 0;
         // the list of possible bounds points
         //public List<vec3> turnClosestList = new List<vec3>();

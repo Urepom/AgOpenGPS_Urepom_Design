@@ -36,12 +36,12 @@ namespace AgIO.Properties
         public int setNTRIP_sendToUDPPort = 2233;
         public double setNTRIP_manualLat = 53;
         public double setNTRIP_manualLon = -111;
-        public string setNTRIP_casterURL = "crtk.net";
+        public string setNTRIP_casterURL = "NTRIP.itsware.net";
         public bool setNTRIP_isGGAManual = false;
         public bool setNTRIP_isTCP = false;
         public bool setNTRIP_isHTTP10 = false;
         public bool setPgm_isFirstRun = true;
-        public string setPort_portNameGPS2 = "NEAR";
+        public string setPort_portNameGPS2 = "GPS2";
         public int setPort_baudRateGPS2 = 9600;
         public string setPort_portNameMachine = "Mach**";
         public bool setPort_wasMachineModuleConnected = false;
@@ -72,10 +72,11 @@ namespace AgIO.Properties
         public byte eth_loopThree = 255;
         public byte eth_loopFour = 255;
         public bool setDisplay_isAutoRunGPS_Out = false;
-        public string UP_setPort_portNameModuleFerti = "Ferti";
-        public bool UP_setPort_wasModuleFertiConnected = false;
-        public bool UP_setMod_isFertiConnected = true;
-
+        public bool setDisplay_StartMinimized = false;
+        public bool setDisplay_ShowOnWarning = true;
+        public bool isobus_isOn = false;
+        public int isobus_canAdapterIndex = 0;
+        public int isobus_canChannelIndex = 0;
 
         public LoadResult Load()
         {

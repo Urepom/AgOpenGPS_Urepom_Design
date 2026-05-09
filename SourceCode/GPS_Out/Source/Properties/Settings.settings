@@ -53,5 +53,17 @@
     <Setting Name="SentenceStart" Type="System.String" Scope="User">
       <Value Profile="(Default)">$GP</Value>
     </Setting>
+    <Setting Name="SentencePrecisionFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">00.0000000</Value>
+    </Setting>
+    <Setting Name="SentencePrecisionIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="Simulate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DisplayPrecisionFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.0000000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

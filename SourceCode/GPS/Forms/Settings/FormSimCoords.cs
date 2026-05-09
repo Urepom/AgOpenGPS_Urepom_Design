@@ -1,5 +1,6 @@
-﻿using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Controls;
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Core.Translations;
 using System;
 using System.Windows.Forms;
 
@@ -38,15 +39,10 @@ namespace AgOpenGPS
 
             if (!mf.timerSim.Enabled)
             {
-                mf.TimedMessageBox(2000, "Simulator is off", "Go Back To Work, No Time For Games");
+                mf.TimedMessageBox(3000, "Simulator is off", "Simulator can't work while using real Antenna");
                 Close();
             }
-
-            mf.pn.latStart = (double)nudLatitude.Value;
-            mf.pn.lonStart = (double)nudLongitude.Value;
-
-            mf.pn.SetLocalMetersPerDegree(true);
-
+            mf.pn.DefineLocalPlane(new Wgs84((double)nudLatitude.Value, (double)nudLongitude.Value), true);
             Close();
         }
 

@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Globalization;
+using System.Text;
 
 namespace ModSim
 {
@@ -31,8 +25,8 @@ namespace ModSim
         private void lblKmh_Click(object sender, EventArgs e)
         {
             tbarSpeed.Value = 0;
-            lblKmh.Text = "Kmh: 0.0" ;
-            mSec.Text = "M/Sec: 0.0" ;
+            lblKmh.Text = "Kmh: 0.0";
+            mSec.Text = "M/Sec: 0.0";
         }
 
         private void tbarSteerAngleWAS_Scroll(object sender, EventArgs e)
@@ -53,17 +47,19 @@ namespace ModSim
         private void tbarRoll_Scroll(object sender, EventArgs e)
         {
             roll = (double)tbarRoll.Value * 0.1;
-            rollIMU = (int)(roll*10);
+            rollIMU = (int)(roll * 10);
             lblRoll.Text = "Roll: " + (roll).ToString("N2") + "°";
         }
-         private void lblRoll_Click(object sender, EventArgs e)
+
+        private void lblRoll_Click(object sender, EventArgs e)
         {
             roll = 0;
             rollIMU = 0;
             lblRoll.Text = "Roll: 0°";
             tbarRoll.Value = 0;
         }
-       private void btnSteerButtonRemote_Click(object sender, EventArgs e)
+
+        private void btnSteerButtonRemote_Click(object sender, EventArgs e)
         {
             if (steerSwitch > 0) steerSwitch = 0;
             else steerSwitch = 1;
@@ -74,8 +70,7 @@ namespace ModSim
         {
             if (cboxSteerSwitchRemote.Checked) steerSwitch = 0;
             else steerSwitch = 1;
-        }        
-        
+        }
 
         private void cboxWorkSwitch_Click(object sender, EventArgs e)
         {
@@ -94,7 +89,7 @@ namespace ModSim
             var form = new FormYes(s1);
             form.ShowDialog(this);
         }
-        
+
         #region GPS Simulator
 
         private string TimeNow = "";
@@ -157,7 +152,7 @@ namespace ModSim
 
             degrees = ToDegrees * headingTrue;
 
-            headingIMU = (int)(degrees*10);
+            headingIMU = (int)(degrees * 10);
 
             lblHeading.Text = (headingTrue * 57.29577951308).ToString("N2") + '°';
 
@@ -393,8 +388,8 @@ namespace ModSim
             sbKSXT.Append("$KSXT,"); //1
 
             sbKSXT.Append(TimeNow);
-            sbKSXT.Append(Math.Abs(longitude).ToString("0000.0000000", CultureInfo.InvariantCulture)).Append(',');
-            sbKSXT.Append(Math.Abs(latitude).ToString("0000.0000000", CultureInfo.InvariantCulture)).Append(',');
+            sbKSXT.Append(longitude.ToString("0000.0000000", CultureInfo.InvariantCulture)).Append(',');
+            sbKSXT.Append(latitude.ToString("0000.0000000", CultureInfo.InvariantCulture)).Append(',');
 
             sbKSXT.Append(altitude.ToString(CultureInfo.InvariantCulture)).Append(',') //altitude
                 .Append(degrees.ToString("N5", CultureInfo.InvariantCulture)) //true heading
@@ -490,8 +485,7 @@ namespace ModSim
             sbRMC.Append("\r\n");
         }
 
-#endregion
-
+        #endregion
     }
 }
 

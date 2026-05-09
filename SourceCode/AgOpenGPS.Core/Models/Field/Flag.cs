@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public enum FlagColor { Red = 0, Green = 1, Yellow = 2}
+    public enum FlagColor { Red = 0, Green = 1, Yellow = 2 }
 
     public class Flag
     {
@@ -13,7 +13,7 @@
             Notes = notes;
         }
 
-        public  Wgs84 Wgs84 { get; }
+        public Wgs84 Wgs84 { get; }
         public GeoCoordDir GeoCoordDir { get; }
 
         public double Latitude => Wgs84.Latitude;
@@ -26,7 +26,7 @@
         public FlagColor FlagColor { get; }
         public int UniqueNumber { get; set; }
 
-        public string Notes { get; set;}
+        public string Notes { get; set; }
 
     }
 }

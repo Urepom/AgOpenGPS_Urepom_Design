@@ -8,12 +8,7 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        //the list of constants and multiples of the boundary
-        public List<vec2> calcList = new List<vec2>();
-
-        //the triangle strip of the outer tram highlight
         public List<vec2> tramBndOuterArr = new List<vec2>();
-
         public List<vec2> tramBndInnerArr = new List<vec2>();
 
         //tram settings
@@ -45,7 +40,7 @@ namespace AgOpenGPS
             tramWidth = Properties.Settings.Default.setTram_tramWidth;
             //halfTramWidth = (Math.Round((Properties.Settings.Default.setTram_tramWidth) / 2.0, 3));
 
-            halfWheelTrack = Properties.Settings.Default.setVehicle_trackWidth * 0.5;
+            halfWheelTrack = Properties.VehicleSettings.Default.setVehicle_trackWidth * 0.5;
 
             IsTramOuterOrInner();
 
@@ -58,15 +53,15 @@ namespace AgOpenGPS
         public void IsTramOuterOrInner()
         {
             isOuter = ((int)(tramWidth / mf.tool.width + 0.5)) % 2 == 0;
-            if (Properties.Settings.Default.setTool_isTramOuterInverted) isOuter = !isOuter;
+            if (Properties.ToolSettings.Default.setTool_isTramOuterInverted) isOuter = !isOuter;
         }
 
         public void DrawTram()
         {
-            if (mf.camera.camSetDistance > -500)  GL.LineWidth(10);
+            if (mf.camera.camSetDistance > -500) GL.LineWidth(10);
             else GL.LineWidth(6);
 
-            GL.Color4(0,0,0, alpha);
+            GL.Color4(0, 0, 0, alpha);
 
             if (mf.tram.displayMode == 1 || mf.tram.displayMode == 2)
             {
@@ -86,10 +81,10 @@ namespace AgOpenGPS
             {
                 if (tramBndOuterArr.Count > 0)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(PrimitiveType.LineLoop);
                     for (int h = 0; h < tramBndOuterArr.Count; h++) GL.Vertex3(tramBndOuterArr[h].easting, tramBndOuterArr[h].northing, 0);
                     GL.End();
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(PrimitiveType.LineLoop);
                     for (int h = 0; h < tramBndInnerArr.Count; h++) GL.Vertex3(tramBndInnerArr[h].easting, tramBndInnerArr[h].northing, 0);
                     GL.End();
                 }
@@ -118,10 +113,10 @@ namespace AgOpenGPS
             {
                 if (tramBndOuterArr.Count > 0)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(PrimitiveType.LineLoop);
                     for (int h = 0; h < tramBndOuterArr.Count; h++) GL.Vertex3(tramBndOuterArr[h].easting, tramBndOuterArr[h].northing, 0);
                     GL.End();
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(PrimitiveType.LineLoop);
                     for (int h = 0; h < tramBndInnerArr.Count; h++) GL.Vertex3(tramBndInnerArr[h].easting, tramBndInnerArr[h].northing, 0);
                     GL.End();
                 }
@@ -134,8 +129,8 @@ namespace AgOpenGPS
 
             if (isBndExist)
             {
-                CreateBndOuterTramTrack();
-                CreateBndInnerTramTrack();
+                CreateBoundaryOuterTrack();
+                CreateBoundaryInnerTrack();
             }
             else
             {
@@ -144,100 +139,94 @@ namespace AgOpenGPS
             }
         }
 
-        private void CreateBndInnerTramTrack()
+        public void CreateBoundaryOuterTrack()
         {
-            //countExit the points from the boundary
+            tramBndOuterArr = CreateBoundaryTrack(0.5 * tramWidth - halfWheelTrack);
+        }
+
+        public void CreateBoundaryInnerTrack()
+        {
+            tramBndInnerArr = CreateBoundaryTrack(0.5 * tramWidth + halfWheelTrack);
+        }
+
+        private List<vec2> CreateBoundaryTrack(double distance)
+        {
+            List<vec2> newTrack = new List<vec2>();
+
             int ptCount = mf.bnd.bndList[0].fenceLine.Count;
-            tramBndInnerArr?.Clear();
+            if (ptCount < 2) return newTrack;
 
-            //outside point
-            vec2 pt3 = new vec2();
+            // Identical to the headland "Build Around" algorithm (btnBndLoop_Click):
+            // 1. Shift each boundary point inward along its perpendicular by 'distance'.
+            // 2. Reject any shifted point closer than 'distance' to any original boundary
+            //    point — removes self-intersecting loops at concave corners naturally.
+            // 3. Reject consecutive points less than 1 m apart.
+            // 4. Close the loop by appending the first accepted point twice,
+            //    then MakePointMinimumSpacing fills gaps (e.g. at sharp convex corners)
+            //    and CalculateHeadings recalculates all bisector headings.
 
-            double distSq = ((tramWidth * 0.5) + halfWheelTrack) * ((tramWidth * 0.5) + halfWheelTrack) * 0.999;
+            double distSq = distance * distance * 0.999;
 
-            //make the boundary tram outer array
+            List<vec3> rawList = new List<vec3>();
+
             for (int i = 0; i < ptCount; i++)
             {
-                //calculate the point inside the boundary
-                pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 + halfWheelTrack));
+                double heading = mf.bnd.bndList[0].fenceLine[i].heading;
 
-                pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 + halfWheelTrack));
+                vec3 pt = new vec3(
+                    mf.bnd.bndList[0].fenceLine[i].easting - (Math.Sin(glm.PIBy2 + heading) * distance),
+                    mf.bnd.bndList[0].fenceLine[i].northing - (Math.Cos(glm.PIBy2 + heading) * distance),
+                    heading);
 
-                bool Add = true;
+                bool add = true;
 
                 for (int j = 0; j < ptCount; j++)
                 {
-                    double check = glm.DistanceSquared(pt3.northing, pt3.easting,
-                                        mf.bnd.bndList[0].fenceLine[j].northing, mf.bnd.bndList[0].fenceLine[j].easting);
+                    double check = glm.DistanceSquared(
+                        pt.northing, pt.easting,
+                        mf.bnd.bndList[0].fenceLine[j].northing,
+                        mf.bnd.bndList[0].fenceLine[j].easting);
+
                     if (check < distSq)
                     {
-                        Add = false;
+                        add = false;
                         break;
                     }
                 }
 
-                if (Add)
+                if (!add) continue;
+
+                if (rawList.Count > 0)
                 {
-                    if (tramBndInnerArr.Count > 0)
-                    {
-                        double dist = ((pt3.easting - tramBndInnerArr[tramBndInnerArr.Count - 1].easting) * (pt3.easting - tramBndInnerArr[tramBndInnerArr.Count - 1].easting))
-                            + ((pt3.northing - tramBndInnerArr[tramBndInnerArr.Count - 1].northing) * (pt3.northing - tramBndInnerArr[tramBndInnerArr.Count - 1].northing));
-                        if (dist > 2)
-                            tramBndInnerArr.Add(pt3);
-                    }
-                    else tramBndInnerArr.Add(pt3);
+                    double spacingSq = (pt.easting - rawList[rawList.Count - 1].easting) * (pt.easting - rawList[rawList.Count - 1].easting)
+                                     + (pt.northing - rawList[rawList.Count - 1].northing) * (pt.northing - rawList[rawList.Count - 1].northing);
+                    if (spacingSq > 1.0)
+                        rawList.Add(pt);
+                }
+                else
+                {
+                    rawList.Add(pt);
                 }
             }
-        }
 
-        public void CreateBndOuterTramTrack()
-        {
-            //countExit the points from the boundary
-            int ptCount = mf.bnd.bndList[0].fenceLine.Count;
-            tramBndOuterArr?.Clear();
-
-            //outside point
-            vec2 pt3 = new vec2();
-
-            double distSq = ((tramWidth * 0.5) - halfWheelTrack) * ((tramWidth * 0.5) - halfWheelTrack) * 0.999;
-
-            //make the boundary tram outer array
-            for (int i = 0; i < ptCount; i++)
+            if (rawList.Count < 4)
             {
-                //calculate the point inside the boundary
-                pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 - halfWheelTrack));
-
-                pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 - halfWheelTrack));
-
-                bool Add = true;
-
-                for (int j = 0; j < ptCount; j++)
-                {
-                    double check = glm.DistanceSquared(pt3.northing, pt3.easting,
-                                        mf.bnd.bndList[0].fenceLine[j].northing, mf.bnd.bndList[0].fenceLine[j].easting);
-                    if (check < distSq)
-                    {
-                        Add = false;
-                        break;
-                    }
-                }
-
-                if (Add)
-                {
-                    if (tramBndOuterArr.Count > 0)
-                    {
-                        double dist = ((pt3.easting - tramBndOuterArr[tramBndOuterArr.Count - 1].easting) * (pt3.easting - tramBndOuterArr[tramBndOuterArr.Count - 1].easting))
-                            + ((pt3.northing - tramBndOuterArr[tramBndOuterArr.Count - 1].northing) * (pt3.northing - tramBndOuterArr[tramBndOuterArr.Count - 1].northing));
-                        if (dist > 2)
-                            tramBndOuterArr.Add(pt3);
-                    }
-                    else tramBndOuterArr.Add(pt3);
-                }
+                foreach (var p in rawList) newTrack.Add(new vec2(p.easting, p.northing));
+                return newTrack;
             }
+
+            // Close the loop and smooth, exactly as the headland algorithm does.
+            rawList.Add(new vec3(rawList[0]));
+            rawList.Add(new vec3(rawList[0]));
+
+            CABCurve.MakePointMinimumSpacing(ref rawList, 1.2);
+            CABCurve.CalculateHeadings(ref rawList);
+
+            foreach (var p in rawList)
+                newTrack.Add(new vec2(p.easting, p.northing));
+
+            return newTrack;
         }
+
     }
 }

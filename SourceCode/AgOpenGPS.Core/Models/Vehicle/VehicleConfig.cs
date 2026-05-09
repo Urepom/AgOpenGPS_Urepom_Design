@@ -11,7 +11,8 @@
     {
         public VehicleType Type { get; set; }
 
-        public ColorRgb Color { get; set; }
+        public bool IsImage { get; set; }
+        public ColorRgba Color { get; set; }
         public double Opacity { get; set; }
 
         public double AntennaHeight { get; set; }

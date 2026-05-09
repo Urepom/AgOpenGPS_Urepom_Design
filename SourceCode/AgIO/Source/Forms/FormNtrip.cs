@@ -263,7 +263,7 @@ namespace AgIO
             else
             {
                 Log.EventWriter("Program Reset: Button Ok on Ntrip Form");
-                
+
                 Program.Restart();
             }
         }

@@ -15,8 +15,13 @@ namespace AgOpenGPS
         public readonly SoundPlayer sndRTKAlarm = new SoundPlayer(Properties.Resources.rtk_lost);
         public readonly SoundPlayer sndSectionOn = new SoundPlayer(Properties.Resources.SectionOn);
         public readonly SoundPlayer sndSectionOff = new SoundPlayer(Properties.Resources.SectionOff);
+        public readonly SoundPlayer sndHeadland = new SoundPlayer(Properties.Resources.Headland);
+        public readonly SoundPlayer sndRTKRecoverd = new SoundPlayer(Properties.Resources.rtk_back);
+
 
         public bool isBoundAlarming, isRTKAlarming;
+        public bool RTKWasAlarming = false;
+
 
         public bool isSteerSoundOn, isTurnSoundOn, isHydLiftSoundOn, isSectionsSoundOn;
 

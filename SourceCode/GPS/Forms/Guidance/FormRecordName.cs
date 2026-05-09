@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using AgOpenGPS.Controls;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS.Forms
@@ -21,7 +22,7 @@ namespace AgOpenGPS.Forms
 
             InitializeComponent();
             //translate all the controls
-            labelEnterRecordName.Text = Culture.gStr.gsEnterRecordName;
+            labelEnterRecordName.Text = gStr.gsEnterRecordName;
 
         }
 

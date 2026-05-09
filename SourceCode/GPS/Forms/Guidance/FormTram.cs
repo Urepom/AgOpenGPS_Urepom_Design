@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 using System;
 using System.Windows.Forms;
@@ -23,7 +23,7 @@ namespace AgOpenGPS
             this.Text = gStr.gsSimpleTramLines;
             labelPasses.Text = gStr.gsPasses;
             labelMode.Text = gStr.gsMode;
-            labelAlpha.Text = gStr.gsAlpha; 
+            labelAlpha.Text = gStr.gsAlpha;
             labelSeed.Text = gStr.gsWorkWidth;
             labelSprayWidth.Text = gStr.gsTramWidth;
             labelTrack.Text = gStr.gsTrack;
@@ -85,7 +85,7 @@ namespace AgOpenGPS
 
             if (mf.bnd.bndList.Count == 0) btnMode.Enabled = false;
 
-                mf.CloseTopMosts();
+            mf.CloseTopMosts();
 
             if (mf.tram.tramList.Count > 0 || mf.tram.tramBndOuterArr.Count > 0)
             {
@@ -118,6 +118,11 @@ namespace AgOpenGPS
                 mf.tram.displayMode = 0;
             }
 
+            for (int i = 0; i < mf.tram.tramList.Count; i++)
+            {
+                mf.tram.tramList[i].ReducePointsByAngle(0.01, 100);
+            }
+
             mf.FileSaveTram();
             mf.PanelUpdateRightAndBottom();
             mf.FixTramModeButton();
@@ -133,13 +138,13 @@ namespace AgOpenGPS
             if (isCurve)
             {
                 //if (Dist != 0)
-                    //mf.trk.NudgeRefCurve(Dist);
+                //    mf.trk.NudgeRefCurve(Dist);
                 mf.curve.BuildTram();
             }
             else
             {
                 //if (Dist != 0)
-                    //mf.trk.NudgeRefABLine(Dist);
+                //    mf.trk.NudgeRefABLine(Dist);
                 mf.ABLine.BuildTram();
             }
         }

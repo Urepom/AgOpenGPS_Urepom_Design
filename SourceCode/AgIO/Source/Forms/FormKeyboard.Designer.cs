@@ -62,7 +62,8 @@
             this.ControlBox = false;
             this.Controls.Add(this.keyboard1);
             this.Controls.Add(this.keyboardString);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Location = new System.Drawing.Point(250, 250);
             this.Name = "FormKeyboard";
             this.Text = "Keyboard";

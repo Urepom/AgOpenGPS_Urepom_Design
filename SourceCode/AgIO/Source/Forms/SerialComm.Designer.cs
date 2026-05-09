@@ -15,29 +15,22 @@ namespace AgIO
         private int totalHeaderByteCount = 5;
 
         public static string portNameGPS = "***";
-        public  static int baudRateGPS = 4800;
+        public static int baudRateGPS = 4800;
 
-        public  static string portNameGPS2 = "***";
-        public  static int baudRateGPS2 = 4800;
+        public static string portNameGPS2 = "***";
+        public static int baudRateGPS2 = 4800;
 
-        public  static string portNameRtcm = "***";
-        public  static int baudRateRtcm = 4800;
+        public static string portNameRtcm = "***";
+        public static int baudRateRtcm = 4800;
 
-        public  static string portNameIMU = "***";
-        public  static int baudRateIMU = 38400;
+        public static string portNameIMU = "***";
+        public static int baudRateIMU = 38400;
 
-        public  static string portNameSteerModule = "***";
-        public  static int baudRateSteerModule = 38400;
+        public static string portNameSteerModule = "***";
+        public static int baudRateSteerModule = 38400;
 
-        public  static string portNameMachineModule = "***";
-        public  static int baudRateMachineModule = 38400;
-
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        public static string portNameModuleFerti = "***";
-        public static int baudRateModuleFerti = 38400;
-
-        //public  static string portNameModule3 = "***";
-        //public  static int baudRateModule3 = 38400;
+        public static string portNameMachineModule = "***";
+        public static int baudRateMachineModule = 38400;
 
         //used to decide to autoconnect section arduino this run
         public string recvGPSSentence = "GPS";
@@ -45,9 +38,6 @@ namespace AgIO
         public string recvIMUSentence = "IMU";
         public string recvSteerModuleSentence = "Module 1";
         public string recvMachineModuleSentence = "Module 2";
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        public string recvModuleFertiSentence = "Module Ferti";
-        //public string recvModule3Sentence = "Module 3";
 
         public bool isGPSCommOpen = false;
 
@@ -56,14 +46,10 @@ namespace AgIO
 
         //used to decide to autoconnect autosteer arduino this run
         public bool wasGPSConnectedLastRun = false;
-        //public bool wasModule3ConnectedLastRun = false;
         public bool wasMachineModuleConnectedLastRun = false;
         public bool wasSteerModuleConnectedLastRun = false;
         public bool wasIMUConnectedLastRun = false;
         public bool wasRtcmConnectedLastRun = false;
-
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        public bool wasModuleFertiConnectedLastRun = false;
 
         //serial port gps is connected to
         public SerialPort spGPS = new SerialPort(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
@@ -83,21 +69,9 @@ namespace AgIO
         //serial port Arduino is connected to
         public SerialPort spMachineModule = new SerialPort(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
 
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        //serial port Ardiuno is connected to
-        public SerialPort spModuleFerti = new SerialPort(portNameModuleFerti, baudRateModuleFerti, Parity.None, 8, StopBits.One);
-
-        //serial port Ardiuno is connected to
-        //public SerialPort spModule3 = new SerialPort(portNameModule3, baudRateModule3, Parity.None, 8, StopBits.One);
-
         //lists for parsing incoming bytes
         private byte[] pgnSteerModule = new byte[22];
         private byte[] pgnMachineModule = new byte[22];
-
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        private byte[] pgnModuleFerti = new byte[262];
-
-        //private byte[] pgnModule3 = new byte[262];
         private byte[] pgnIMU = new byte[22];
 
         #region IMUSerialPort //--------------------------------------------------------------------
@@ -432,8 +406,6 @@ namespace AgIO
 
                     for (int i = 0; i < aas; i++)
                     {
-                        //traffic.cntrIMUIn++;
-
                         a = (byte)spSteerModule.ReadByte();
 
                         switch (ByteList[21])
@@ -646,8 +618,6 @@ namespace AgIO
 
                     for (int i = 0; i < aas; i++)
                     {
-                        //traffic.cntrIMUIn++;
-
                         a = (byte)spMachineModule.ReadByte();
 
                         switch (ByteList[21])
@@ -740,442 +710,6 @@ namespace AgIO
         }
         #endregion --------------------------------------------------------------------
 
-        //Ajout-modification MEmprou et SPailleau Fertilisation
-        #region ModuleFertiSerialPort // --------------------------------------------------------------------
-        private void ReceiveFertiPort(byte[] Data)
-        {
-            try
-            {
-                SendToLoopBackMessageAOG(Data);
-                traffic.helloFromFertilisation = 0;
-            }
-            catch { }
-        }
-
-
-
-        //Send machine info out to machine board
-        public void SendFertiPort(byte[] items, int numItems)
-        {
-            //Tell Arduino to turn section on or off accordingly
-            if (spModuleFerti.IsOpen)
-            {
-                try
-                {
-                    spModuleFerti.Write(items, 0, numItems);
-                }
-                catch (Exception)
-                {
-                    CloseFertiPort();
-                }
-            }
-        }
-
-        //open the Arduino serial port
-        public void OpenFertiPort()
-        {
-            if (!spModuleFerti.IsOpen)
-            {
-                spModuleFerti.PortName = portNameModuleFerti;
-                spModuleFerti.BaudRate = baudRateModuleFerti;
-                spModuleFerti.DataReceived += sp_DataReceivedFerti;
-                spModuleFerti.DtrEnable = true;
-                spModuleFerti.RtsEnable = true;
-            }
-
-            try { spModuleFerti.Open(); }
-            catch (Exception e)
-            {
-                //WriteErrorLog("Opening Machine Port" + e.ToString());
-
-                MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
-
-
-                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = false;
-                Properties.Settings.Default.Save();
-                wasModuleFertiConnectedLastRun = false;
-            }
-
-            if (spModuleFerti.IsOpen)
-            {
-                //short delay for the use of mega2560, it is working in debugmode with breakpoint
-                System.Threading.Thread.Sleep(500); // 500 was not enough
-
-                spModuleFerti.DiscardOutBuffer();
-                spModuleFerti.DiscardInBuffer();
-
-                Properties.Settings.Default.UP_setPort_portNameModuleFerti = portNameModuleFerti;
-                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = true;
-                Properties.Settings.Default.Save();
-                wasModuleFertiConnectedLastRun = true;
-                lblModFertiComm.Text = portNameModuleFerti;
-            }
-        }
-
-        //close the machine port
-        public void CloseFertiPort()
-        {
-            if (spModuleFerti.IsOpen)
-            {
-                spModuleFerti.DataReceived -= sp_DataReceivedFerti;
-                try
-                {
-                    spModuleFerti.Close();
-                    byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7F, 0xF0, 2, 1, 0, 0xCC };
-
-                    //tell AOG ModuleFerti is disconnected
-                    SendToLoopBackMessageAOG(FertiClose);
-                }
-
-                catch (Exception e)
-                {
-                    //WriteErrorLog("Closing Machine Serial Port" + e.ToString());
-                    MessageBox.Show(e.Message, "Connection already terminated??");
-                }
-
-                Properties.Settings.Default.UP_setPort_wasModuleFertiConnected = false;
-                Properties.Settings.Default.Save();
-
-                spModuleFerti.Dispose();
-                wasModuleFertiConnectedLastRun = false;
-            }
-
-            else
-            {
-                byte[] FertiClose = new byte[] { 0x80, 0x81, 0x7F, 0xF0, 2, 1, 0, 0xCC };
-
-                //tell AOG Moldule Ferti is disconnected
-                SendToLoopBackMessageAOG(FertiClose);
-                wasModuleFertiConnectedLastRun = false;
-            }
-
-            wasModuleFertiConnectedLastRun = false;
-            lblModFertiComm.Text = "---";
-        }
-
-        private void sp_DataReceivedFerti(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            if (spModuleFerti.IsOpen)
-            {
-                byte[] ByteList;
-                ByteList = pgnModuleFerti;
-
-                try
-                {
-                    if (spModuleFerti.BytesToRead > 100)
-                    {
-                        spModuleFerti.DiscardInBuffer();
-                        return;
-                    }
-
-                    byte a;
-
-                    int aas = spModuleFerti.BytesToRead;
-
-                    for (int i = 0; i < aas; i++)
-                    {
-                        a = (byte)spModuleFerti.ReadByte();
-
-                        switch (ByteList[261])
-                        {
-                            case 0: //find 0x80
-                                {
-                                    if (a == 128) ByteList[ByteList[261]++] = a;
-                                    else ByteList[261] = 0;
-                                    break;
-                                }
-
-                            case 1:  //find 0x81   
-                                {
-                                    if (a == 129) ByteList[ByteList[261]++] = a;
-                                    else
-                                    {
-                                        if (a == 181)
-                                        {
-                                            ByteList[261] = 0;
-                                            ByteList[ByteList[261]++] = a;
-                                        }
-                                        else ByteList[261] = 0;
-                                    }
-                                    break;
-                                }
-
-                            case 2: //Source Address (7F)
-                                {
-                                    if (a < 128 && a > 120)
-                                        ByteList[ByteList[261]++] = a;
-                                    else ByteList[261] = 0;
-                                    break;
-                                }
-
-                            case 3: //PGN ID
-                                {
-                                    ByteList[ByteList[261]++] = a;
-                                    break;
-                                }
-
-                            case 4: //Num of data bytes
-                                {
-                                    ByteList[ByteList[261]++] = a;
-                                    break;
-                                }
-
-                            default: //Data load and Checksum
-                                {
-                                    if (ByteList[261] > 4)
-                                    {
-                                        int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[261]) < length)
-                                        {
-                                            ByteList[ByteList[261]++] = a;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            //crc
-                                            int CK_A = 0;
-                                            for (int j = 2; j < length; j++)
-                                            {
-                                                CK_A = CK_A + ByteList[j];
-                                            }
-
-                                            //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
-                                            {
-                                                length++;
-                                                ByteList[ByteList[261]++] = (byte)CK_A;
-                                                BeginInvoke((MethodInvoker)(() => ReceiveFertiPort(ByteList.Take(length).ToArray())));
-                                            }
-
-                                            //clear out the current pgn
-                                            ByteList[261] = 0;
-                                            return;
-                                        }
-                                    }
-
-                                    break;
-                                }
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    ByteList[261] = 0;
-                }
-            }
-        }
-        #endregion
-        //fin
-
-        #region Module3SerialPort // --------------------------------------------------------------------
-        //private void ReceiveModule3Port(byte[] Data)
-        //{
-        //    try
-        //    {
-        //        SendToLoopBackMessageAOG(Data);
-        //        if (isPluginUsed) SendToLoopBackMessageVR(Data);
-        //        //traffic.cntrModule3Out += Data.Length;
-        //    }
-        //    catch { }
-        //}
-
-        //public void SendModule3Port(byte[] items, int numItems)
-        //{
-        //    if (spModule3.IsOpen)
-        //    {
-        //        try
-        //        {
-        //            spModule3.Write(items, 0, numItems);
-        //            //traffic.cntrModule3In += items.Length;
-        //        }
-        //        catch (Exception)
-        //        {
-        //            CloseModule3Port();
-        //        }
-        //    }
-        //}
-
-        ////open the Arduino serial port
-        //public void OpenModule3Port()
-        //{
-        //    if (!spModule3.IsOpen)
-        //    {
-        //        spModule3.PortName = portNameModule3;
-        //        spModule3.BaudRate = baudRateModule3;
-        //        spModule3.DataReceived += sp_DataReceiveModule3;
-        //        spModule3.DtrEnable = true;
-        //        spModule3.RtsEnable = true;
-        //    }
-
-        //    try
-        //    {
-        //        spModule3.Open();
-        //        //short delay for the use of mega2560, it is working in debugmode with breakpoint
-        //        System.Threading.Thread.Sleep(1000); // 500 was not enough
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        //WriteErrorLog("Opening Steer Port" + e.ToString());
-
-        //        MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No AutoSteer Port Active");
-
-        //        Properties.Settings.Default.setPort_wasModule3Connected = false;
-        //        Properties.Settings.Default.Save();
-        //    }
-
-        //    if (spModule3.IsOpen)
-        //    {
-        //        spModule3.DiscardOutBuffer();
-        //        spModule3.DiscardInBuffer();
-
-        //        //update port status label
-
-        //        Properties.Settings.Default.setPort_portNameTool = portNameModule3;
-        //        Properties.Settings.Default.setPort_wasModule3Connected = true;
-        //        Properties.Settings.Default.Save();
-
-        //        wasModule3ConnectedLastRun = true;
-        //    }
-        //}
-
-        //public void CloseModule3Port()
-        //{
-        //    if (spModule3.IsOpen)
-        //    {
-        //        spModule3.DataReceived -= sp_DataReceiveModule3;
-        //        try { spModule3.Close(); }
-        //        catch (Exception e)
-        //        {
-        //            //WriteErrorLog("Closing steer Port" + e.ToString());
-        //            MessageBox.Show(e.Message, "Connection already terminated??");
-        //        }
-
-        //        Properties.Settings.Default.setPort_wasModule3Connected = false;
-        //        Properties.Settings.Default.Save();
-
-        //        spModule3.Dispose();
-        //    }
-
-        //    wasModule3ConnectedLastRun = false;
-
-        //}
-
-        ////called by the module delegate every time a chunk is rec'd
-        //private void sp_DataReceiveModule3(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        //{
-        //    if (spModule3.IsOpen)
-        //    {
-        //        byte[] ByteList;
-        //        ByteList = pgnModule3;
-
-        //        try
-        //        {
-        //            if (spModule3.BytesToRead > 100)
-        //            {
-        //                spModule3.DiscardInBuffer();
-        //                return;
-        //            }
-
-        //            byte a;
-
-        //            int aas = spModule3.BytesToRead;
-
-        //            for (int i = 0; i < aas; i++)
-        //            {
-        //                //traffic.cntrIMUIn++;
-
-        //                a = (byte)spModule3.ReadByte();
-
-        //                switch (ByteList[21])
-        //                {
-        //                    case 0: //find 0x80
-        //                        {
-        //                            if (a == 128) ByteList[ByteList[21]++] = a;
-        //                            else ByteList[21] = 0;
-        //                            break;
-        //                        }
-
-        //                    case 1:  //find 0x81   
-        //                        {
-        //                            if (a == 129) ByteList[ByteList[21]++] = a;
-        //                            else
-        //                            {
-        //                                if (a == 181)
-        //                                {
-        //                                    ByteList[21] = 0;
-        //                                    ByteList[ByteList[21]++] = a;
-        //                                }
-        //                                else ByteList[21] = 0;
-        //                            }
-        //                            break;
-        //                        }
-
-        //                    case 2: //Source Address (7F)
-        //                        {
-        //                            if (a < 128 && a > 120)
-        //                                ByteList[ByteList[21]++] = a;
-        //                            else ByteList[21] = 0;
-        //                            break;
-        //                        }
-
-        //                    case 3: //PGN ID
-        //                        {
-        //                            ByteList[ByteList[21]++] = a;
-        //                            break;
-        //                        }
-
-        //                    case 4: //Num of data bytes
-        //                        {
-        //                            ByteList[ByteList[21]++] = a;
-        //                            break;
-        //                        }
-
-        //                    default: //Data load and Checksum
-        //                        {
-        //                            if (ByteList[21] > 4)
-        //                            {
-        //                                int length = ByteList[4] + totalHeaderByteCount;
-        //                                if ((ByteList[21]) < length)
-        //                                {
-        //                                    ByteList[ByteList[21]++] = a;
-        //                                    break;
-        //                                }
-        //                                else
-        //                                {
-        //                                    //crc
-        //                                    int CK_A = 0;
-        //                                    for (int j = 2; j < length; j++)
-        //                                    {
-        //                                        CK_A = CK_A + ByteList[j];
-        //                                    }
-
-        //                                    //if checksum matches finish and update main thread
-        //                                    if (a == (byte)(CK_A))
-        //                                    {
-        //                                        ByteList[ByteList[21]++] = (byte)CK_A;
-        //                                        BeginInvoke((MethodInvoker)(() => ReceiveModule3Port(ByteList.Take(length).ToArray())));
-        //                                    }
-
-        //                                    //clear out the current pgn
-        //                                    ByteList[21] = 0;
-        //                                    return;
-        //                                }
-        //                            }
-
-        //                            break;
-        //                        }
-        //                }
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            ByteList[21] = 0;
-        //        }
-        //    }
-        //}
-        #endregion
-
         #region GPS SerialPort --------------------------------------------------------------------------
 
         public void SendGPSPort(byte[] data)
@@ -1238,25 +772,16 @@ namespace AgIO
         }
         public void CloseGPSPort()
         {
-            //if (sp.IsOpen)
+            try { spGPS.Close(); }
+            catch (Exception e)
             {
-                //spGPS.DataReceived -= sp_DataReceivedGPS;
-                try { spGPS.Close(); }
-                catch (Exception e)
-                {
-                    Log.EventWriter("Closing GPS Port" + e.ToString());
-                    MessageBox.Show(e.Message, "Connection already terminated?");
-                }
-
-                //update port status labels
-                //stripPortGPS.Text = " * * " + baudRateGPS.ToString();
-                //stripPortGPS.ForeColor = Color.ForestGreen;
-                //stripOnlineGPS.Value = 1;
-                spGPS.Dispose();
+                Log.EventWriter("Closing GPS Port" + e.ToString());
+                MessageBox.Show(e.Message, "Connection already terminated?");
             }
+
+            spGPS.Dispose();
             lblGPS1Comm.Text = "---";
             wasGPSConnectedLastRun = false;
-
         }
 
         //called by the GPS delegate every time a chunk is rec'd
@@ -1265,7 +790,6 @@ namespace AgIO
             rawBuffer += sentence;
             ParseNMEA(ref rawBuffer);
 
-            //SendToLoopBackMessageAOG(sentence);
             traffic.cntrGPSOut += sentence.Length;
             if (isGPSCommOpen) recvGPSSentence = sentence;
         }
@@ -1292,8 +816,6 @@ namespace AgIO
         //called by the GPS2 delegate every time a chunk is rec'd
         private void ReceiveGPS2Port(string sentence)
         {
-            //dead end
-            //traffic.cntrGPS2Out += sentence.Length;
             recvGPS2Sentence = sentence;
         }
         public void SendGPS2Port(byte[] data)
@@ -1314,17 +836,6 @@ namespace AgIO
         {
             //close it first
             CloseGPS2Port();
-
-            //if (spGPS2.IsOpen)
-            //{
-            //    //simulatorOnToolStripMenuItem.Checked = false;
-            //    //panelSim.Visible = false;
-            //    //timerSim.Enabled = false;
-
-            //    //Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
-            //    //Settings.Default.Save();
-            //}
-
 
             if (!spGPS2.IsOpen)
             {
@@ -1353,22 +864,15 @@ namespace AgIO
         }
         public void CloseGPS2Port()
         {
-            //if (sp.IsOpen)
+            spGPS2.DataReceived -= sp_DataReceivedGPS2;
+            try { spGPS2.Close(); }
+            catch (Exception e)
             {
-                spGPS2.DataReceived -= sp_DataReceivedGPS2;
-                try { spGPS2.Close(); }
-                catch (Exception e)
-                {
-                    Log.EventWriter("Closing GPS2 Port" + e.ToString());
-                    MessageBox.Show(e.Message, "Connection already terminated?");
-                }
-
-                //update port status labels
-                //stripPortGPS2.Text = " * * " + baudRateGPS2.ToString();
-                //stripPortGPS2.ForeColor = Color.ForestGreen;
-                //stripOnlineGPS2.Value = 1;
-                spGPS2.Dispose();
+                Log.EventWriter("Closing GPS2 Port" + e.ToString());
+                MessageBox.Show(e.Message, "Connection already terminated?");
             }
+
+            spGPS2.Dispose();
         }
 
         //serial port receive in its own thread
@@ -1419,20 +923,17 @@ namespace AgIO
                 Properties.Settings.Default.setPort_baudRateRtcm = baudRateRtcm;
                 Properties.Settings.Default.setPort_wasRtcmConnected = true;
                 Properties.Settings.Default.Save();
-                //lblRtcmComm.Text = portNameRtcm;
                 wasRtcmConnectedLastRun = true;
             }
         }
 
         public void CloseRtcmPort()
         {
+            try { spRtcm.Close(); }
+            catch (Exception e)
             {
-                try { spRtcm.Close(); }
-                catch (Exception e)
-                {
-                    Log.EventWriter("Closing RTCM Port" + e.ToString());
-                    MessageBox.Show(e.Message, "Connection already terminated?");
-                }
+                Log.EventWriter("Closing RTCM Port" + e.ToString());
+                MessageBox.Show(e.Message, "Connection already terminated?");
             }
 
             wasRtcmConnectedLastRun = false;

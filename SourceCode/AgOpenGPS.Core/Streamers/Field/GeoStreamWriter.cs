@@ -7,7 +7,7 @@ namespace AgOpenGPS.Core.Streamers
 {
     public class GeoStreamWriter : StreamWriter
     {
-        public GeoStreamWriter(string fullPath, bool append = false) : base(fullPath, append)
+        public GeoStreamWriter(FileInfo fileInfo, bool append = false) : base(fileInfo.FullName, append)
         {
         }
 
@@ -43,7 +43,7 @@ namespace AgOpenGPS.Core.Streamers
         public string HeadingStringH(GeoDir geoDir, string formatString = "N3")
         {
             return
-                geoDir.Angle.ToString(formatString, CultureInfo.InvariantCulture);
+                geoDir.AngleInRadians.ToString(formatString, CultureInfo.InvariantCulture);
         }
 
         public string GeoCoordDirStringENH(GeoCoord coord, GeoDir heading, string coordFormatString = "N3", string headingFormatString = "N5")
@@ -51,6 +51,11 @@ namespace AgOpenGPS.Core.Streamers
             return
                 GeoCoordStringEN(coord, coordFormatString) + "," +
                 HeadingStringH(heading, headingFormatString);
+        }
+
+        public void WriteDateTime()
+        {
+            WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
         }
 
         public void WriteBool(bool boolValue)
@@ -63,9 +68,24 @@ namespace AgOpenGPS.Core.Streamers
             WriteLine(IntString(intValue));
         }
 
-        public void WriteColorRgb(ColorRgb colorRgb)
+        public void WriteDouble(double doubleValue)
         {
-            WriteLine(IntString(colorRgb.Red) + "," + IntString(colorRgb.Green) + "," + IntString(colorRgb.Blue));
+            WriteLine(DoubleString(doubleValue, "N7"));
+        }
+
+        public void WriteString(string stringValue)
+        {
+            WriteLine(stringValue ?? "");
+        }
+
+        public void WriteColorRgb(ColorRgba onlyRgb)
+        {
+            WriteLine(IntString(onlyRgb.Red) + "," + IntString(onlyRgb.Green) + "," + IntString(onlyRgb.Blue));
+        }
+
+        public void WriteWgs84(Wgs84 wgs84)
+        {
+            WriteLine(Wgs84String(wgs84));
         }
 
         public void WriteGeoCoordEN(GeoCoord coord)
@@ -78,12 +98,34 @@ namespace AgOpenGPS.Core.Streamers
             WriteLine(GeoCoordDirStringENH(coord, direction));
         }
 
+        public void WriteGeoBoundingBox(GeoBoundingBox bb)
+        {
+            WriteLine(DoubleString(bb.MaxEasting, "N3"));
+            WriteLine(DoubleString(bb.MinEasting, "N3"));
+            WriteLine(DoubleString(bb.MaxNorthing, "N3"));
+            WriteLine(DoubleString(bb.MinNorthing, "N3"));
+        }
+
         public void WriteGeoPath(GeoPath path)
         {
             WriteInt(path.Count);
             for (int i = 0; i < path.Count; i++)
             {
                 WriteGeoCoordEN(path[i]);
+            }
+        }
+
+        public void WriteGeoPathWithHeading(GeoPathWithHeading path)
+        {
+            if (null == path)
+            {
+                WriteInt(0);
+                return;
+            }
+            WriteInt(path.Count);
+            for (int i = 0; i < path.Count; i++)
+            {
+                WriteGeoCoordDirENH(path[i], path.GetHeading(i));
             }
         }
 
