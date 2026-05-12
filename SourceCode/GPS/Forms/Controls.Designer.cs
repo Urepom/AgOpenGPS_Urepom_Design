@@ -897,6 +897,20 @@ namespace AgOpenGPS
             {
                 //ajout memprou panelRight.Enabled = false;
                 FieldMenuButtonEnableDisable(false);
+                //ajout memprou
+                label1.Visible = false;
+                round_table1.Visible = false;
+                round_table4.Visible = false;
+                round_table3.Visible = false;
+                round_table2.Visible = false;
+                round_table6.Visible = false;
+                round_table8.Visible = false;
+                btnResetToolHeading.Visible = false;
+                round_StatusStrip1.Width = 174;
+                toolStripStatusLabel2.Visible = false;
+                round_table10.Width = 174;
+                round_table7.Width = 174;
+                //fin
                 JobClose();
                 Text = "AgOpenGPS";
             }));
